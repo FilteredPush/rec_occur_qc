@@ -20,6 +20,16 @@ package org.filteredpush.qc.metadata;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.datakurator.ffdq.annotations.ActedUpon;
+import org.datakurator.ffdq.annotations.Amendment;
+import org.datakurator.ffdq.annotations.Issue;
+import org.datakurator.ffdq.annotations.Mechanism;
+import org.datakurator.ffdq.annotations.Provides;
+import org.datakurator.ffdq.annotations.Validation;
+import org.datakurator.ffdq.api.DQResponse;
+import org.datakurator.ffdq.api.result.AmendmentValue;
+import org.datakurator.ffdq.api.result.ComplianceValue;
+import org.datakurator.ffdq.api.result.IssueValue;
 
 /**
  * Implementation of TDWG BDQ TG2 OTHER tests.
