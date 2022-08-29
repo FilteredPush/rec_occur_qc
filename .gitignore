@@ -1,4 +1,5 @@
 target/
+rec_occur_qc-*-executable.jar
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
