@@ -49,8 +49,387 @@ import org.apache.commons.logging.LogFactory;
  * @author mole
  *
  */
+@Mechanism(value="09fd4e2f-cf10-4665-aa74-bcf8e3795163",label="Kurator: Metadata/Record-Level Validator - DwCMetadataDQ:v0.0.1")
 public class DwCMetadataDQ {
 
 	private static final Log logger = LogFactory.getLog(DwCMetadataDQ.class);
+
+    /**
+     * Does the value of dwc:occurrenceID occur in bdqSourceAuthority?
+     *
+     * Provides: VALIDATION_OCCURRENCEID_STANDARD
+     *
+     * @param occurrenceID the provided dwc:occurrenceID to evaluate
+     * @return DQResponse the response of type ComplianceValue  to return
+     */
+    @Validation(label="VALIDATION_OCCURRENCEID_STANDARD", description="Does the value of dwc:occurrenceID occur in bdqSourceAuthority?")
+    @Provides("3cfe9ab4-79f8-4afd-8da5-723183ef16a3")
+    public DQResponse<ComplianceValue> validationOccurrenceidStandard(@ActedUpon("dwc:occurrenceID") String occurrenceID) {
+        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
+
+        //TODO:  Implement specification
+        // INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceID is EMPTY; 
+        // COMPLIANT if the value of dwc:occurrenceID follows a format 
+        // commonly associated with globally unique identifiers (GUIDs); 
+        // otherwise NOT_COMPLIANT 
+
+        return result;
+    }
+
+    /**
+     * Does the value of dcterms:license occur in bdq:sourceAuthority?
+     *
+     * Provides: VALIDATION_LICENSE_STANDARD
+     *
+     * @param license the provided dcterms:license to evaluate
+     * @return DQResponse the response of type ComplianceValue  to return
+     */
+    @Validation(label="VALIDATION_LICENSE_STANDARD", description="Does the value of dcterms:license occur in bdq:sourceAuthority?")
+    @Provides("3136236e-04b6-49ea-8b34-a65f25e3aba1")
+    public DQResponse<ComplianceValue> validationLicenseStandard(@ActedUpon("dcterms:license") String license) {
+        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
+
+        //TODO:  Implement specification
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dcterms:license 
+        // is EMPTY; COMPLIANT if the value of the term dcterms:license 
+        // is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority 
+        // default = "Creative Commons" [https://creativecommons.org/] 
+        // 
+
+        //TODO: Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority
+
+        return result;
+    }
+
+    /**
+     * Propose amendment to the value of dc:type using the DCMI type vocabulary.
+     *
+     * Provides: AMENDMENT_DCTYPE_STANDARDIZED
+     *
+     * @param type the provided dc:type to evaluate
+     * @return DQResponse the response of type AmendmentValue to return
+     */
+    @Amendment(label="AMENDMENT_DCTYPE_STANDARDIZED", description="Propose amendment to the value of dc:type using the DCMI type vocabulary.")
+    @Provides("bd385eeb-44a2-464b-a503-7abe407ef904")
+    public DQResponse<AmendmentValue> amendmentDctypeStandardized(@ActedUpon("dc:type") String type) {
+        DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
+
+        //TODO:  Implement specification
+        // EXTERNAL_PREREQUISITES_NOT_MET if the DCMI type vocabulary 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if the 
+        // value of dc:type is EMPTY; AMENDED the value of dc:type 
+        // if it can be unambiguously interpreted as a value in bdq:sourceAuthority; 
+        // otherwise NOT_AMENDED bdq:sourceAuthority is "DCMI Type 
+        // Vocabulary" [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/] 
+        // 
+
+        return result;
+    }
+
+    /**
+     * Is there a value in dwc:occurrenceID?
+     *
+     * Provides: VALIDATION_OCCURRENCEID_NOTEMPTY
+     *
+     * @param occurrenceID the provided dwc:occurrenceID to evaluate
+     * @return DQResponse the response of type ComplianceValue  to return
+     */
+    @Validation(label="VALIDATION_OCCURRENCEID_NOTEMPTY", description="Is there a value in dwc:occurrenceID?")
+    @Provides("c486546c-e6e5-48a7-b286-eba7f5ca56c4")
+    public DQResponse<ComplianceValue> validationOccurrenceidNotempty(@ActedUpon("dwc:occurrenceID") String occurrenceID) {
+        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
+
+        //TODO:  Implement specification
+        // COMPLIANT if dwc:occurrenceID is not EMPTY; otherwise NOT_COMPLIANT 
+        // 
+
+        return result;
+    }
+
+    /**
+     * Is there a value in dwc:basisOfRecord?
+     *
+     * Provides: VALIDATION_BASISOFRECORD_NOTEMPTY
+     *
+     * @param basisOfRecord the provided dwc:basisOfRecord to evaluate
+     * @return DQResponse the response of type ComplianceValue  to return
+     */
+    @Validation(label="VALIDATION_BASISOFRECORD_NOTEMPTY", description="Is there a value in dwc:basisOfRecord?")
+    @Provides("ac2b7648-d5f9-48ca-9b07-8ad5879a2536")
+    public DQResponse<ComplianceValue> validationBasisofrecordNotempty(@ActedUpon("dwc:basisOfRecord") String basisOfRecord) {
+        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
+
+        //TODO:  Implement specification
+        // COMPLIANT if dwc:basisOfRecord is not EMPTY; otherwise NOT_COMPLIANT 
+        // 
+
+        return result;
+    }
+
+    /**
+     * Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority.
+     *
+     * Provides: AMENDMENT_BASISOFRECORD_STANDARDIZED
+     *
+     * @param basisOfRecord the provided dwc:basisOfRecord to evaluate
+     * @return DQResponse the response of type AmendmentValue to return
+     */
+    @Amendment(label="AMENDMENT_BASISOFRECORD_STANDARDIZED", description="Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority.")
+    @Provides("07c28ace-561a-476e-a9b9-3d5ad6e35933")
+    public DQResponse<AmendmentValue> amendmentBasisofrecordStandardized(@ActedUpon("dwc:basisOfRecord") String basisOfRecord) {
+        DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
+
+        //TODO:  Implement specification
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord 
+        // is EMPTY; AMENDED the value of dwc:basisOfRecord if it could 
+        // be unambiguously interpreted as a value in bdq:sourceAuthority; 
+        // otherwise NOT_AMENDED bdq:sourceAuthority default = "Darwin 
+        // Core Terms" [https://dwc.tdwg.org/terms/#dwc:basisOfRecord] 
+        // 
+
+        //TODO: Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority
+
+        return result;
+    }
+
+    /**
+     * Propose amendment to the value of dwc:occurrenceStatus, if it is empty, to the default parameter value.
+     *
+     * Provides: AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
+     *
+     * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate
+     * @return DQResponse the response of type AmendmentValue to return
+     */
+    @Amendment(label="AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT", description="Propose amendment to the value of dwc:occurrenceStatus, if it is empty, to the default parameter value.")
+    @Provides("96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5")
+    public DQResponse<AmendmentValue> amendmentOccurrencestatusAssumeddefault(@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus) {
+        DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
+
+        //TODO:  Implement specification
+        // FILLED_IN the value of dwc:occurrenceStatus using the Parameter 
+        // value if the dwc:occurrence.Status is EMPTY; otherwise NOT_AMENDED 
+        // 
+
+        //TODO: Parameters. This test is defined as parameterized.
+        // Default value: occurrenceStatus="present"
+
+        return result;
+    }
+
+    /**
+     * Does the value in dc:type occur as a value in the DCMI type vocabulary?
+     *
+     * Provides: VALIDATION_DCTYPE_STANDARD
+     *
+     * @param type the provided dc:type to evaluate
+     * @return DQResponse the response of type ComplianceValue  to return
+     */
+    @Validation(label="VALIDATION_DCTYPE_STANDARD", description="Does the value in dc:type occur as a value in the DCMI type vocabulary?")
+    @Provides("cdaabb0d-a863-49d0-bc0f-738d771acba5")
+    public DQResponse<ComplianceValue> validationDctypeStandard(@ActedUpon("dc:type") String type) {
+        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
+
+        //TODO:  Implement specification
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if the 
+        // value of dc:type is EMPTY; COMPLIANT if the value of dc:type 
+        // is found in bdq:sourceAuthority; otherwise NOT_COMPLIANT 
+        // bdq:sourceAuthority is "DCMI Type Vocabulary" [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/] 
+        // 
+
+        return result;
+    }
+
+    /**
+     * Is there a value in dwc:establishmentMeans?
+     *
+     * Provides: ISSUE_ESTABLISHMENTMEANS_NOTEMPTY
+     *
+     * @param establishmentMeans the provided dwc:establishmentMeans to evaluate
+     * @return DQResponse the response of type IssueValue to return
+     */
+    @Issue(label="ISSUE_ESTABLISHMENTMEANS_NOTEMPTY", description="Is there a value in dwc:establishmentMeans?")
+    @Provides("acc8dff2-d8d1-483a-946d-65a02a452700")
+    public DQResponse<IssueValue> issueEstablishmentmeansNotempty(@ActedUpon("dwc:establishmentMeans") String establishmentMeans) {
+        DQResponse<IssueValue> result = new DQResponse<IssueValue>();
+
+        //TODO:  Implement specification
+        // POTENTIAL_ISSUE if dwc:establishmentMeans is not EMPTY; 
+        // otherwise NOT_ISSUE 
+
+        return result;
+    }
+
+    /**
+     * Is there a value in dcterms:license?
+     *
+     * Provides: VALIDATION_LICENSE_NOTEMPTY
+     *
+     * @param license the provided dcterms:license to evaluate
+     * @return DQResponse the response of type ComplianceValue  to return
+     */
+    @Validation(label="VALIDATION_LICENSE_NOTEMPTY", description="Is there a value in dcterms:license?")
+    @Provides("15f78619-811a-4c6f-997a-a4c7888ad849")
+    public DQResponse<ComplianceValue> validationLicenseNotempty(@ActedUpon("dcterms:license") String license) {
+        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
+
+        //TODO:  Implement specification
+        // COMPLIANT if dcterms:license is not EMPTY; otherwise NOT_COMPLIANT 
+        // 
+
+        return result;
+    }
+
+    /**
+     * Is there a value in dc:type?
+     *
+     * Provides: VALIDATION_DCTYPE_NOTEMPTY
+     *
+     * @param type the provided dc:type to evaluate
+     * @return DQResponse the response of type ComplianceValue  to return
+     */
+    @Validation(label="VALIDATION_DCTYPE_NOTEMPTY", description="Is there a value in dc:type?")
+    @Provides("374b091a-fc90-4791-91e5-c1557c649169")
+    public DQResponse<ComplianceValue> validationDctypeNotempty(@ActedUpon("dc:type") String type) {
+        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
+
+        //TODO:  Implement specification
+        // COMPLIANT if dc:type is not EMPTY; otherwise NOT_COMPLIANT 
+        // 
+
+        return result;
+    }
+
+    /**
+     * Does the value of dwc:basisOfRecord occur in bdq:sourceAuthority?
+     *
+     * Provides: VALIDATION_BASISOFRECORD_STANDARD
+     *
+     * @param basisOfRecord the provided dwc:basisOfRecord to evaluate
+     * @return DQResponse the response of type ComplianceValue  to return
+     */
+    @Validation(label="VALIDATION_BASISOFRECORD_STANDARD", description="Does the value of dwc:basisOfRecord occur in bdq:sourceAuthority?")
+    @Provides("42408a00-bf71-4892-a399-4325e2bc1fb8")
+    public DQResponse<ComplianceValue> validationBasisofrecordStandard(@ActedUpon("dwc:basisOfRecord") String basisOfRecord) {
+        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
+
+        //TODO:  Implement specification
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord 
+        // is EMPTY; COMPLIANT if the value of dwc:basisOfRecord is 
+        // valid using the bdq:sourceAuthority; otherwise NOT_COMPLIANT 
+        // bdq:sourceAuthority default = "Darwin Core Terms" [https://dwc.tdwg.org/terms/#dwc:basisOfRecord] 
+        // 
+
+        //TODO: Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority
+
+        return result;
+    }
+
+    /**
+     * Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.
+     *
+     * Provides: AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
+     *
+     * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate
+     * @return DQResponse the response of type AmendmentValue to return
+     */
+    @Amendment(label="AMENDMENT_OCCURRENCESTATUS_STANDARDIZED", description="Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.")
+    @Provides("f8f3a093-042c-47a3-971a-a482aaaf3b75")
+    public DQResponse<AmendmentValue> amendmentOccurrencestatusStandardized(@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus) {
+        DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
+
+        //TODO:  Implement specification
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus 
+        // is EMPTY; AMENDED the value of dwc:occurrenceStatus if could 
+        // be unambiguously interpreted as a value in bdq:sourceAuthority; 
+        // otherwise NOT_AMENDED dq:sourceAuthority default = "Darwin 
+        // Core Standard" [https://dwc.tdwg.org/terms/#occurrenceStatus] 
+        // 
+
+        //TODO: Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority
+
+        return result;
+    }
+
+    /**
+     * Does the value of dwc:occurrenceStatus occur in bdq:sourceAuthority?
+     *
+     * Provides: VALIDATION_OCCURRENCESTATUS_STANDARD
+     *
+     * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate
+     * @return DQResponse the response of type ComplianceValue  to return
+     */
+    @Validation(label="VALIDATION_OCCURRENCESTATUS_STANDARD", description="Does the value of dwc:occurrenceStatus occur in bdq:sourceAuthority?")
+    @Provides("7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47")
+    public DQResponse<ComplianceValue> validationOccurrencestatusStandard(@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus) {
+        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
+
+        //TODO:  Implement specification
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus 
+        // is EMPTY; COMPLIANT if the value of dwc:occurrenceStatus 
+        // is resolved by the bdq:sourceAuthority; otherwise NOT_COMPLIANT 
+        // bdq:sourceAuthority default = "Darwin Core Standard" [https://dwc.tdwg.org/terms/#occurrenceStatus] 
+        // 
+
+        //TODO: Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority
+
+        return result;
+    }
+
+    /**
+     * Is there a value in dwc:occurrenceStatus?
+     *
+     * Provides: VALIDATION_OCCURRENCESTATUS_NOTEMPTY
+     *
+     * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate
+     * @return DQResponse the response of type ComplianceValue  to return
+     */
+    @Validation(label="VALIDATION_OCCURRENCESTATUS_NOTEMPTY", description="Is there a value in dwc:occurrenceStatus?")
+    @Provides("eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf")
+    public DQResponse<ComplianceValue> validationOccurrencestatusNotempty(@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus) {
+        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
+
+        //TODO:  Implement specification
+        // COMPLIANT if dwc:occurrenceStatus is not EMPTY; otherwise 
+        // NOT_COMPLIANT 
+
+        return result;
+    }
+
+    /**
+     * Propose amendment to the value of dwc:license using bdq:sourceAuthority.
+     *
+     * Provides: AMENDMENT_LICENSE_STANDARDIZED
+     *
+     * @param license the provided dcterms:license to evaluate
+     * @return DQResponse the response of type AmendmentValue to return
+     */
+    @Amendment(label="AMENDMENT_LICENSE_STANDARDIZED", description="Propose amendment to the value of dwc:license using bdq:sourceAuthority.")
+    @Provides("dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8")
+    public DQResponse<AmendmentValue> amendmentLicenseStandardized(@ActedUpon("dcterms:license") String license) {
+        DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
+
+        //TODO:  Implement specification
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
+        // is not available; AMENDED value of dcterms:license if it 
+        // could be unambiguously interpreted as a value in bdq:sourceAuthority; 
+        // otherwise NOT_AMENDED. bdq:sourceAuthority default = "Creative 
+        // Commons" [https://creativecommons.org/] 
+
+        //TODO: Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority
+
+        return result;
+    }
 
 }
