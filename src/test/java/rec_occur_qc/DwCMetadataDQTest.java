@@ -248,7 +248,41 @@ public class DwCMetadataDQTest {
 	 */
 	@Test
 	public void testValidationOccurrencestatusStandard() {
-		fail("Not yet implemented");
+		
+        // Specification
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus 
+        // is EMPTY; COMPLIANT if the value of dwc:occurrenceStatus 
+		
+		String occurrenceStatus = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		
+		occurrenceStatus = "present";
+		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());	
+		
+		occurrenceStatus = "absent";
+		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());	
+		
+		occurrenceStatus = "Present";
+		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());	
+		
+		occurrenceStatus = "";
+		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());	
 	}
 
 	/**

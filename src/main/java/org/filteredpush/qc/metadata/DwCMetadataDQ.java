@@ -45,7 +45,8 @@ import org.datakurator.ffdq.model.ResultState;
  * #99	15f78619-811a-4c6f-997a-a4c7888ad849	VALIDATION_LICENSE_NOTEMPTY
  * #47	c486546c-e6e5-48a7-b286-eba7f5ca56c4	VALIDATION_OCCURRENCEID_NOTEMPTY
  * #117	eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf	VALIDATION_OCCURRENCESTATUS_NOTEMPTY
- * #104 VALIDATION_BASISOFRECORD_STANDARD 42408a00-bf71-4892-a399-4325e2bc1fb8
+ * #104 42408a00-bf71-4892-a399-4325e2bc1fb8	VALIDATION_BASISOFRECORD_STANDARD 
+ * #116	7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47	VALIDATION_OCCURRENCESTATUS_STANDARD
  * 
  * 
  * TODO: Implement:
@@ -59,7 +60,6 @@ import org.datakurator.ffdq.model.ResultState;
  * 91	cdaabb0d-a863-49d0-bc0f-738d771acba5	VALIDATION_DCTYPE_STANDARD
  * 38	3136236e-04b6-49ea-8b34-a65f25e3aba1	VALIDATION_LICENSE_STANDARD
  * 23	3cfe9ab4-79f8-4afd-8da5-723183ef16a3	VALIDATION_OCCURRENCEID_STANDARD
- * 116	7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47	VALIDATION_OCCURRENCESTATUS_STANDARD
  * 46	3f335517-f442-4b98-b149-1e87ff16de45	VALIDATION_SCIENTIFICNAME_FOUND
  *
  * 
@@ -466,6 +466,7 @@ public class DwCMetadataDQ {
         return result;
     }
 
+
     /**
      * Does the value of dwc:occurrenceStatus occur in bdq:sourceAuthority?
      *
@@ -476,20 +477,56 @@ public class DwCMetadataDQ {
      */
     @Validation(label="VALIDATION_OCCURRENCESTATUS_STANDARD", description="Does the value of dwc:occurrenceStatus occur in bdq:sourceAuthority?")
     @Provides("7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47")
-    public DQResponse<ComplianceValue> validationOccurrencestatusStandard(@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus) {
+    public static DQResponse<ComplianceValue> validationOccurrencestatusStandard(
+    		@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus,
+    		@Parameter(name="bdq:sourceAuthority") String sourceAuthority
+    		) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
-
-        //TODO:  Implement specification
+        
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus 
         // is EMPTY; COMPLIANT if the value of dwc:occurrenceStatus 
         // is resolved by the bdq:sourceAuthority; otherwise NOT_COMPLIANT 
+
+        //  Parameters. This test is defined as parameterized.
         // bdq:sourceAuthority default = "Darwin Core Standard" [https://dwc.tdwg.org/terms/#occurrenceStatus] 
-        // 
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
-
+        if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        	sourceAuthority = "Darwin Core Standard";
+        }
+        if (sourceAuthority.equals("dwc:occurrenceStatus")) { 
+        	sourceAuthority = "Darwin Core Terms";
+        } else if (sourceAuthority.equals("https://dwc.tdwg.org/terms/#occurrenceStatus")) {
+        	sourceAuthority = "Darwin Core Terms";
+    	}
+        
+        if (MetadataUtils.isEmpty(occurrenceStatus)) { 
+			result.addComment("No value provided for dwc:basisOfRecord.");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else {
+        	List<String> values = null;
+        	if (sourceAuthority.equals("Darwin Core Standard")) {
+        		// "For Occurrences, the default vocabulary is recommended to consist of "present" and "absent", but can be extended by implementers with good justification."
+        		values = List.of("present","absent");
+        	} 
+        	
+        	if (values==null) { 
+        		result.addComment("Unsuported bdq:sourceAuthority [" + sourceAuthority +"].");
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
+        	} else { 
+        		if (values.contains(occurrenceStatus)) { 
+        			result.addComment("Provided value for dwc:occurrenceStatus conforms to sourceAuthority.");
+        			result.setValue(ComplianceValue.COMPLIANT);
+        			result.setResultState(ResultState.RUN_HAS_RESULT);
+        		} else {
+        			result.addComment("Provided value for dwc:occurrenceStatus ["+ occurrenceStatus +"] not found in specified sourceAuthority.");
+        			result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			result.setResultState(ResultState.RUN_HAS_RESULT);
+        		}
+        	}
+        }
+        
         return result;
     }
 

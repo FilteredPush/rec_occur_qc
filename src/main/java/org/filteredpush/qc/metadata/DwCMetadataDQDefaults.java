@@ -48,4 +48,18 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     	return validationBasisofrecordStandard(basisOfRecord, null);
     }
 	
+    /**
+     * Does the value of dwc:occurrenceStatus occur in bdq:sourceAuthority?
+     *
+     * Provides: VALIDATION_OCCURRENCESTATUS_STANDARD
+     *
+     * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate
+     * @return DQResponse the response of type ComplianceValue  to return
+     */
+    @Validation(label="VALIDATION_OCCURRENCESTATUS_STANDARD", description="Does the value of dwc:occurrenceStatus occur in bdq:sourceAuthority?")
+    @Provides("7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47")
+    public static DQResponse<ComplianceValue> validationOccurrencestatusStandard(
+    		@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus) {
+    	return validationOccurrencestatusStandard(occurrenceStatus, null);
+    }
 }
