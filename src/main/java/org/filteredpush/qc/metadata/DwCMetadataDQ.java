@@ -18,12 +18,15 @@
  */
 package org.filteredpush.qc.metadata;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.datakurator.ffdq.annotations.ActedUpon;
 import org.datakurator.ffdq.annotations.Amendment;
 import org.datakurator.ffdq.annotations.Issue;
 import org.datakurator.ffdq.annotations.Mechanism;
+import org.datakurator.ffdq.annotations.Parameter;
 import org.datakurator.ffdq.annotations.Provides;
 import org.datakurator.ffdq.annotations.Validation;
 import org.datakurator.ffdq.api.DQResponse;
@@ -42,6 +45,7 @@ import org.datakurator.ffdq.model.ResultState;
  * #99	15f78619-811a-4c6f-997a-a4c7888ad849	VALIDATION_LICENSE_NOTEMPTY
  * #47	c486546c-e6e5-48a7-b286-eba7f5ca56c4	VALIDATION_OCCURRENCEID_NOTEMPTY
  * #117	eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf	VALIDATION_OCCURRENCESTATUS_NOTEMPTY
+ * #104 VALIDATION_BASISOFRECORD_STANDARD 42408a00-bf71-4892-a399-4325e2bc1fb8
  * 
  * 
  * TODO: Implement:
@@ -52,7 +56,6 @@ import org.datakurator.ffdq.model.ResultState;
  * 133	dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8	AMENDMENT_LICENSE_STANDARDIZED
  * 75	96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5	AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
  * 115	f8f3a093-042c-47a3-971a-a482aaaf3b75	AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
- * 104	42408a00-bf71-4892-a399-4325e2bc1fb8	VALIDATION_BASISOFRECORD_STANDARD
  * 91	cdaabb0d-a863-49d0-bc0f-738d771acba5	VALIDATION_DCTYPE_STANDARD
  * 38	3136236e-04b6-49ea-8b34-a65f25e3aba1	VALIDATION_LICENSE_STANDARD
  * 23	3cfe9ab4-79f8-4afd-8da5-723183ef16a3	VALIDATION_OCCURRENCEID_STANDARD
@@ -368,30 +371,68 @@ public class DwCMetadataDQ {
         return result;
     }
 
+
     /**
      * Does the value of dwc:basisOfRecord occur in bdq:sourceAuthority?
      *
-     * Provides: VALIDATION_BASISOFRECORD_STANDARD
+     * Provides: #104 VALIDATION_BASISOFRECORD_STANDARD
      *
      * @param basisOfRecord the provided dwc:basisOfRecord to evaluate
+     * @param sourceAuthority the source authority for basis of record values to evaluate against, Darwin Core Terms used as default.
      * @return DQResponse the response of type ComplianceValue  to return
      */
     @Validation(label="VALIDATION_BASISOFRECORD_STANDARD", description="Does the value of dwc:basisOfRecord occur in bdq:sourceAuthority?")
     @Provides("42408a00-bf71-4892-a399-4325e2bc1fb8")
-    public DQResponse<ComplianceValue> validationBasisofrecordStandard(@ActedUpon("dwc:basisOfRecord") String basisOfRecord) {
+    public static DQResponse<ComplianceValue> validationBasisofrecordStandard(
+    		@ActedUpon("dwc:basisOfRecord") String basisOfRecord,
+    		@Parameter(name="bdq:sourceAuthority") String sourceAuthority
+    		) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord 
         // is EMPTY; COMPLIANT if the value of dwc:basisOfRecord is 
         // valid using the bdq:sourceAuthority; otherwise NOT_COMPLIANT 
-        // bdq:sourceAuthority default = "Darwin Core Terms" [https://dwc.tdwg.org/terms/#dwc:basisOfRecord] 
         // 
-
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
-
+        
+        // Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority default = "Darwin Core Terms" [https://dwc.tdwg.org/terms/#dwc:basisOfRecord] 
+        
+        if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        	sourceAuthority = "Darwin Core Terms";
+        }
+        if (sourceAuthority.equals("dwc:basistOfRecord")) { 
+        	sourceAuthority = "Darwin Core Terms";
+        } else if (sourceAuthority.equals("https://dwc.tdwg.org/terms/#dwc:basisOfRecord")) {
+        	sourceAuthority = "Darwin Core Terms";
+    	}
+        
+        if (MetadataUtils.isEmpty(basisOfRecord)) { 
+			result.addComment("No value provided for dwc:basisOfRecord.");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else {
+        	List<String> values = null;
+        	if (sourceAuthority.equals("Darwin Core Terms")) {
+        		values = List.of("PreservedSpecimen","FossilSpecimen","LivingSpecimen","MaterialSample","Event","HumanObservation","MachineObservation","Taxon","Occurrence","MaterialCitation");
+        	} 
+        	
+        	if (values==null) { 
+        		result.addComment("Unsuported bdq:sourceAuthority [" + sourceAuthority +"].");
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
+        	} else { 
+        		if (values.contains(basisOfRecord)) { 
+        			result.addComment("Provided value for dwc:basisOfRecord conforms to sourceAuthority.");
+        			result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			result.setResultState(ResultState.RUN_HAS_RESULT);
+        		} else {
+        			result.addComment("Provided value for dwc:basisOfRecord ["+ basisOfRecord +"] not found in specified sourceAuthority.");
+        			result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			result.setResultState(ResultState.RUN_HAS_RESULT);
+        		}
+        	}
+        }
+        
         return result;
     }
 

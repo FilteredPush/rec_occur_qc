@@ -27,6 +27,7 @@ import org.datakurator.ffdq.api.result.ComplianceValue;
 import org.datakurator.ffdq.api.result.IssueValue;
 import org.datakurator.ffdq.model.ResultState;
 import org.filteredpush.qc.metadata.DwCMetadataDQ;
+import org.filteredpush.qc.metadata.DwCMetadataDQDefaults;
 import org.junit.Test;
 
 /**
@@ -209,7 +210,29 @@ public class DwCMetadataDQTest {
 	 */
 	@Test
 	public void testValidationBasisofrecordStandard() {
-		fail("Not yet implemented");
+		
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord 
+        // is EMPTY; COMPLIANT if the value of dwc:basisOfRecord is 
+        // valid using the bdq:sourceAuthority; otherwise NOT_COMPLIANT 
+		
+		String basisOfRecord = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQDefaults.validationBasisofrecordStandard(basisOfRecord);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		
+		basisOfRecord = "";
+		result = DwCMetadataDQDefaults.validationBasisofrecordStandard(basisOfRecord);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());	
+		
+		basisOfRecord = "FossilSpecimen";
+		result = DwCMetadataDQDefaults.validationBasisofrecordStandard(basisOfRecord);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
 	}
 
 	/**
