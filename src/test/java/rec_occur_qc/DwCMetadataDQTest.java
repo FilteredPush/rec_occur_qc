@@ -228,11 +228,11 @@ public class DwCMetadataDQTest {
 		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
 		assertNull(result.getValue());	
 		
-		basisOfRecord = "FossilSpecimen";
+		basisOfRecord = "Fossil Specimen";
 		result = DwCMetadataDQDefaults.validationBasisofrecordStandard(basisOfRecord);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
-		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
 	}
 
 	/**

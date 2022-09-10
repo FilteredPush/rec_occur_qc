@@ -414,7 +414,7 @@ public class DwCMetadataDQ {
         } else {
         	List<String> values = null;
         	if (sourceAuthority.equals("Darwin Core Terms")) {
-        		values = List.of("PreservedSpecimen","FossilSpecimen","LivingSpecimen","MaterialSample","Event","HumanObservation","MachineObservation","Taxon","Occurrence","MaterialCitation");
+        		values = List.of("Dataset","Event","Event Attribute","Event Measurement","Fossil Specimen","Geological Context","Human Observation","Identification","Living Specimen","Location","Machine Observation","Material Citation","Material Sample","Measurement or Fact","Occurrence","Occurrence Measurement","Organism","Preserved Specimen","Resource Relationship","Sample","Sample Attribute","Sampling Event","Sampling Location","Taxon");
         	} 
         	
         	if (values==null) { 
@@ -423,7 +423,7 @@ public class DwCMetadataDQ {
         	} else { 
         		if (values.contains(basisOfRecord)) { 
         			result.addComment("Provided value for dwc:basisOfRecord conforms to sourceAuthority.");
-        			result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			result.setValue(ComplianceValue.COMPLIANT);
         			result.setResultState(ResultState.RUN_HAS_RESULT);
         		} else {
         			result.addComment("Provided value for dwc:basisOfRecord ["+ basisOfRecord +"] not found in specified sourceAuthority.");
