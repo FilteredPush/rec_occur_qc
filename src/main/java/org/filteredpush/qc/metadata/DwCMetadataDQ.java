@@ -414,6 +414,8 @@ public class DwCMetadataDQ {
         } else {
         	List<String> values = null;
         	if (sourceAuthority.equals("Darwin Core Terms")) {
+        		// "Recommended best practice is to use the standard label of one of the Darwin Core classes."
+        		// e.g. skos:prefLabel "Fossil Specimen"@en;  rdfs:label "Fossil Specimen"@en;
         		values = List.of("Dataset","Event","Event Attribute","Event Measurement","Fossil Specimen","Geological Context","Human Observation","Identification","Living Specimen","Location","Machine Observation","Material Citation","Material Sample","Measurement or Fact","Occurrence","Occurrence Measurement","Organism","Preserved Specimen","Resource Relationship","Sample","Sample Attribute","Sampling Event","Sampling Location","Taxon");
         	} 
         	
