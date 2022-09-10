@@ -473,6 +473,7 @@ public class DwCMetadataDQ {
      * Provides: VALIDATION_OCCURRENCESTATUS_STANDARD
      *
      * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate
+     * @param sourceAuthority the provided source authority against which to evaluate occurrenceStatus
      * @return DQResponse the response of type ComplianceValue  to return
      */
     @Validation(label="VALIDATION_OCCURRENCESTATUS_STANDARD", description="Does the value of dwc:occurrenceStatus occur in bdq:sourceAuthority?")
