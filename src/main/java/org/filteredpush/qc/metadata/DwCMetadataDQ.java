@@ -28,6 +28,7 @@ import org.datakurator.ffdq.annotations.Issue;
 import org.datakurator.ffdq.annotations.Mechanism;
 import org.datakurator.ffdq.annotations.Parameter;
 import org.datakurator.ffdq.annotations.Provides;
+import org.datakurator.ffdq.annotations.ProvidesVersion;
 import org.datakurator.ffdq.annotations.Validation;
 import org.datakurator.ffdq.api.DQResponse;
 import org.datakurator.ffdq.api.result.AmendmentValue;
@@ -39,6 +40,7 @@ import org.datakurator.ffdq.model.ResultState;
  * Provides implementation of TDWG BDQ TG2 OTHER tests (related to metadata found in Record-level
  * terms and Occurrence terms).
  * 
+ * #72	13d5a10e-188e-40fd-a22c-dbaa87b91df2	ISSUE_DATAGENERALIZATIONS_NOTEMPTY 
  * #94	acc8dff2-d8d1-483a-946d-65a02a452700	ISSUE_ESTABLISHMENTMEANS_NOTEMPTY
  * #58	ac2b7648-d5f9-48ca-9b07-8ad5879a2536	VALIDATION_BASISOFRECORD_NOTEMPTY
  * #103	374b091a-fc90-4791-91e5-c1557c649169	VALIDATION_DCTYPE_NOTEMPTY
@@ -71,6 +73,39 @@ public class DwCMetadataDQ {
 
 	private static final Log logger = LogFactory.getLog(DwCMetadataDQ.class);
 
+    /**
+     * Is there a value in dwc:dataGeneralizations?
+     *
+     * Provides: ISSUE_DATAGENERALIZATIONS_NOTEMPTY
+     * Version: 2022-11-08
+     *
+     * @param dataGeneralizations the provided dwc:dataGeneralizations to evaluate
+     * @return DQResponse the response of type IssueValue to return
+     */
+    @Issue(label="ISSUE_DATAGENERALIZATIONS_NOTEMPTY", description="Is there a value in dwc:dataGeneralizations?")
+    @Provides("13d5a10e-188e-40fd-a22c-dbaa87b91df2")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/13d5a10e-188e-40fd-a22c-dbaa87b91df2/2022-11-08")
+    public static DQResponse<IssueValue> issueDatageneralizationsNotempty(@ActedUpon("dwc:dataGeneralizations") String dataGeneralizations) {
+        DQResponse<IssueValue> result = new DQResponse<IssueValue>();
+
+        // Specification
+        // POTENTIAL_ISSUE if dwc:dataGeneralizations is not EMPTY; 
+        // otherwise NOT_ISSUE 
+
+		if (MetadataUtils.isEmpty(dataGeneralizations)) {
+			result.addComment("No value provided for dataGeneralizations.");
+			result.setValue(IssueValue.NOT_PROBLEM);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dataGeneralizations.  The information present in dwc:dataGeneralizations may (through obfuscation of spatial information or other changes to the data) make the data unfit for desired purpose.  Determining whether the data are fit for your use will require examination of the asserted data generalizations and consideration against your data quality needs.");
+			result.setValue(IssueValue.POTENTIAL_PROBLEM);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
+
+        
+        return result;
+    }
+	
     /**
      * Does the value of dwc:occurrenceID occur in bdqSourceAuthority?
      *

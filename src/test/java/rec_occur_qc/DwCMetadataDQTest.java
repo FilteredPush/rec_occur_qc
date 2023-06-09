@@ -39,6 +39,38 @@ public class DwCMetadataDQTest {
 	private static final Log logger = LogFactory.getLog(DwCMetadataDQTest.class);
 
 	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#issueDatageneralizationsNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void issueDatageneralizationsNotempty() {
+		
+		String dataGeneralizations = "foo";
+		DQResponse<IssueValue> result = DwCMetadataDQ.issueDatageneralizationsNotempty(dataGeneralizations);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(IssueValue.POTENTIAL_PROBLEM.getLabel(), result.getValue().getLabel());
+		
+		dataGeneralizations="placed on quarter degree grid";  
+		result = DwCMetadataDQ.issueDatageneralizationsNotempty(dataGeneralizations);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(IssueValue.POTENTIAL_PROBLEM.getLabel(), result.getValue().getLabel());
+		
+		dataGeneralizations = "";
+		result = DwCMetadataDQ.issueDatageneralizationsNotempty(dataGeneralizations);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(IssueValue.NOT_PROBLEM.getLabel(), result.getValue().getLabel());
+		
+		dataGeneralizations = " ";  // space only
+		result = DwCMetadataDQ.issueDatageneralizationsNotempty(dataGeneralizations);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(IssueValue.NOT_PROBLEM.getLabel(), result.getValue().getLabel());
+		
+	}
+	
+	/**
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationOccurrenceidStandard(java.lang.String)}.
 	 */
 	@Test
