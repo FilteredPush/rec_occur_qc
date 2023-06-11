@@ -48,25 +48,25 @@ public class DwCMetadataDQTest {
 		DQResponse<IssueValue> result = DwCMetadataDQ.issueDatageneralizationsNotempty(dataGeneralizations);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
-		assertEquals(IssueValue.POTENTIAL_PROBLEM.getLabel(), result.getValue().getLabel());
+		assertEquals(IssueValue.POTENTIAL_ISSUE.getLabel(), result.getValue().getLabel());
 		
 		dataGeneralizations="placed on quarter degree grid";  
 		result = DwCMetadataDQ.issueDatageneralizationsNotempty(dataGeneralizations);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
-		assertEquals(IssueValue.POTENTIAL_PROBLEM.getLabel(), result.getValue().getLabel());
+		assertEquals(IssueValue.POTENTIAL_ISSUE.getLabel(), result.getValue().getLabel());
 		
 		dataGeneralizations = "";
 		result = DwCMetadataDQ.issueDatageneralizationsNotempty(dataGeneralizations);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
-		assertEquals(IssueValue.NOT_PROBLEM.getLabel(), result.getValue().getLabel());
+		assertEquals(IssueValue.NOT_ISSUE.getLabel(), result.getValue().getLabel());
 		
 		dataGeneralizations = " ";  // space only
 		result = DwCMetadataDQ.issueDatageneralizationsNotempty(dataGeneralizations);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
-		assertEquals(IssueValue.NOT_PROBLEM.getLabel(), result.getValue().getLabel());
+		assertEquals(IssueValue.NOT_ISSUE.getLabel(), result.getValue().getLabel());
 		
 	}
 	
@@ -180,13 +180,13 @@ public class DwCMetadataDQTest {
 		DQResponse<IssueValue> result = DwCMetadataDQ.issueEstablishmentmeansNotempty(establishmentMeans);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
-		assertEquals(IssueValue.POTENTIAL_PROBLEM.getLabel(), result.getValue().getLabel());
+		assertEquals(IssueValue.POTENTIAL_ISSUE.getLabel(), result.getValue().getLabel());
 		
 		establishmentMeans = "";
 		result = DwCMetadataDQ.issueEstablishmentmeansNotempty(establishmentMeans);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
-		assertEquals(IssueValue.NOT_PROBLEM.getLabel(), result.getValue().getLabel());		
+		assertEquals(IssueValue.NOT_ISSUE.getLabel(), result.getValue().getLabel());		
 		
 	}
 

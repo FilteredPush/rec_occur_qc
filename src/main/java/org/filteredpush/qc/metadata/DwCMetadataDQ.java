@@ -94,11 +94,11 @@ public class DwCMetadataDQ {
 
 		if (MetadataUtils.isEmpty(dataGeneralizations)) {
 			result.addComment("No value provided for dataGeneralizations.");
-			result.setValue(IssueValue.NOT_PROBLEM);
+			result.setValue(IssueValue.NOT_ISSUE);
 			result.setResultState(ResultState.RUN_HAS_RESULT);
 		} else { 
 			result.addComment("Some value provided for dataGeneralizations.  The information present in dwc:dataGeneralizations may (through obfuscation of spatial information or other changes to the data) make the data unfit for desired purpose.  Determining whether the data are fit for your use will require examination of the asserted data generalizations and consideration against your data quality needs.");
-			result.setValue(IssueValue.POTENTIAL_PROBLEM);
+			result.setValue(IssueValue.POTENTIAL_ISSUE);
 			result.setResultState(ResultState.RUN_HAS_RESULT);
 		}
 
@@ -335,11 +335,11 @@ public class DwCMetadataDQ {
         
 		if (MetadataUtils.isEmpty(establishmentMeans)) {
 			result.addComment("No value provided for establishmentMeans.");
-			result.setValue(IssueValue.NOT_PROBLEM);
+			result.setValue(IssueValue.NOT_ISSUE);
 			result.setResultState(ResultState.RUN_HAS_RESULT);
 		} else { 
 			result.addComment("Some value provided for establishmentMeans.  The Occurrence may reflect introduction through the direct or indirect activity of modern humans.");
-			result.setValue(IssueValue.POTENTIAL_PROBLEM);
+			result.setValue(IssueValue.POTENTIAL_ISSUE);
 			result.setResultState(ResultState.RUN_HAS_RESULT);
 		}
 
