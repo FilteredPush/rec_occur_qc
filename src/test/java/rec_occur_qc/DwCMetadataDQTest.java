@@ -68,6 +68,15 @@ public class DwCMetadataDQTest {
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
 		assertEquals(IssueValue.NOT_ISSUE.getLabel(), result.getValue().getLabel());
 		
+    	dataGeneralizations = null;
+    	DQResponse<IssueValue> response = DwCMetadataDQ.issueDatageneralizationsNotempty(dataGeneralizations);
+    	assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), response.getResultState().getLabel());
+    	assertEquals(IssueValue.NOT_ISSUE.getLabel(), response.getValue().getLabel());
+
+    	dataGeneralizations = "Some generalization";
+    	response = DwCMetadataDQ.issueDatageneralizationsNotempty(dataGeneralizations);
+    	assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), response.getResultState().getLabel());
+    	assertEquals(IssueValue.POTENTIAL_ISSUE.getLabel(), response.getValue().getLabel());
 	}
 	
 	/**
