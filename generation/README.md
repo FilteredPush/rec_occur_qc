@@ -2,7 +2,7 @@ metadata_tests.csv are the subset of TDWG BDQ TG2 tests related to OTHER (Record
 
 To obtain this subset of tests from the list of core tests, assuming a checkout of tdwg/bdq in bdq in the parent directory of rec_occur_qc: 
 
-    grep "IE Category" ../../bdq/tg2/core/TG2_tests.csv > metadata_tests.csv
+    head -n 1 ../../bdq/tg2/core/TG2_tests.csv > metadata_tests.csv
     grep OTHER ../../bdq/tg2/core/TG2_tests.csv  | grep -v AllDarwinCoreTerms  >> metadata_tests.csv
     grep DATAGENERALIZATIONS ../../bdq/tg2/core/TG2_tests.csv | grep -v AllDarwinCoreTerms  >> metadata_tests.csv
 
