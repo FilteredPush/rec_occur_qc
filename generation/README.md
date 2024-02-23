@@ -5,6 +5,7 @@ To obtain this subset of tests from the list of core tests, assuming a checkout 
     head -n 1 ../../bdq/tg2/core/TG2_tests.csv > metadata_tests.csv
     grep OTHER ../../bdq/tg2/core/TG2_tests.csv  | grep -v AllDarwinCoreTerms  >> metadata_tests.csv
     grep DATAGENERALIZATIONS ../../bdq/tg2/core/TG2_tests.csv | grep -v AllDarwinCoreTerms  >> metadata_tests.csv
+    grep OTHER ../../bdq/tg2/supplementary/TG2_supplementary_tests.csv  | grep -v AllDarwinCoreTerms  >> metadata_tests.csv
 
 Turtle RDF generated using kurator-ffdq using (from a kurator-ffdq directory in the same parent directory as rec_occur_qc) with:
 
@@ -12,5 +13,8 @@ Turtle RDF generated using kurator-ffdq using (from a kurator-ffdq directory in 
 
 Test method stubs can be generated using kurator-ffdq using (from a kurator-ffdq directory in the same parent directory as rec_occur_qc) with:
 
-    ./test-util.sh -config ../rec_occur_qc/generation/rec_occur_qc_DwCMetadata_kurator_ffdq.config -in ../rec_occur_qc/generation/metadata_tests.csv -out ../rec_occur_qc/generation/metadata_tests.ttl -generateClass -srcDir ../rec_occur_qc/src/main/java
+    ./test-util.sh -config ../rec_occur_qc/generation/rec_occur_qc_DwCMetadata_stubs_kurator_ffdq.config -in ../rec_occur_qc/generation/metadata_tests.csv -out ../rec_occur_qc/generation/metadata_tests.ttl -generateClass -srcDir ../rec_occur_qc/src/main/java
 
+Add comments to the end of java class noting out of date implementations using kurator-ffdq (from a kurator-ffdq directory in the same parent directory as rec_occur_qc) with: 
+
+    ./test-util.sh -config ../rec_occur_qc/generation/rec_occur_qc_DwCMetadata_kurator_ffdq.config -in ../rec_occur_qc/generation/metadata_tests.csv -out ../rec_occur_qc/generation/metadata_tests.ttl -appendClass -srcDir ../rec_occur_qc/src/main/java

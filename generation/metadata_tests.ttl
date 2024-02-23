@@ -19,15 +19,15 @@
 	rdfs:comment "INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceID is EMPTY; COMPLIANT if the value of dwc:occurrenceID follows a format commonly associated with globally unique identifiers (GUIDs); otherwise NOT_COMPLIANT " ;
 	rdfs:label "VALIDATION_OCCURRENCEID_STANDARD" .
 
-<urn:uuid:9572e3e9-2da8-4244-94f3-caf931226861> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:3cfe9ab4-79f8-4afd-8da5-723183ef16a3> ;
+<urn:uuid:ebd269ad-d489-42f4-8138-eb463a7387e6> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:3cfe9ab4-79f8-4afd-8da5-723183ef16a3> ;
 	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
 	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<http://rs.tdwg.org/bdq/ffdq/ActedUpon> rdfbeans:bindingClass "org.datakurator.ffdq.model.ActedUpon" .
 
 <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> rdfbeans:bindingClass "org.datakurator.ffdq.model.context.ContextualizedCriterion" .
 
 <http://rs.tdwg.org/bdq/ffdq/Criterion> rdfbeans:bindingClass "org.datakurator.ffdq.model.Criterion" .
-
-<http://rs.tdwg.org/bdq/ffdq/InformationElement> rdfbeans:bindingClass "org.datakurator.ffdq.model.InformationElement" .
 
 <http://rs.tdwg.org/bdq/ffdq/ResourceType> rdfbeans:bindingClass "org.datakurator.ffdq.model.ResourceType" .
 
@@ -36,54 +36,54 @@
 <rt:SingleRecord> a <http://rs.tdwg.org/bdq/ffdq/ResourceType> ;
 	rdfs:label "SingleRecord" .
 
-<urn:uuid:1abf615d-1f97-4a4a-928e-735d18e1b179> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/occurrenceID> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:1bb04a3f-e0bc-459e-8470-2b00943c8ab8> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:f4978e4e-0ad1-40ee-adc3-a64abcce69c5> ;
+<urn:uuid:4d213ff6-a814-4859-a827-f8bc1e80a487> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:54d14fd2-1605-4da1-972d-494e393a5953> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:3cfe9ab4-79f8-4afd-8da5-723183ef16a3> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
 
-<urn:uuid:540aaee9-4739-4490-ac60-5fd7fe95d16b> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
-	rdfs:label "Conformance: standard" .
-
-<urn:uuid:f4978e4e-0ad1-40ee-adc3-a64abcce69c5> <http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:540aaee9-4739-4490-ac60-5fd7fe95d16b> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:1abf615d-1f97-4a4a-928e-735d18e1b179> ;
+<urn:uuid:54d14fd2-1605-4da1-972d-494e393a5953> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:6c960c7a-a92f-4202-bc0b-4db6efb18461> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:6d5b3c6d-ee5c-4660-aea0-9cf020d14ea2> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
-	rdfs:comment "Does the value of dwc:occurrenceID occur in bdqSourceAuthority?" ;
-	rdfs:label "Does the value of dwc:occurrenceID occur in bdqSourceAuthority? Validation for SingleRecord" .
+	rdfs:comment "Does the value of dwc:occurrenceID occur in bdq:SourceAuthority?" ;
+	rdfs:label "Does the value of dwc:occurrenceID occur in bdq:SourceAuthority? Validation for SingleRecord" .
+
+<urn:uuid:6c960c7a-a92f-4202-bc0b-4db6efb18461> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/occurrenceID> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:6d5b3c6d-ee5c-4660-aea0-9cf020d14ea2> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
 
 <urn:uuid:3136236e-04b6-49ea-8b34-a65f25e3aba1> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
-	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dcterms:license is EMPTY; COMPLIANT if the value of the term dcterms:license is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority default = \"Creative Commons\" [https://creativecommons.org/]" ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dcterms:license is EMPTY; COMPLIANT if the value of the term dcterms:license is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority default = \"Creative Commons\" {[https://creativecommons.org/]} {Creative Commons licenses [https://creativecommons.org/about/cclicenses/]}" ;
 	rdfs:label "VALIDATION_LICENSE_STANDARD" .
 
-<urn:uuid:b13175c7-b90c-4757-b720-0de6c394137d> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:3136236e-04b6-49ea-8b34-a65f25e3aba1> ;
+<urn:uuid:9f13ad31-b07a-4230-90b3-8f8b324d65a7> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:3136236e-04b6-49ea-8b34-a65f25e3aba1> ;
 	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
 	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
-<urn:uuid:1311903f-b08e-45de-a762-88da4ad41d35> <http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:b937cf98-f192-428f-88d1-10643cda6609> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:f6992670-b2da-43d7-8bce-8901ae8af72f> ;
+<urn:uuid:02a26b23-d68c-49f7-9048-6be9886b17b1> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
+
+<urn:uuid:1dcd16dc-5f18-49b1-9ce0-0a4b2f94a433> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/terms/license> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:9d5abcd5-a466-419b-b070-587a2e18f42a> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:1dcd16dc-5f18-49b1-9ce0-0a4b2f94a433> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:02a26b23-d68c-49f7-9048-6be9886b17b1> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
 	rdfs:comment "Does the value of dcterms:license occur in bdq:sourceAuthority?" ;
 	rdfs:label "Does the value of dcterms:license occur in bdq:sourceAuthority? Validation for SingleRecord" .
 
-<urn:uuid:6fcfe1ad-af2e-4753-a24c-256a4718093b> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:1311903f-b08e-45de-a762-88da4ad41d35> ;
+<urn:uuid:bf202b20-aec4-4c84-8d55-1f4e55737ae6> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:9d5abcd5-a466-419b-b070-587a2e18f42a> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:3136236e-04b6-49ea-8b34-a65f25e3aba1> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
 
-<urn:uuid:b937cf98-f192-428f-88d1-10643cda6609> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
-	rdfs:label "Conformance: standard" .
-
-<urn:uuid:f6992670-b2da-43d7-8bce-8901ae8af72f> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/terms/license> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:3aa1f577-78be-40c4-9016-c6e276e9fe1d> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:bd385eeb-44a2-464b-a503-7abe407ef904> ;
+<urn:uuid:311ff8cc-8bc8-4d5b-9673-c3c0d9ff9e96> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:bd385eeb-44a2-464b-a503-7abe407ef904> ;
 	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
 	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
 <urn:uuid:bd385eeb-44a2-464b-a503-7abe407ef904> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
-	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if the value of dc:type is EMPTY; AMENDED the value of dc:type if it can be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority is \"DCMI Type Vocabulary\" [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/]" ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if the value of dc:type is EMPTY; AMENDED the value of dc:type if it can be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority is \"Dublin Core Metadata Initiative (DCMI)\" {[https://www.dublincore.org/]} {DCMI Type Vocabulary\" [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/]}" ;
 	rdfs:label "AMENDMENT_DCTYPE_STANDARDIZED" .
 
 <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> rdfbeans:bindingClass "org.datakurator.ffdq.model.solutions.AmendmentMethod" .
@@ -92,155 +92,161 @@
 
 <http://rs.tdwg.org/bdq/ffdq/Enhancement> rdfbeans:bindingClass "org.datakurator.ffdq.model.Enhancement" .
 
-<urn:uuid:28202877-7212-4061-89d0-0e90887ffb27> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:6f601c81-068f-4f3a-8555-1fe864ca7252> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:bd385eeb-44a2-464b-a503-7abe407ef904> ;
-	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
-
-<urn:uuid:6aefbd78-846e-46f7-a7e6-b42209fefecf> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+<urn:uuid:12a3864f-abf6-4396-abfb-8d8f16f55dcd> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
 	rdfs:label "Conformance: standardized" .
 
-<urn:uuid:6f601c81-068f-4f3a-8555-1fe864ca7252> <http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:6aefbd78-846e-46f7-a7e6-b42209fefecf> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:ca89fe1d-ae17-4b65-8a1e-61f5c1ef9dc6> ;
+<urn:uuid:6d929762-d139-4fcd-8832-097e0d1dc79a> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/elements/1.1/type> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:a1522b38-3436-4fe6-8d42-1c87627c6161> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:6d929762-d139-4fcd-8832-097e0d1dc79a> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:12a3864f-abf6-4396-abfb-8d8f16f55dcd> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
 	rdfs:comment "Propose amendment to the value of dc:type using the DCMI type vocabulary." ;
 	rdfs:label "Propose amendment to the value of dc:type using the DCMI type vocabulary.Amedment for SingleRecord" .
 
-<urn:uuid:ca89fe1d-ae17-4b65-8a1e-61f5c1ef9dc6> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/elements/1.1/type> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:23906240-99a4-4149-bb98-fb4e6cdafb37> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:c486546c-e6e5-48a7-b286-eba7f5ca56c4> ;
-	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
-	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+<urn:uuid:c40d407b-71ea-45f3-81ea-88441a7f901c> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:a1522b38-3436-4fe6-8d42-1c87627c6161> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:bd385eeb-44a2-464b-a503-7abe407ef904> ;
+	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
 
 <urn:uuid:c486546c-e6e5-48a7-b286-eba7f5ca56c4> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
 	rdfs:comment "COMPLIANT if dwc:occurrenceID is not EMPTY; otherwise NOT_COMPLIANT " ;
 	rdfs:label "VALIDATION_OCCURRENCEID_NOTEMPTY" .
 
-<urn:uuid:1371b5e1-7225-488a-8998-c85c65663c6f> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:636fe598-a5e5-481a-ac6f-9cabb1a4055e> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:c486546c-e6e5-48a7-b286-eba7f5ca56c4> ;
-	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+<urn:uuid:d6ba1396-cd29-431b-9235-dff3db215f3c> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:c486546c-e6e5-48a7-b286-eba7f5ca56c4> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
-<urn:uuid:636fe598-a5e5-481a-ac6f-9cabb1a4055e> <http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:f7500693-7350-4b99-9b42-33d38093b5a7> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:8050f9d4-5292-4000-80f2-feca7fa6522d> ;
+<urn:uuid:5f4afe55-9744-45ed-9440-526a91161628> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:71de2aa0-1154-4dc5-b6b8-16c5d005f55c> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:bea1029b-148c-462e-9021-3ccdcbefbc6e> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
 	rdfs:comment "Is there a value in dwc:occurrenceID?" ;
 	rdfs:label "Is there a value in dwc:occurrenceID? Validation for SingleRecord" .
 
-<urn:uuid:8050f9d4-5292-4000-80f2-feca7fa6522d> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/occurrenceID> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
+<urn:uuid:71de2aa0-1154-4dc5-b6b8-16c5d005f55c> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/occurrenceID> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
 
-<urn:uuid:f7500693-7350-4b99-9b42-33d38093b5a7> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+<urn:uuid:8eb931e3-17ce-4935-921e-c09d78ea7abc> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:5f4afe55-9744-45ed-9440-526a91161628> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:c486546c-e6e5-48a7-b286-eba7f5ca56c4> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:bea1029b-148c-462e-9021-3ccdcbefbc6e> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
 	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:290fa53b-09fe-410f-8075-11bc684fc9ec> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:ac2b7648-d5f9-48ca-9b07-8ad5879a2536> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
 <urn:uuid:ac2b7648-d5f9-48ca-9b07-8ad5879a2536> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
 	rdfs:comment "COMPLIANT if dwc:basisOfRecord is not EMPTY; otherwise NOT_COMPLIANT " ;
 	rdfs:label "VALIDATION_BASISOFRECORD_NOTEMPTY" .
 
-<urn:uuid:c91ac0b8-5386-4c69-bdfe-57c93e8772ac> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:ac2b7648-d5f9-48ca-9b07-8ad5879a2536> ;
-	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
-	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+<urn:uuid:128e05e0-4cdb-4073-9116-f8fc62cd1bd9> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:7b7be033-e301-4ceb-8229-a5e6442f7dd0> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:ac2b7648-d5f9-48ca-9b07-8ad5879a2536> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
 
-<urn:uuid:13d7fdd5-a87f-496a-b5c6-7ff6e4246501> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/basisOfRecord> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:2d27e96d-a4cc-41b7-b29c-54c927b2b90d> <http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:98ac38f6-438a-4644-9683-405bd6717604> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:13d7fdd5-a87f-496a-b5c6-7ff6e4246501> ;
+<urn:uuid:7b7be033-e301-4ceb-8229-a5e6442f7dd0> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:bb738f1f-8d9b-4ceb-baf1-6d5fd5f27bee> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:bd4d8fd3-5b36-4569-97b1-0ce272a54bd6> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
 	rdfs:comment "Is there a value in dwc:basisOfRecord?" ;
 	rdfs:label "Is there a value in dwc:basisOfRecord? Validation for SingleRecord" .
 
-<urn:uuid:98ac38f6-438a-4644-9683-405bd6717604> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+<urn:uuid:bb738f1f-8d9b-4ceb-baf1-6d5fd5f27bee> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/basisOfRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:bd4d8fd3-5b36-4569-97b1-0ce272a54bd6> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
 	rdfs:label "Completeness: notempty" .
 
-<urn:uuid:f08e6d50-76a3-4e4d-b80e-638b16583227> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:2d27e96d-a4cc-41b7-b29c-54c927b2b90d> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:ac2b7648-d5f9-48ca-9b07-8ad5879a2536> ;
-	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
-
 <urn:uuid:07c28ace-561a-476e-a9b9-3d5ad6e35933> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
-	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is EMPTY; AMENDED the value of dwc:basisOfRecord if it could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"Darwin Core Terms\" [https://dwc.tdwg.org/terms/#dwc:basisOfRecord]" ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is EMPTY; AMENDED the value of dwc:basisOfRecord if it could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"Darwin Core basisOfRecord\" {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}" ;
 	rdfs:label "AMENDMENT_BASISOFRECORD_STANDARDIZED" .
 
-<urn:uuid:347627ab-de39-4a18-9995-344a605e1f5f> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:07c28ace-561a-476e-a9b9-3d5ad6e35933> ;
+<urn:uuid:4b03933c-6e10-4c28-90df-5ab296b737f0> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:07c28ace-561a-476e-a9b9-3d5ad6e35933> ;
 	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
 	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
-<urn:uuid:060ff8e7-100e-4cd9-be88-098c9273ad5c> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/basisOfRecord> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
+<urn:uuid:3abd464e-f3f1-4002-94a5-4b2dbfce4cae> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+	rdfs:label "Conformance: standardized" .
 
-<urn:uuid:44ddd299-1299-4d11-97a9-dac711c6321f> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:f5a8ea0b-3ed4-44b2-9c67-6677f5e37519> ;
+<urn:uuid:73d4112b-0825-4adc-916b-2c5a3328a73f> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:e12251ed-7be3-4b3a-8aab-3398cdc6143d> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:07c28ace-561a-476e-a9b9-3d5ad6e35933> ;
 	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
 
-<urn:uuid:7e0d85c8-b090-4a5d-8562-8a24a508454b> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
-	rdfs:label "Conformance: standardized" .
+<urn:uuid:7aa7d31c-76e8-432e-9a8a-fb3a4e430eba> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/basisOfRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
 
-<urn:uuid:f5a8ea0b-3ed4-44b2-9c67-6677f5e37519> <http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:7e0d85c8-b090-4a5d-8562-8a24a508454b> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:060ff8e7-100e-4cd9-be88-098c9273ad5c> ;
+<urn:uuid:e12251ed-7be3-4b3a-8aab-3398cdc6143d> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:7aa7d31c-76e8-432e-9a8a-fb3a4e430eba> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:3abd464e-f3f1-4002-94a5-4b2dbfce4cae> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
 	rdfs:comment "Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority." ;
 	rdfs:label "Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority.Amedment for SingleRecord" .
 
-<urn:uuid:48330371-a60f-4f62-86a3-e119784190a0> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5> ;
+<urn:uuid:0693d20e-2415-4b44-a988-db1db2e7330c> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5> ;
 	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
 	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
 <urn:uuid:96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
-	rdfs:comment "FILLED_IN the value of dwc:occurrenceStatus using the Parameter value if dwc:occurrence.Status,  dwc:individualCount and dwc:organismQuantity are EMPTY; otherwise NOT_AMENDED " ;
+	rdfs:comment "FILLED_IN the value of dwc:occurrenceStatus using the Parameter value if dwc:occurrence.Status,  dwc:individualCount and dwc:organismQuantity are EMPTY; otherwise NOT_AMENDED dwc:occurrenceStatus default = \"present\"" ;
 	rdfs:label "AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT" .
 
-<urn:uuid:5bc4e999-05db-4ef3-83bd-93842faab271> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+<http://rs.tdwg.org/bdq/ffdq/Consulted> rdfbeans:bindingClass "org.datakurator.ffdq.model.Consulted" .
+
+<urn:uuid:1de35eb1-a9b9-4036-bd76-ef65e6f201cb> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/individualCount> , <http://rs.tdwg.org/dwc/terms/organismQuantity> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Consulted> .
+
+<urn:uuid:304d8145-891a-4f39-ac09-01b6718bae3a> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/occurrenceStatus> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:3ff9f6b0-0a97-44d4-9f39-fc1e375d7f3c> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
 	rdfs:label "Completeness: assumeddefault" .
 
-<urn:uuid:7459512d-e278-4a5f-9c10-0b41828f8d9c> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/individualCount> , <http://rs.tdwg.org/dwc/terms/occurrenceStatus> , <http://rs.tdwg.org/dwc/terms/organismQuantity> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:c434bdc2-c2ee-4672-87e2-f4062dcd9451> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:c67ba1a7-7b26-4913-82f9-6cdf447b9444> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5> ;
-	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
-
-<urn:uuid:c67ba1a7-7b26-4913-82f9-6cdf447b9444> <http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:5bc4e999-05db-4ef3-83bd-93842faab271> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:7459512d-e278-4a5f-9c10-0b41828f8d9c> ;
+<urn:uuid:5eb1127a-a9f0-4354-9417-e46ed86d9d68> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:304d8145-891a-4f39-ac09-01b6718bae3a> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasConsultedInformationElement> <urn:uuid:1de35eb1-a9b9-4036-bd76-ef65e6f201cb> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:3ff9f6b0-0a97-44d4-9f39-fc1e375d7f3c> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
 	rdfs:comment "Propose an amendment of the value of dwc:occurrenceStatus to the default parameter value if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty." ;
 	rdfs:label "Propose an amendment of the value of dwc:occurrenceStatus to the default parameter value if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty.Amedment for SingleRecord" .
 
-<urn:uuid:19dc7899-a4d2-4962-a40e-c7e3794560dd> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:cdaabb0d-a863-49d0-bc0f-738d771acba5> ;
+<urn:uuid:ebd3f85c-0b62-4227-983a-e2f48e94c696> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:5eb1127a-a9f0-4354-9417-e46ed86d9d68> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5> ;
+	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
+
+<urn:uuid:cdaabb0d-a863-49d0-bc0f-738d771acba5> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if the value of dc:type is EMPTY; COMPLIANT if the value of dc:type is found in  bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority is \"Dublin Core Metadata Initiative (DCMI)\" {[https://www.dublincore.org/]} {DCMI Type Vocabulary\" [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/]}" ;
+	rdfs:label "VALIDATION_DCTYPE_STANDARD" .
+
+<urn:uuid:e5bbab7c-e363-4f79-9e84-d1be1546b6ae> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:cdaabb0d-a863-49d0-bc0f-738d771acba5> ;
 	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
 	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
-<urn:uuid:cdaabb0d-a863-49d0-bc0f-738d771acba5> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
-	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if the value of dc:type is EMPTY; COMPLIANT if the value of dc:type is found in  bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority is \"DCMI Type Vocabulary\" [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/]" ;
-	rdfs:label "VALIDATION_DCTYPE_STANDARD" .
-
-<urn:uuid:00aaf02e-22eb-43fc-97bb-a04f1380b21e> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/elements/1.1/type> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:8214d3cc-779e-46ad-84ce-ed9eaec08241> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
-	rdfs:label "Conformance: standard" .
-
-<urn:uuid:cf7caed9-3cb0-49fa-be33-bbbdecc618cd> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:ddd94c20-097e-458d-b12d-3dcd3dc014b5> ;
+<urn:uuid:b1d00f05-8804-4fe1-8a9a-2b43ebd8797b> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:fc9e28b3-5d10-4f3e-8d5e-78b201316fea> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:cdaabb0d-a863-49d0-bc0f-738d771acba5> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
 
-<urn:uuid:ddd94c20-097e-458d-b12d-3dcd3dc014b5> <http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:8214d3cc-779e-46ad-84ce-ed9eaec08241> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:00aaf02e-22eb-43fc-97bb-a04f1380b21e> ;
+<urn:uuid:c908ede7-09bb-443b-9f8b-1ec78bf2aa91> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
+
+<urn:uuid:e01ed586-d0e3-4dc6-948f-a9c0d7602742> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/elements/1.1/type> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:fc9e28b3-5d10-4f3e-8d5e-78b201316fea> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:e01ed586-d0e3-4dc6-948f-a9c0d7602742> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:c908ede7-09bb-443b-9f8b-1ec78bf2aa91> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
 	rdfs:comment "Does the value in dc:type occur as a value in the DCMI type vocabulary?" ;
 	rdfs:label "Does the value in dc:type occur as a value in the DCMI type vocabulary? Validation for SingleRecord" .
 
+<urn:uuid:48b70a3a-b925-48d5-81a4-1972583b79c6> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:acc8dff2-d8d1-483a-946d-65a02a452700> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
 <urn:uuid:acc8dff2-d8d1-483a-946d-65a02a452700> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
 	rdfs:comment "POTENTIAL_ISSUE if dwc:establishmentMeans is not EMPTY; otherwise NOT_ISSUE " ;
 	rdfs:label "ISSUE_ESTABLISHMENTMEANS_NOTEMPTY" .
-
-<urn:uuid:fd68ca3d-7038-4ddf-be0c-20c9c5d3a033> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:acc8dff2-d8d1-483a-946d-65a02a452700> ;
-	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
-	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
 <http://rs.tdwg.org/bdq/ffdq/ContextualizedIssue> rdfbeans:bindingClass "org.datakurator.ffdq.model.context.ContextualizedIssue" .
 
@@ -248,219 +254,1049 @@
 
 <http://rs.tdwg.org/bdq/ffdq/ProblemMethod> rdfbeans:bindingClass "org.datakurator.ffdq.model.solutions.ProblemMethod" .
 
-<urn:uuid:575323d4-eade-46e3-80b3-4569ce3ca58f> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/establishmentMeans> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:90ed330a-9d63-420c-9425-e4e2fbd6aba3> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:acc8dff2-d8d1-483a-946d-65a02a452700> ;
-	<http://rs.tdwg.org/bdq/ffdq/issueInContext> <urn:uuid:c6a6c600-5b81-478a-b6cf-bd2b93da54c4> ;
-	a <http://rs.tdwg.org/bdq/ffdq/ProblemMethod> .
-
-<urn:uuid:9995f103-1c35-4503-9625-5c179274bc84> a <http://rs.tdwg.org/bdq/ffdq/Issue> ;
+<urn:uuid:60b42aa3-a6fb-43c8-a1fa-8bc0ad85ae04> a <http://rs.tdwg.org/bdq/ffdq/Issue> ;
 	rdfs:label "Completeness: notempty" .
 
-<urn:uuid:c6a6c600-5b81-478a-b6cf-bd2b93da54c4> <http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:575323d4-eade-46e3-80b3-4569ce3ca58f> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasIssue> <urn:uuid:9995f103-1c35-4503-9625-5c179274bc84> ;
+<urn:uuid:8ae61b29-527f-4133-935e-7b2ee658747a> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:acc8dff2-d8d1-483a-946d-65a02a452700> ;
+	<http://rs.tdwg.org/bdq/ffdq/issueInContext> <urn:uuid:acf3c37e-0a3f-43fb-a711-ed3eed084bc9> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ProblemMethod> .
+
+<urn:uuid:acf3c37e-0a3f-43fb-a711-ed3eed084bc9> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:d552f16a-dab2-47f8-a4b8-32a4dc5c320e> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasIssue> <urn:uuid:60b42aa3-a6fb-43c8-a1fa-8bc0ad85ae04> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedIssue> ;
 	rdfs:comment "Is there a value in dwc:establishmentMeans?" ;
 	rdfs:label "Is there a value in dwc:establishmentMeans? Issue for SingleRecord" .
 
+<urn:uuid:d552f16a-dab2-47f8-a4b8-32a4dc5c320e> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/establishmentMeans> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
 <urn:uuid:15f78619-811a-4c6f-997a-a4c7888ad849> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
 	rdfs:comment "COMPLIANT if dcterms:license is not EMPTY; otherwise NOT_COMPLIANT " ;
 	rdfs:label "VALIDATION_LICENSE_NOTEMPTY" .
 
-<urn:uuid:8d8740eb-d1a9-4aaf-acef-2ad40ea8559d> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:15f78619-811a-4c6f-997a-a4c7888ad849> ;
+<urn:uuid:f2bc3380-9328-411a-a271-7a8910003c77> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:15f78619-811a-4c6f-997a-a4c7888ad849> ;
 	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
 	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
-<urn:uuid:0ac82505-a615-4b1b-b964-859a5cc38b1b> <http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:e0e6233a-bb18-45c5-a312-4f9239f5ffa9> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:c55b0e49-a85f-4ae3-9f1a-8420e78765c1> ;
+<urn:uuid:860a6222-8a4e-4e4f-b3e4-dd48ed56d075> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:b9ca92b0-45fe-4d8e-8d01-f129990a496d> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:9a63eb2f-db5c-454e-945e-abe1d51d421a> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
 	rdfs:comment "Is there a value in dcterms:license?" ;
 	rdfs:label "Is there a value in dcterms:license? Validation for SingleRecord" .
 
-<urn:uuid:395a70ae-04e8-4417-86f6-9b7b9799f564> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:0ac82505-a615-4b1b-b964-859a5cc38b1b> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:15f78619-811a-4c6f-997a-a4c7888ad849> ;
-	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
-
-<urn:uuid:c55b0e49-a85f-4ae3-9f1a-8420e78765c1> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/terms/license> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:e0e6233a-bb18-45c5-a312-4f9239f5ffa9> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+<urn:uuid:9a63eb2f-db5c-454e-945e-abe1d51d421a> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
 	rdfs:label "Completeness: notempty" .
 
-<urn:uuid:05cf2953-70fe-4540-9660-77610a9c8ecd> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:374b091a-fc90-4791-91e5-c1557c649169> ;
-	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
-	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+<urn:uuid:b9ca92b0-45fe-4d8e-8d01-f129990a496d> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/terms/license> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:c49d50a7-820c-475c-850f-39ae0fae82a0> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:860a6222-8a4e-4e4f-b3e4-dd48ed56d075> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:15f78619-811a-4c6f-997a-a4c7888ad849> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
 
 <urn:uuid:374b091a-fc90-4791-91e5-c1557c649169> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
 	rdfs:comment "COMPLIANT if dc:type is not EMPTY; otherwise NOT_COMPLIANT " ;
 	rdfs:label "VALIDATION_DCTYPE_NOTEMPTY" .
 
-<urn:uuid:19d9f7e3-6e6d-4b6b-9e23-2b5c23f14741> <http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:a0809943-0bba-4d4c-b104-d60619591c62> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:c4a7d275-e187-4453-97b5-e21306aa74fc> ;
+<urn:uuid:86095c71-d932-4566-b5e4-47103822ee8a> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:374b091a-fc90-4791-91e5-c1557c649169> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:5103c8e9-f0ba-441f-999b-fcae355f4421> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/elements/1.1/type> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:98a2d1bd-b9c3-4e4f-bfe4-a6bf61f82e17> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:b38ab2b9-6600-4346-b623-30098b7f61cd> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:eb6928c5-8cbe-472f-bdef-dbe39b4911c6> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:374b091a-fc90-4791-91e5-c1557c649169> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:eb6928c5-8cbe-472f-bdef-dbe39b4911c6> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:5103c8e9-f0ba-441f-999b-fcae355f4421> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:98a2d1bd-b9c3-4e4f-bfe4-a6bf61f82e17> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
 	rdfs:comment "Is there a value in dc:type?" ;
 	rdfs:label "Is there a value in dc:type? Validation for SingleRecord" .
 
-<urn:uuid:78a6c0ab-87cb-4e1f-a143-8c6882cf600d> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:19d9f7e3-6e6d-4b6b-9e23-2b5c23f14741> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:374b091a-fc90-4791-91e5-c1557c649169> ;
-	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
-
-<urn:uuid:a0809943-0bba-4d4c-b104-d60619591c62> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
-	rdfs:label "Completeness: notempty" .
-
-<urn:uuid:c4a7d275-e187-4453-97b5-e21306aa74fc> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/elements/1.1/type> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
 <urn:uuid:42408a00-bf71-4892-a399-4325e2bc1fb8> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
-	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is EMPTY; COMPLIANT if the value of dwc:basisOfRecord is valid using the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority default = \"Darwin Core Terms\" [https://dwc.tdwg.org/terms/#dwc:basisOfRecord]" ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is EMPTY; COMPLIANT if the value of dwc:basisOfRecord is valid using the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority default = \"Darwin Core basisOfRecord\" {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]}{dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}" ;
 	rdfs:label "VALIDATION_BASISOFRECORD_STANDARD" .
 
-<urn:uuid:90869ff1-4e50-4650-961c-5b43d84b209f> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:42408a00-bf71-4892-a399-4325e2bc1fb8> ;
+<urn:uuid:59882409-76d8-471b-81ec-666698e4bc43> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:42408a00-bf71-4892-a399-4325e2bc1fb8> ;
 	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
 	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
-<urn:uuid:54a20861-7f04-4a67-b0c1-b20eeeaa8250> <http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:a4776df2-229e-4e97-8be7-13a0a655f346> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:75c2492e-290a-4513-a2ec-504e5ad290c8> ;
+<urn:uuid:01530edd-0e04-4321-9c30-4910ff037549> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
+
+<urn:uuid:59f438fb-ae77-46d8-b961-5a7cc5c7a129> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/basisOfRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:d4bbf9a6-82a1-43af-b7b4-853d61497137> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:59f438fb-ae77-46d8-b961-5a7cc5c7a129> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:01530edd-0e04-4321-9c30-4910ff037549> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
 	rdfs:comment "Does the value of dwc:basisOfRecord occur in bdq:sourceAuthority?" ;
 	rdfs:label "Does the value of dwc:basisOfRecord occur in bdq:sourceAuthority? Validation for SingleRecord" .
 
-<urn:uuid:75c2492e-290a-4513-a2ec-504e5ad290c8> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/basisOfRecord> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:84ec01b2-5217-4a79-848f-94c4b5747575> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:54a20861-7f04-4a67-b0c1-b20eeeaa8250> ;
+<urn:uuid:d8ddcadc-5eb1-4e57-8c81-53d17a491e9d> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:d4bbf9a6-82a1-43af-b7b4-853d61497137> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:42408a00-bf71-4892-a399-4325e2bc1fb8> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
 
-<urn:uuid:a4776df2-229e-4e97-8be7-13a0a655f346> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
-	rdfs:label "Conformance: standard" .
+<urn:uuid:f8f3a093-042c-47a3-971a-a482aaaf3b75> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus is EMPTY; AMENDED the value of dwc:occurrenceStatus if could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority = \"Darwin Core occurrenceStatus\" {https://dwc.tdwg.org/list/#dwc_occurrenceStatus} {dwc:occurrenceStatus vocabulary [https://rs.gbif.org/vocabulary/gbif/occurrence_status_2020-07-15.xml]}" ;
+	rdfs:label "AMENDMENT_OCCURRENCESTATUS_STANDARDIZED" .
 
-<urn:uuid:baac5ab6-2304-46e6-bd59-8553bc2ded22> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:f8f3a093-042c-47a3-971a-a482aaaf3b75> ;
+<urn:uuid:fff01f98-8811-4a0b-9d07-c5e9c5100799> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:f8f3a093-042c-47a3-971a-a482aaaf3b75> ;
 	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
 	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
-<urn:uuid:f8f3a093-042c-47a3-971a-a482aaaf3b75> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
-	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus is EMPTY; AMENDED the value of dwc:occurrenceStatus if could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED dq:sourceAuthority default = \"Darwin Core Standard\" [https://dwc.tdwg.org/terms/#occurrenceStatus]" ;
-	rdfs:label "AMENDMENT_OCCURRENCESTATUS_STANDARDIZED" .
-
-<urn:uuid:51faf424-ef8e-4c05-93aa-cbd237d85594> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/occurrenceStatus> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:7ad640dd-c84a-44ff-a64e-337249fdfc1d> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+<urn:uuid:06b13358-e749-4aed-b44b-3c838f5fcf0c> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
 	rdfs:label "Conformance: standardized" .
 
-<urn:uuid:9adbcf2c-785f-473a-91fe-f67005c12512> <http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:7ad640dd-c84a-44ff-a64e-337249fdfc1d> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:51faf424-ef8e-4c05-93aa-cbd237d85594> ;
+<urn:uuid:27af556b-ce2b-4de6-86a3-efeba04ffa08> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/occurrenceStatus> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:34ec43a9-4c96-41a1-bacf-f66068f35126> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:27af556b-ce2b-4de6-86a3-efeba04ffa08> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:06b13358-e749-4aed-b44b-3c838f5fcf0c> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
 	rdfs:comment "Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority." ;
 	rdfs:label "Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.Amedment for SingleRecord" .
 
-<urn:uuid:f7f1e609-0d7c-479d-a5bd-e5321ec66801> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:9adbcf2c-785f-473a-91fe-f67005c12512> ;
+<urn:uuid:889706ec-8cae-418b-970a-36c7dff6149a> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:34ec43a9-4c96-41a1-bacf-f66068f35126> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:f8f3a093-042c-47a3-971a-a482aaaf3b75> ;
 	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
 
 <urn:uuid:7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
-	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus is EMPTY; COMPLIANT if the value of dwc:occurrenceStatus is resolved by the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority default = \"Darwin Core Standard\" [https://dwc.tdwg.org/terms/#occurrenceStatus]" ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus is EMPTY; COMPLIANT if the value of dwc:occurrenceStatus is resolved by the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority = \"Darwin Core occurrenceStatus\" {https://dwc.tdwg.org/list/#dwc_occurrenceStatus} {dwc:occurrenceStatus vocabulary [https://rs.gbif.org/vocabulary/gbif/occurrence_status_2020-07-15.xml]}" ;
 	rdfs:label "VALIDATION_OCCURRENCESTATUS_STANDARD" .
 
-<urn:uuid:9f0b9670-2a79-48e4-bfee-53d00ffb0e68> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47> ;
+<urn:uuid:c41e599a-d995-4df4-b17e-28ac421c3585> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47> ;
 	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
 	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
-<urn:uuid:0a9eb046-797b-4c2d-a76a-83de757122cd> <http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:ebaa3691-f9c4-444e-ba1f-91af7902424a> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:54d3b779-571d-4fc7-b4bc-74474bf0e4cb> ;
+<urn:uuid:46d6a95f-6d58-4c4d-bc89-760a437972d6> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
+
+<urn:uuid:5c7b90fb-196c-4eba-b803-8abc09531926> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:66addbd3-7249-42af-b495-3f0d4fc74cce> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:46d6a95f-6d58-4c4d-bc89-760a437972d6> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
 	rdfs:comment "Does the value of dwc:occurrenceStatus occur in bdq:sourceAuthority?" ;
 	rdfs:label "Does the value of dwc:occurrenceStatus occur in bdq:sourceAuthority? Validation for SingleRecord" .
 
-<urn:uuid:4ce5c9ba-3c04-4fc0-8620-8fa308f8a55d> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:0a9eb046-797b-4c2d-a76a-83de757122cd> ;
+<urn:uuid:66addbd3-7249-42af-b495-3f0d4fc74cce> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/occurrenceStatus> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:c6426c13-8408-447c-8aaa-5783765daeb2> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:5c7b90fb-196c-4eba-b803-8abc09531926> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
 
-<urn:uuid:54d3b779-571d-4fc7-b4bc-74474bf0e4cb> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/occurrenceStatus> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:ebaa3691-f9c4-444e-ba1f-91af7902424a> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
-	rdfs:label "Conformance: standard" .
+<urn:uuid:98646a3e-0105-4f5b-83a9-f56a501064cf> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
 <urn:uuid:eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
 	rdfs:comment "COMPLIANT if dwc:occurrenceStatus is not EMPTY; otherwise NOT_COMPLIANT " ;
 	rdfs:label "VALIDATION_OCCURRENCESTATUS_NOTEMPTY" .
 
-<urn:uuid:fe78ee65-160c-4f4b-b00e-441be29091ac> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf> ;
-	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
-	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+<urn:uuid:409004c4-9db3-44a5-85b4-d1a4fd572927> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/occurrenceStatus> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
 
-<urn:uuid:62c1098c-8078-4207-b350-002d85eb8db9> <http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:d6cc21de-cea0-438c-8386-dc265c7ec47b> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:fff80941-629e-4352-bcac-6b89a642bcbf> ;
+<urn:uuid:480239a0-204e-4806-bf6e-ac944193377b> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:409004c4-9db3-44a5-85b4-d1a4fd572927> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:6882ffa3-e4fe-4735-900d-204fc7d8407e> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
 	rdfs:comment "Is there a value in dwc:occurrenceStatus?" ;
 	rdfs:label "Is there a value in dwc:occurrenceStatus? Validation for SingleRecord" .
 
-<urn:uuid:6312e587-5758-4e2e-aa7a-aab5ab9c6d8b> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:62c1098c-8078-4207-b350-002d85eb8db9> ;
+<urn:uuid:6808f2af-a341-4ae2-ba77-0c0555bc8701> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:480239a0-204e-4806-bf6e-ac944193377b> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
 
-<urn:uuid:d6cc21de-cea0-438c-8386-dc265c7ec47b> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+<urn:uuid:6882ffa3-e4fe-4735-900d-204fc7d8407e> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
 	rdfs:label "Completeness: notempty" .
 
-<urn:uuid:fff80941-629e-4352-bcac-6b89a642bcbf> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/occurrenceStatus> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:458daf03-f3ce-4b8e-a876-c42cf530ceb2> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8> ;
+<urn:uuid:866ce534-a489-4ac2-b465-9864565fe26b> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8> ;
 	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
 	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
 <urn:uuid:dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
-	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; AMENDED value of dcterms:license if it could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = \"Creative Commons\" [https://creativecommons.org/]" ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; AMENDED value of dcterms:license if it could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = \"Creative Commons\" {[https://creativecommons.org/]} {Creative Commons licenses [https://creativecommons.org/about/cclicenses/]}" ;
 	rdfs:label "AMENDMENT_LICENSE_STANDARDIZED" .
 
-<urn:uuid:49d05dec-e505-4acd-b6bf-2ea6179d2678> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+<urn:uuid:b0317c62-4586-4684-87b4-e65401eb2c4c> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
 	rdfs:label "Conformance: standardized" .
 
-<urn:uuid:526fe09f-1a32-4f84-978b-f84951d0d35b> <http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:49d05dec-e505-4acd-b6bf-2ea6179d2678> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:531a1ab8-694e-46cc-a9ff-c547df3c6b25> ;
+<urn:uuid:c1ea5cea-9cfe-45bc-b3cb-1dcef252f630> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/terms/license> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:d92bc606-c308-4b64-9c0c-999f9efbeef8> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:c1ea5cea-9cfe-45bc-b3cb-1dcef252f630> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:b0317c62-4586-4684-87b4-e65401eb2c4c> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
 	rdfs:comment "Propose amendment to the value of dwc:license using bdq:sourceAuthority." ;
 	rdfs:label "Propose amendment to the value of dwc:license using bdq:sourceAuthority.Amedment for SingleRecord" .
 
-<urn:uuid:531a1ab8-694e-46cc-a9ff-c547df3c6b25> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/terms/license> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
-
-<urn:uuid:9902892d-72a8-4a37-baff-cdaece50c62e> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:526fe09f-1a32-4f84-978b-f84951d0d35b> ;
+<urn:uuid:e633016b-8534-4ee6-aebe-c4e6585e86fe> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:d92bc606-c308-4b64-9c0c-999f9efbeef8> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8> ;
 	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
+
+<urn:uuid:91af2b57-6387-4307-8894-278a13c9f60f> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:cd281f7e-13b3-43ae-8677-de06ffa70bb4> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:cd281f7e-13b3-43ae-8677-de06ffa70bb4> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if dwc:relationshipOfResource is not EMPTY; otherwise NOT_COMPLIANT " ;
+	rdfs:label "VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY" .
+
+<urn:uuid:0cea46a7-41ca-4eff-8e2d-c35206f20c11> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/relationshipOfResource> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:12da9834-e57b-4fd2-aee3-801d3195b524> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:eaf614c9-2599-4ea1-86f0-918dc0b42fb7> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:0cea46a7-41ca-4eff-8e2d-c35206f20c11> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:12da9834-e57b-4fd2-aee3-801d3195b524> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:relationshipOfResource?" ;
+	rdfs:label "Is there a value in dwc:relationshipOfResource? Validation for SingleRecord" .
+
+<urn:uuid:f7a2e170-cef5-485e-adcb-de5780037d5f> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:eaf614c9-2599-4ea1-86f0-918dc0b42fb7> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:cd281f7e-13b3-43ae-8677-de06ffa70bb4> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:3eefe72c-4c7d-4dee-89b6-e9d91d3f1981> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if dwc:reproductiveCondition is not EMPTY; otherwise NOT_COMPLIANT " ;
+	rdfs:label "VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY" .
+
+<urn:uuid:a58898a0-a9c6-406e-9ab3-542d20d70cb1> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:3eefe72c-4c7d-4dee-89b6-e9d91d3f1981> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:246d356a-d678-485b-817d-3c1f2cbeee58> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/reproductiveCondition> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:46528a1b-1b39-48d7-a849-58c383fc70f8> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:a3e92c72-038b-4e6a-b02e-e4bbc913503a> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:246d356a-d678-485b-817d-3c1f2cbeee58> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:46528a1b-1b39-48d7-a849-58c383fc70f8> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:reproductiveCondition?" ;
+	rdfs:label "Is there a value in dwc:reproductiveCondition? Validation for SingleRecord" .
+
+<urn:uuid:f0aef235-1347-4929-8c0d-e33abf1177e4> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:a3e92c72-038b-4e6a-b02e-e4bbc913503a> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:3eefe72c-4c7d-4dee-89b6-e9d91d3f1981> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:4eb48fdf-7299-4d63-9d08-246902e2857f> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:establishmentMeans is EMPTY; COMPLIANT if the value of dwc:establishmentMeans is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = \"Darwin Core establishmentMeans\" {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]}" ;
+	rdfs:label "VALIDATION_ESTABLISHMENTMEANS_STANDARD" .
+
+<urn:uuid:cddb1493-3fd4-4bcb-8dbd-44b122c9bc56> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:4eb48fdf-7299-4d63-9d08-246902e2857f> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:56812ef5-c4a3-4178-a091-2bf2f3b18a8f> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
+
+<urn:uuid:9b65d049-e4de-4855-b38f-9b2932258c76> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/establishmentMeans> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:e256804c-880a-466b-a7f7-4ab256c91eb6> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:9b65d049-e4de-4855-b38f-9b2932258c76> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:56812ef5-c4a3-4178-a091-2bf2f3b18a8f> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Does the value of dwc:establishmentMeans occur in bdq:sourceAuthority?" ;
+	rdfs:label "Does the value of dwc:establishmentMeans occur in bdq:sourceAuthority? Validation for SingleRecord" .
+
+<urn:uuid:ef2bf27e-8d9f-499a-83f2-84a4f7b1d6ec> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:e256804c-880a-466b-a7f7-4ab256c91eb6> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:4eb48fdf-7299-4d63-9d08-246902e2857f> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:15d15927-7a22-43f8-88d6-298f5eb45c4c> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:establishmentMeans is EMPTY; AMENDED the value of dwc:establishmentMeans if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"Darwin Core establishmentMeans\" {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]}" ;
+	rdfs:label "AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED" .
+
+<urn:uuid:f518465e-9280-4a3a-92eb-44ba41bd9dcd> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:15d15927-7a22-43f8-88d6-298f5eb45c4c> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:619b2dd9-7e6d-46e9-a019-23b385d4570e> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:a64fa581-0b42-4cba-a7b7-5f58d4d2aebe> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:15d15927-7a22-43f8-88d6-298f5eb45c4c> ;
+	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
+
+<urn:uuid:6b163a3b-7230-4088-a0e7-76a86b8224f7> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/establishmentMeans> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:a64fa581-0b42-4cba-a7b7-5f58d4d2aebe> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:6b163a3b-7230-4088-a0e7-76a86b8224f7> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:fd1ce3c7-9de8-4af2-b203-1f0cadb30e45> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
+	rdfs:comment "Propose amendment to the value of dwc:establishmentMeans using bdq:sourceAuthority." ;
+	rdfs:label "Propose amendment to the value of dwc:establishmentMeans using bdq:sourceAuthority.Amedment for SingleRecord" .
+
+<urn:uuid:fd1ce3c7-9de8-4af2-b203-1f0cadb30e45> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+	rdfs:label "Conformance: standardized" .
+
+<urn:uuid:07e79079-42e9-48e9-826e-4874ae34bce3> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:lifeStage is EMPTY; AMENDED the value of dwc:lifeStage if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"Darwin Core lifeStage [https://dwc.tdwg.org/list/#dwc_lifeStage]} {dwc:lifeStage vocabulary API\" [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}" ;
+	rdfs:label "AMENDMENT_LIFESTAGE_STANDARDIZED" .
+
+<urn:uuid:2b68fb8e-81fd-442a-861f-2892f732a4db> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:07e79079-42e9-48e9-826e-4874ae34bce3> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:4400b3e4-a842-433c-80d3-e3f1a834c44f> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:ec5d82e2-c20b-486b-9bf6-e0b35b1023cf> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:690f3697-01ac-4005-9772-4621477f6367> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
+	rdfs:comment "Propose amendment to the value of dwc:lifeStage using bdq:sourceAuthority." ;
+	rdfs:label "Propose amendment to the value of dwc:lifeStage using bdq:sourceAuthority.Amedment for SingleRecord" .
+
+<urn:uuid:690f3697-01ac-4005-9772-4621477f6367> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+	rdfs:label "Conformance: standardized" .
+
+<urn:uuid:beaf6015-4c7c-4861-aa75-7bc915881aa7> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:4400b3e4-a842-433c-80d3-e3f1a834c44f> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:07e79079-42e9-48e9-826e-4874ae34bce3> ;
+	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
+
+<urn:uuid:ec5d82e2-c20b-486b-9bf6-e0b35b1023cf> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/lifeStage> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:060e7734-607d-4737-8b2c-bfa17788bf1a> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is EMPTY; COMPLIANT if the value of dwc:degreeOfEstablishment is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = \"Darwin Core degreeOfEstablishment\" {[https://dwc.tdwg.org/list/#dwc_degreeOfEstablishment]} {dwc:degreeOfEstablishment vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]}" ;
+	rdfs:label "VALIDATION_DEGREEOFESTABLISHMENT_STANDARD" .
+
+<urn:uuid:f1890b6f-7529-43a4-8602-937403b1c79c> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:060e7734-607d-4737-8b2c-bfa17788bf1a> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:6d4eceb3-2263-47b3-80c5-daf1d42e5236> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:8d598f80-c12e-4210-934c-60b60c69364b> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:060e7734-607d-4737-8b2c-bfa17788bf1a> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:8d598f80-c12e-4210-934c-60b60c69364b> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:966a1fd6-8626-44ea-987b-176c698c4360> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:a36a310e-3b36-4cfe-8115-039b78994a6c> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Does the value of dwc:degreeOfEstablishment occur in bdq:sourceAuthority?" ;
+	rdfs:label "Does the value of dwc:degreeOfEstablishment occur in bdq:sourceAuthority? Validation for SingleRecord" .
+
+<urn:uuid:966a1fd6-8626-44ea-987b-176c698c4360> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/degreeOfEstablishment> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:a36a310e-3b36-4cfe-8115-039b78994a6c> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
+
+<urn:uuid:74ef1034-e289-4596-b5b0-cde73796697d> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is EMPTY; AMENDED the value of dwc:degreeOfEstablishment if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"Darwin Core degreeOfEstablishment\" {[https://dwc.tdwg.org/list/#dwc_degreeOfEstablishment]} {dwc:degreeOfEstablishment vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]}" ;
+	rdfs:label "AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED" .
+
+<urn:uuid:8a9fff5f-27bd-4fb5-8185-ff68d18e576a> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:74ef1034-e289-4596-b5b0-cde73796697d> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:0689b6c4-38ff-4315-bcc5-4e3c70e63319> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:088752ea-7db6-4077-8202-263d5b2c70b1> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:74ef1034-e289-4596-b5b0-cde73796697d> ;
+	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
+
+<urn:uuid:088752ea-7db6-4077-8202-263d5b2c70b1> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:b8b84382-0bf6-472f-b009-937197ff28f8> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:77dec47e-5aa9-4168-a55a-e726cdcdddc1> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
+	rdfs:comment "Propose amendment to the value of dwc:degreeOfEstablishment using bdq:sourceAuthority." ;
+	rdfs:label "Propose amendment to the value of dwc:degreeOfEstablishment using bdq:sourceAuthority.Amedment for SingleRecord" .
+
+<urn:uuid:77dec47e-5aa9-4168-a55a-e726cdcdddc1> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+	rdfs:label "Conformance: standardized" .
+
+<urn:uuid:b8b84382-0bf6-472f-b009-937197ff28f8> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/degreeOfEstablishment> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:5424e933-bee7-4125-839e-d8743ea69f93> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:pathway is EMPTY; COMPLIANT if the value of dwc:pathway is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = \"Darwin Core pathway\" {[https://dwc.tdwg.org/list/#dwc_pathway]} {dwc:pathway vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]}" ;
+	rdfs:label "VALIDATION_PATHWAY_STANDARD" .
+
+<urn:uuid:55d62196-b035-466c-8a49-8a3d3e94e477> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:5424e933-bee7-4125-839e-d8743ea69f93> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:14cd310f-c0b0-4c46-b4a2-e57d1f9d4313> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
+
+<urn:uuid:187b80b9-0ff9-4a98-84ee-02c8a4412755> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:9ee1cfc1-f643-48bc-9033-9b4d35300bc8> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:5424e933-bee7-4125-839e-d8743ea69f93> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:9ee1cfc1-f643-48bc-9033-9b4d35300bc8> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:bc026765-9536-43bd-96c9-b4aa3b342182> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:14cd310f-c0b0-4c46-b4a2-e57d1f9d4313> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Does the value of dwc:pathway occur in bdq:sourceAuthority?" ;
+	rdfs:label "Does the value of dwc:pathway occur in bdq:sourceAuthority? Validation for SingleRecord" .
+
+<urn:uuid:bc026765-9536-43bd-96c9-b4aa3b342182> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/pathway> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:ddb5edf9-df59-40b7-9bf4-55f7ef7a8b41> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:f9205977-f145-44f5-8cb9-e3e2e35ce908> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:f9205977-f145-44f5-8cb9-e3e2e35ce908> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:pathway is EMPTY; AMENDED the value of dwc:pathway if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"Darwin Core pathway\" {[https://dwc.tdwg.org/list/#dwc_pathway]} {dwc:pathway vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]}" ;
+	rdfs:label "AMENDMENT_PATHWAY_STANDARDIZED" .
+
+<urn:uuid:1322fc7b-d0c7-409a-9fb4-f57c87859f23> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:a67167ab-0226-4b65-b17e-c316bf36fb40> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:f9205977-f145-44f5-8cb9-e3e2e35ce908> ;
+	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
+
+<urn:uuid:3dd07b4c-dc55-455d-843a-de65380aed0a> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+	rdfs:label "Conformance: standardized" .
+
+<urn:uuid:5b79e52d-2a08-4866-8819-a5a5d64730dd> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/pathway> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:a67167ab-0226-4b65-b17e-c316bf36fb40> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:5b79e52d-2a08-4866-8819-a5a5d64730dd> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:3dd07b4c-dc55-455d-843a-de65380aed0a> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
+	rdfs:comment "Propose amendment to the value of dwc:pathway using bdq:sourceAuthority." ;
+	rdfs:label "Propose amendment to the value of dwc:pathway using bdq:sourceAuthority.Amedment for SingleRecord" .
+
+<urn:uuid:4758ea74-d2d3-4656-b17b-4b30147af4dc> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:preparations is EMPTY; COMPLIANT if the value of each element in the list of elements in dwc:preparations is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = \"Darwin Core Preparations {[https://dwc.tdwg.org/list/#dwc_preparations]} {dwc:preparations vocabulary API [NO CURRENT API EXISTS]}" ;
+	rdfs:label "VALIDATION_PREPARATIONS_STANDARD" .
+
+<urn:uuid:e3bf86ec-6288-4963-a8fd-b3fd1e4afecf> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:4758ea74-d2d3-4656-b17b-4b30147af4dc> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:31fccb54-28c8-44ed-8d8c-76afcb6c8c19> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/preparations> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:87e124d8-85b8-45fe-b603-bccd0ccfb382> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:31fccb54-28c8-44ed-8d8c-76afcb6c8c19> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:d032c81c-7156-4ea3-bc55-d4caee879879> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Does the value of dwc:preparations occur in bdq:sourceAuthority?" ;
+	rdfs:label "Does the value of dwc:preparations occur in bdq:sourceAuthority? Validation for SingleRecord" .
+
+<urn:uuid:8a3c3c2b-defc-4db8-ab88-1731d3441d26> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:87e124d8-85b8-45fe-b603-bccd0ccfb382> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:4758ea74-d2d3-4656-b17b-4b30147af4dc> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:d032c81c-7156-4ea3-bc55-d4caee879879> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
+
+<urn:uuid:727ec518-a4ba-4256-98e1-83e21c9a42ca> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:88d8598b-3318-483d-9475-a5acf9887404> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:88d8598b-3318-483d-9475-a5acf9887404> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:sex is EMPTY; COMPLIANT if the value of dwc:sex is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = \"Darwin Core sex\" {[https://dwc.tdwg.org/list/#dwc_sex]} {dwc:sex vocabulary API [NO CURRENT API EXISTS]}" ;
+	rdfs:label "VALIDATION_SEX_STANDARD" .
+
+<urn:uuid:4978e2ef-5be7-49a9-b21b-76b4bd5ed465> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/sex> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:ab341589-eadc-437e-b4a8-54c7a79dc06f> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:4978e2ef-5be7-49a9-b21b-76b4bd5ed465> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:cd12e817-92fe-4a05-99a2-d216214dd37f> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Does the value of dwc:sex occur in bdq:sourceAuthority?" ;
+	rdfs:label "Does the value of dwc:sex occur in bdq:sourceAuthority? Validation for SingleRecord" .
+
+<urn:uuid:cd12e817-92fe-4a05-99a2-d216214dd37f> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
+
+<urn:uuid:e61056c0-c94a-4909-ba47-fefac9b7164b> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:ab341589-eadc-437e-b4a8-54c7a79dc06f> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:88d8598b-3318-483d-9475-a5acf9887404> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:33c45ae1-e2db-462a-a59e-7169bb01c5d6> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:sex is EMPTY; AMENDED the value of dwc:sex if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"Darwin Core sex\" {[https://dwc.tdwg.org/list/#dwc_sex]} {dwc:sex vocabulary API [NO CURRENT API EXISTS]}" ;
+	rdfs:label "AMENDMENT_SEX_STANDARDIZED" .
+
+<urn:uuid:6a926e36-e72f-40d0-a346-ee0a7ba646ee> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:33c45ae1-e2db-462a-a59e-7169bb01c5d6> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:05c12c11-1a4f-470a-84a6-52b11a7d6074> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:5f861fd8-6086-4ee7-988e-8fac07f326ac> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:a017c9b2-475e-4894-a328-69e0a01fc805> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
+	rdfs:comment "Propose amendment to the value of dwc:sex using bdq:sourceAuthority." ;
+	rdfs:label "Propose amendment to the value of dwc:sex using bdq:sourceAuthority.Amedment for SingleRecord" .
+
+<urn:uuid:5f861fd8-6086-4ee7-988e-8fac07f326ac> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/sex> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:771d7ea1-19b9-475a-ab46-7da159ddc05b> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:05c12c11-1a4f-470a-84a6-52b11a7d6074> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:33c45ae1-e2db-462a-a59e-7169bb01c5d6> ;
+	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
+
+<urn:uuid:a017c9b2-475e-4894-a328-69e0a01fc805> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+	rdfs:label "Conformance: standardized" .
+
+<urn:uuid:10426c52-ee4c-4083-a09c-957824a6affa> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:4833a522-12eb-4fe0-b4cf-7f7a337a6048> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:4833a522-12eb-4fe0-b4cf-7f7a337a6048> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is EMPTY; COMPLIANT if the value of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = \"Darwin Core typeStatus\" {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}" ;
+	rdfs:label "VALIDATION_TYPESTATUS_STANDARD" .
+
+<urn:uuid:0d2cdb9f-cb05-4551-97a3-7fc81781e616> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:c0f894a4-9a52-4e59-8745-069fc4a6d9c9> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:4833a522-12eb-4fe0-b4cf-7f7a337a6048> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:4faf7c5a-aeb3-46b8-b028-ab8002ff65e5> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/typeStatus> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:6dd9b694-7857-4cd5-a0b9-528f6d8b502a> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
+
+<urn:uuid:c0f894a4-9a52-4e59-8745-069fc4a6d9c9> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:4faf7c5a-aeb3-46b8-b028-ab8002ff65e5> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:6dd9b694-7857-4cd5-a0b9-528f6d8b502a> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Does the value of dwc:typeStatus occur in bdq:sourceAuthority?" ;
+	rdfs:label "Does the value of dwc:typeStatus occur in bdq:sourceAuthority? Validation for SingleRecord" .
+
+<urn:uuid:a1b0e19d-eeb4-4a13-af6e-9370d49c2511> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:b3471c65-b53e-453b-8282-abfa27bf1805> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:b3471c65-b53e-453b-8282-abfa27bf1805> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is EMPTY; AMENDED the value of dwc:typeStatus if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"Darwin Core typeStatus\" {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}" ;
+	rdfs:label "AMENDMENT_TYPESTATUS_STANDARDIZED" .
+
+<urn:uuid:0cf82fc2-29e1-4cfd-a717-48bf12bd8b8e> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:b073b8fe-d13e-4a8d-8c02-08eb6ffaf3c1> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:319ddab1-3fa3-4b2f-a73a-cc9d03be456c> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
+	rdfs:comment "Propose amendment to the value of dwc:typeStatus using bdq:sourceAuthority." ;
+	rdfs:label "Propose amendment to the value of dwc:typeStatus using bdq:sourceAuthority.Amedment for SingleRecord" .
+
+<urn:uuid:319ddab1-3fa3-4b2f-a73a-cc9d03be456c> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+	rdfs:label "Conformance: standardized" .
+
+<urn:uuid:b073b8fe-d13e-4a8d-8c02-08eb6ffaf3c1> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/typeStatus> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:f86fd43b-e525-4a5a-925a-8aa87d8f46c5> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:0cf82fc2-29e1-4cfd-a717-48bf12bd8b8e> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:b3471c65-b53e-453b-8282-abfa27bf1805> ;
+	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
+
+<urn:uuid:0fa16c7e-eb9c-4add-9193-aca6087d6636> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if dwc:degreeOfEstablishment is not EMPTY; otherwise NOT_COMPLIANT " ;
+	rdfs:label "VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY" .
+
+<urn:uuid:51ec8407-fe07-4369-8635-a40693ddef4f> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:0fa16c7e-eb9c-4add-9193-aca6087d6636> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:1f8324ca-29db-4519-a45c-94745fa0207f> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:2c6d3b48-b4d1-4642-a5e8-9dbd564f276d> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:af42e0ef-9640-4c31-91e2-6e1f0fe87cd5> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:degreeOfEstablishment?" ;
+	rdfs:label "Is there a value in dwc:degreeOfEstablishment? Validation for SingleRecord" .
+
+<urn:uuid:2c6d3b48-b4d1-4642-a5e8-9dbd564f276d> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/degreeOfEstablishment> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:96027d02-e4f9-4104-a16b-a6128f180b3c> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:1f8324ca-29db-4519-a45c-94745fa0207f> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:0fa16c7e-eb9c-4add-9193-aca6087d6636> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:af42e0ef-9640-4c31-91e2-6e1f0fe87cd5> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:be2e492b-d2e3-4ab7-a0ce-25f2dd95e67b> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:fffdc42b-b15e-4450-9e6a-f4181a319106> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:fffdc42b-b15e-4450-9e6a-f4181a319106> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if dwc:pathway is not EMPTY; otherwise NOT_COMPLIANT " ;
+	rdfs:label "VALIDATION_PATHWAY_NOTEMPTY" .
+
+<urn:uuid:852d318d-8ba9-4886-8938-00271125aa50> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:b3627780-56b2-45af-b9d5-05c24f6fda45> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:a1ca5a2d-6f76-4ff8-b068-f0b33e8c9657> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:pathway?" ;
+	rdfs:label "Is there a value in dwc:pathway? Validation for SingleRecord" .
+
+<urn:uuid:a1ca5a2d-6f76-4ff8-b068-f0b33e8c9657> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:b3627780-56b2-45af-b9d5-05c24f6fda45> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/pathway> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:f6dc5415-a584-45ab-8e11-954bc82b0f9f> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:852d318d-8ba9-4886-8938-00271125aa50> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:fffdc42b-b15e-4450-9e6a-f4181a319106> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
 
 <urn:uuid:13d5a10e-188e-40fd-a22c-dbaa87b91df2> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
 	rdfs:comment "POTENTIAL_ISSUE if dwc:dataGeneralizations is not EMPTY; otherwise NOT_ISSUE " ;
 	rdfs:label "ISSUE_DATAGENERALIZATIONS_NOTEMPTY" .
 
-<urn:uuid:213f8fe0-c9c5-44c3-9b04-21d0e0a17901> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:13d5a10e-188e-40fd-a22c-dbaa87b91df2> ;
+<urn:uuid:7b15c470-2223-4a76-bc58-5df34f5b4337> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:13d5a10e-188e-40fd-a22c-dbaa87b91df2> ;
 	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
 	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
 
-<urn:uuid:14f7e12e-691a-429d-ae55-d523a462f8d9> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:13d5a10e-188e-40fd-a22c-dbaa87b91df2> ;
-	<http://rs.tdwg.org/bdq/ffdq/issueInContext> <urn:uuid:349001a5-28ec-44fe-917d-bc1f2686a3b5> ;
+<urn:uuid:3dc9e3f4-c602-40a9-ac0f-77fdd40eb76e> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:13d5a10e-188e-40fd-a22c-dbaa87b91df2> ;
+	<http://rs.tdwg.org/bdq/ffdq/issueInContext> <urn:uuid:ba2ba1eb-d5f7-4170-b1eb-ed1dcc038d3b> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ProblemMethod> .
 
-<urn:uuid:2e09bc2a-6aae-4822-8033-eb6897674023> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/dataGeneralizations> ;
-	a <http://rs.tdwg.org/bdq/ffdq/InformationElement> .
+<urn:uuid:6a5254a2-ccd0-41e5-9193-cc3388c1758c> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/dataGeneralizations> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
 
-<urn:uuid:349001a5-28ec-44fe-917d-bc1f2686a3b5> <http://rs.tdwg.org/bdq/ffdq/hasInformationElement> <urn:uuid:2e09bc2a-6aae-4822-8033-eb6897674023> ;
-	<http://rs.tdwg.org/bdq/ffdq/hasIssue> <urn:uuid:e300a157-d4a7-41a6-9dce-34e98703004b> ;
+<urn:uuid:ba2ba1eb-d5f7-4170-b1eb-ed1dcc038d3b> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:6a5254a2-ccd0-41e5-9193-cc3388c1758c> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasIssue> <urn:uuid:f82659db-9551-4793-b18e-349fb4d79130> ;
 	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
 	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedIssue> ;
 	rdfs:comment "Is there a value in dwc:dataGeneralizations?" ;
 	rdfs:label "Is there a value in dwc:dataGeneralizations? Issue for SingleRecord" .
 
-<urn:uuid:e300a157-d4a7-41a6-9dce-34e98703004b> a <http://rs.tdwg.org/bdq/ffdq/Issue> ;
+<urn:uuid:f82659db-9551-4793-b18e-349fb4d79130> a <http://rs.tdwg.org/bdq/ffdq/Issue> ;
 	rdfs:label "Resolution: notempty" .
+
+<urn:uuid:43abded0-c3bf-44e7-8c1f-c4207608b1fa> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if the value of dwc:individualCount is interpretable an integer; otherwise NOT_COMPLIANT. " ;
+	rdfs:label "VALIDATION_INDIVIDUALCOUNT_INTEGER" .
+
+<urn:uuid:ff603996-e53f-420d-8ecf-cf1bffbb9bc9> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:43abded0-c3bf-44e7-8c1f-c4207608b1fa> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:10cfa648-cc0f-4809-8f05-24ae29bdb72a> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/individualCount> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:118e527f-8ba5-45ca-ad3a-e662809bb3ec> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: integer" .
+
+<urn:uuid:77f25004-38f6-406b-b8b2-375651d4fe2d> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:10cfa648-cc0f-4809-8f05-24ae29bdb72a> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:118e527f-8ba5-45ca-ad3a-e662809bb3ec> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is dwc:individualCount an Integer ?" ;
+	rdfs:label "Is dwc:individualCount an Integer ? Validation for SingleRecord" .
+
+<urn:uuid:ba577b8b-deb3-40bf-83f5-27c43e95b74d> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:77f25004-38f6-406b-b8b2-375651d4fe2d> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:43abded0-c3bf-44e7-8c1f-c4207608b1fa> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:592fd980-7cc3-4c9d-94cd-d84289612d5b> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:fffdc42b-b15e-4450-9e6a-f4181a319106> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:16b079b1-632b-44c6-8853-6f4c430629d2> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:7cc1441e-7b51-4508-b0c1-757f684e340a> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:fffdc42b-b15e-4450-9e6a-f4181a319106> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:750082db-cce2-424f-af3c-9c48fac21f93> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/pathway> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:7bfc80e2-bcf0-4a07-91c8-ab11efb98a47> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:7cc1441e-7b51-4508-b0c1-757f684e340a> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:750082db-cce2-424f-af3c-9c48fac21f93> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:7bfc80e2-bcf0-4a07-91c8-ab11efb98a47> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:pathway?" ;
+	rdfs:label "Is there a value in dwc:pathway? Validation for SingleRecord" .
+
+<urn:uuid:b4b43b7e-549a-4d11-aae4-e44fe05a55ca> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:0fa16c7e-eb9c-4add-9193-aca6087d6636> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:03a17738-c5f7-4a6d-9360-94f97ca9a626> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:c73498a0-1944-451f-ba45-e60918a99251> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:0fa16c7e-eb9c-4add-9193-aca6087d6636> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:0664670f-3f45-4ee2-86f9-a504448926b7> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/degreeOfEstablishment> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:23258819-a597-4560-8cdd-78c83e3640ab> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:c73498a0-1944-451f-ba45-e60918a99251> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:0664670f-3f45-4ee2-86f9-a504448926b7> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:23258819-a597-4560-8cdd-78c83e3640ab> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:degreeOfEstablishment?" ;
+	rdfs:label "Is there a value in dwc:degreeOfEstablishment? Validation for SingleRecord" .
+
+<urn:uuid:10ef7660-3e08-4b74-95d3-66131275cf31> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:reproductiveCondition is EMPTY; AMENDED the value of dwc:reproductiveCondition if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"Darwin Core reproductionCondition\" {[https://dwc.tdwg.org/list/#dwc_reproductiveCondition]} {dwc:reproductiveCondition vocabulary API [NO CURRENT API EXISTS]}" ;
+	rdfs:label "AMENDMENT_REPRODUCTIVECONDITION_STANDARDIZED" .
+
+<urn:uuid:ad2fc1f1-6c75-47c8-9e40-dc32fed48b5b> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:10ef7660-3e08-4b74-95d3-66131275cf31> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:bc493eec-beb6-497a-931a-f1d1371bdea9> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:eb5b86a6-703e-4f96-987f-3618d5218430> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:faf32efb-7273-4f4a-99b8-93fe59e92497> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
+	rdfs:comment "Propose amendment to the value of dwc:preparations using bdq:sourceAuthority." ;
+	rdfs:label "Propose amendment to the value of dwc:preparations using bdq:sourceAuthority.Amedment for SingleRecord" .
+
+<urn:uuid:d466b145-251d-4933-b9d1-9f2ed203f370> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:bc493eec-beb6-497a-931a-f1d1371bdea9> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:10ef7660-3e08-4b74-95d3-66131275cf31> ;
+	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
+
+<urn:uuid:eb5b86a6-703e-4f96-987f-3618d5218430> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/reproductiveCondition> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:faf32efb-7273-4f4a-99b8-93fe59e92497> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+	rdfs:label "Conformance: standardized" .
+
+<urn:uuid:8d0cbfee-4524-4da3-83d4-bebc4c4f7cd2> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:preparations is EMPTY; AMENDED the value of dwc:preparations if at least one item in the list of preparations, comparing and amending item by item in the list, ignoring leading or trailing whitespace in each item,  can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"Darwin Core preparations {[https://dwc.tdwg.org/list/#dwc_preparations]} {dwc:preparations vocabulary API [NO CURRENT API EXISTS]}" ;
+	rdfs:label "AMENDMENT_PREPARATIONS_STANDARDIZED" .
+
+<urn:uuid:b16cfc15-6719-461c-ba56-9db471d28b8c> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:8d0cbfee-4524-4da3-83d4-bebc4c4f7cd2> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:370e1904-3f64-4fed-98c7-c08722fd11b5> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+	rdfs:label "Conformance: standardized" .
+
+<urn:uuid:901510a0-90e6-46c1-aa19-1ae423e53e4e> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/preparations> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:dbd99c5e-d87d-4648-ab4b-540ca35f4bc2> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:e48c7645-962b-4f75-8625-0d1f8af3fbcb> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:8d0cbfee-4524-4da3-83d4-bebc4c4f7cd2> ;
+	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
+
+<urn:uuid:e48c7645-962b-4f75-8625-0d1f8af3fbcb> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:901510a0-90e6-46c1-aa19-1ae423e53e4e> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:370e1904-3f64-4fed-98c7-c08722fd11b5> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
+	rdfs:comment "Propose amendment to the value of dwc:preparations using bdq:sourceAuthority." ;
+	rdfs:label "Propose amendment to the value of dwc:preparations using bdq:sourceAuthority.Amedment for SingleRecord" .
+
+<urn:uuid:82a8e2c4-7d71-4c5b-9b66-f87aad101c4b> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:c253f11a-6161-4692-bfce-4328f1961630> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:c253f11a-6161-4692-bfce-4328f1961630> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "INTERNAL_PREREQUISITES_NOT_MET if dcterms:modified is EMPTY; COMPLIANT if the value of dcterms:modified is a valid ISO 8601-1 date; otherwise NOT_COMPLIANT. " ;
+	rdfs:label "VALIDATION_MODIFIED_STANDARD" .
+
+<urn:uuid:4a20d174-47bb-4c6f-ae63-a1bac5c439b0> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/terms/modified> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:8c757798-484f-4c78-bb63-52f3c5e8af99> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:d33012ed-84fd-49d9-a873-0a4bc5e5fba5> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:c253f11a-6161-4692-bfce-4328f1961630> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:c99ca73d-1ee0-49c2-b674-9c972ba9d0f0> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
+
+<urn:uuid:d33012ed-84fd-49d9-a873-0a4bc5e5fba5> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:4a20d174-47bb-4c6f-ae63-a1bac5c439b0> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:c99ca73d-1ee0-49c2-b674-9c972ba9d0f0> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Does the value of dcterms:modified a valid ISO date?" ;
+	rdfs:label "Does the value of dcterms:modified a valid ISO date? Validation for SingleRecord" .
+
+<urn:uuid:660533b5-e7b5-401e-852d-f687d38dbf17> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:07e79079-42e9-48e9-826e-4874ae34bce3> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:00568bbb-c667-4a02-9feb-135bf54ad5af> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/lifeStage> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:403bbac3-e38d-4cd6-bcc6-e4acd858347e> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:00568bbb-c667-4a02-9feb-135bf54ad5af> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasEnhancement> <urn:uuid:f1cf7803-654c-4343-99c9-82a2919a31fb> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedEnhancement> ;
+	rdfs:comment "Propose amendment to the value of dwc:lifeStage using bdq:sourceAuthority." ;
+	rdfs:label "Propose amendment to the value of dwc:lifeStage using bdq:sourceAuthority.Amedment for SingleRecord" .
+
+<urn:uuid:f1cf7803-654c-4343-99c9-82a2919a31fb> a <http://rs.tdwg.org/bdq/ffdq/Enhancement> ;
+	rdfs:label "Conformance: standardized" .
+
+<urn:uuid:fc5db668-eb08-4c92-8f39-af5576743c84> <http://rs.tdwg.org/bdq/ffdq/enhancementInContext> <urn:uuid:403bbac3-e38d-4cd6-bcc6-e4acd858347e> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:07e79079-42e9-48e9-826e-4874ae34bce3> ;
+	a <http://rs.tdwg.org/bdq/ffdq/AmendmentMethod> .
+
+<urn:uuid:be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:lifeStage is EMPTY; COMPLIANT if the value of dwc:lifeStage is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = \"Darwin Core lifeStage [https://dwc.tdwg.org/list/#dwc_lifeStage]} {dwc:lifeStage vocabulary\" [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}" ;
+	rdfs:label "VALIDATION_LIFESTAGE_STANDARD" .
+
+<urn:uuid:d33bc6ca-2373-4f71-93f8-2a1ab074774c> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:0778cc16-04b7-438e-a751-6dceffb0f3bb> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:20234de2-d585-4a96-a7ab-3bd779ac60ec> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:0d875a63-1777-44fb-b403-e3c1ab4bb844> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Does the value of dwc:lifeStage occur in bdq:sourceAuthority?" ;
+	rdfs:label "Does the value of dwc:lifeStage occur in bdq:sourceAuthority? Validation for SingleRecord" .
+
+<urn:uuid:0d875a63-1777-44fb-b403-e3c1ab4bb844> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Conformance: standard" .
+
+<urn:uuid:20234de2-d585-4a96-a7ab-3bd779ac60ec> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/lifeStage> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:51d3dfb6-70ad-4709-a05b-5ee4a429c72d> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:0778cc16-04b7-438e-a751-6dceffb0f3bb> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:76067adf-1422-4d03-89e3-9067c3043700> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if dwc:sex is not EMPTY; otherwise NOT_COMPLIANT " ;
+	rdfs:label "VALIDATION_SEX_NOTEMPTY" .
+
+<urn:uuid:92caf69b-dc6b-4220-bf77-179668b5bf6d> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:76067adf-1422-4d03-89e3-9067c3043700> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:4a44649f-dbe1-4de4-9d7d-c1391fd9516f> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:e887123f-8000-42f2-9208-6a188bcf21fd> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:76067adf-1422-4d03-89e3-9067c3043700> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:5a3e289d-3fdf-4207-bc87-639f28553757> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:6aca6afc-af2e-4717-87a1-1eb99fa507e5> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/sex> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:e887123f-8000-42f2-9208-6a188bcf21fd> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:6aca6afc-af2e-4717-87a1-1eb99fa507e5> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:5a3e289d-3fdf-4207-bc87-639f28553757> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:sex?" ;
+	rdfs:label "Is there a value in dwc:sex? Validation for SingleRecord" .
+
+<urn:uuid:69b11233-cf33-4d55-bc4c-a5ea43d61d64> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:3eefe72c-4c7d-4dee-89b6-e9d91d3f1981> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:15ffa7df-ffcc-4eb2-8f9b-be9e1f53ff62> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:d7ea0b7e-0a8c-473d-ac1a-df310580224b> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:3eefe72c-4c7d-4dee-89b6-e9d91d3f1981> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:1acc4ca8-30bd-4ff4-b468-2728a07f48bb> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/reproductiveCondition> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:d7ea0b7e-0a8c-473d-ac1a-df310580224b> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:1acc4ca8-30bd-4ff4-b468-2728a07f48bb> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:e4431cc2-214a-4396-8690-19c566cbfad5> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:reproductiveCondition?" ;
+	rdfs:label "Is there a value in dwc:reproductiveCondition? Validation for SingleRecord" .
+
+<urn:uuid:e4431cc2-214a-4396-8690-19c566cbfad5> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:2fa35b64-1397-4c8f-94bb-e05d1670a3c9> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:cd281f7e-13b3-43ae-8677-de06ffa70bb4> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:0d536d0d-2d9c-4e09-bbad-582b62e71a7a> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:98188bba-9688-491d-9170-93efc3c1902b> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:12ca14b0-407f-48bd-9e48-eada11ec8497> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:relationshipOfResource?" ;
+	rdfs:label "Is there a value in dwc:relationshipOfResource? Validation for SingleRecord" .
+
+<urn:uuid:12ca14b0-407f-48bd-9e48-eada11ec8497> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:24a19f5e-654f-48c3-b520-71e3c7019f06> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:0d536d0d-2d9c-4e09-bbad-582b62e71a7a> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:cd281f7e-13b3-43ae-8677-de06ffa70bb4> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:98188bba-9688-491d-9170-93efc3c1902b> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/relationshipOfResource> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:2aa1b7a0-0473-4a90-bf11-a02137c5c65b> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if dwc:preparations is not EMPTY; otherwise NOT_COMPLIANT " ;
+	rdfs:label "VALIDATION_PREPARATIONS_NOTEMPTY" .
+
+<urn:uuid:f3c207a7-b2a0-4919-b737-b9ccb12be516> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:2aa1b7a0-0473-4a90-bf11-a02137c5c65b> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:25c8218e-5fa3-466d-b77e-4993cba35293> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:3b45a6dc-1621-456a-a60f-eb561585da0f> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:fe2b6734-f0d6-48ce-935a-e15f26237ac3> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:2aa1b7a0-0473-4a90-bf11-a02137c5c65b> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:d849ed32-3f6d-4525-9a0c-6610f3b28a0f> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/preparations> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:fe2b6734-f0d6-48ce-935a-e15f26237ac3> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:d849ed32-3f6d-4525-9a0c-6610f3b28a0f> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:25c8218e-5fa3-466d-b77e-4993cba35293> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:preparations?" ;
+	rdfs:label "Is there a value in dwc:preparations? Validation for SingleRecord" .
+
+<urn:uuid:3bd2477c-6497-43b0-94e6-b811eed1b1cb> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if dwc:recordNumber is not EMPTY; otherwise NOT_COMPLIANT " ;
+	rdfs:label "VALIDATION_RECORDNUMBER_NOTEMPTY" .
+
+<urn:uuid:ae1e9489-2fab-4b0e-90f3-1dc27a8645e2> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:3bd2477c-6497-43b0-94e6-b811eed1b1cb> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:13dacc35-9f81-4267-966e-0a757c363352> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/recordNumber> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:28c6cd5f-b12d-4d76-aefb-3d66d2d22e6b> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:e28f9bec-653c-4a41-bf67-761bf9be4913> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:3bd2477c-6497-43b0-94e6-b811eed1b1cb> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:e28f9bec-653c-4a41-bf67-761bf9be4913> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:13dacc35-9f81-4267-966e-0a757c363352> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:e5c14d35-3a49-4caa-b12c-20c762d8f598> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:recordNumber?" ;
+	rdfs:label "Is there a value in dwc:recordNumber? Validation for SingleRecord" .
+
+<urn:uuid:e5c14d35-3a49-4caa-b12c-20c762d8f598> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:986ad95d-ffa1-4e3b-a6cb-ed943c87be0d> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if dwc:recordedBy is not EMPTY; otherwise NOT_COMPLIANT " ;
+	rdfs:label "VALIDATION_RECORDEDBY_NOTEMPTY" .
+
+<urn:uuid:b1d477a5-a547-4acd-ab67-0a243bd97e1f> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:986ad95d-ffa1-4e3b-a6cb-ed943c87be0d> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:2bdddf84-4af2-4d8f-8706-a347c933a8fe> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/recordedBy> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:78aa59e7-4aa7-40fc-90aa-c34a3e11e5bc> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:2bdddf84-4af2-4d8f-8706-a347c933a8fe> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:87dcc57d-2f70-4711-81ba-18720de14516> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:recordedBy?" ;
+	rdfs:label "Is there a value in dwc:recordedBy? Validation for SingleRecord" .
+
+<urn:uuid:87dcc57d-2f70-4711-81ba-18720de14516> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:cccf5cb6-974c-49ca-9179-b1009f234af1> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:78aa59e7-4aa7-40fc-90aa-c34a3e11e5bc> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:986ad95d-ffa1-4e3b-a6cb-ed943c87be0d> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if dwc:lifeStage is not EMPTY; otherwise NOT_COMPLIANT " ;
+	rdfs:label "VALIDATION_LIFESTAGE_NOTEMPTY" .
+
+<urn:uuid:caac03ef-b63e-4ef4-95d4-ff3cbfe3c3f4> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:07e95965-a743-44b0-851a-f1d64852a877> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:1c28a02d-36e0-4fbf-8c1e-adc28752b1c6> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:994734eb-5be0-4f61-9321-f1ace720c11d> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:07e95965-a743-44b0-851a-f1d64852a877> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:lifeStage?" ;
+	rdfs:label "Is there a value in dwc:lifeStage? Validation for SingleRecord" .
+
+<urn:uuid:994734eb-5be0-4f61-9321-f1ace720c11d> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/lifeStage> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:e0b8dbcf-81f2-4332-9ff0-80d87618c67c> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:1c28a02d-36e0-4fbf-8c1e-adc28752b1c6> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:aff0facd-1d2a-40a5-a55a-61f950cd68a0> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if dwc:individualCount is not EMPTY; otherwise NOT_COMPLIANT " ;
+	rdfs:label "VALIDATION_INDIVIDUALCOUNT_NOTEMPTY" .
+
+<urn:uuid:ee1a9336-91d2-4d4b-9841-6d51fcf2d338> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:aff0facd-1d2a-40a5-a55a-61f950cd68a0> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:0dfecdc7-43ca-4571-bd7c-b51a5e6d56aa> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:63cc1936-a880-4d81-a7e3-de5c68b9c4de> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:aff0facd-1d2a-40a5-a55a-61f950cd68a0> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:4eaa1c67-088d-43cd-922c-4e5070a40bc6> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/individualCount> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:63cc1936-a880-4d81-a7e3-de5c68b9c4de> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:4eaa1c67-088d-43cd-922c-4e5070a40bc6> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:75f7c642-e45a-46a6-9a98-99b69fd22081> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:individualCount?" ;
+	rdfs:label "Is there a value in dwc:individualCount? Validation for SingleRecord" .
+
+<urn:uuid:75f7c642-e45a-46a6-9a98-99b69fd22081> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:b4c17611-2703-474f-b46a-93b08ecfee16> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if dwc:disposition is not EMPTY; otherwise NOT_COMPLIANT " ;
+	rdfs:label "VALIDATION_DISPOSITION_NOTEMPTY" .
+
+<urn:uuid:bdd03055-1832-4b81-b6b9-cd9873a06003> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:b4c17611-2703-474f-b46a-93b08ecfee16> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:0b96cf45-743e-4303-af4f-7f4eb1eddc82> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://rs.tdwg.org/dwc/terms/disposition> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
+
+<urn:uuid:3b916ce9-b977-44e9-8d2b-a3a1b3633107> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:729f67d7-9c2a-4744-b988-5e008955a3cd> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:d5278e60-9b21-4e88-8dc0-699ae2419d7a> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:b4c17611-2703-474f-b46a-93b08ecfee16> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:d5278e60-9b21-4e88-8dc0-699ae2419d7a> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:0b96cf45-743e-4303-af4f-7f4eb1eddc82> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:3b916ce9-b977-44e9-8d2b-a3a1b3633107> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dwc:disposition?" ;
+	rdfs:label "Is there a value in dwc:disposition? Validation for SingleRecord" .
+
+<urn:uuid:bd17b835-1cc3-44e3-ab98-2b61022f9b73> <http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:e17918fc-25ca-4a3a-828b-4502432b98c4> ;
+	<http://rs.tdwg.org/bdq/ffdq/implementedBy> <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> ;
+	a <http://rs.tdwg.org/bdq/ffdq/Implementation> .
+
+<urn:uuid:e17918fc-25ca-4a3a-828b-4502432b98c4> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
+	rdfs:comment "COMPLIANT if dcterms:modified is not EMPTY; otherwise NOT_COMPLIANT " ;
+	rdfs:label "VALIDATION_MODIFIED_NOTEMPTY" .
+
+<urn:uuid:05d5946a-996c-4f6f-9c75-b286d5d2cd81> a <http://rs.tdwg.org/bdq/ffdq/Criterion> ;
+	rdfs:label "Completeness: notempty" .
+
+<urn:uuid:25ed6b0a-3d74-4a19-b31f-db2b31903a64> <http://rs.tdwg.org/bdq/ffdq/criterionInContext> <urn:uuid:4315c62d-807e-4c50-8c24-a62e2dd0389d> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasSpecification> <urn:uuid:e17918fc-25ca-4a3a-828b-4502432b98c4> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ValidationMethod> .
+
+<urn:uuid:4315c62d-807e-4c50-8c24-a62e2dd0389d> <http://rs.tdwg.org/bdq/ffdq/hasActedUponInformationElement> <urn:uuid:5c439970-0c94-456c-be4b-ef56fdf913a5> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasCriterion> <urn:uuid:05d5946a-996c-4f6f-9c75-b286d5d2cd81> ;
+	<http://rs.tdwg.org/bdq/ffdq/hasResourceType> <rt:SingleRecord> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ContextualizedCriterion> ;
+	rdfs:comment "Is there a value in dcterms:modified?" ;
+	rdfs:label "Is there a value in dcterms:modified? Validation for SingleRecord" .
+
+<urn:uuid:5c439970-0c94-456c-be4b-ef56fdf913a5> <http://rs.tdwg.org/bdq/ffdq/composedOf> <http://purl.org/dc/terms/modified> ;
+	a <http://rs.tdwg.org/bdq/ffdq/ActedUpon> .
