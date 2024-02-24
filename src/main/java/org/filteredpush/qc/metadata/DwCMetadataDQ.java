@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.datakurator.ffdq.annotations.ActedUpon;
 import org.datakurator.ffdq.annotations.Amendment;
+import org.datakurator.ffdq.annotations.Consulted;
 import org.datakurator.ffdq.annotations.Issue;
 import org.datakurator.ffdq.annotations.Mechanism;
 import org.datakurator.ffdq.annotations.Parameter;
@@ -1213,55 +1214,6 @@ public class DwCMetadataDQ {
         return result;
     }
 
-    /**
-    * Is there a value in dwc:pathway?
-    *
-    * Provides: VALIDATION_PATHWAY_NOTEMPTY
-    * Version: 2024-02-10
-    *
-    * @param pathway the provided dwc:pathway to evaluate as ActedUpon.
-    * @return DQResponse the response of type ComplianceValue  to return
-    */
-    @Validation(label="VALIDATION_PATHWAY_NOTEMPTY", description="Is there a value in dwc:pathway?")
-    @Provides("fffdc42b-b15e-4450-9e6a-f4181a319106")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/fffdc42b-b15e-4450-9e6a-f4181a319106/2024-02-10")
-    @Specification("COMPLIANT if dwc:pathway is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationPathwayNotempty(
-        @ActedUpon("dwc:pathway") String pathway
-    ) {
-        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
-
-        //TODO:  Implement specification
-        // COMPLIANT if dwc:pathway is not EMPTY; otherwise NOT_COMPLIANT 
-        // 
-
-        return result;
-    }
-
-    /**
-    * Is there a value in dwc:degreeOfEstablishment?
-    *
-    * Provides: VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY
-    * Version: 2024-02-10
-    *
-    * @param degreeOfEstablishment the provided dwc:degreeOfEstablishment to evaluate as ActedUpon.
-    * @return DQResponse the response of type ComplianceValue  to return
-    */
-    @Validation(label="VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY", description="Is there a value in dwc:degreeOfEstablishment?")
-    @Provides("0fa16c7e-eb9c-4add-9193-aca6087d6636")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/0fa16c7e-eb9c-4add-9193-aca6087d6636/2024-02-10")
-    @Specification("COMPLIANT if dwc:degreeOfEstablishment is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationDegreeofestablishmentNotempty(
-        @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment
-    ) {
-        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
-
-        //TODO:  Implement specification
-        // COMPLIANT if dwc:degreeOfEstablishment is not EMPTY; otherwise 
-        // NOT_COMPLIANT 
-
-        return result;
-    }
 
     /**
     * Propose amendment to the value of dwc:preparations using bdq:sourceAuthority.
@@ -1360,40 +1312,6 @@ public class DwCMetadataDQ {
     }
 
     /**
-    * Propose amendment to the value of dwc:lifeStage using bdq:sourceAuthority.
-    *
-    * Provides: AMENDMENT_LIFESTAGE_STANDARDIZED
-    * Version: 2024-02-09
-    *
-    * @param lifeStage the provided dwc:lifeStage to evaluate as ActedUpon.
-    * @return DQResponse the response of type AmendmentValue to return
-    */
-    @Amendment(label="AMENDMENT_LIFESTAGE_STANDARDIZED", description="Propose amendment to the value of dwc:lifeStage using bdq:sourceAuthority.")
-    @Provides("07e79079-42e9-48e9-826e-4874ae34bce3")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/07e79079-42e9-48e9-826e-4874ae34bce3/2024-02-09")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:lifeStage is EMPTY; AMENDED the value of dwc:lifeStage if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core lifeStage [https://dwc.tdwg.org/list/#dwc_lifeStage]} {dwc:lifeStage vocabulary API' [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}")
-    public DQResponse<AmendmentValue> amendmentLifestageStandardized(
-        @ActedUpon("dwc:lifeStage") String lifeStage
-    ) {
-        DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
-
-        //TODO:  Implement specification
-        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
-        // is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:lifeStage 
-        // is EMPTY; AMENDED the value of dwc:lifeStage if it can be 
-        // unambiguously matched to a term in bdq:sourceAuthority; 
-        // otherwise NOT_AMENDED bdq:sourceAuthority default = "Darwin 
-        // Core lifeStage [https://dwc.tdwg.org/list/#dwc_lifeStage]} 
-        // {dwc:lifeStage vocabulary API" [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]} 
-        // 
-
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
-
-        return result;
-    }
-
-    /**
     * Does the value of dwc:lifeStage occur in bdq:sourceAuthority?
     *
     * Provides: VALIDATION_LIFESTAGE_STANDARD
@@ -1451,55 +1369,6 @@ public class DwCMetadataDQ {
         return result;
     }
 
-    /**
-    * Is there a value in dwc:reproductiveCondition?
-    *
-    * Provides: VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY
-    * Version: 2024-02-07
-    *
-    * @param reproductiveCondition the provided dwc:reproductiveCondition to evaluate as ActedUpon.
-    * @return DQResponse the response of type ComplianceValue  to return
-    */
-    @Validation(label="VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY", description="Is there a value in dwc:reproductiveCondition?")
-    @Provides("3eefe72c-4c7d-4dee-89b6-e9d91d3f1981")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/3eefe72c-4c7d-4dee-89b6-e9d91d3f1981/2024-02-07")
-    @Specification("COMPLIANT if dwc:reproductiveCondition is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationReproductiveconditionNotempty(
-        @ActedUpon("dwc:reproductiveCondition") String reproductiveCondition
-    ) {
-        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
-
-        //TODO:  Implement specification
-        // COMPLIANT if dwc:reproductiveCondition is not EMPTY; otherwise 
-        // NOT_COMPLIANT 
-
-        return result;
-    }
-
-    /**
-    * Is there a value in dwc:relationshipOfResource?
-    *
-    * Provides: VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY
-    * Version: 2024-02-07
-    *
-    * @param relationshipOfResource the provided dwc:relationshipOfResource to evaluate as ActedUpon.
-    * @return DQResponse the response of type ComplianceValue  to return
-    */
-    @Validation(label="VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY", description="Is there a value in dwc:relationshipOfResource?")
-    @Provides("cd281f7e-13b3-43ae-8677-de06ffa70bb4")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/cd281f7e-13b3-43ae-8677-de06ffa70bb4/2024-02-07")
-    @Specification("COMPLIANT if dwc:relationshipOfResource is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationRelationshipofresourceNotempty(
-        @ActedUpon("dwc:relationshipOfResource") String relationshipOfResource
-    ) {
-        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
-
-        //TODO:  Implement specification
-        // COMPLIANT if dwc:relationshipOfResource is not EMPTY; otherwise 
-        // NOT_COMPLIANT 
-
-        return result;
-    }
 
     /**
     * Is there a value in dwc:preparations?
