@@ -66,6 +66,9 @@ import org.datakurator.ffdq.model.ResultState;
  * 23	3cfe9ab4-79f8-4afd-8da5-723183ef16a3	VALIDATION_OCCURRENCEID_STANDARD
  * 46	3f335517-f442-4b98-b149-1e87ff16de45	VALIDATION_SCIENTIFICNAME_FOUND
  *
+ * And the following supplementary tests: 
+ * 
+ * #224 VALIDATION_MODIFIED_NOTEMPTY e17918fc-25ca-4a3a-828b-4502432b98c4
  * 
  * @author mole
  *
@@ -1523,7 +1526,7 @@ public class DwCMetadataDQ {
     /**
     * Is there a value in dcterms:modified?
     *
-    * Provides: VALIDATION_MODIFIED_NOTEMPTY
+    * Provides: #224 VALIDATION_MODIFIED_NOTEMPTY
     * Version: 2024-01-29
     *
     * @param modified the provided dcterms:modified to evaluate as ActedUpon.
@@ -1538,10 +1541,20 @@ public class DwCMetadataDQ {
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // COMPLIANT if dcterms:modified is not EMPTY; otherwise NOT_COMPLIANT 
         // 
 
+		if (MetadataUtils.isEmpty(modified)) {
+			result.addComment("No value provided for dcterms:modified.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dcterms:modified.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
+        
         return result;
     }
 
