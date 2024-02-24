@@ -69,6 +69,7 @@ import org.datakurator.ffdq.model.ResultState;
  * And the following supplementary tests: 
  * 
  * #224 VALIDATION_MODIFIED_NOTEMPTY e17918fc-25ca-4a3a-828b-4502432b98c4
+ * #235 VALIDATION_LIFESTAGE_NOTEMPTY 34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87
  * 
  * @author mole
  *
@@ -1461,15 +1462,24 @@ public class DwCMetadataDQ {
     @Provides("34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87/2024-01-29")
     @Specification("COMPLIANT if dwc:lifeStage is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationLifestageNotempty(
+    public static DQResponse<ComplianceValue> validationLifestageNotempty(
         @ActedUpon("dwc:lifeStage") String lifeStage
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // COMPLIANT if dwc:lifeStage is not EMPTY; otherwise NOT_COMPLIANT 
         // 
-
+		if (MetadataUtils.isEmpty(lifeStage)) {
+			result.addComment("No value provided for dwc:lifeStage.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dwc:lifeStage.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
+        
         return result;
     }
 
@@ -1536,7 +1546,7 @@ public class DwCMetadataDQ {
     @Provides("e17918fc-25ca-4a3a-828b-4502432b98c4")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/e17918fc-25ca-4a3a-828b-4502432b98c4/2024-01-29")
     @Specification("COMPLIANT if dcterms:modified is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationModifiedNotempty(
+    public static DQResponse<ComplianceValue> validationModifiedNotempty(
         @ActedUpon("dcterms:modified") String modified
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();

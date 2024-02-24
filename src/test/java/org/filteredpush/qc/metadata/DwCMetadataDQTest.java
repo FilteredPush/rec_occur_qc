@@ -16,7 +16,7 @@
  * limitations under the License. 
  *
  */
-package rec_occur_qc;
+package org.filteredpush.qc.metadata;
 
 import static org.junit.Assert.*;
 
@@ -358,4 +358,47 @@ public class DwCMetadataDQTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationLifestageNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationLifestageNotempty() {
+		
+		String lifeStage = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationLifestageNotempty(lifeStage);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		lifeStage = "";
+		result = DwCMetadataDQ.validationLifestageNotempty(lifeStage);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationModifiedNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationModifiedNotempty() {
+		String modified = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationModifiedNotempty(modified);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		modified = "";
+		result = DwCMetadataDQ.validationModifiedNotempty(modified);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
 }
