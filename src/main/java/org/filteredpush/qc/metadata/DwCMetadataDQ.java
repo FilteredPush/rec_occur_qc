@@ -74,6 +74,12 @@ import org.datakurator.ffdq.model.ResultState;
  * #232 VALIDATION_INDIVIDUALCOUNT_NOTEMPTY aff0facd-1d2a-40a5-a55a-61f950cd68a0
  * #242 VALIDATION_RECORDEDBY_NOTEMPTY 986ad95d-ffa1-4e3b-a6cb-ed943c87be0d
  * #243 VALIDATION_RECORDNUMBER_NOTEMPTY 3bd2477c-6497-43b0-94e6-b811eed1b1cb
+ * #260 VALIDATION_PREPARATIONS_NOTEMPTY 2aa1b7a0-0473-4a90-bf11-a02137c5c65b
+ * #263 VALIDATION_SEX_NOTEMPTY 76067adf-1422-4d03-89e3-9067c3043700
+ * #261 VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY cd281f7e-13b3-43ae-8677-de06ffa70bb4
+ * #262 VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY 3eefe72c-4c7d-4dee-89b6-e9d91d3f1981
+ * #288 VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY 0fa16c7e-eb9c-4add-9193-aca6087d6636
+ * #289 VALIDATION_PATHWAY_NOTEMPTY fffdc42b-b15e-4450-9e6a-f4181a319106
  * 
  * @author mole
  *
@@ -697,7 +703,7 @@ public class DwCMetadataDQ {
     /**
     * Is there a value in dwc:relationshipOfResource?
     *
-    * Provides: VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY
+    * Provides: #261 VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY
     * Version: 2024-02-07
     *
     * @param relationshipOfResource the provided dwc:relationshipOfResource to evaluate as ActedUpon.
@@ -707,22 +713,32 @@ public class DwCMetadataDQ {
     @Provides("cd281f7e-13b3-43ae-8677-de06ffa70bb4")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/cd281f7e-13b3-43ae-8677-de06ffa70bb4/2024-02-07")
     @Specification("COMPLIANT if dwc:relationshipOfResource is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationRelationshipofresourceNotempty(
+    public static DQResponse<ComplianceValue> validationRelationshipofresourceNotempty(
         @ActedUpon("dwc:relationshipOfResource") String relationshipOfResource
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // COMPLIANT if dwc:relationshipOfResource is not EMPTY; otherwise 
         // NOT_COMPLIANT 
 
+		if (MetadataUtils.isEmpty(relationshipOfResource)) {
+			result.addComment("No value provided for dwc:relationshipOfResource.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dwc:relationshipOfResource.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
+        
         return result;
     }
 
     /**
     * Is there a value in dwc:reproductiveCondition?
     *
-    * Provides: VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY
+    * Provides: #262 VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY
     * Version: 2024-02-07
     *
     * @param reproductiveCondition the provided dwc:reproductiveCondition to evaluate as ActedUpon.
@@ -732,15 +748,25 @@ public class DwCMetadataDQ {
     @Provides("3eefe72c-4c7d-4dee-89b6-e9d91d3f1981")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/3eefe72c-4c7d-4dee-89b6-e9d91d3f1981/2024-02-07")
     @Specification("COMPLIANT if dwc:reproductiveCondition is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationReproductiveconditionNotempty(
+    public static DQResponse<ComplianceValue> validationReproductiveconditionNotempty(
         @ActedUpon("dwc:reproductiveCondition") String reproductiveCondition
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // COMPLIANT if dwc:reproductiveCondition is not EMPTY; otherwise 
         // NOT_COMPLIANT 
 
+		if (MetadataUtils.isEmpty(reproductiveCondition)) {
+			result.addComment("No value provided for dwc:reproductiveCondition.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dwc:reproductiveCondition.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
+        
         return result;
     }
 
@@ -1149,7 +1175,7 @@ public class DwCMetadataDQ {
     /**
     * Is there a value in dwc:degreeOfEstablishment?
     *
-    * Provides: VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY
+    * Provides: #288 VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY
     * Version: 2024-02-10
     *
     * @param degreeOfEstablishment the provided dwc:degreeOfEstablishment to evaluate as ActedUpon.
@@ -1159,14 +1185,24 @@ public class DwCMetadataDQ {
     @Provides("0fa16c7e-eb9c-4add-9193-aca6087d6636")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/0fa16c7e-eb9c-4add-9193-aca6087d6636/2024-02-10")
     @Specification("COMPLIANT if dwc:degreeOfEstablishment is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationDegreeofestablishmentNotempty(
+    public static DQResponse<ComplianceValue> validationDegreeofestablishmentNotempty(
         @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // COMPLIANT if dwc:degreeOfEstablishment is not EMPTY; otherwise 
         // NOT_COMPLIANT 
+        
+		if (MetadataUtils.isEmpty(degreeOfEstablishment)) {
+			result.addComment("No value provided for dwc:degreeOfEstablishment.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dwc:degreeOfEstablishment.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
 
         return result;
     }
@@ -1174,7 +1210,7 @@ public class DwCMetadataDQ {
     /**
     * Is there a value in dwc:pathway?
     *
-    * Provides: VALIDATION_PATHWAY_NOTEMPTY
+    * Provides: #289 VALIDATION_PATHWAY_NOTEMPTY
     * Version: 2024-02-10
     *
     * @param pathway the provided dwc:pathway to evaluate as ActedUpon.
@@ -1184,15 +1220,25 @@ public class DwCMetadataDQ {
     @Provides("fffdc42b-b15e-4450-9e6a-f4181a319106")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/fffdc42b-b15e-4450-9e6a-f4181a319106/2024-02-10")
     @Specification("COMPLIANT if dwc:pathway is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationPathwayNotempty(
+    public static DQResponse<ComplianceValue> validationPathwayNotempty(
         @ActedUpon("dwc:pathway") String pathway
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // COMPLIANT if dwc:pathway is not EMPTY; otherwise NOT_COMPLIANT 
         // 
 
+		if (MetadataUtils.isEmpty(pathway)) {
+			result.addComment("No value provided for dwc:pathway.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dwc:pathway.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
+        
         return result;
     }
 
@@ -1355,7 +1401,7 @@ public class DwCMetadataDQ {
     /**
     * Is there a value in dwc:sex?
     *
-    * Provides: VALIDATION_SEX_NOTEMPTY
+    * Provides: #263 VALIDATION_SEX_NOTEMPTY
     * Version: 2024-02-07
     *
     * @param sex the provided dwc:sex to evaluate as ActedUpon.
@@ -1365,14 +1411,23 @@ public class DwCMetadataDQ {
     @Provides("76067adf-1422-4d03-89e3-9067c3043700")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/76067adf-1422-4d03-89e3-9067c3043700/2024-02-07")
     @Specification("COMPLIANT if dwc:sex is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationSexNotempty(
+    public static DQResponse<ComplianceValue> validationSexNotempty(
         @ActedUpon("dwc:sex") String sex
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // COMPLIANT if dwc:sex is not EMPTY; otherwise NOT_COMPLIANT 
         // 
+		if (MetadataUtils.isEmpty(sex)) {
+			result.addComment("No value provided for dwc:sex.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dwc:sex.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
 
         return result;
     }
@@ -1381,7 +1436,7 @@ public class DwCMetadataDQ {
     /**
     * Is there a value in dwc:preparations?
     *
-    * Provides: VALIDATION_PREPARATIONS_NOTEMPTY
+    * Provides: #260 VALIDATION_PREPARATIONS_NOTEMPTY
     * Version: 2024-02-07
     *
     * @param preparations the provided dwc:preparations to evaluate as ActedUpon.
@@ -1391,14 +1446,23 @@ public class DwCMetadataDQ {
     @Provides("2aa1b7a0-0473-4a90-bf11-a02137c5c65b")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/2aa1b7a0-0473-4a90-bf11-a02137c5c65b/2024-02-07")
     @Specification("COMPLIANT if dwc:preparations is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationPreparationsNotempty(
+    public static DQResponse<ComplianceValue> validationPreparationsNotempty(
         @ActedUpon("dwc:preparations") String preparations
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // COMPLIANT if dwc:preparations is not EMPTY; otherwise NOT_COMPLIANT 
-        // 
+        
+		if (MetadataUtils.isEmpty(preparations)) {
+			result.addComment("No value provided for dwc:preparations.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dwc:preparations.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
 
         return result;
     }

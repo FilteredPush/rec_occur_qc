@@ -359,6 +359,94 @@ public class DwCMetadataDQTest {
 	}
 
 	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationPathwayNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationPathwayNotempty() {
+		
+		String pathway = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationPathwayNotempty(pathway);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		pathway = "";
+		result = DwCMetadataDQ.validationPathwayNotempty(pathway);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationDegreeofestablishmentNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationDegreeofestablishmentNotempty() {
+		
+		String degreeOfEstablishment = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationDegreeofestablishmentNotempty(degreeOfEstablishment);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		degreeOfEstablishment = "";
+		result = DwCMetadataDQ.validationDegreeofestablishmentNotempty(degreeOfEstablishment);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationReproductiveconditionNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationReproductiveconditionNotempty() {
+		
+		String reproductiveCondition = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationReproductiveconditionNotempty(reproductiveCondition);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		reproductiveCondition = "";
+		result = DwCMetadataDQ.validationReproductiveconditionNotempty(reproductiveCondition);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationRelationshipofresourceNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationRelationshipofresourceNotempty() {
+		
+		String relationshipOfResource = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationRelationshipofresourceNotempty(relationshipOfResource);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		relationshipOfResource = "";
+		result = DwCMetadataDQ.validationRelationshipofresourceNotempty(relationshipOfResource);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
+	/**
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationLifestageNotempty(java.lang.String)}.
 	 */
 	@Test
@@ -395,6 +483,50 @@ public class DwCMetadataDQTest {
 		
 		recordNumber = "";
 		result = DwCMetadataDQ.validationRecordnumberNotempty(recordNumber);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationSexNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationSexNotempty() {
+		
+		String sex = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationSexNotempty(sex);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		sex = "";
+		result = DwCMetadataDQ.validationSexNotempty(sex);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationPreparationsNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationPreparationsNotempty() {
+		
+		String preparations = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationPreparationsNotempty(preparations);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		preparations = "";
+		result = DwCMetadataDQ.validationPreparationsNotempty(preparations);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
 		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
