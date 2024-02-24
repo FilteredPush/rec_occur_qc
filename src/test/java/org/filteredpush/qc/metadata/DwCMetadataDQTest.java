@@ -381,6 +381,104 @@ public class DwCMetadataDQTest {
 	}
 
 	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationRecordnumberNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationRecordnumberNotempty() {
+		
+		String recordNumber = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationRecordnumberNotempty(recordNumber);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		recordNumber = "";
+		result = DwCMetadataDQ.validationRecordnumberNotempty(recordNumber);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationRecordedbyNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationRecordedbyNotempty() {
+		
+		String recordedBy = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationRecordedbyNotempty(recordedBy);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		recordedBy = "";
+		result = DwCMetadataDQ.validationRecordedbyNotempty(recordedBy);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationIndividualcountNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationIndividualcountNotempty() {
+		
+		String individualCount = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationIndividualcountNotempty(individualCount);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		individualCount = "1";
+		result = DwCMetadataDQ.validationIndividualcountNotempty(individualCount);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		individualCount = "";
+		result = DwCMetadataDQ.validationIndividualcountNotempty(individualCount);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationDispositionNotempty(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationDispositionNotempty() {
+		
+		String disposition = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationDispositionNotempty(disposition);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		disposition = "";
+		result = DwCMetadataDQ.validationDispositionNotempty(disposition);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
+	/**
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationModifiedNotempty(java.lang.String)}.
 	 */
 	@Test

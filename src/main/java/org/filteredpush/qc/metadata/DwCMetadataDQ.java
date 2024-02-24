@@ -70,6 +70,10 @@ import org.datakurator.ffdq.model.ResultState;
  * 
  * #224 VALIDATION_MODIFIED_NOTEMPTY e17918fc-25ca-4a3a-828b-4502432b98c4
  * #235 VALIDATION_LIFESTAGE_NOTEMPTY 34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87
+ * #225 VALIDATION_DISPOSITION_NOTEMPTY b4c17611-2703-474f-b46a-93b08ecfee16
+ * #232 VALIDATION_INDIVIDUALCOUNT_NOTEMPTY aff0facd-1d2a-40a5-a55a-61f950cd68a0
+ * #242 VALIDATION_RECORDEDBY_NOTEMPTY 986ad95d-ffa1-4e3b-a6cb-ed943c87be0d
+ * #243 VALIDATION_RECORDNUMBER_NOTEMPTY 3bd2477c-6497-43b0-94e6-b811eed1b1cb
  * 
  * @author mole
  *
@@ -1402,7 +1406,7 @@ public class DwCMetadataDQ {
     /**
     * Is there a value in dwc:recordNumber?
     *
-    * Provides: VALIDATION_RECORDNUMBER_NOTEMPTY
+    * Provides: #243 VALIDATION_RECORDNUMBER_NOTEMPTY
     * Version: 2024-02-04
     *
     * @param recordNumber the provided dwc:recordNumber to evaluate as ActedUpon.
@@ -1412,14 +1416,23 @@ public class DwCMetadataDQ {
     @Provides("3bd2477c-6497-43b0-94e6-b811eed1b1cb")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/3bd2477c-6497-43b0-94e6-b811eed1b1cb/2024-02-04")
     @Specification("COMPLIANT if dwc:recordNumber is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationRecordnumberNotempty(
+    public static DQResponse<ComplianceValue> validationRecordnumberNotempty(
         @ActedUpon("dwc:recordNumber") String recordNumber
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // COMPLIANT if dwc:recordNumber is not EMPTY; otherwise NOT_COMPLIANT 
-        // 
+        
+		if (MetadataUtils.isEmpty(recordNumber)) {
+			result.addComment("No value provided for dwc:recordNumber.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dwc:recordNumber.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
 
         return result;
     }
@@ -1427,7 +1440,7 @@ public class DwCMetadataDQ {
     /**
     * Is there a value in dwc:recordedBy?
     *
-    * Provides: VALIDATION_RECORDEDBY_NOTEMPTY
+    * Provides: #242 VALIDATION_RECORDEDBY_NOTEMPTY
     * Version: 2024-02-04
     *
     * @param recordedBy the provided dwc:recordedBy to evaluate as ActedUpon.
@@ -1437,15 +1450,24 @@ public class DwCMetadataDQ {
     @Provides("986ad95d-ffa1-4e3b-a6cb-ed943c87be0d")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/986ad95d-ffa1-4e3b-a6cb-ed943c87be0d/2024-02-04")
     @Specification("COMPLIANT if dwc:recordedBy is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationRecordedbyNotempty(
+    public static DQResponse<ComplianceValue> validationRecordedbyNotempty(
         @ActedUpon("dwc:recordedBy") String recordedBy
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // COMPLIANT if dwc:recordedBy is not EMPTY; otherwise NOT_COMPLIANT 
-        // 
-
+         
+		if (MetadataUtils.isEmpty(recordedBy)) {
+			result.addComment("No value provided for dwc:recordedBy.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dwc:recordedBy.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
+        
         return result;
     }
 
@@ -1469,7 +1491,7 @@ public class DwCMetadataDQ {
 
         // Specification
         // COMPLIANT if dwc:lifeStage is not EMPTY; otherwise NOT_COMPLIANT 
-        // 
+        
 		if (MetadataUtils.isEmpty(lifeStage)) {
 			result.addComment("No value provided for dwc:lifeStage.");
 			result.setValue(ComplianceValue.NOT_COMPLIANT);
@@ -1496,15 +1518,25 @@ public class DwCMetadataDQ {
     @Provides("aff0facd-1d2a-40a5-a55a-61f950cd68a0")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/aff0facd-1d2a-40a5-a55a-61f950cd68a0/2024-01-29")
     @Specification("COMPLIANT if dwc:individualCount is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationIndividualcountNotempty(
+    public static DQResponse<ComplianceValue> validationIndividualcountNotempty(
         @ActedUpon("dwc:individualCount") String individualCount
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // COMPLIANT if dwc:individualCount is not EMPTY; otherwise 
         // NOT_COMPLIANT 
 
+		if (MetadataUtils.isEmpty(individualCount)) {
+			result.addComment("No value provided for dwc:individualCount.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dwc:individualCount.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
+        
         return result;
     }
 
@@ -1521,14 +1553,23 @@ public class DwCMetadataDQ {
     @Provides("b4c17611-2703-474f-b46a-93b08ecfee16")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/b4c17611-2703-474f-b46a-93b08ecfee16/2024-01-29")
     @Specification("COMPLIANT if dwc:disposition is not EMPTY; otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationDispositionNotempty(
+    public static DQResponse<ComplianceValue> validationDispositionNotempty(
         @ActedUpon("dwc:disposition") String disposition
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // COMPLIANT if dwc:disposition is not EMPTY; otherwise NOT_COMPLIANT 
-        // 
+        
+		if (MetadataUtils.isEmpty(disposition)) {
+			result.addComment("No value provided for dwc:disposition.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		} else { 
+			result.addComment("Some value provided for dwc:disposition.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+		}
 
         return result;
     }
@@ -1553,7 +1594,6 @@ public class DwCMetadataDQ {
 
         // Specification
         // COMPLIANT if dcterms:modified is not EMPTY; otherwise NOT_COMPLIANT 
-        // 
 
 		if (MetadataUtils.isEmpty(modified)) {
 			result.addComment("No value provided for dcterms:modified.");
