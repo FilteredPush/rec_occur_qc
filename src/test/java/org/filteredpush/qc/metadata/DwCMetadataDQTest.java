@@ -97,8 +97,106 @@ public class DwCMetadataDQTest {
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationLicenseStandard(java.lang.String)}.
 	 */
 	@Test
-	public void testValidationLicenseStandard() {
-		fail("Not yet implemented");
+	public void validationLicenseStandard() {
+		String license = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		license = "";
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());	
+		
+		license = "https://creativecommons.org/licenses/by-sa/4.0/";
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		license = "https://creativecommons.org/licenses/by-sa/4.0/deed";
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		license = "https://creativecommons.org/licenses/by-sa/4.0/legalcode.es";
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		license = "https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hans";
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		license = "https://creativecommons.org/publicdomain/zero/1.0/";
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		license = "https://creativecommons.org/publicdomain/zero/1.0/deed";
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		license = "https://creativecommons.org/publicdomain/zero/1.0/deed.en";
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		license = "https://creativecommons.org/publicdomain/zero/1.0/legalcode.es";
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		
+		license = "CC BY-SA";  // string literal, not appropriate for license.
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		license = "CC_BY_SA_4_0"; // GBIF internal string constant
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		license = "https://creativecommons.org/licenses/by-sa/4.0/deed.zz";  // not a language code
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		license = "https//creativecommons.org/licenses/by-sa/4.0/deed.cy";  // no translation (yet)
+		result = DwCMetadataDQDefaults.validationLicenseStandard(license);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		
 	}
 
 	/**

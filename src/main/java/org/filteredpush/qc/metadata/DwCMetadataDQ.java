@@ -21,6 +21,8 @@ package org.filteredpush.qc.metadata;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,6 +56,7 @@ import org.datakurator.ffdq.model.ResultState;
  * #104 42408a00-bf71-4892-a399-4325e2bc1fb8	VALIDATION_BASISOFRECORD_STANDARD 
  * #116	7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47	VALIDATION_OCCURRENCESTATUS_STANDARD
  * #91	cdaabb0d-a863-49d0-bc0f-738d771acba5	VALIDATION_DCTYPE_STANDARD
+ * #38	3136236e-04b6-49ea-8b34-a65f25e3aba1	VALIDATION_LICENSE_STANDARD
  * 
  * 
  * TODO: Implement:
@@ -64,7 +67,6 @@ import org.datakurator.ffdq.model.ResultState;
  * 133	dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8	AMENDMENT_LICENSE_STANDARDIZED
  * 75	96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5	AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
  * 115	f8f3a093-042c-47a3-971a-a482aaaf3b75	AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
- * 38	3136236e-04b6-49ea-8b34-a65f25e3aba1	VALIDATION_LICENSE_STANDARD
  * 23	3cfe9ab4-79f8-4afd-8da5-723183ef16a3	VALIDATION_OCCURRENCEID_STANDARD
  * 46	3f335517-f442-4b98-b149-1e87ff16de45	VALIDATION_SCIENTIFICNAME_FOUND
  *
@@ -469,33 +471,73 @@ public class DwCMetadataDQ {
     /**
     * Does the value of dcterms:license occur in bdq:sourceAuthority?
     *
-    * Provides: VALIDATION_LICENSE_STANDARD
+    * Provides:  #38 VALIDATION_LICENSE_STANDARD
     * Version: 2023-09-17
     *
     * @param license the provided dcterms:license to evaluate as ActedUpon.
+    * @param sourceAuthority the specified source authority for licences.
     * @return DQResponse the response of type ComplianceValue  to return
     */
     @Validation(label="VALIDATION_LICENSE_STANDARD", description="Does the value of dcterms:license occur in bdq:sourceAuthority?")
     @Provides("3136236e-04b6-49ea-8b34-a65f25e3aba1")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/3136236e-04b6-49ea-8b34-a65f25e3aba1/2023-09-17")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dcterms:license is EMPTY; COMPLIANT if the value of the term dcterms:license is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority default = 'Creative Commons' {[https://creativecommons.org/]} {Creative Commons licenses [https://creativecommons.org/about/cclicenses/]}")
-    public DQResponse<ComplianceValue> validationLicenseStandard(
-        @ActedUpon("dcterms:license") String license
+    public static DQResponse<ComplianceValue> validationLicenseStandard(
+        @ActedUpon("dcterms:license") String license,
+    	@Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dcterms:license 
         // is EMPTY; COMPLIANT if the value of the term dcterms:license 
         // is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority 
-        // default = "Creative Commons" {[https://creativecommons.org/]} 
-        // {Creative Commons licenses [https://creativecommons.org/about/cclicenses/]} 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
+        // TODO: Implementation ahead of specification, change default to obtain regex.
+        // Parameters. This test is defined as parameterized.
         // bdq:sourceAuthority
-
+        // default = "Creative Commons" {[https://creativecommons.org/]} 
+        // {Creative Commons licenses [https://creativecommons.org/about/cclicenses/]} 
+        
+ 
+        if (sourceAuthority==null) { sourceAuthority = "Creative Commons"; }
+        String pattern = "";
+        if (sourceAuthority.equals("Creative Commons")) { 
+        	// regex to match cc licences, version 4, and public domain dedication, version 1
+        	pattern = "^(http(s){0,1}://creativecommons[.]org/licenses/"
+        			+ "(by|by-sa|by-nc|by-nc-sa|by-nd|by-nc-nd)/4[.]0/"
+        			+ "((deed|legalcode)"
+        			+ "([.](id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|mi|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)"
+        			+ "){0,1}){0,1})"
+        			+ "|"
+        			+ "(http(s){0,1}://creativecommons[.]org/publicdomain/zero/1[.]0/"
+        			+ "((deed|legalcode)"
+        			+ "([.](id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)"
+        			+ "){0,1}){0,1})$";
+        	Pattern licencePattern = Pattern.compile(pattern);
+        	Matcher m = licencePattern.matcher(license);
+        } else { 
+			result.addComment("Unknown Source Authority ["+sourceAuthority+"]");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        }
+        logger.debug(pattern);
+        if (pattern.length() > 0) { 
+        	if (MetadataUtils.isEmpty(license)) {
+        		result.addComment("No value provided for dwc:licence.");
+        		result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        	} else if (license.matches(pattern)) {	
+        		result.addComment("Provided value for dwc:license conforms to expectations.");
+        		result.setValue(ComplianceValue.COMPLIANT);
+        		result.setResultState(ResultState.RUN_HAS_RESULT);
+        	} else { 
+        		result.addComment("Provided value for dwc:licence [" + license +"] does not conform to expectations.");
+        		result.setValue(ComplianceValue.NOT_COMPLIANT);
+        		result.setResultState(ResultState.RUN_HAS_RESULT);
+        	}
+        }
+		
         return result;
     }
 

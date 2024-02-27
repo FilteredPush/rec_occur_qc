@@ -21,7 +21,10 @@ package org.filteredpush.qc.metadata;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.datakurator.ffdq.annotations.ActedUpon;
+import org.datakurator.ffdq.annotations.Parameter;
 import org.datakurator.ffdq.annotations.Provides;
+import org.datakurator.ffdq.annotations.ProvidesVersion;
+import org.datakurator.ffdq.annotations.Specification;
 import org.datakurator.ffdq.annotations.Validation;
 import org.datakurator.ffdq.api.DQResponse;
 import org.datakurator.ffdq.api.result.ComplianceValue;
@@ -62,4 +65,24 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     		@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus) {
     	return validationOccurrencestatusStandard(occurrenceStatus, null);
     }
+    
+    /**
+    * Does the value of dcterms:license occur in bdq:sourceAuthority?
+    *
+    * Provides: VALIDATION_LICENSE_STANDARD
+    * Version: 2023-09-17
+    *
+    * @param license the provided dcterms:license to evaluate as ActedUpon.
+    * @return DQResponse the response of type ComplianceValue  to return
+    */
+    @Validation(label="VALIDATION_LICENSE_STANDARD", description="Does the value of dcterms:license occur in bdq:sourceAuthority?")
+    @Provides("3136236e-04b6-49ea-8b34-a65f25e3aba1")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/3136236e-04b6-49ea-8b34-a65f25e3aba1/2023-09-17")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dcterms:license is EMPTY; COMPLIANT if the value of the term dcterms:license is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority default = 'Creative Commons' {[https://creativecommons.org/]} {Creative Commons licenses [https://creativecommons.org/about/cclicenses/]}")
+    public static DQResponse<ComplianceValue> validationLicenseStandard(
+        @ActedUpon("dcterms:license") String license
+    ) {
+    	return validationLicenseStandard(license,null);
+    }
+   
 }
