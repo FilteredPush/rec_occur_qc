@@ -20,6 +20,10 @@ package org.filteredpush.qc.metadata;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.datakurator.ffdq.api.DQResponse;
@@ -37,6 +41,8 @@ import org.junit.Test;
 public class DwCMetadataDQTest {
 
 	private static final Log logger = LogFactory.getLog(DwCMetadataDQTest.class);
+
+	protected static final String dcTypeLiterals = "Collection,Dataset,Event,Image,InteractiveResource,MovingImage,PhysicalObject,Service,Software,Sound,StillImage,Text";
 
 	/**
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#issueDatageneralizationsNotempty(java.lang.String)}.
@@ -172,7 +178,56 @@ public class DwCMetadataDQTest {
 	 */
 	@Test
 	public void testValidationDctypeStandard() {
-		fail("Not yet implemented");
+		
+		String dcType = "PhysicalObject";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationDctypeStandard(dcType);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		ArrayList<String> dcTypeLiteralList = new ArrayList<String>(Arrays.asList(dcTypeLiterals.split(",")));
+		Iterator<String> i = dcTypeLiteralList.iterator();
+		while (i.hasNext()){ 
+			dcType=i.next();
+			
+			result = DwCMetadataDQ.validationDctypeStandard(dcType);
+			logger.debug(result.getComment());
+			assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+			assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+			assertNotNull(result.getComment());
+			
+			dcType = " " + dcType;
+			result = DwCMetadataDQ.validationDctypeStandard(dcType);
+			logger.debug(result.getComment());
+			assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+			assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+			assertNotNull(result.getComment());
+			
+		}
+		
+		dcType = "";
+		result = DwCMetadataDQ.validationDctypeStandard(dcType);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+		
+		dcType = "foo";
+		result = DwCMetadataDQ.validationDctypeStandard(dcType);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		// correct value for dcterms:type, but not for dctype
+		dcType = "http://purl.org/dc/dcmitype/Collection";
+		result = DwCMetadataDQ.validationDctypeStandard(dcType);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
 	}
 
 	/**

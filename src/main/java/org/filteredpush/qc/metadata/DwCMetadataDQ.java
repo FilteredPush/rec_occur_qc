@@ -18,6 +18,8 @@
  */
 package org.filteredpush.qc.metadata;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -51,6 +53,7 @@ import org.datakurator.ffdq.model.ResultState;
  * #117	eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf	VALIDATION_OCCURRENCESTATUS_NOTEMPTY
  * #104 42408a00-bf71-4892-a399-4325e2bc1fb8	VALIDATION_BASISOFRECORD_STANDARD 
  * #116	7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47	VALIDATION_OCCURRENCESTATUS_STANDARD
+ * #91	cdaabb0d-a863-49d0-bc0f-738d771acba5	VALIDATION_DCTYPE_STANDARD
  * 
  * 
  * TODO: Implement:
@@ -61,7 +64,6 @@ import org.datakurator.ffdq.model.ResultState;
  * 133	dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8	AMENDMENT_LICENSE_STANDARDIZED
  * 75	96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5	AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
  * 115	f8f3a093-042c-47a3-971a-a482aaaf3b75	AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
- * 91	cdaabb0d-a863-49d0-bc0f-738d771acba5	VALIDATION_DCTYPE_STANDARD
  * 38	3136236e-04b6-49ea-8b34-a65f25e3aba1	VALIDATION_LICENSE_STANDARD
  * 23	3cfe9ab4-79f8-4afd-8da5-723183ef16a3	VALIDATION_OCCURRENCEID_STANDARD
  * 46	3f335517-f442-4b98-b149-1e87ff16de45	VALIDATION_SCIENTIFICNAME_FOUND
@@ -88,6 +90,8 @@ import org.datakurator.ffdq.model.ResultState;
 public class DwCMetadataDQ {
 
 	private static final Log logger = LogFactory.getLog(DwCMetadataDQ.class);
+    
+	protected static final String dcTypeLiterals = "Collection,Dataset,Event,Image,InteractiveResource,MovingImage,PhysicalObject,Service,Software,Sound,StillImage,Text";
 
     /**
      * Is there a value in dwc:dataGeneralizations?
@@ -522,7 +526,25 @@ public class DwCMetadataDQ {
         // Metadata Initiative (DCMI)" {[https://www.dublincore.org/]} 
         // {DCMI Type Vocabulary" [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/]} 
         // 
-
+        
+        ArrayList<String> dcTypeLiteralList = new ArrayList<String>(Arrays.asList(dcTypeLiterals.split(",")));
+        
+        // the value that should be used for dcterms:type starts with this string (followed by one of the literals)
+        String uriMatcher = "^http(s){0,1}://purl.org/dc/dcmitype/";
+        
+     	if (MetadataUtils.isEmpty(type)) { 
+			result.addComment("Provided value for dc:type is empty.");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+     		
+     	} else if (dcTypeLiteralList.contains(type)) { 
+			result.addComment("Provided value for dc:type is a valid dc:type literal.");
+			result.setResultState(ResultState.NOT_AMENDED);
+     	} else { 
+     		
+     		// TODO: Implement
+     		// Try: Trim, wrong case, uri prefix instead of literal
+     	}
+     	
         return result;
     }
 
@@ -599,7 +621,7 @@ public class DwCMetadataDQ {
     /**
     * Does the value in dc:type occur as a value in the DCMI type vocabulary?
     *
-    * Provides: VALIDATION_DCTYPE_STANDARD
+    * Provides: #91 VALIDATION_DCTYPE_STANDARD
     * Version: 2023-09-18
     *
     * @param type the provided dc:type to evaluate as ActedUpon.
@@ -609,12 +631,12 @@ public class DwCMetadataDQ {
     @Provides("cdaabb0d-a863-49d0-bc0f-738d771acba5")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/cdaabb0d-a863-49d0-bc0f-738d771acba5/2023-09-18")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if the value of dc:type is EMPTY; COMPLIANT if the value of dc:type is found in  bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority is 'Dublin Core Metadata Initiative (DCMI)' {[https://www.dublincore.org/]} {DCMI Type Vocabulary' [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/]}")
-    public DQResponse<ComplianceValue> validationDctypeStandard(
+    public static DQResponse<ComplianceValue> validationDctypeStandard(
         @ActedUpon("dc:type") String type
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if the 
         // value of dc:type is EMPTY; COMPLIANT if the value of dc:type 
@@ -624,6 +646,22 @@ public class DwCMetadataDQ {
         // [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/]} 
         // 
 
+        ArrayList<String> dcTypeLiteralList = new ArrayList<String>(Arrays.asList(dcTypeLiterals.split(",")));
+        
+     	if (MetadataUtils.isEmpty(type)) { 
+     		result.addComment("Provided value for dc:type is empty");
+     		result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+     	} else if (dcTypeLiteralList.contains(type)) { 
+			result.addComment("Provided value for dc:type is a valid dc:type literal.");
+			result.setValue(ComplianceValue.COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+     	} else { 
+			result.addComment("Provided value for dc:type is not a valid dc:type literal.");
+			result.setValue(ComplianceValue.NOT_COMPLIANT);
+			result.setResultState(ResultState.RUN_HAS_RESULT);
+     	}
+     	
+        
         return result;
     }
 
