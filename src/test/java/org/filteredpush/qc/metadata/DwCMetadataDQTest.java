@@ -27,6 +27,7 @@ import java.util.Iterator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.datakurator.ffdq.api.DQResponse;
+import org.datakurator.ffdq.api.result.AmendmentValue;
 import org.datakurator.ffdq.api.result.ComplianceValue;
 import org.datakurator.ffdq.api.result.IssueValue;
 import org.datakurator.ffdq.model.ResultState;
@@ -204,7 +205,64 @@ public class DwCMetadataDQTest {
 	 */
 	@Test
 	public void testAmendmentDctypeStandardized() {
-		fail("Not yet implemented");
+		
+		String dcType = "";
+		DQResponse<AmendmentValue> result = DwCMetadataDQ.amendmentDctypeStandardized(dcType);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+	
+		ArrayList<String> dcTypeLiteralList = new ArrayList<String>(Arrays.asList(dcTypeLiterals.split(",")));
+		Iterator<String> i = dcTypeLiteralList.iterator();
+		while (i.hasNext()){ 
+			dcType=i.next();
+		
+			result = DwCMetadataDQ.amendmentDctypeStandardized(dcType);
+			logger.debug(result.getComment());
+			assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+			assertNull(result.getValue());
+			assertNotNull(result.getComment());
+			
+			result = DwCMetadataDQ.amendmentDctypeStandardized(dcType + " ");
+			logger.debug(result.getComment());
+			assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+			assertEquals(dcType,result.getValue().getObject().get("dc:type"));
+			assertNotNull(result.getComment());
+			
+			result = DwCMetadataDQ.amendmentDctypeStandardized("https://purl.org/dc/dcmitype/" + dcType);
+			logger.debug(result.getComment());
+			assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+			assertEquals(dcType,result.getValue().getObject().get("dc:type"));
+			assertNotNull(result.getComment());
+			
+			result = DwCMetadataDQ.amendmentDctypeStandardized("http://purl.org/dc/dcmitype/" + dcType);
+			logger.debug(result.getComment());
+			assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+			assertEquals(dcType,result.getValue().getObject().get("dc:type"));
+			assertNotNull(result.getComment());
+			
+			result = DwCMetadataDQ.amendmentDctypeStandardized(dcType.substring(0, dcType.length()-1) + "l");
+			logger.debug(result.getComment());
+			assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+			assertEquals(dcType,result.getValue().getObject().get("dc:type"));
+			assertNotNull(result.getComment());
+		} 
+		
+		dcType = "evnt";
+		result = DwCMetadataDQ.amendmentDctypeStandardized(dcType);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertEquals("Event",result.getValue().getObject().get("dc:type"));
+		assertNotNull(result.getComment());
+		
+		dcType = "foo";
+		result = DwCMetadataDQ.amendmentDctypeStandardized(dcType);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+		
 	}
 
 	/**

@@ -20,12 +20,20 @@ package org.filteredpush.qc.metadata;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.codec.language.MatchRatingApproachEncoder;
+import org.apache.commons.codec.language.Soundex;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.text.similarity.EditDistance;
+import org.apache.commons.text.similarity.EditDistanceFrom;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.datakurator.ffdq.annotations.ActedUpon;
 import org.datakurator.ffdq.annotations.Amendment;
 import org.datakurator.ffdq.annotations.Consulted;
@@ -57,13 +65,13 @@ import org.datakurator.ffdq.model.ResultState;
  * #116	7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47	VALIDATION_OCCURRENCESTATUS_STANDARD
  * #91	cdaabb0d-a863-49d0-bc0f-738d771acba5	VALIDATION_DCTYPE_STANDARD
  * #38	3136236e-04b6-49ea-8b34-a65f25e3aba1	VALIDATION_LICENSE_STANDARD
+ * #41	bd385eeb-44a2-464b-a503-7abe407ef904	AMENDMENT_DCTYPE_STANDARDIZED
  * 
  * 
  * TODO: Implement:
  * 
  * 29	fecaa8a3-bbd8-4c5a-a424-13c37c4bb7b1	ISSUE_ANNOTATION_NOTEMPTY
  * 63	07c28ace-561a-476e-a9b9-3d5ad6e35933	AMENDMENT_BASISOFRECORD_STANDARDIZED
- * 41	bd385eeb-44a2-464b-a503-7abe407ef904	AMENDMENT_DCTYPE_STANDARDIZED
  * 133	dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8	AMENDMENT_LICENSE_STANDARDIZED
  * 75	96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5	AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
  * 115	f8f3a093-042c-47a3-971a-a482aaaf3b75	AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
@@ -543,8 +551,11 @@ public class DwCMetadataDQ {
 
     /**
     * Propose amendment to the value of dc:type using the DCMI type vocabulary.
+    * 
+    * Supports difference in case, leading or trailing spaces, IRI form instead of literal, soundex, 
+    * and single step edit distance for proposing amended values.
     *
-    * Provides: AMENDMENT_DCTYPE_STANDARDIZED
+    * Provides: #41 AMENDMENT_DCTYPE_STANDARDIZED
     * Version: 2023-09-17
     *
     * @param type the provided dc:type to evaluate as ActedUpon.
@@ -554,12 +565,12 @@ public class DwCMetadataDQ {
     @Provides("bd385eeb-44a2-464b-a503-7abe407ef904")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/bd385eeb-44a2-464b-a503-7abe407ef904/2023-09-17")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if the value of dc:type is EMPTY; AMENDED the value of dc:type if it can be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority is 'Dublin Core Metadata Initiative (DCMI)' {[https://www.dublincore.org/]} {DCMI Type Vocabulary' [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/]}")
-    public DQResponse<AmendmentValue> amendmentDctypeStandardized(
+    public static DQResponse<AmendmentValue> amendmentDctypeStandardized(
         @ActedUpon("dc:type") String type
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if the 
         // value of dc:type is EMPTY; AMENDED the value of dc:type 
@@ -568,6 +579,7 @@ public class DwCMetadataDQ {
         // Metadata Initiative (DCMI)" {[https://www.dublincore.org/]} 
         // {DCMI Type Vocabulary" [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/]} 
         // 
+        // TODO: sourceAuthority is not correct, needs update, should be explicit in specification.
         
         ArrayList<String> dcTypeLiteralList = new ArrayList<String>(Arrays.asList(dcTypeLiterals.split(",")));
         
@@ -577,14 +589,73 @@ public class DwCMetadataDQ {
      	if (MetadataUtils.isEmpty(type)) { 
 			result.addComment("Provided value for dc:type is empty.");
 			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
-     		
      	} else if (dcTypeLiteralList.contains(type)) { 
 			result.addComment("Provided value for dc:type is a valid dc:type literal.");
 			result.setResultState(ResultState.NOT_AMENDED);
-     	} else { 
-     		
-     		// TODO: Implement
+     	} else if (dcTypeLiteralList.contains(type.trim())) { 
+			result.addComment("Provided value for dc:type trimed to form a valid dc:type literal.");
+			result.setResultState(ResultState.AMENDED);
+			Map<String, String> values = new HashMap<>();
+			values.put("dc:type", type.trim()) ;
+			result.setValue(new AmendmentValue(values));
+     	} else {
      		// Try: Trim, wrong case, uri prefix instead of literal
+     		boolean matched = false;
+     		Soundex soundex = Soundex.US_ENGLISH_SIMPLIFIED;
+     		String typeSoundex = soundex.encode(type);
+     		LevenshteinDistance editDistance = new LevenshteinDistance(3);
+     		Iterator<String> i = dcTypeLiteralList.iterator();
+     		while (i.hasNext() && !matched) { 
+     			String aLiteral = i.next();
+     			String literalSoundex = soundex.encode(aLiteral);
+     			logger.debug(literalSoundex);
+     			logger.debug(editDistance.apply(type, aLiteral));
+     			if (type.trim().toUpperCase().equals(aLiteral)) { 
+     				matched = true;	
+     				result.addComment("Provided value for dc:type ["+type+"] corrected to form a valid dc:type literal.");
+     				result.setResultState(ResultState.AMENDED);
+     				Map<String, String> values = new HashMap<>();
+     				values.put("dc:type", aLiteral) ;
+     				result.setValue(new AmendmentValue(values));
+     			} else if (type.trim().replaceAll(uriMatcher, "").toUpperCase().equals(aLiteral.toUpperCase())) { 
+     				matched = true;	
+     				result.addComment("Provided value for dc:type ["+type+"] corrected to form a valid dc:type literal, the provided value was an IRI, and dc:type must be a literal.");
+     				result.setResultState(ResultState.AMENDED);
+     				Map<String, String> values = new HashMap<>();
+     				values.put("dc:type", aLiteral) ;
+     				result.setValue(new AmendmentValue(values));
+     			} else if (typeSoundex.equals(literalSoundex)) {
+     				// check that soundex match is unambiguous 
+     				int totalMatches = 0;
+     				Iterator<String> ic = dcTypeLiteralList.iterator();
+     				while (ic.hasNext() && !matched) { 
+     					String aLiteralCheck = ic.next();
+     					literalSoundex = soundex.encode(aLiteralCheck);
+     					if (typeSoundex.equals(literalSoundex)) { 
+     						totalMatches++;
+     					}
+     				}
+     				if (totalMatches==1) { 
+     					matched = true;	
+     					result.addComment("Provided value for dc:type ["+type+"] sounds like ["+aLiteral+"] so corrected to this valid dc:type literal.");
+     					result.setResultState(ResultState.AMENDED);
+     					Map<String, String> values = new HashMap<>();
+     					values.put("dc:type", aLiteral) ;
+     					result.setValue(new AmendmentValue(values));
+     				}
+     			} else if (editDistance.apply(type, aLiteral)==1) { 
+   					matched = true;	
+   					result.addComment("Provided value for dc:type ["+type+"] is one edit away from ["+aLiteral+"] so corrected to this valid dc:type literal.");
+   					result.setResultState(ResultState.AMENDED);
+   					Map<String, String> values = new HashMap<>();
+   					values.put("dc:type", aLiteral) ;
+   					result.setValue(new AmendmentValue(values));
+     			}
+     		}
+     		if (!matched) { 
+     			result.addComment("Unable to propose an amendment to conform the provided value for dc:type ["+type+"] to a valid dc:type literal.");
+     			result.setResultState(ResultState.NOT_AMENDED);
+     		}
      	}
      	
         return result;
