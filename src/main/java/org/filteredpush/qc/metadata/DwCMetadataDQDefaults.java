@@ -21,12 +21,14 @@ package org.filteredpush.qc.metadata;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.datakurator.ffdq.annotations.ActedUpon;
+import org.datakurator.ffdq.annotations.Amendment;
 import org.datakurator.ffdq.annotations.Parameter;
 import org.datakurator.ffdq.annotations.Provides;
 import org.datakurator.ffdq.annotations.ProvidesVersion;
 import org.datakurator.ffdq.annotations.Specification;
 import org.datakurator.ffdq.annotations.Validation;
 import org.datakurator.ffdq.api.DQResponse;
+import org.datakurator.ffdq.api.result.AmendmentValue;
 import org.datakurator.ffdq.api.result.ComplianceValue;
 
 /**
@@ -36,6 +38,26 @@ import org.datakurator.ffdq.api.result.ComplianceValue;
 public class DwCMetadataDQDefaults extends DwCMetadataDQ {
 
 	private static final Log logger = LogFactory.getLog(DwCMetadataDQDefaults.class);
+	
+    /**
+    * Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority.
+    *
+    * Provides: AMENDMENT_BASISOFRECORD_STANDARDIZED
+    * Version: 2023-09-18
+    *
+    * @param basisOfRecord the provided dwc:basisOfRecord to evaluate as ActedUpon.
+    * @return DQResponse the response of type AmendmentValue to return
+    */
+    @Amendment(label="AMENDMENT_BASISOFRECORD_STANDARDIZED", description="Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority.")
+    @Provides("07c28ace-561a-476e-a9b9-3d5ad6e35933")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2023-09-18")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is EMPTY; AMENDED the value of dwc:basisOfRecord if it could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core basisOfRecord' {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}")
+    public static DQResponse<AmendmentValue> amendmentBasisofrecordStandardized(
+        @ActedUpon("dwc:basisOfRecord") String basisOfRecord
+    ) {
+    	return amendmentBasisofrecordStandardized(basisOfRecord,null);
+    	
+    }
 
     /**
      * Does the value of dwc:basisOfRecord occur in bdq:sourceAuthority?

@@ -23,6 +23,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -318,7 +319,67 @@ public class DwCMetadataDQTest {
 	 */
 	@Test
 	public void testAmendmentBasisofrecordStandardized() {
-		fail("Not yet implemented");
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord 
+        // is EMPTY; AMENDED the value of dwc:basisOfRecord if it could 
+        // be unambiguously interpreted as a value in bdq:sourceAuthority; 
+        // otherwise NOT_AMENDED bdq:sourceAuthority default = "Darwin 
+        // Core basisOfRecord" {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} 
+        // {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]} 
+        // 
+       	List<String> basisOfRecordLiteralList = List.of("Dataset","Event","Event Attribute","Event Measurement","Fossil Specimen","Geological Context","Human Observation","Identification","Living Specimen","Location","Machine Observation","Material Citation","Material Sample","Measurement or Fact","Occurrence","Occurrence Measurement","Organism","Preserved Specimen","Resource Relationship","Sample","Sample Attribute","Sampling Event","Sampling Location","Taxon");
+		
+		String basisOfRecord = "";
+		String sourceAuthority = "Darwin Core basisOfRecord";
+		DQResponse<AmendmentValue> result = DwCMetadataDQ.amendmentBasisofrecordStandardized(basisOfRecord,sourceAuthority);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+		
+		basisOfRecord = "FossilSpecimen";
+		result = DwCMetadataDQ.amendmentBasisofrecordStandardized(basisOfRecord,sourceAuthority);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNotNull(result.getValue());
+		assertEquals("Fossil Specimen", result.getValue().getObject().get("dwc:basisOfRecord"));
+		assertNotNull(result.getComment());
+		
+		Iterator<String> i = basisOfRecordLiteralList.iterator();
+		while (i.hasNext()) { 
+			basisOfRecord = i.next();
+			
+			result = DwCMetadataDQ.amendmentBasisofrecordStandardized(basisOfRecord,sourceAuthority);
+			logger.debug(result.getComment());
+			assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+			assertNull(result.getValue());
+			assertNotNull(result.getComment());
+		
+			String testVal = basisOfRecord.replaceAll(" ", "");
+			testVal = " " + testVal + " ";
+			result = DwCMetadataDQ.amendmentBasisofrecordStandardized(testVal,sourceAuthority);
+			logger.debug(result.getComment());
+			assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+			assertNotNull(result.getValue());
+			assertEquals(basisOfRecord, result.getValue().getObject().get("dwc:basisOfRecord"));
+			assertNotNull(result.getComment());
+		
+		}
+		 
+		basisOfRecord = "French";  // not a basisOfRecord
+		result = DwCMetadataDQ.amendmentBasisofrecordStandardized(basisOfRecord,sourceAuthority);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+		
+		basisOfRecord = "Datasets"; // soundex Dataset
+		result = DwCMetadataDQ.amendmentBasisofrecordStandardized(basisOfRecord,sourceAuthority);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNotNull(result.getValue());
+		assertEquals("Dataset", result.getValue().getObject().get("dwc:basisOfRecord"));
+		assertNotNull(result.getComment());
 	}
 
 	/**
