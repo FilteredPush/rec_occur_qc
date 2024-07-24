@@ -106,7 +106,7 @@ public class DwCMetadataDQ {
     /**
      * Is there a value in dwc:dataGeneralizations?
      *
-     * Provides: ISSUE_DATAGENERALIZATIONS_NOTEMPTY
+     * Provides: #72 ISSUE_DATAGENERALIZATIONS_NOTEMPTY
      * Version: 2023-09-18
      *
      * @param dataGeneralizations the provided dwc:dataGeneralizations to evaluate
@@ -454,7 +454,7 @@ public class DwCMetadataDQ {
     /**
     * Does the value of dwc:occurrenceID occur in bdq:SourceAuthority?
     *
-    * Provides: VALIDATION_OCCURRENCEID_STANDARD
+    * Provides: 23 VALIDATION_OCCURRENCEID_STANDARD
     * Version: 2023-09-17
     *
     * @param occurrenceID the provided dwc:occurrenceID to evaluate as ActedUpon.
@@ -464,7 +464,7 @@ public class DwCMetadataDQ {
     @Provides("3cfe9ab4-79f8-4afd-8da5-723183ef16a3")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/3cfe9ab4-79f8-4afd-8da5-723183ef16a3/2023-09-17")
     @Specification("INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceID is EMPTY; COMPLIANT if the value of dwc:occurrenceID follows a format commonly associated with globally unique identifiers (GUIDs); otherwise NOT_COMPLIANT ")
-    public DQResponse<ComplianceValue> validationOccurrenceidStandard(
+    public static DQResponse<ComplianceValue> validationOccurrenceidStandard(
         @ActedUpon("dwc:occurrenceID") String occurrenceID
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
