@@ -21,7 +21,7 @@ package org.filteredpush.qc.metadata;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.gbif.dwc.terms.Vocabulary;
-import org.gbif.ws.client.ClientBuilder;
+// import org.gbif.ws.client.ClientBuilder;
 
 /**
  * @author mole
@@ -38,9 +38,9 @@ public class GbifService {
 	}
 	
 	private void init() { 
-		ClientBuilder clientBuilder = new ClientBuilder().withUrl(gbifApiEndpoint);
+		//ClientBuilder clientBuilder = new ClientBuilder().withUrl(gbifApiEndpoint);
 		
-		Vocabulary vocabularyClient = clientBuilder.build(Vocabulary.class);
+		//Vocabulary vocabularyClient = clientBuilder.build(Vocabulary.class);
 		
 	}
 	

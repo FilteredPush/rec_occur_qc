@@ -48,11 +48,12 @@
 			<artifactId>gbif-api</artifactId>
 			<version>1.16.1</version>
 		</dependency>
-		<dependency>
+		<!-- breaks logging by including slf4j -->
+		<!-- dependency>
 			<groupId>org.gbif</groupId>
 			<artifactId>gbif-common-ws</artifactId>
 			<version>1.27</version>
-		</dependency>
+		<dependency -->
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -98,16 +99,19 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.17.1</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-jcl</artifactId>
 			<version>2.16.0</version>
+			<scope>test</scope>
 		</dependency>		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>2.0.10</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
