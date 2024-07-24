@@ -327,7 +327,8 @@ public class DwCMetadataDQTest {
         // Core basisOfRecord" {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} 
         // {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]} 
         // 
-       	List<String> basisOfRecordLiteralList = List.of("Dataset","Event","Event Attribute","Event Measurement","Fossil Specimen","Geological Context","Human Observation","Identification","Living Specimen","Location","Machine Observation","Material Citation","Material Sample","Measurement or Fact","Occurrence","Occurrence Measurement","Organism","Preserved Specimen","Resource Relationship","Sample","Sample Attribute","Sampling Event","Sampling Location","Taxon");
+       	List<String> basisOfRecordLiteralListSpaces = List.of("Dataset","Event","Event Attribute","Event Measurement","Fossil Specimen","Geological Context","Human Observation","Identification","Living Specimen","Location","Machine Observation","Material Citation","Material Sample","Measurement or Fact","Occurrence","Occurrence Measurement","Organism","Preserved Specimen","Resource Relationship","Sample","Sample Attribute","Sampling Event","Sampling Location","Taxon");
+        List<String> values = List.of("Dataset","Event","EventAttribute","EventMeasurement","FossilSpecimen","GeologicalContext","HumanObservation","Identification","LivingSpecimen","Location","MachineObservation","MaterialCitation","MaterialSample","MeasurementOrFact","Occurrence","OccurrenceMeasurement","Organism","PreservedSpecimen","ResourceRelationship","Sample","SampleAttribute","SamplingEvent","SamplingLocation","Taxon");
 		
 		String basisOfRecord = "";
 		String sourceAuthority = "Darwin Core basisOfRecord";
@@ -337,33 +338,47 @@ public class DwCMetadataDQTest {
 		assertNull(result.getValue());
 		assertNotNull(result.getComment());
 		
-		basisOfRecord = "FossilSpecimen";
+		basisOfRecord = "Fossil Specimen";
 		result = DwCMetadataDQ.amendmentBasisofrecordStandardized(basisOfRecord,sourceAuthority);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
 		assertNotNull(result.getValue());
-		assertEquals("Fossil Specimen", result.getValue().getObject().get("dwc:basisOfRecord"));
+		assertEquals("FossilSpecimen", result.getValue().getObject().get("dwc:basisOfRecord"));
 		assertNotNull(result.getComment());
 		
-		Iterator<String> i = basisOfRecordLiteralList.iterator();
+		Iterator<String> i = values.iterator();
 		while (i.hasNext()) { 
 			basisOfRecord = i.next();
-			
 			result = DwCMetadataDQ.amendmentBasisofrecordStandardized(basisOfRecord,sourceAuthority);
 			logger.debug(result.getComment());
 			assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
 			assertNull(result.getValue());
 			assertNotNull(result.getComment());
-		
-			String testVal = basisOfRecord.replaceAll(" ", "");
-			testVal = " " + testVal + " ";
+			
+			String testVal = " " + basisOfRecord + ". ";
 			result = DwCMetadataDQ.amendmentBasisofrecordStandardized(testVal,sourceAuthority);
 			logger.debug(result.getComment());
 			assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
 			assertNotNull(result.getValue());
 			assertEquals(basisOfRecord, result.getValue().getObject().get("dwc:basisOfRecord"));
 			assertNotNull(result.getComment());
+		}
 		
+		i = basisOfRecordLiteralListSpaces.iterator();
+		while (i.hasNext()) { 
+			basisOfRecord = i.next();
+			String matchVal = basisOfRecord.replaceAll(" ", "");
+			if (matchVal.equals("MeasurementorFact")) { 
+				matchVal = "MeasurementOrFact";
+			}
+		
+			String testVal = " " + basisOfRecord + " ";
+			result = DwCMetadataDQ.amendmentBasisofrecordStandardized(testVal,sourceAuthority);
+			logger.debug(result.getComment());
+			assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+			assertNotNull(result.getValue());
+			assertEquals(matchVal, result.getValue().getObject().get("dwc:basisOfRecord"));
+			assertNotNull(result.getComment());
 		}
 		 
 		basisOfRecord = "French";  // not a basisOfRecord
@@ -542,6 +557,12 @@ public class DwCMetadataDQTest {
 		assertNull(result.getValue());	
 		
 		basisOfRecord = "Fossil Specimen";
+		result = DwCMetadataDQDefaults.validationBasisofrecordStandard(basisOfRecord);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		
+		basisOfRecord = "FossilSpecimen";
 		result = DwCMetadataDQDefaults.validationBasisofrecordStandard(basisOfRecord);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());

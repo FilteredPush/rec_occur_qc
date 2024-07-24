@@ -332,9 +332,8 @@ public class DwCMetadataDQ {
         } else {
         	List<String> values = null;
         	if (sourceAuthority.equals("Darwin Core Terms")) {
-        		// "Recommended best practice is to use the standard label of one of the Darwin Core classes."
-        		// e.g. skos:prefLabel "Fossil Specimen"@en;  rdfs:label "Fossil Specimen"@en;
-        		values = List.of("Dataset","Event","Event Attribute","Event Measurement","Fossil Specimen","Geological Context","Human Observation","Identification","Living Specimen","Location","Machine Observation","Material Citation","Material Sample","Measurement or Fact","Occurrence","Occurrence Measurement","Organism","Preserved Specimen","Resource Relationship","Sample","Sample Attribute","Sampling Event","Sampling Location","Taxon");
+        		// "Recommended best practice is to use the local name of one of the Darwin Core classes."
+        		values = List.of("Dataset","Event","EventAttribute","EventMeasurement","FossilSpecimen","GeologicalContext","HumanObservation","Identification","LivingSpecimen","Location","MachineObservation","MaterialCitation","MaterialSample","MeasurementOrFact","Occurrence","OccurrenceMeasurement","Organism","PreservedSpecimen","ResourceRelationship","Sample","Sample Attribute","SamplingEvent","SamplingLocation","Taxon");
         	} 
         	
         	if (values==null) { 
@@ -667,14 +666,14 @@ public class DwCMetadataDQ {
     * Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority.
     *
     * Provides: #63 AMENDMENT_BASISOFRECORD_STANDARDIZED
-    * Version: 2023-09-18
+    * Version: 2023-07-24
     *
     * @param basisOfRecord the provided dwc:basisOfRecord to evaluate as ActedUpon.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_BASISOFRECORD_STANDARDIZED", description="Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority.")
     @Provides("07c28ace-561a-476e-a9b9-3d5ad6e35933")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2023-09-18")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2023-07-24")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is EMPTY; AMENDED the value of dwc:basisOfRecord if it could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core basisOfRecord' {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}")
     public static DQResponse<AmendmentValue> amendmentBasisofrecordStandardized(
         @ActedUpon("dwc:basisOfRecord") String basisOfRecord,
@@ -687,100 +686,120 @@ public class DwCMetadataDQ {
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord 
         // is EMPTY; AMENDED the value of dwc:basisOfRecord if it could 
         // be unambiguously interpreted as a value in bdq:sourceAuthority; 
-        // otherwise NOT_AMENDED bdq:sourceAuthority default = "Darwin 
-        // Core basisOfRecord" {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} 
-        // {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]} 
+        // otherwise NOT_AMENDED bdq:sourceAuthority 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
+        // Parameters. This test is defined as parameterized.
         // dwc:basisOfRecord vocabulary
+        // default = "Darwin 
+        // Core basisOfRecord" {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} 
+        // {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]} 
+        
         List<String> basisOfRecordLiteralList = null;
         if (sourceAuthority == null) {
         	sourceAuthority = "Darwin Core basisOfRecord";
         }
-        if (sourceAuthority.equals("Darwin Core basisOfRecord")) {
-        	// https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml
-        	// "Recommended best practice is to use the standard label of one of the Darwin Core classes."
-        	// e.g. skos:prefLabel "Fossil Specimen"@en;  rdfs:label "Fossil Specimen"@en;
-       		basisOfRecordLiteralList = List.of("Dataset","Event","Event Attribute","Event Measurement","Fossil Specimen","Geological Context","Human Observation","Identification","Living Specimen","Location","Machine Observation","Material Citation","Material Sample","Measurement or Fact","Occurrence","Occurrence Measurement","Organism","Preserved Specimen","Resource Relationship","Sample","Sample Attribute","Sampling Event","Sampling Location","Taxon");
-       	} 
-        
-        // possible IRI values that would need to be corrected to the label
-     	// http://rs.tdwg.org/dwc/dwctype/FossilSpecimen  deprecated.
-     	// http://rs.tdwg.org/dwc/terms/FossilSpecimen
-        String uriMatcher = "^http(s){0,1}://rs.tdwg.org/dwc/(dwctype|terms)/";
-        
-     	if (MetadataUtils.isEmpty(basisOfRecord)) { 
-			result.addComment("Provided value for dwc:basisOfRecord is empty.");
-			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
-     	} else if (basisOfRecordLiteralList.contains(basisOfRecord)) { 
-			result.addComment("Provided value for dwc:basisOfRecord is a valid dwc:basisOfRecord literal.");
-			result.setResultState(ResultState.NOT_AMENDED);
-     	} else if (basisOfRecordLiteralList.contains(basisOfRecord.trim())) { 
-			result.addComment("Provided value for dwc:basisOfRecord trimed to form a valid dwc:basisOfRecord literal.");
-			result.setResultState(ResultState.AMENDED);
-			Map<String, String> newValues = new HashMap<>();
-			newValues.put("dwc:basisOfRecord", basisOfRecord.trim()) ;
-			result.setValue(new AmendmentValue(newValues));
-     	} else {
-     		// Try: Trim, wrong case, uri prefix instead of literal
-     		boolean matched = false;
-     		Soundex soundex = Soundex.US_ENGLISH_SIMPLIFIED;
-     		String typeSoundex = soundex.encode(basisOfRecord.trim().replace(" ", ""));
-     		LevenshteinDistance editDistance = new LevenshteinDistance(3);
-     		Iterator<String> i = basisOfRecordLiteralList.iterator();
-     		while (i.hasNext() && !matched) { 
-     			String aLiteral = i.next();
-     			String literalSoundex = soundex.encode(aLiteral.replace(" ", ""));
-     			logger.debug(literalSoundex);
-     			logger.debug(editDistance.apply(basisOfRecord, aLiteral));
-     			if (basisOfRecord.trim().replace(" ", "").toUpperCase().equals(aLiteral.toUpperCase().replace(" ", ""))) { 
-     				matched = true;	
-     				result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] corrected to form a valid dwc:basisOfRecord literal.");
-     				result.setResultState(ResultState.AMENDED);
-     				Map<String, String> newValues = new HashMap<>();
-     				newValues.put("dwc:basisOfRecord", aLiteral) ;
-     				result.setValue(new AmendmentValue(newValues));
-     			} else if (basisOfRecord.trim().replaceAll(uriMatcher, "").toUpperCase().equals(aLiteral.toUpperCase())) { 
-     				matched = true;	
-     				result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] corrected to form a valid dwc:basisOfRecord literal, the provided value was an IRI, and dwc:basisOfRecord must be a literal.");
-     				result.setResultState(ResultState.AMENDED);
-     				Map<String, String> newValues = new HashMap<>();
-     				newValues.put("dwc:basisOfRecord", aLiteral) ;
-     				result.setValue(new AmendmentValue(newValues));
-     			} else if (typeSoundex.equals(literalSoundex)) {
-     				// check that soundex match is unambiguous 
-     				int totalMatches = 0;
-     				Iterator<String> ic = basisOfRecordLiteralList.iterator();
-     				while (ic.hasNext() && !matched) { 
-     					String aLiteralCheck = ic.next();
-     					literalSoundex = soundex.encode(aLiteralCheck);
-     					if (typeSoundex.equals(literalSoundex)) { 
-     						totalMatches++;
-     					}
-     				}
-     				if (totalMatches==1) { 
-     					matched = true;	
-     					result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] sounds like ["+aLiteral+"] so corrected to this valid dwc:basisOfRecord literal.");
-     					result.setResultState(ResultState.AMENDED);
-     					Map<String, String> newValues = new HashMap<>();
-     					newValues.put("dwc:basisOfRecord", aLiteral) ;
-     					result.setValue(new AmendmentValue(newValues));
-     				}
-     			} else if (editDistance.apply(basisOfRecord, aLiteral)==1) { 
-   					matched = true;	
-   					result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] is one edit away from ["+aLiteral+"] so corrected to this valid dwc:basisOfRecord literal.");
-   					result.setResultState(ResultState.AMENDED);
-   					Map<String, String> newValues = new HashMap<>();
-   					newValues.put("dwc:basisOfRecord", aLiteral) ;
-   					result.setValue(new AmendmentValue(newValues));
-     			}
-     		}
-     		if (!matched) { 
-     			result.addComment("Unable to propose an amendment to conform the provided value for dwc:type ["+basisOfRecord+"] to a valid dwc:basisOfRecord literal.");
-     			result.setResultState(ResultState.NOT_AMENDED);
-     		}
-     	}
+        try {
+        	if (sourceAuthority.equals("Darwin Core basisOfRecord")) {
+        		// https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml
+        		// "Recommended best practice is to use the standard label of one of the Darwin Core classes."
+        		// e.g. skos:prefLabel "Fossil Specimen"@en;  rdfs:label "Fossil Specimen"@en;
+        		basisOfRecordLiteralList = List.of("Dataset","Event","EventAttribute","EventMeasurement","FossilSpecimen","GeologicalContext","HumanObservation","Identification","LivingSpecimen","Location","MachineObservation","MaterialCitation","MaterialSample","MeasurementOrFact","Occurrence","OccurrenceMeasurement","Organism","PreservedSpecimen","ResourceRelationship","Sample","SampleAttribute","SamplingEvent","SamplingLocation","Taxon");
+        	} else { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.DWC_BASISOFRECORD)) { 
+        			basisOfRecordLiteralList = List.of("Dataset","Event","EventAttribute","EventMeasurement","FossilSpecimen","GeologicalContext","HumanObservation","Identification","LivingSpecimen","Location","MachineObservation","MaterialCitation","MaterialSample","MeasurementOrFact","Occurrence","OccurrenceMeasurement","Organism","PreservedSpecimen","ResourceRelationship","Sample","SampleAttribute","SamplingEvent","SamplingLocation","Taxon");
+        		} else if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
+        			throw new SourceAuthorityException("Invalid source authority");
+        		}
+        	} 
+
+        	// possible IRI values that would need to be corrected to the label
+        	// http://rs.tdwg.org/dwc/dwctype/FossilSpecimen  deprecated.
+        	// http://rs.tdwg.org/dwc/terms/FossilSpecimen
+        	String uriMatcher = "^http(s){0,1}://rs.tdwg.org/dwc/(dwctype|terms)/";
+
+        	if (MetadataUtils.isEmpty(basisOfRecord)) { 
+        		result.addComment("Provided value for dwc:basisOfRecord is empty.");
+        		result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        	} else if (basisOfRecordLiteralList.contains(basisOfRecord)) { 
+        		result.addComment("Provided value for dwc:basisOfRecord is a valid dwc:basisOfRecord literal.");
+        		result.setResultState(ResultState.NOT_AMENDED);
+        	} else if (basisOfRecordLiteralList.contains(basisOfRecord.trim())) { 
+        		result.addComment("Provided value for dwc:basisOfRecord trimed to form a valid dwc:basisOfRecord literal.");
+        		result.setResultState(ResultState.AMENDED);
+        		Map<String, String> newValues = new HashMap<>();
+        		newValues.put("dwc:basisOfRecord", basisOfRecord.trim()) ;
+        		result.setValue(new AmendmentValue(newValues));
+        	} else if (basisOfRecordLiteralList.contains(basisOfRecord.replaceAll("[^A-Za-z]", ""))) { 
+        		result.addComment("Provided value for dwc:basisOfRecord removed punctuation to form a valid dwc:basisOfRecord literal.");
+        		result.setResultState(ResultState.AMENDED);
+        		Map<String, String> newValues = new HashMap<>();
+        		newValues.put("dwc:basisOfRecord", basisOfRecord.replaceAll("[^A-Za-z]", "")) ;
+        		result.setValue(new AmendmentValue(newValues));
+        	} else {
+        		// Try: Trim, wrong case, uri prefix instead of literal
+        		boolean matched = false;
+        		Soundex soundex = Soundex.US_ENGLISH_SIMPLIFIED;
+        		String typeSoundex = soundex.encode(basisOfRecord.trim().replace(" ", ""));
+        		LevenshteinDistance editDistance = new LevenshteinDistance(3);
+        		Iterator<String> i = basisOfRecordLiteralList.iterator();
+        		while (i.hasNext() && !matched) { 
+        			String aLiteral = i.next();
+        			String literalSoundex = soundex.encode(aLiteral.replace(" ", ""));
+        			logger.debug(literalSoundex);
+        			logger.debug(editDistance.apply(basisOfRecord, aLiteral));
+        			if (basisOfRecord.trim().replace(" ", "").toUpperCase().equals(aLiteral.toUpperCase().replace(" ", ""))) { 
+        				matched = true;	
+        				result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] corrected to form a valid dwc:basisOfRecord literal.");
+        				result.setResultState(ResultState.AMENDED);
+        				Map<String, String> newValues = new HashMap<>();
+        				newValues.put("dwc:basisOfRecord", aLiteral) ;
+        				result.setValue(new AmendmentValue(newValues));
+        			} else if (basisOfRecord.trim().replaceAll(uriMatcher, "").toUpperCase().equals(aLiteral.toUpperCase())) { 
+        				matched = true;	
+        				result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] corrected to form a valid dwc:basisOfRecord literal, the provided value was an IRI, and dwc:basisOfRecord must be a literal.");
+        				result.setResultState(ResultState.AMENDED);
+        				Map<String, String> newValues = new HashMap<>();
+        				newValues.put("dwc:basisOfRecord", aLiteral) ;
+        				result.setValue(new AmendmentValue(newValues));
+        			} else if (typeSoundex.equals(literalSoundex)) {
+        				// check that soundex match is unambiguous 
+        				int totalMatches = 0;
+        				Iterator<String> ic = basisOfRecordLiteralList.iterator();
+        				while (ic.hasNext() && !matched) { 
+        					String aLiteralCheck = ic.next();
+        					literalSoundex = soundex.encode(aLiteralCheck);
+        					if (typeSoundex.equals(literalSoundex)) { 
+        						totalMatches++;
+        					}
+        				}
+        				if (totalMatches==1) { 
+        					matched = true;	
+        					result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] sounds like ["+aLiteral+"] so corrected to this valid dwc:basisOfRecord literal.");
+        					result.setResultState(ResultState.AMENDED);
+        					Map<String, String> newValues = new HashMap<>();
+        					newValues.put("dwc:basisOfRecord", aLiteral) ;
+        					result.setValue(new AmendmentValue(newValues));
+        				}
+        			} else if (editDistance.apply(basisOfRecord, aLiteral)==1) { 
+        				matched = true;	
+        				result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] is one edit away from ["+aLiteral+"] so corrected to this valid dwc:basisOfRecord literal.");
+        				result.setResultState(ResultState.AMENDED);
+        				Map<String, String> newValues = new HashMap<>();
+        				newValues.put("dwc:basisOfRecord", aLiteral) ;
+        				result.setValue(new AmendmentValue(newValues));
+        			}
+        		}
+        		if (!matched) { 
+        			result.addComment("Unable to propose an amendment to conform the provided value for dwc:type ["+basisOfRecord+"] to a valid dwc:basisOfRecord literal.");
+        			result.setResultState(ResultState.NOT_AMENDED);
+        		}
+        	}
+        } catch (SourceAuthorityException e) {
+        	result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
+        	result.addComment("Error with specified sourceAuthority. " + e.getMessage());
+        }
 
         return result;
     }
