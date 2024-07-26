@@ -49,6 +49,8 @@ import org.datakurator.ffdq.api.result.AmendmentValue;
 import org.datakurator.ffdq.api.result.ComplianceValue;
 import org.datakurator.ffdq.api.result.IssueValue;
 import org.datakurator.ffdq.model.ResultState;
+import org.filteredpush.qc.metadata.util.MetadataSingleton;
+import org.filteredpush.qc.metadata.util.MetadataUtils;
 
 /**
  * Provides implementation of TDWG BDQ TG2 OTHER tests (related to metadata found in Record-level
@@ -80,7 +82,6 @@ import org.datakurator.ffdq.model.ResultState;
  *
  * And the following supplementary tests: 
  * 
- * #224 VALIDATION_MODIFIED_NOTEMPTY e17918fc-25ca-4a3a-828b-4502432b98c4
  * #235 VALIDATION_LIFESTAGE_NOTEMPTY 34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87
  * #225 VALIDATION_DISPOSITION_NOTEMPTY b4c17611-2703-474f-b46a-93b08ecfee16
  * #232 VALIDATION_INDIVIDUALCOUNT_NOTEMPTY aff0facd-1d2a-40a5-a55a-61f950cd68a0
@@ -1598,35 +1599,9 @@ public class DwCMetadataDQ {
     }
 
     /**
-    * Does the value of dcterms:modified a valid ISO date?
-    *
-    * Provides: VALIDATION_MODIFIED_STANDARD
-    * Version: 2024-02-08
-    *
-    * @param modified the provided dcterms:modified to evaluate as ActedUpon.
-    * @return DQResponse the response of type ComplianceValue  to return
-    */
-    @Validation(label="VALIDATION_MODIFIED_STANDARD", description="Does the value of dcterms:modified a valid ISO date?")
-    @Provides("c253f11a-6161-4692-bfce-4328f1961630")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/c253f11a-6161-4692-bfce-4328f1961630/2024-02-08")
-    @Specification("INTERNAL_PREREQUISITES_NOT_MET if dcterms:modified is EMPTY; COMPLIANT if the value of dcterms:modified is a valid ISO 8601-1 date; otherwise NOT_COMPLIANT. ")
-    public DQResponse<ComplianceValue> validationModifiedStandard(
-        @ActedUpon("dcterms:modified") String modified
-    ) {
-        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
-
-        //TODO:  Implement specification
-        // INTERNAL_PREREQUISITES_NOT_MET if dcterms:modified is EMPTY; 
-        // COMPLIANT if the value of dcterms:modified is a valid ISO 
-        // 8601-1 date; otherwise NOT_COMPLIANT. 
-
-        return result;
-    }
-
-    /**
     * Does the value of dwc:lifeStage occur in bdq:sourceAuthority?
     *
-    * Provides: VALIDATION_LIFESTAGE_STANDARD
+    * Provides: #270 VALIDATION_LIFESTAGE_STANDARD
     * Version: 2024-02-09
     *
     * @param lifeStage the provided dwc:lifeStage to evaluate as ActedUpon.
@@ -1636,22 +1611,56 @@ public class DwCMetadataDQ {
     @Provides("be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a/2024-02-09")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:lifeStage is EMPTY; COMPLIANT if the value of dwc:lifeStage is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core lifeStage [https://dwc.tdwg.org/list/#dwc_lifeStage]} {dwc:lifeStage vocabulary' [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}")
-    public DQResponse<ComplianceValue> validationLifestageStandard(
-        @ActedUpon("dwc:lifeStage") String lifeStage
+    public static DQResponse<ComplianceValue> validationLifestageStandard(
+        @ActedUpon("dwc:lifeStage") String lifeStage,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:lifeStage 
         // is EMPTY; COMPLIANT if the value of dwc:lifeStage is in 
-        // the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority 
-        // default = "Darwin Core lifeStage [https://dwc.tdwg.org/list/#dwc_lifeStage]} 
-        // {dwc:lifeStage vocabulary" [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]} 
+        // the bdq:sourceAuthority; otherwise NOT_COMPLIANT. 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
+        // Parameters. This test is defined as parameterized.
         // bdq:sourceAuthority
+        // bdq:sourceAuthority default = "GBIF LifeStage Vocabulary" 
+        // [https://api.gbif.org/v1/vocabularies/LifeStage]} {"dwc:lifeStage vocabulary API" 
+        // [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}
+        
+
+        
+        if (MetadataUtils.isEmpty(lifeStage)) { 
+        	result.addComment("No Value provided for dwc:lifeStage");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "GBIF LifeStage Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		} else { 
+        			result.setResultState(ResultState.RUN_HAS_RESULT);	
+        			if (MetadataSingleton.getInstance().getLifeStageValues().containsKey(lifeStage)) { 
+        				result.addComment("Provided value of dwc:lifeStage found in the sourceAuthority");
+        				result.setValue(ComplianceValue.COMPLIANT);
+        			} else {
+        				result.addComment("Provided value of dwc:lifeStage [" + lifeStage + "] not found in the sourceAuthority");
+        				result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		
+        	}
+        }
 
         return result;
     }
@@ -1896,38 +1905,6 @@ public class DwCMetadataDQ {
         return result;
     }
 
-    /**
-    * Is there a value in dcterms:modified?
-    *
-    * Provides: #224 VALIDATION_MODIFIED_NOTEMPTY
-    * Version: 2024-01-29
-    *
-    * @param modified the provided dcterms:modified to evaluate as ActedUpon.
-    * @return DQResponse the response of type ComplianceValue  to return
-    */
-    @Validation(label="VALIDATION_MODIFIED_NOTEMPTY", description="Is there a value in dcterms:modified?")
-    @Provides("e17918fc-25ca-4a3a-828b-4502432b98c4")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/e17918fc-25ca-4a3a-828b-4502432b98c4/2024-01-29")
-    @Specification("COMPLIANT if dcterms:modified is not EMPTY; otherwise NOT_COMPLIANT ")
-    public static DQResponse<ComplianceValue> validationModifiedNotempty(
-        @ActedUpon("dcterms:modified") String modified
-    ) {
-        DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        // Specification
-        // COMPLIANT if dcterms:modified is not EMPTY; otherwise NOT_COMPLIANT 
-
-		if (MetadataUtils.isEmpty(modified)) {
-			result.addComment("No value provided for dcterms:modified.");
-			result.setValue(ComplianceValue.NOT_COMPLIANT);
-			result.setResultState(ResultState.RUN_HAS_RESULT);
-		} else { 
-			result.addComment("Some value provided for dcterms:modified.");
-			result.setValue(ComplianceValue.COMPLIANT);
-			result.setResultState(ResultState.RUN_HAS_RESULT);
-		}
-        
-        return result;
-    }
 
 }

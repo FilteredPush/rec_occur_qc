@@ -24,6 +24,7 @@ package org.filteredpush.qc.metadata;
  */
 public enum EnumMetadataSourceAuthority {
 
+	GBIF_LIFESTAGE,
     DWC_BASISOFRECORD,
     INVALID;
 

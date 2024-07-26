@@ -903,23 +903,31 @@ public class DwCMetadataDQTest {
 		
 	}
 	
+
+	
 	/**
-	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationModifiedNotempty(java.lang.String)}.
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationLifestageStandard(java.lang.String)}.
 	 */
 	@Test
-	public void testValidationModifiedNotempty() {
-		String modified = "foo";
-		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationModifiedNotempty(modified);
-		logger.debug(result.getComment());
-		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
-		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
-		assertNotNull(result.getComment());
-		
-		modified = "";
-		result = DwCMetadataDQ.validationModifiedNotempty(modified);
+	public void testValidationLifestageStandard() {
+		String lifeStage = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationLifestageStandard(lifeStage,null);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
 		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		lifeStage = "";
+		result = DwCMetadataDQ.validationLifestageStandard(lifeStage,null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNotNull(result.getComment());
+		
+		lifeStage = "Larva";
+		result = DwCMetadataDQ.validationLifestageStandard(lifeStage,null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
 		assertNotNull(result.getComment());
 		
 	}

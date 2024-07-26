@@ -16,7 +16,7 @@
  * limitations under the License. 
  *
  */
-package org.filteredpush.qc.metadata;
+package org.filteredpush.qc.metadata.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

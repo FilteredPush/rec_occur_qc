@@ -107,4 +107,22 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     	return validationLicenseStandard(license,null);
     }
    
+    /**
+    * Does the value of dwc:lifeStage occur in bdq:sourceAuthority, using the default source authority?
+    *
+    * Provides: #270 VALIDATION_LIFESTAGE_STANDARD
+    * Version: 2024-02-09
+    *
+    * @param lifeStage the provided dwc:lifeStage to evaluate as ActedUpon.
+    * @return DQResponse the response of type ComplianceValue  to return
+    */
+    @Validation(label="VALIDATION_LIFESTAGE_STANDARD", description="Does the value of dwc:lifeStage occur in bdq:sourceAuthority?")
+    @Provides("be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a/2024-02-09")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:lifeStage is EMPTY; COMPLIANT if the value of dwc:lifeStage is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core lifeStage [https://dwc.tdwg.org/list/#dwc_lifeStage]} {dwc:lifeStage vocabulary' [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}")
+    public static DQResponse<ComplianceValue> validationLifestageStandard(
+        @ActedUpon("dwc:lifeStage") String lifeStage
+    ) {
+    	return validationLifestageStandard(lifeStage,null);
+    }
 }
