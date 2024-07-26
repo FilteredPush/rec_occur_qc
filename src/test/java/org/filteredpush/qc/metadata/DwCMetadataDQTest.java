@@ -932,4 +932,59 @@ public class DwCMetadataDQTest {
 		
 	}
 	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationPathwayStandard(java.lang.String)}.
+	 */
+	@Test
+	public void validationPathwayStandard() {
+		String pathway = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationPathwayStandard(pathway,"GBIF Pathway Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		pathway = "";
+		result = DwCMetadataDQ.validationPathwayStandard(pathway,"GBIF Pathway Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());	
+		
+		pathway = "transportStowaway";
+		result = DwCMetadataDQ.validationPathwayStandard(pathway,"GBIF Pathway Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		pathway = "contaminateBait";
+		result = DwCMetadataDQ.validationPathwayStandard(pathway,"GBIF Pathway Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		pathway = "contaminantNursery";
+		result = DwCMetadataDQ.validationPathwayStandard(pathway,"GBIF Pathway Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		pathway = "otherEscape";
+		result = DwCMetadataDQ.validationPathwayStandard(pathway,"GBIF Pathway Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		pathway = "corridorAndDispersal";
+		result = DwCMetadataDQ.validationPathwayStandard(pathway,"GBIF Pathway Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
 }

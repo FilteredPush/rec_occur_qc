@@ -83,8 +83,10 @@ import org.filteredpush.qc.metadata.util.MetadataUtils;
  * And the following supplementary tests: 
  * 
  * #235 VALIDATION_LIFESTAGE_NOTEMPTY 34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87
+ * #270 VALIDATION_LIFESTAGE_STANDARD be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a
  * #225 VALIDATION_DISPOSITION_NOTEMPTY b4c17611-2703-474f-b46a-93b08ecfee16
  * #232 VALIDATION_INDIVIDUALCOUNT_NOTEMPTY aff0facd-1d2a-40a5-a55a-61f950cd68a0
+ * #290 VALIDATION_INDIVIDUALCOUNT_INTEGER 43abded0-c3bf-44e7-8c1f-c4207608b1fa
  * #242 VALIDATION_RECORDEDBY_NOTEMPTY 986ad95d-ffa1-4e3b-a6cb-ed943c87be0d
  * #243 VALIDATION_RECORDNUMBER_NOTEMPTY 3bd2477c-6497-43b0-94e6-b811eed1b1cb
  * #260 VALIDATION_PREPARATIONS_NOTEMPTY 2aa1b7a0-0473-4a90-bf11-a02137c5c65b
@@ -115,7 +117,7 @@ public class DwCMetadataDQ {
      */
     @Issue(label="ISSUE_DATAGENERALIZATIONS_NOTEMPTY", description="Is there a value in dwc:dataGeneralizations?")
     @Provides("13d5a10e-188e-40fd-a22c-dbaa87b91df2")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/13d5a10e-188e-40fd-a22c-dbaa87b91df2/2022-11-08")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/13d5a10e-188e-40fd-a22c-dbaa87b91df2/2023-09-18")
     @Specification("POTENTIAL_ISSUE if dwc:dataGeneralizations is not EMPTY; otherwise NOT_ISSUE ")
     public static DQResponse<IssueValue> issueDatageneralizationsNotempty(@ActedUpon("dwc:dataGeneralizations") String dataGeneralizations) {
         DQResponse<IssueValue> result = new DQResponse<IssueValue>();
@@ -1202,7 +1204,7 @@ public class DwCMetadataDQ {
     /**
     * Does the value of dwc:pathway occur in bdq:sourceAuthority?
     *
-    * Provides: VALIDATION_PATHWAY_STANDARD
+    * Provides: 277 VALIDATION_PATHWAY_STANDARD
     * Version: 2024-02-09
     *
     * @param pathway the provided dwc:pathway to evaluate as ActedUpon.
@@ -1212,8 +1214,9 @@ public class DwCMetadataDQ {
     @Provides("5424e933-bee7-4125-839e-d8743ea69f93")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/5424e933-bee7-4125-839e-d8743ea69f93/2024-02-09")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:pathway is EMPTY; COMPLIANT if the value of dwc:pathway is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core pathway' {[https://dwc.tdwg.org/list/#dwc_pathway]} {dwc:pathway vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]}")
-    public DQResponse<ComplianceValue> validationPathwayStandard(
-        @ActedUpon("dwc:pathway") String pathway
+    public static DQResponse<ComplianceValue> validationPathwayStandard(
+        @ActedUpon("dwc:pathway") String pathway,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
@@ -1221,14 +1224,45 @@ public class DwCMetadataDQ {
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:pathway 
         // is EMPTY; COMPLIANT if the value of dwc:pathway is in the 
-        // bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority 
-        // default = "Darwin Core pathway" {[https://dwc.tdwg.org/list/#dwc_pathway]} 
-        // {dwc:pathway vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]} 
+        // bdq:sourceAuthority; otherwise NOT_COMPLIANT. 
         // 
 
         //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
+        // bdq:sourceAuthority default = "Pathway Controlled Vocabulary List of Terms" 
+        // {[https://dwc.tdwg.org/pw/]} 
+        // {GBIF vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]}
 
+        if (MetadataUtils.isEmpty(pathway)) { 
+        	result.addComment("No Value provided for dwc:pathway");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		// TODO: Implement tdwg vocabulary lookup
+        		sourceAuthority = "GBIF Pathway Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		} else { 
+        			result.setResultState(ResultState.RUN_HAS_RESULT);	
+        			if (MetadataSingleton.getInstance().getPathwayValues().containsKey(pathway)) { 
+        				result.addComment("Provided value of dwc:pathway found in the sourceAuthority");
+        				result.setValue(ComplianceValue.COMPLIANT);
+        			} else {
+        				result.addComment("Provided value of dwc:pathway [" + pathway + "] not found in the sourceAuthority");
+        				result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		
+        	}
+        }
+        
         return result;
     }
 
@@ -1501,11 +1535,10 @@ public class DwCMetadataDQ {
         return result;
     }
 
-// TODO: Implementation of ISSUE_DATAGENERALIZATIONS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdq/terms/13d5a10e-188e-40fd-a22c-dbaa87b91df2/2023-09-18 see line: 87
     /**
     * Is dwc:individualCount an Integer ?
     *
-    * Provides: VALIDATION_INDIVIDUALCOUNT_INTEGER
+    * Provides: 290 VALIDATION_INDIVIDUALCOUNT_INTEGER
     * Version: 2024-02-11
     *
     * @param individualCount the provided dwc:individualCount to evaluate as ActedUpon.
@@ -1524,6 +1557,18 @@ public class DwCMetadataDQ {
         // COMPLIANT if the value of dwc:individualCount is interpretable 
         // an integer; otherwise NOT_COMPLIANT. 
 
+        result.setResultState(ResultState.RUN_HAS_RESULT);
+        if (MetadataUtils.isEmpty(individualCount)) { 
+        	result.setValue(ComplianceValue.NOT_COMPLIANT);
+        	result.addComment("Provided value for individualCount is empty, not an integer.");
+        } else if (individualCount.trim().matches("^[0-9]+$")) { 
+        	result.setValue(ComplianceValue.COMPLIANT);
+        	result.addComment("Provided value for individualCount is an integer.");
+        } else { 
+        	result.setValue(ComplianceValue.NOT_COMPLIANT);
+        	result.addComment("Provided value for individualCount ["+individualCount+"] is not an integer.");
+        }
+        
         return result;
     }
 
@@ -1531,7 +1576,7 @@ public class DwCMetadataDQ {
     /**
     * Propose amendment to the value of dwc:preparations using bdq:sourceAuthority.
     *
-    * Provides: AMENDMENT_REPRODUCTIVECONDITION_STANDARDIZED
+    * Provides: 282 AMENDMENT_REPRODUCTIVECONDITION_STANDARDIZED
     * Version: 2024-02-09
     *
     * @param reproductiveCondition the provided dwc:reproductiveCondition to evaluate as ActedUpon.
@@ -1565,7 +1610,7 @@ public class DwCMetadataDQ {
     /**
     * Propose amendment to the value of dwc:preparations using bdq:sourceAuthority.
     *
-    * Provides: AMENDMENT_PREPARATIONS_STANDARDIZED
+    * Provides: 280 AMENDMENT_PREPARATIONS_STANDARDIZED
     * Version: 2024-02-09
     *
     * @param preparations the provided dwc:preparations to evaluate as ActedUpon.

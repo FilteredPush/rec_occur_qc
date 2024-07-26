@@ -62,6 +62,7 @@ public class GbifService {
 		HashMap<String,List<String>> result = new HashMap();
 		
 		String lookup = gbifApiEndpoint + "vocabularies/" + vocabulary + "/concepts";
+		logger.debug(lookup);
 		URI lookupURI = URI.create(lookup);
 		
 		HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build();
@@ -72,32 +73,59 @@ public class GbifService {
 		try {
 			response = client.send(request,HttpResponse.BodyHandlers.ofString());
 			JSONObject responseJson = (JSONObject) JSONValue.parse(response.body());
+			boolean loaded = true;
 			
 			logger.debug(response);
 			logger.debug(response.body());
 			
+			boolean endOfRecords = false;
 			JSONArray resultList = (JSONArray) responseJson.get("results");
+			logger.debug(responseJson.get("count"));
 			if (resultList!=null) { 
-				for (int i=0; i<resultList.size(); i++) { 
-					JSONObject item = (JSONObject) resultList.get(i);
-					String name = item.get("name").toString();
-					ArrayList<String> list = new ArrayList<String>();
-					list.add(name);
-					// label[0].value
-				  	JSONArray labels = (JSONArray) item.get("label");
-				  	for (int j=0; j<labels.size(); j++) { 
-				  		String label = ((JSONObject)labels.get(j)).get("value").toString();
-				  		list.add(label);
-				  	}
-				  	// externalDefinitions[0]
-				  	JSONArray terms = (JSONArray) item.get("externalDefinitions");
-				  	for (int j=0; j<terms.size(); j++) { 
-				  		String externalDefinition = terms.get(j).toString();
-				  		list.add(externalDefinition);
-				  	}
-				  	result.put(name,list);
-				}
+				int limit = Integer.parseInt(responseJson.get("limit").toString());
+				int offset = 0;
+				while (endOfRecords==false) { 
+					if (!loaded) { 
+						lookup = gbifApiEndpoint + "vocabularies/" + vocabulary + "/concepts?offset=" + offset;
+						logger.debug(lookup);
+						lookupURI = URI.create(lookup);
+						client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build();
+						request = HttpRequest.newBuilder().uri(lookupURI).GET().build();
+						response = client.send(request,HttpResponse.BodyHandlers.ofString());
+						responseJson = (JSONObject) JSONValue.parse(response.body());
+						resultList = (JSONArray) responseJson.get("results");
+					}
+					for (int i=0; i<resultList.size(); i++) { 
+						JSONObject item = (JSONObject) resultList.get(i);
+						String name = item.get("name").toString();
+						ArrayList<String> list = new ArrayList<String>();
+						list.add(name);
+						logger.debug(name);
+						// label[0].value
+						JSONArray labels = (JSONArray) item.get("label");
+						for (int j=0; j<labels.size(); j++) { 
+							String label = ((JSONObject)labels.get(j)).get("value").toString();
+							list.add(label);
+						}
+						// externalDefinitions[0]
+						JSONArray terms = (JSONArray) item.get("externalDefinitions");
+						for (int j=0; j<terms.size(); j++) { 
+							String externalDefinition = terms.get(j).toString();
+							list.add(externalDefinition);
+						}
+						result.put(name,list);
+					}
+					String endOfRecordsString = responseJson.get("endOfRecords").toString();
+					if (endOfRecordsString.toLowerCase().equals("true")) { 
+						endOfRecords = true;
+					} else { 
+						endOfRecords = false;
+					}
+					offset = offset + limit;
+					loaded = false;
+				}	
 			}
+			logger.debug(result.size());
 			
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);

@@ -46,6 +46,9 @@ public class MetadataSingleton {
 	private Map<String,List<String>> lifeStageTerms = new HashMap<String,List<String>>();
 	private Map<String,String> lifeStageValues = new HashMap<String,String>();
 	
+	private Map<String,List<String>> pathwayTerms = new HashMap<String,List<String>>();
+	private Map<String,String> pathwayValues = new HashMap<String,String>();
+	
 	private MetadataSingleton() { 
 		init();
 	}
@@ -64,8 +67,8 @@ public class MetadataSingleton {
 		
 		try { 
 			GbifService gbif = new GbifService();
+			
 			lifeStageTerms = gbif.loadVocabulary("LifeStage");
-
 			Iterator<String> keys = lifeStageTerms.keySet().iterator();
 			while (keys.hasNext()) { 
 				String key = keys.next();
@@ -75,6 +78,18 @@ public class MetadataSingleton {
 					lifeStageValues.put(i.next(), key);
 				}
 			}
+			
+			pathwayTerms = gbif.loadVocabulary("Pathway");
+			keys = pathwayTerms.keySet().iterator();
+			while (keys.hasNext()) { 
+				String key = keys.next();
+				List<String> values = pathwayTerms.get(key);
+				Iterator<String> i = values.iterator();
+				while (i.hasNext()) { 
+					pathwayValues.put(i.next(), key);
+				}
+			}
+			
 			loaded = true;
 			loadError = "";
 		} catch (Exception e) { 
@@ -84,6 +99,9 @@ public class MetadataSingleton {
 
 	public Map<String,String> getLifeStageValues() { 
 		return lifeStageValues;
+	}
+	public Map<String,String> getPathwayValues() { 
+		return pathwayValues;
 	}
 	
 	public Boolean isLoaded() { 

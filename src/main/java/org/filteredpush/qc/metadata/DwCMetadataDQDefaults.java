@@ -125,4 +125,24 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     ) {
     	return validationLifestageStandard(lifeStage,null);
     }
+    
+    /**
+    * Does the value of dwc:pathway occur in bdq:sourceAuthority, using 
+    * the default sourceAuthority?
+    *
+    * Provides: 277 VALIDATION_PATHWAY_STANDARD
+    * Version: 2024-02-09
+    *
+    * @param pathway the provided dwc:pathway to evaluate as ActedUpon.
+    * @return DQResponse the response of type ComplianceValue  to return
+    */
+    @Validation(label="VALIDATION_PATHWAY_STANDARD", description="Does the value of dwc:pathway occur in bdq:sourceAuthority?")
+    @Provides("5424e933-bee7-4125-839e-d8743ea69f93")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/5424e933-bee7-4125-839e-d8743ea69f93/2024-02-09")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:pathway is EMPTY; COMPLIANT if the value of dwc:pathway is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core pathway' {[https://dwc.tdwg.org/list/#dwc_pathway]} {dwc:pathway vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]}")
+    public static DQResponse<ComplianceValue> validationPathwayStandard(
+        @ActedUpon("dwc:pathway") String pathway
+    ) {
+    	return validationPathwayStandard(pathway, null);
+    }
 }
