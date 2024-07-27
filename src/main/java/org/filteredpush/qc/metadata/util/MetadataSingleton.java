@@ -49,6 +49,9 @@ public class MetadataSingleton {
 	private Map<String,List<String>> pathwayTerms = new HashMap<String,List<String>>();
 	private Map<String,String> pathwayValues = new HashMap<String,String>();
 	
+	private Map<String,List<String>> typeStatusTerms = new HashMap<String,List<String>>();
+	private Map<String,String> typeStatusValues = new HashMap<String,String>();
+	
 	private MetadataSingleton() { 
 		init();
 	}
@@ -90,6 +93,17 @@ public class MetadataSingleton {
 				}
 			}
 			
+			typeStatusTerms = gbif.loadVocabulary("TypeStatus");
+			keys = typeStatusTerms.keySet().iterator();
+			while (keys.hasNext()) { 
+				String key = keys.next();
+				List<String> values = typeStatusTerms.get(key);
+				Iterator<String> i = values.iterator();
+				while (i.hasNext()) { 
+					typeStatusValues.put(i.next(), key);
+				}
+			}
+		
 			loaded = true;
 			loadError = "";
 		} catch (Exception e) { 
@@ -97,17 +111,41 @@ public class MetadataSingleton {
 		}
 	}
 
+	/**
+	 * get the lifeStage key:value pairs
+	 *  
+	 * @return the map of lifeStage values from the vocabulary
+	 */
 	public Map<String,String> getLifeStageValues() { 
 		return lifeStageValues;
 	}
+	/**
+	 * get the pathway key:value pairs
+	 * 
+	 * @return the map of pathway values from the vocabulary
+	 */
 	public Map<String,String> getPathwayValues() { 
 		return pathwayValues;
 	}
+	/**
+	 * get the typeStatus key:value pairs
+	 * 
+	 * @return the map of typeStatus values from the vocabulary
+	 */
+	public Map<String,String> getTypeStatusValues() { 
+		return typeStatusValues;
+	}
 	
+	/**
+	 * @return true if vocabularies have been loaded
+	 */
 	public Boolean isLoaded() { 
 		return loaded;
 	}
 	
+	/**
+	 * @return any load error message
+	 */
 	public String getLoadError() { 
 		return loadError;
 	}

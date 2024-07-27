@@ -18,6 +18,8 @@
  */
 package org.filteredpush.qc.metadata;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -49,8 +51,11 @@ import org.datakurator.ffdq.api.result.AmendmentValue;
 import org.datakurator.ffdq.api.result.ComplianceValue;
 import org.datakurator.ffdq.api.result.IssueValue;
 import org.datakurator.ffdq.model.ResultState;
+import org.filteredpush.qc.metadata.util.LSID;
 import org.filteredpush.qc.metadata.util.MetadataSingleton;
 import org.filteredpush.qc.metadata.util.MetadataUtils;
+import org.filteredpush.qc.metadata.util.RFC8141URN;
+import org.filteredpush.qc.metadata.util.URNFormatException;
 
 /**
  * Provides implementation of TDWG BDQ TG2 OTHER tests (related to metadata found in Record-level
@@ -63,25 +68,25 @@ import org.filteredpush.qc.metadata.util.MetadataUtils;
  * #99	15f78619-811a-4c6f-997a-a4c7888ad849	VALIDATION_LICENSE_NOTEMPTY
  * #47	c486546c-e6e5-48a7-b286-eba7f5ca56c4	VALIDATION_OCCURRENCEID_NOTEMPTY
  * #117	eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf	VALIDATION_OCCURRENCESTATUS_NOTEMPTY
- * #104 42408a00-bf71-4892-a399-4325e2bc1fb8	VALIDATION_BASISOFRECORD_STANDARD 
  * #116	7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47	VALIDATION_OCCURRENCESTATUS_STANDARD
+ * #104 42408a00-bf71-4892-a399-4325e2bc1fb8	VALIDATION_BASISOFRECORD_STANDARD 
  * #91	cdaabb0d-a863-49d0-bc0f-738d771acba5	VALIDATION_DCTYPE_STANDARD
  * #38	3136236e-04b6-49ea-8b34-a65f25e3aba1	VALIDATION_LICENSE_STANDARD
  * #41	bd385eeb-44a2-464b-a503-7abe407ef904	AMENDMENT_DCTYPE_STANDARDIZED
  * 63	07c28ace-561a-476e-a9b9-3d5ad6e35933	AMENDMENT_BASISOFRECORD_STANDARDIZED
- * 
+ * #75	96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5	AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
+ * #115	f8f3a093-042c-47a3-971a-a482aaaf3b75	AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
+ * #277 5424e933-bee7-4125-839e-d8743ea69f93	VALIDATION_PATHWAY_STANDARD
+ * #285 4833a522-12eb-4fe0-b4cf-7f7a337a6048 	VALIDATION_TYPESTATUS_STANDARD
  * 
  * TODO: Implement:
  * 
  * 29	fecaa8a3-bbd8-4c5a-a424-13c37c4bb7b1	ISSUE_ANNOTATION_NOTEMPTY
  * 133	dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8	AMENDMENT_LICENSE_STANDARDIZED
- * 75	96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5	AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
- * 115	f8f3a093-042c-47a3-971a-a482aaaf3b75	AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
- * 23	3cfe9ab4-79f8-4afd-8da5-723183ef16a3	VALIDATION_OCCURRENCEID_STANDARD
- * 46	3f335517-f442-4b98-b149-1e87ff16de45	VALIDATION_SCIENTIFICNAME_FOUND
  *
  * And the following supplementary tests: 
  * 
+ * #23 VALIDATION_OCCURRENCEID_STANDARD 3cfe9ab4-79f8-4afd-8da5-723183ef16a3
  * #235 VALIDATION_LIFESTAGE_NOTEMPTY 34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87
  * #270 VALIDATION_LIFESTAGE_STANDARD be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a
  * #225 VALIDATION_DISPOSITION_NOTEMPTY b4c17611-2703-474f-b46a-93b08ecfee16
@@ -104,6 +109,9 @@ public class DwCMetadataDQ {
 
 	private static final Log logger = LogFactory.getLog(DwCMetadataDQ.class);
     
+	/**
+	 * a list of dc:type literal values.
+	 */
 	protected static final String dcTypeLiterals = "Collection,Dataset,Event,Image,InteractiveResource,MovingImage,PhysicalObject,Service,Software,Sound,StillImage,Text";
 
     /**
@@ -454,28 +462,112 @@ public class DwCMetadataDQ {
     }
 
     /**
-    * Does the value of dwc:occurrenceID occur in bdq:SourceAuthority?
+    * Does dwc:occurrenceID contain a valid identifier??
     *
     * Provides: 23 VALIDATION_OCCURRENCEID_STANDARD
-    * Version: 2023-09-17
+    * Version: 2024-04-02
     *
     * @param occurrenceID the provided dwc:occurrenceID to evaluate as ActedUpon.
     * @return DQResponse the response of type ComplianceValue  to return
     */
-    @Validation(label="VALIDATION_OCCURRENCEID_STANDARD", description="Does the value of dwc:occurrenceID occur in bdq:SourceAuthority?")
+    @Validation(label="VALIDATION_OCCURRENCEID_STANDARD", description="Does dwc:occurrenceID contain a valid identifier?")
     @Provides("3cfe9ab4-79f8-4afd-8da5-723183ef16a3")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/3cfe9ab4-79f8-4afd-8da5-723183ef16a3/2023-09-17")
-    @Specification("INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceID is EMPTY; COMPLIANT if the value of dwc:occurrenceID follows a format commonly associated with globally unique identifiers (GUIDs); otherwise NOT_COMPLIANT ")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/3cfe9ab4-79f8-4afd-8da5-723183ef16a3/2024-04-02")
+    @Specification("INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceID is EMPTY; COMPLIANT if (1) dwc:occurrenceID is a validly formed LSID, or (2) dwc:occurrenceID is a validly formed URN with at least NID and NSS present, or (3) dwc:occurrenceID is in the form scope:value, or (4) dwc:occurrenceID is a validly formed URI with host and path where path consists of more than just \"/\"; otherwise NOT_COMPLIANT.")
     public static DQResponse<ComplianceValue> validationOccurrenceidStandard(
         @ActedUpon("dwc:occurrenceID") String occurrenceID
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
-        // INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceID is EMPTY; 
-        // COMPLIANT if the value of dwc:occurrenceID follows a format 
-        // commonly associated with globally unique identifiers (GUIDs); 
-        // otherwise NOT_COMPLIANT 
+        // Specification
+		// INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceID is EMPTY; COMPLIANT if (1)
+		// dwc:occurrenceID is a validly formed LSID, or (2) dwc:occurrenceID is a
+		// validly formed URN with at least NID and NSS present, or (3) dwc:occurrenceID
+		// is in the form scope:value, or (4) dwc:occurrenceID is a validly formed URI
+		// with host and path where path consists of more than just "/"; otherwise
+		// NOT_COMPLIANT.        
+        
+        if (MetadataUtils.isEmpty(occurrenceID))  {
+        	result.addComment("No value provided for scientificNameId.");
+        	result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else if (occurrenceID.matches("^[0-9]+$")) { 
+        	result.addComment("Provided occurrenceID ["+ occurrenceID +"] is a bare integer without an authority and this is incomplete.");
+        	result.setResultState(ResultState.RUN_HAS_RESULT);
+        	result.setValue(ComplianceValue.NOT_COMPLIANT);
+        } else { 
+        	try { 
+        		RFC8141URN urn = new RFC8141URN(occurrenceID);
+        		if (urn.getNid().equalsIgnoreCase("lsid")) { 
+        			try { 
+        				LSID lsid = new LSID(occurrenceID);
+        				lsid.getAuthority();
+        				lsid.getNamespace();
+        				lsid.getObjectID();
+        				result.addComment("Provided occurrenceID recognized as an LSID.");
+        				result.setResultState(ResultState.RUN_HAS_RESULT);
+        				result.setValue(ComplianceValue.COMPLIANT);
+        			} catch (URNFormatException e2) { 
+        				logger.debug(e2.getMessage());
+        				result.addComment("Provided value for occurrenceID ["+occurrenceID+"] claims to be an lsid, but is not correctly formatted as such.");
+        				result.setResultState(ResultState.RUN_HAS_RESULT);
+        				result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			}
+        		} else { 
+        			logger.debug(urn.getNid());
+        			logger.debug(urn.getNss());
+        			if (urn.getNid().length()>0 && urn.getNss().length()>0) { 
+        				result.addComment("Provided occurrenceID recognized as an URN.");
+        				result.setResultState(ResultState.RUN_HAS_RESULT);
+        				result.setValue(ComplianceValue.COMPLIANT);
+        			} else { 
+        				result.addComment("Provided occurrenceID appears to be a URN, but doesn't have both NID and NSS");
+        				result.setResultState(ResultState.RUN_HAS_RESULT);
+        				result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			}
+        		}
+        	} catch (URNFormatException e) { 
+        		logger.debug(e.getMessage());
+        		if (occurrenceID.toLowerCase().matches("^[a-z]+:[0-9]+$")) { 
+        			result.addComment("Provided occurrenceID ["+occurrenceID+"] matches the pattern scope:value where value is an integer.");
+        			result.setResultState(ResultState.RUN_HAS_RESULT);
+        			result.setValue(ComplianceValue.COMPLIANT);
+        		} else if (occurrenceID.toLowerCase().matches("^[a-z]+:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")) { 
+        			result.addComment("Provided occurrenceID ["+occurrenceID+"] matches the pattern scope:value where value is a uuid.");
+        			result.setResultState(ResultState.RUN_HAS_RESULT);
+        			result.setValue(ComplianceValue.COMPLIANT);
+        		} else { 
+        			try {
+        				URI uri = new URI(occurrenceID);
+        				logger.debug(uri.getScheme());
+        				logger.debug(uri.getAuthority());
+        				logger.debug(uri.getHost());
+        				logger.debug(uri.getPath());
+        				if (uri.getHost()!=null && uri.getPath()!=null 
+        						&& uri.getHost().length()>0 && uri.getPath().length()>0
+        						&& !uri.getPath().equals("/")) {
+        					if (uri.getHost().equalsIgnoreCase("www.gbif.org") && uri.getPath().equals("/occurrence/")) { 
+        						result.addComment("Provided occurrenceID recognized as GBIF occurrence URL, but lacks the ID ["+occurrenceID+"]");
+        						result.setResultState(ResultState.RUN_HAS_RESULT);
+        						result.setValue(ComplianceValue.NOT_COMPLIANT);
+        					} else { 
+        						result.addComment("Provided occurrenceID recognized as an URI with host, and path.");
+        						result.setResultState(ResultState.RUN_HAS_RESULT);
+        						result.setValue(ComplianceValue.COMPLIANT);
+        					}
+        				} else { 
+        					result.addComment("Provided occurrenceID may be a URI, but doesn't have host and path ["+occurrenceID+"]");
+        					result.setResultState(ResultState.RUN_HAS_RESULT);
+        					result.setValue(ComplianceValue.NOT_COMPLIANT);
+        				}
+        			} catch (URISyntaxException e1) {
+        				logger.debug(e1);
+        				result.addComment("Provided value for occurrenceID ["+occurrenceID+"] is not a LSID, URN, URI, or identifier in the form scope:value.");
+        				result.setResultState(ResultState.RUN_HAS_RESULT);
+        				result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			}
+        		}
+        	}
+        }
 
         return result;
     }
@@ -672,6 +764,7 @@ public class DwCMetadataDQ {
     * Version: 2023-07-24
     *
     * @param basisOfRecord the provided dwc:basisOfRecord to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_BASISOFRECORD_STANDARDIZED", description="Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority.")
@@ -810,34 +903,52 @@ public class DwCMetadataDQ {
     /**
     * Propose an amendment of the value of dwc:occurrenceStatus to the default parameter value if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty.
     *
-    * Provides: AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
+    * Provides: 75 AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
     * Version: 2023-09-18
     *
     * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate as ActedUpon.
     * @param individualCount the provided dwc:individualCount to evaluate as Consulted.
     * @param organismQuantity the provided dwc:organismQuantity to evaluate as Consulted.
+    * @param defaultOccurrenceStatus the value to use as the default dwc:occurrenceStatus.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT", description="Propose an amendment of the value of dwc:occurrenceStatus to the default parameter value if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty.")
     @Provides("96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2023-09-18")
     @Specification("FILLED_IN the value of dwc:occurrenceStatus using the Parameter value if dwc:occurrence.Status,  dwc:individualCount and dwc:organismQuantity are EMPTY; otherwise NOT_AMENDED dwc:occurrenceStatus default = 'present'")
-    public DQResponse<AmendmentValue> amendmentOccurrencestatusAssumeddefault(
+    public static DQResponse<AmendmentValue> amendmentOccurrencestatusAssumeddefault(
         @ActedUpon("dwc:occurrenceStatus") String occurrenceStatus, 
         @Consulted("dwc:individualCount") String individualCount, 
-        @Consulted("dwc:organismQuantity") String organismQuantity
+        @Consulted("dwc:organismQuantity") String organismQuantity,
+        @ActedUpon("bdq:defaultOccurrenceStatus") String defaultOccurrenceStatus
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // FILLED_IN the value of dwc:occurrenceStatus using the Parameter 
         // value if dwc:occurrence.Status, dwc:individualCount and 
         // dwc:organismQuantity are EMPTY; otherwise NOT_AMENDED dwc:occurrenceStatus 
         // default = "present" 
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // dwc:occurrenceStatus
+        // TODO: ahead of specification 
+        // Parameters. This test is defined as parameterized.
+        // bdq:defaultOccurrenceStatus
 
+        if (MetadataUtils.isEmpty(defaultOccurrenceStatus)) { 
+        	defaultOccurrenceStatus = "present";
+        }
+        
+        if (MetadataUtils.isEmpty(occurrenceStatus) && MetadataUtils.isEmpty(individualCount) && MetadataUtils.isEmpty(organismQuantity)) { 
+        	result.addComment("Set dwc:occurrenceStatus to the default value " + defaultOccurrenceStatus);
+        	result.setResultState(ResultState.FILLED_IN);
+        	Map<String, String> newValues = new HashMap<>();
+        	newValues.put("dwc:occurrenceStatus", defaultOccurrenceStatus) ;
+        	result.setValue(new AmendmentValue(newValues));
+        } else { 
+        	result.addComment("dwc:occurrenceStatus not changed, at least one of dwc:occurrenceStatus, dwc:individualCount, or dwc:organismQuantity contains a value.");
+        	result.setResultState(ResultState.NOT_AMENDED);
+        }
+        
         return result;
     }
 
@@ -895,17 +1006,17 @@ public class DwCMetadataDQ {
     /**
     * Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.
     *
-    * Provides: AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
-    * Version: 2023-09-18
+    * Provides: 115 AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
+    * Version: 2024-07-26
     *
     * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate as ActedUpon.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_OCCURRENCESTATUS_STANDARDIZED", description="Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.")
     @Provides("f8f3a093-042c-47a3-971a-a482aaaf3b75")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/f8f3a093-042c-47a3-971a-a482aaaf3b75/2023-09-18")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/f8f3a093-042c-47a3-971a-a482aaaf3b75/2024-07-26")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus is EMPTY; AMENDED the value of dwc:occurrenceStatus if could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority = 'Darwin Core occurrenceStatus' {https://dwc.tdwg.org/list/#dwc_occurrenceStatus} {dwc:occurrenceStatus vocabulary [https://rs.gbif.org/vocabulary/gbif/occurrence_status_2020-07-15.xml]}")
-    public DQResponse<AmendmentValue> amendmentOccurrencestatusStandardized(
+    public static DQResponse<AmendmentValue> amendmentOccurrencestatusStandardized(
         @ActedUpon("dwc:occurrenceStatus") String occurrenceStatus
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
@@ -920,9 +1031,44 @@ public class DwCMetadataDQ {
         // {dwc:occurrenceStatus vocabulary [https://rs.gbif.org/vocabulary/gbif/occurrence_status_2020-07-15.xml]} 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // dwc:occurrenceStatus vocabulary
-
+        if (MetadataUtils.isEmpty(occurrenceStatus)) { 
+        	result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        	result.addComment("Provided dwc:occurrenceStatus is empty");
+        } else if (occurrenceStatus.equals("present")) { 
+        	result.setResultState(ResultState.NOT_AMENDED);
+        	result.addComment("Provided dwc:occurrenceStatus is a valid value");
+        } else if (occurrenceStatus.equals("absent")) { 
+        	result.setResultState(ResultState.NOT_AMENDED);
+        	result.addComment("Provided dwc:occurrenceStatus is a valid value");
+        } else if (!occurrenceStatus.equals("present") && occurrenceStatus.trim().toLowerCase().equals("present")) { 
+        	result.setResultState(ResultState.AMENDED);
+			Map<String, String> values = new HashMap<>();
+			values.put("dwc:occurrenceStatus", "present") ;
+			result.setValue(new AmendmentValue(values));
+        	result.addComment("Provided dwc:occurrenceStatus interpreted as present");
+        } else if (!occurrenceStatus.equals("absent") && occurrenceStatus.trim().toLowerCase().equals("absent")) { 
+        	result.setResultState(ResultState.AMENDED);
+			Map<String, String> values = new HashMap<>();
+			values.put("dwc:occurrenceStatus", "absent") ;
+			result.setValue(new AmendmentValue(values));
+        	result.addComment("Provided dwc:occurrenceStatus interpreted as absent");
+        } else if (occurrenceStatus.trim().equals("1")) { 
+        	result.setResultState(ResultState.AMENDED);
+			Map<String, String> values = new HashMap<>();
+			values.put("dwc:occurrenceStatus", "present") ;
+			result.setValue(new AmendmentValue(values));
+        	result.addComment("Provided dwc:occurrenceStatus interpreted as present");
+        } else if (occurrenceStatus.trim().equals("0")) { 
+        	result.setResultState(ResultState.AMENDED);
+			Map<String, String> values = new HashMap<>();
+			values.put("dwc:occurrenceStatus", "absent") ;
+			result.setValue(new AmendmentValue(values));
+        	result.addComment("Provided dwc:occurrenceStatus interpreted as absent");
+        } else { 
+        	result.setResultState(ResultState.NOT_AMENDED);
+        	result.addComment("Provided dwc:occurrenceStatus ["+occurrenceStatus+"] not interpretable");
+        }
+        
         return result;
     }
 
@@ -1208,6 +1354,7 @@ public class DwCMetadataDQ {
     * Version: 2024-02-09
     *
     * @param pathway the provided dwc:pathway to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type ComplianceValue  to return
     */
     @Validation(label="VALIDATION_PATHWAY_STANDARD", description="Does the value of dwc:pathway occur in bdq:sourceAuthority?")
@@ -1401,22 +1548,24 @@ public class DwCMetadataDQ {
     /**
     * Does the value of dwc:typeStatus occur in bdq:sourceAuthority?
     *
-    * Provides: VALIDATION_TYPESTATUS_STANDARD
+    * Provides: 285 VALIDATION_TYPESTATUS_STANDARD
     * Version: 2024-02-09
     *
     * @param typeStatus the provided dwc:typeStatus to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type ComplianceValue  to return
     */
     @Validation(label="VALIDATION_TYPESTATUS_STANDARD", description="Does the value of dwc:typeStatus occur in bdq:sourceAuthority?")
     @Provides("4833a522-12eb-4fe0-b4cf-7f7a337a6048")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-02-09")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is EMPTY; COMPLIANT if the value of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core typeStatus' {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}")
-    public DQResponse<ComplianceValue> validationTypestatusStandard(
-        @ActedUpon("dwc:typeStatus") String typeStatus
+    public static DQResponse<ComplianceValue> validationTypestatusStandard(
+        @ActedUpon("dwc:typeStatus") String typeStatus,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus 
         // is EMPTY; COMPLIANT if the value of dwc:typeStatus is in 
@@ -1427,7 +1576,36 @@ public class DwCMetadataDQ {
 
         //TODO: Parameters. This test is defined as parameterized.
         // bdq:sourceAuthority
-
+        if (MetadataUtils.isEmpty(typeStatus)) { 
+        	result.addComment("No Value provided for dwc:typeStatus");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "GBIF TypeStatus Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		} else { 
+        			result.setResultState(ResultState.RUN_HAS_RESULT);	
+        			if (MetadataSingleton.getInstance().getTypeStatusValues().containsKey(typeStatus)) { 
+        				result.addComment("Provided value of dwc:typeStatus found in the sourceAuthority");
+        				result.setValue(ComplianceValue.COMPLIANT);
+        			} else {
+        				result.addComment("Provided value of dwc:typeStatus [" + typeStatus + "] not found in the sourceAuthority");
+        				result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		result.addComment("Error evaluating dwc:typeStatus: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	}
+        }
         return result;
     }
 
@@ -1462,6 +1640,8 @@ public class DwCMetadataDQ {
         //TODO: Parameters. This test is defined as parameterized.
         // bdq:sourceAuthority
 
+
+        
         return result;
     }
 
@@ -1650,6 +1830,7 @@ public class DwCMetadataDQ {
     * Version: 2024-02-09
     *
     * @param lifeStage the provided dwc:lifeStage to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type ComplianceValue  to return
     */
     @Validation(label="VALIDATION_LIFESTAGE_STANDARD", description="Does the value of dwc:lifeStage occur in bdq:sourceAuthority?")

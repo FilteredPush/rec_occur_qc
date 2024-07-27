@@ -47,10 +47,15 @@ public class GbifService {
 	
 	private static final String gbifApiEndpoint = "https://api.gbif.org/v1/";
 
+	/**
+	 * default constructor
+	 */
 	public GbifService() {
 		init();
 	}
-	
+	/** 
+	 * set up class instance
+	 */
 	private void init() { 
 		//ClientBuilder clientBuilder = new ClientBuilder().withUrl(gbifApiEndpoint);
 		
@@ -58,6 +63,13 @@ public class GbifService {
 		
 	}
 	
+	/**
+	 * Load a GBIF vocabulary
+	 * 
+	 * @param vocabulary the name of the vocabulary to load
+	 * @return a  Map String, List String where the keys are vocabulary terms and the values are lists of 
+	 * possible alternative names for the term.
+	 */
 	public Map<String,List<String>> loadVocabulary(String vocabulary) { 
 		HashMap<String,List<String>> result = new HashMap();
 		
@@ -136,6 +148,10 @@ public class GbifService {
 		return result;
 	}
 	
+	/**
+	 * Main class for testing during development
+	 * @param args arguments, none expected
+	 */
 	public static void main( String[] args ) { 
 		GbifService test = new GbifService();
 		Map<String,List<String>> pathway = test.loadVocabulary("Pathway");

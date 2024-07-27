@@ -67,12 +67,22 @@ public class MetadataSourceAuthority {
 		if (authorityString==null) { authorityString = ""; }
 	    if (authorityString.toUpperCase().equals("DARWIN CORE BASISOFRECORD")) {
 	    	this.authority = EnumMetadataSourceAuthority.DWC_BASISOFRECORD;	
+	    	
 	    } else if (authorityString.toUpperCase().equals("GBIF LIFESTAGE VOCABULARY")) { 
 	    	this.authority = EnumMetadataSourceAuthority.GBIF_LIFESTAGE;	
 	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/LifeStage")) { 
-	    	this.authority = EnumMetadataSourceAuthority.GBIF_LIFESTAGE;	
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_LIFESTAGE;
+	    	
 	    } else if (authorityString.toUpperCase().equals("GBIF PATHWAY VOCABULARY")) { 
 	    	this.authority = EnumMetadataSourceAuthority.GBIF_PATHWAY;	
+	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/Pathway")) { 
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_PATHWAY;
+	    	
+	    } else if (authorityString.toUpperCase().equals("GBIF TYPESTATUS VOCABULARY")) { 
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_TYPESTATUS;	
+	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/TypeStatus")) { 
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_TYPESTATUS;	
+	    	
 	    } else if (authorityString.toUpperCase().startsWith("HTTPS://INVALID/")) { 
 	    	this.authority = EnumMetadataSourceAuthority.INVALID;	
 	    } else { 

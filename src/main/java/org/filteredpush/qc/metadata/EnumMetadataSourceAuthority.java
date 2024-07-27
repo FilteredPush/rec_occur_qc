@@ -24,15 +24,31 @@ package org.filteredpush.qc.metadata;
  */
 public enum EnumMetadataSourceAuthority {
 
+	/**
+	 * GBIF LifeStage vocabulary
+	 */
 	GBIF_LIFESTAGE,
+	/**
+	 * GBIF Pathway vocabulary
+	 */
 	GBIF_PATHWAY,
+	/**
+	 * GBIF Type Status vocabulary
+	 */
+	GBIF_TYPESTATUS,
+	/**
+	 * Darwin Core Class Names
+	 */
     DWC_BASISOFRECORD,
+	/**
+	 * Invalid Source Authority
+	 */
     INVALID;
 
 	/**
-	 * <p>getName.</p>
+	 * getName get the name of the enumerated object.
 	 *
-	 * @return a {@link java.lang.String} object.
+	 * @return the name of the object.
 	 */
 	public String getName() {
 		// return the exact name of the enum instance.

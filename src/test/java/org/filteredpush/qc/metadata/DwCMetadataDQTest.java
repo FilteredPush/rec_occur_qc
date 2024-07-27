@@ -87,19 +87,13 @@ public class DwCMetadataDQTest {
     	assertEquals(IssueValue.POTENTIAL_ISSUE.getLabel(), response.getValue().getLabel());
 	}
 	
-	/**
-	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationOccurrenceidStandard(java.lang.String)}.
-	 */
-	@Test
-	public void testValidationOccurrenceidStandard() {
-		fail("Not yet implemented");
-	}
+
 
 	/**
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationLicenseStandard(java.lang.String)}.
 	 */
 	@Test
-	public void validationLicenseStandard() {
+	public void testValidationLicenseStandard() {
 		String license = "foo";
 		DQResponse<ComplianceValue> result = DwCMetadataDQDefaults.validationLicenseStandard(license);
 		logger.debug(result.getComment());
@@ -397,13 +391,7 @@ public class DwCMetadataDQTest {
 		assertNotNull(result.getComment());
 	}
 
-	/**
-	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#amendmentOccurrencestatusAssumeddefault(java.lang.String)}.
-	 */
-	@Test
-	public void testAmendmentOccurrencestatusAssumeddefault() {
-		fail("Not yet implemented");
-	}
+
 
 	/**
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationDctypeStandard(java.lang.String)}.
@@ -569,13 +557,7 @@ public class DwCMetadataDQTest {
 		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
 	}
 
-	/**
-	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#amendmentOccurrencestatusStandardized(java.lang.String)}.
-	 */
-	@Test
-	public void testAmendmentOccurrencestatusStandardized() {
-		fail("Not yet implemented");
-	}
+
 
 	/**
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationOccurrencestatusStandard(java.lang.String)}.
@@ -643,13 +625,7 @@ public class DwCMetadataDQTest {
 		
 	}
 
-	/**
-	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#amendmentLicenseStandardized(java.lang.String)}.
-	 */
-	@Test
-	public void testAmendmentLicenseStandardized() {
-		fail("Not yet implemented");
-	}
+
 
 	/**
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationPathwayNotempty(java.lang.String)}.
@@ -936,7 +912,7 @@ public class DwCMetadataDQTest {
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationPathwayStandard(java.lang.String)}.
 	 */
 	@Test
-	public void validationPathwayStandard() {
+	public void testValidationPathwayStandard() {
 		String pathway = "foo";
 		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationPathwayStandard(pathway,"GBIF Pathway Vocabulary");
 		logger.debug(result.getComment());
@@ -985,6 +961,155 @@ public class DwCMetadataDQTest {
 		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
 		assertNotNull(result.getComment());
 		
+	}
+	
+
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationOccurrenceidStandard(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationOccurrenceidStandard() {
+        // Specification
+		// INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceID is EMPTY; COMPLIANT if (1)
+		// dwc:occurrenceID is a validly formed LSID, or (2) dwc:occurrenceID is a
+		// validly formed URN with at least NID and NSS present, or (3) dwc:occurrenceID
+		// is in the form scope:value, or (4) dwc:occurrenceID is a validly formed URI
+		// with host and path where path consists of more than just "/"; otherwise
+		// NOT_COMPLIANT. 
+		
+		String occurrenceID = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQDefaults.validationOccurrenceidStandard(occurrenceID);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		occurrenceID = "";
+		result = DwCMetadataDQDefaults.validationOccurrenceidStandard(occurrenceID);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());	
+		
+		occurrenceID = "https://creativecommons.org/licenses/by-sa/4.0/";
+		result = DwCMetadataDQDefaults.validationOccurrenceidStandard(occurrenceID);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		occurrenceID = "urn:catalog:MCZ:Orn:1";
+		result = DwCMetadataDQDefaults.validationOccurrenceidStandard(occurrenceID);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		occurrenceID = "scope:121415";
+		result = DwCMetadataDQDefaults.validationOccurrenceidStandard(occurrenceID);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		occurrenceID = "urn:lsid:marinespecies.org:taxname:137205";
+		result = DwCMetadataDQDefaults.validationOccurrenceidStandard(occurrenceID);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		occurrenceID = "urn:uuid:32803335-d5eb-4e5c-ab2e-8a451ae8e23a";
+		result = DwCMetadataDQDefaults.validationOccurrenceidStandard(occurrenceID);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#amendmentOccurrencestatusAssumeddefault(java.lang.String)}.
+	 */
+	@Test
+	public void testAmendmentOccurrencestatusAssumeddefault() {
+		// FILLED_IN the value of dwc:occurrenceStatus using the Parameter 
+        // value if dwc:occurrence.Status, dwc:individualCount and 
+        // dwc:organismQuantity are EMPTY; otherwise NOT_AMENDED dwc:occurrenceStatus 
+        // default = "present"
+		String occurrenceStatus = "";
+		String individualCount = "1";
+		String organismQuantity = "";
+		DQResponse<AmendmentValue> result = DwCMetadataDQ.amendmentOccurrencestatusAssumeddefault(occurrenceStatus, individualCount, organismQuantity, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+		
+		occurrenceStatus = "";
+		individualCount = "";
+		organismQuantity = "";
+		result = DwCMetadataDQ.amendmentOccurrencestatusAssumeddefault(occurrenceStatus, individualCount, organismQuantity, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.FILLED_IN.getLabel(), result.getResultState().getLabel());
+		assertNotNull(result.getValue());
+		assertEquals("present", result.getValue().getObject().get("dwc:occurrenceStatus"));
+		assertNotNull(result.getComment());
+		
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#amendmentOccurrencestatusStandardized(java.lang.String)}.
+	 */
+	@Test
+	public void testAmendmentOccurrencestatusStandardized() {
+		String occurrenceStatus = "";
+		DQResponse<AmendmentValue> result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+		
+		occurrenceStatus = "1";
+		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNotNull(result.getValue());
+		assertEquals("present", result.getValue().getObject().get("dwc:occurrenceStatus"));
+		assertNotNull(result.getComment());
+		
+		occurrenceStatus = " Present";
+		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNotNull(result.getValue());
+		assertEquals("present", result.getValue().getObject().get("dwc:occurrenceStatus"));
+		assertNotNull(result.getComment());
+		
+		occurrenceStatus = "0";
+		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNotNull(result.getValue());
+		assertEquals("absent", result.getValue().getObject().get("dwc:occurrenceStatus"));
+		assertNotNull(result.getComment());
+		
+		occurrenceStatus = "abnsent";
+		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#amendmentLicenseStandardized(java.lang.String)}.
+	 */
+	@Test
+	public void testAmendmentLicenseStandardized() {
+		// TODO: Implement
+		// fail("Not yet implemented");
 	}
 	
 }
