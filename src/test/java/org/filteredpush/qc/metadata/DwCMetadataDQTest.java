@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,6 +36,7 @@ import org.datakurator.ffdq.api.result.IssueValue;
 import org.datakurator.ffdq.model.ResultState;
 import org.filteredpush.qc.metadata.DwCMetadataDQ;
 import org.filteredpush.qc.metadata.DwCMetadataDQDefaults;
+import org.filteredpush.qc.metadata.util.MetadataSingleton;
 import org.junit.Test;
 
 /**
@@ -812,6 +815,196 @@ public class DwCMetadataDQTest {
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
 		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
 		assertNotNull(result.getComment());
+		
+		sex = "Indeterminado";  // es translation label
+		result = DwCMetadataDQ.validationSexStandard(sex,"GBIF Sex Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		Map<String, List<String>> vocabulary = MetadataSingleton.getInstance().getSexTerms();
+		Set<String> keys = vocabulary.keySet();
+		Iterator<String> i = keys.iterator();
+		while (i.hasNext()) { 
+			sex = i.next();
+			result = DwCMetadataDQ.validationSexStandard(sex,"GBIF Sex Vocabulary");
+			logger.debug(result.getComment());
+			assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+			assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+			assertNotNull(result.getComment());
+			
+			if (sex.equals(sex.toLowerCase())) { 
+				sex = sex.toUpperCase();
+				result = DwCMetadataDQ.validationSexStandard(sex,"GBIF Sex Vocabulary");
+				logger.debug(result.getComment());
+				assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+				assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+				assertNotNull(result.getComment());
+			} else { 
+				sex = sex.toLowerCase();
+				result = DwCMetadataDQ.validationSexStandard(sex,"GBIF Sex Vocabulary");
+				logger.debug(result.getComment());
+				assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+				assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+				assertNotNull(result.getComment());
+			} 
+		}
+		
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#amendmentSexStandardized(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public void testAmendmentSexStandardized() {
+		
+		String sex = "";
+		DQResponse<AmendmentValue> result = DwCMetadataDQ.amendmentSexStandardized(sex, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+	
+		Map<String, String> vocabulary = MetadataSingleton.getInstance().getSexValues();
+		Set<String> keys = vocabulary.keySet();
+		Iterator<String> i = keys.iterator();
+		while (i.hasNext()){ 
+			sex=i.next();
+			if  (MetadataSingleton.getInstance().getSexTerms().containsKey(sex)) { 
+				result = DwCMetadataDQ.amendmentSexStandardized(sex, null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+				assertNull(result.getValue());
+				assertNotNull(result.getComment());	
+			} else { 
+				String match = MetadataSingleton.getInstance().getSexValues().get(sex); 
+				result = DwCMetadataDQ.amendmentSexStandardized(sex, null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+				assertEquals(match,result.getValue().getObject().get("dwc:sex"));
+				assertNotNull(result.getComment());	
+				
+				if (sex.equals(sex.toLowerCase())) { 
+					sex = sex.toUpperCase();
+				} else { 
+					sex = sex.toLowerCase();
+				}
+				result = DwCMetadataDQ.amendmentSexStandardized(sex, null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+				assertEquals(match,result.getValue().getObject().get("dwc:sex"));
+				assertNotNull(result.getComment());	
+			} 
+		} 
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationDegreeofestablishmentStandard(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationDegreeofestablishmentStandard() {
+		String degreeOfEstablishment = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationDegreeofestablishmentStandard(degreeOfEstablishment,"GBIF DegreeOfEstablishment Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		degreeOfEstablishment = "";
+		result = DwCMetadataDQ.validationDegreeofestablishmentStandard(degreeOfEstablishment,"GBIF DegreeOfEstablishment Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());	
+		
+		degreeOfEstablishment = "managed";
+		result = DwCMetadataDQ.validationDegreeofestablishmentStandard(degreeOfEstablishment,"GBIF DegreeOfEstablishment Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		degreeOfEstablishment = "naturalized";
+		result = DwCMetadataDQ.validationDegreeofestablishmentStandard(degreeOfEstablishment,"GBIF DegreeOfEstablishment Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		Map<String, List<String>> vocabulary = MetadataSingleton.getInstance().getDegreeOfEstablishmentTerms();
+		Set<String> keys = vocabulary.keySet();
+		Iterator<String> i = keys.iterator();
+		while (i.hasNext()) { 
+			degreeOfEstablishment = i.next();
+			result = DwCMetadataDQ.validationDegreeofestablishmentStandard(degreeOfEstablishment,"GBIF DegreeOfEstablishment Vocabulary");
+			logger.debug(result.getComment());
+			assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+			assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+			assertNotNull(result.getComment());
+			
+			if (degreeOfEstablishment.equals(degreeOfEstablishment.toLowerCase())) { 
+				degreeOfEstablishment = degreeOfEstablishment.toUpperCase();
+				result = DwCMetadataDQ.validationDegreeofestablishmentStandard(degreeOfEstablishment,"GBIF DegreeOfEstablishment Vocabulary");
+				logger.debug(result.getComment());
+				assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+				assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+				assertNotNull(result.getComment());
+			} else { 
+				degreeOfEstablishment = degreeOfEstablishment.toLowerCase();
+				result = DwCMetadataDQ.validationDegreeofestablishmentStandard(degreeOfEstablishment,"GBIF DegreeOfEstablishment Vocabulary");
+				logger.debug(result.getComment());
+				assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+				assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+				assertNotNull(result.getComment());
+			} 
+		}
+		
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#amendmentDegreeOfEstablishmentStandardized(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public void testAmendmentDegreeOfEstablishmentStandardized() {
+		
+		String degreeOfEstablishment = "";
+		DQResponse<AmendmentValue> result = DwCMetadataDQ.amendmentDegreeofestablishmentStandardized(degreeOfEstablishment, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+	
+		Map<String, String> vocabulary = MetadataSingleton.getInstance().getDegreeOfEstablishmentValues();
+		Set<String> keys = vocabulary.keySet();
+		Iterator<String> i = keys.iterator();
+		while (i.hasNext()){ 
+			degreeOfEstablishment=i.next();
+			if  (MetadataSingleton.getInstance().getDegreeOfEstablishmentTerms().containsKey(degreeOfEstablishment)) { 
+				result = DwCMetadataDQ.amendmentDegreeofestablishmentStandardized(degreeOfEstablishment, null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+				assertNull(result.getValue());
+				assertNotNull(result.getComment());	
+			} else { 
+				String match = MetadataSingleton.getInstance().getDegreeOfEstablishmentValues().get(degreeOfEstablishment); 
+				result = DwCMetadataDQ.amendmentDegreeofestablishmentStandardized(degreeOfEstablishment, null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+				assertEquals(match,result.getValue().getObject().get("dwc:degreeOfEstablishment"));
+				assertNotNull(result.getComment());	
+				
+				if (degreeOfEstablishment.equals(degreeOfEstablishment.toLowerCase())) { 
+					degreeOfEstablishment = degreeOfEstablishment.toUpperCase();
+				} else { 
+					degreeOfEstablishment = " " + degreeOfEstablishment.toLowerCase();
+				}
+				result = DwCMetadataDQ.amendmentDegreeofestablishmentStandardized(degreeOfEstablishment, null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+				assertEquals(match,result.getValue().getObject().get("dwc:degreeOfEstablishment"));
+				assertNotNull(result.getComment());	
+			} 
+		} 
 	}
 	
 	/**
@@ -938,6 +1131,41 @@ public class DwCMetadataDQTest {
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
 		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
 		assertNotNull(result.getComment());
+		
+		lifeStage = "larva";
+		result = DwCMetadataDQ.validationLifestageStandard(lifeStage,null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		Map<String, List<String>> vocabulary = MetadataSingleton.getInstance().getLifeStageTerms();
+		Set<String> keys = vocabulary.keySet();
+		Iterator<String> i = keys.iterator();
+		while (i.hasNext()) { 
+			lifeStage = i.next();
+			result = DwCMetadataDQ.validationLifestageStandard(lifeStage,null);
+			logger.debug(result.getComment());
+			assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+			assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+			assertNotNull(result.getComment());
+			
+			if (lifeStage.equals(lifeStage.toLowerCase())) { 
+				lifeStage = lifeStage.toUpperCase();
+				result = DwCMetadataDQ.validationLifestageStandard(lifeStage,null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+				assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+				assertNotNull(result.getComment());
+			} else { 
+				lifeStage = lifeStage.toLowerCase();
+				result = DwCMetadataDQ.validationLifestageStandard(lifeStage,null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+				assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+				assertNotNull(result.getComment());
+			} 
+		}
 		
 	}
 	

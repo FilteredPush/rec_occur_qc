@@ -55,6 +55,9 @@ public class MetadataSingleton {
 	private Map<String,List<String>> sexTerms = new HashMap<String,List<String>>();
 	private Map<String,String> sexValues = new HashMap<String,String>();
 	
+	private Map<String,List<String>> degreeOfEstablishmentTerms = new HashMap<String,List<String>>();
+	private Map<String,String> degreeOfEstablishmentValues = new HashMap<String,String>();
+		
 	private MetadataSingleton() { 
 		init();
 	}
@@ -118,6 +121,16 @@ public class MetadataSingleton {
 				}
 			}
 		
+			degreeOfEstablishmentTerms = gbif.loadVocabulary("DegreeOfEstablishment");
+			keys = degreeOfEstablishmentTerms.keySet().iterator();
+			while (keys.hasNext()) { 
+				String key = keys.next();
+				List<String> values = degreeOfEstablishmentTerms.get(key);
+				Iterator<String> i = values.iterator();
+				while (i.hasNext()) { 
+					degreeOfEstablishmentValues.put(i.next(), key);
+				}
+			}
 		
 			loaded = true;
 			loadError = "";
@@ -127,7 +140,8 @@ public class MetadataSingleton {
 	}
 
 	/**
-	 * get the lifeStage key:value pairs
+	 * get the lifeStage value:key pairs
+	 * for finding vocabulary values for alternative labels
 	 *  
 	 * @return the map of lifeStage values from the vocabulary
 	 */
@@ -135,7 +149,18 @@ public class MetadataSingleton {
 		return lifeStageValues;
 	}
 	/**
-	 * get the pathway key:value pairs
+	 * get the liifeStage key:list of value pairs 
+	 * for finding values in the vocabulary
+	 * 
+	 * @return the map of lifeStage values from the vocabulary
+	 */
+	public Map<String, List<String>> getLifeStageTerms() { 
+		return lifeStageTerms;
+	}
+	
+	/**
+	 * get the pathway value:key pairs
+	 * for finding vocabulary values for alternative labels
 	 * 
 	 * @return the map of pathway values from the vocabulary
 	 */
@@ -143,21 +168,71 @@ public class MetadataSingleton {
 		return pathwayValues;
 	}
 	/**
-	 * get the typeStatus key:value pairs
+	 * get the pathway key:list of value pairs 
+	 * for finding values in the vocabulary
+	 * 
+	 * @return the map of pathway values from the vocabulary
+	 */
+	public Map<String, List<String>> getPathwayTerms() { 
+		return pathwayTerms;
+	}
+	
+	/**
+	 * get the typeStatus value:key pairs
 	 * 
 	 * @return the map of typeStatus values from the vocabulary
 	 */
 	public Map<String,String> getTypeStatusValues() { 
 		return typeStatusValues;
 	}
+	/**
+	 * get the typeStatus key:list of value pairs 
+	 * for finding values in the vocabulary
+	 * 
+	 * @return the map of typeStatus values from the vocabulary
+	 */
+	public Map<String, List<String>> getTypeStatusTerms() { 
+		return typeStatusTerms;
+	}
 	
 	/**
-	 * get the sex key:value pairs
+	 * get the sex value:key pairs
+	 * for finding vocabulary values for alternative labels
 	 * 
 	 * @return the map of sex values from the vocabulary
 	 */
 	public Map<String,String> getSexValues() { 
 		return sexValues;
+	}
+	
+	/**
+	 * get the sex key:list of value pairs 
+	 * for finding values in the vocabulary
+	 * 
+	 * @return the map of sex values from the vocabulary
+	 */
+	public Map<String, List<String>> getSexTerms() { 
+		return sexTerms;
+	}
+	
+	/**
+	 * get the degreeOfEstablishment value:key pairs
+	 * for finding vocabulary values for alternative labels
+	 * 
+	 * @return the map of degreeOfEstablishment values from the vocabulary
+	 */
+	public Map<String,String> getDegreeOfEstablishmentValues() { 
+		return degreeOfEstablishmentValues;
+	}
+	
+	/**
+	 * get the degreeOfEstablishment key:list of value pairs 
+	 * for finding values in the vocabulary
+	 * 
+	 * @return the map of degreeOfEstablishment values from the vocabulary
+	 */
+	public Map<String, List<String>> getDegreeOfEstablishmentTerms() { 
+		return degreeOfEstablishmentTerms;
 	}
 	
 	/**

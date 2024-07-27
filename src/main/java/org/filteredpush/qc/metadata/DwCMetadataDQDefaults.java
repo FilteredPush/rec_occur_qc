@@ -164,4 +164,63 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     ) {
     	return validationSexStandard(sex, null);
     }
+    
+    /**
+    * Propose amendment to the value of dwc:sex using bdq:sourceAuthority.
+    * Uses the default source authority
+    *
+    * Provides: 284 AMENDMENT_SEX_STANDARDIZED
+    * Version: 2024-03-25
+    *
+    * @param sex the provided dwc:sex to evaluate as ActedUpon.
+    * @return DQResponse the response of type AmendmentValue to return
+    */
+    @Amendment(label="AMENDMENT_SEX_STANDARDIZED", description="Propose amendment to the value of dwc:sex using bdq:sourceAuthority.")
+    @Provides("33c45ae1-e2db-462a-a59e-7169bb01c5d6")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/33c45ae1-e2db-462a-a59e-7169bb01c5d6/2024-03-25")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:sex is EMPTY; AMENDED the value of dwc:sex if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED")
+    public static DQResponse<AmendmentValue> amendmentSexStandardized(
+        @ActedUpon("dwc:sex") String sex
+    ) {
+    	return amendmentSexStandardized(sex, null);
+    }
+    
+    /**
+    * Does the value of dwc:degreeOfEstablishment occur in bdq:sourceAuthority?
+    * Uses the default source authority
+    *
+    * Provides: 275 VALIDATION_DEGREEOFESTABLISHMENT_STANDARD
+    * Version: 2024-02-09
+    *
+    * @param degreeOfEstablishment the provided dwc:degreeOfEstablishment to evaluate as ActedUpon.
+    * @return DQResponse the response of type ComplianceValue  to return
+    */
+    @Validation(label="VALIDATION_DEGREEOFESTABLISHMENT_STANDARD", description="Does the value of dwc:degreeOfEstablishment occur in bdq:sourceAuthority?")
+    @Provides("060e7734-607d-4737-8b2c-bfa17788bf1a")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/060e7734-607d-4737-8b2c-bfa17788bf1a/2024-02-09")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is EMPTY; COMPLIANT if the value of dwc:degreeOfEstablishment is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.")
+    public static DQResponse<ComplianceValue> validationDegreeofestablishmentStandard(
+        @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment
+    ) {
+    	return validationDegreeofestablishmentStandard(degreeOfEstablishment, null);
+    }
+    
+    /**
+    * Propose amendment to the value of dwc:degreeOfEstablishment using the default bdq:sourceAuthority.
+    *
+    * Provides: 276 AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED
+    * Version: 2024-02-09
+    *
+    * @param degreeOfEstablishment the provided dwc:degreeOfEstablishment to evaluate as ActedUpon.
+    * @return DQResponse the response of type AmendmentValue to return
+    */
+    @Amendment(label="AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED", description="Propose amendment to the value of dwc:degreeOfEstablishment using bdq:sourceAuthority.")
+    @Provides("74ef1034-e289-4596-b5b0-cde73796697d")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-02-09")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is EMPTY; AMENDED the value of dwc:degreeOfEstablishment if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core degreeOfEstablishment' {[https://dwc.tdwg.org/list/#dwc_degreeOfEstablishment]} {dwc:degreeOfEstablishment vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]}")
+    public static DQResponse<AmendmentValue> amendmentDegreeofestablishmentStandardized(
+        @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment
+    ) {
+    	return amendmentDegreeofestablishmentStandardized(degreeOfEstablishment, null);
+    }
 }

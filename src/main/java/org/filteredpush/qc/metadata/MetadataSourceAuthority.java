@@ -88,6 +88,14 @@ public class MetadataSourceAuthority {
 	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/Sex")) { 
 	    	this.authority = EnumMetadataSourceAuthority.GBIF_SEX;		
 	    	
+	    } else if (authorityString.toUpperCase().equals("GBIF DEGREEOFESTABLISHMENT VOCABULARY")) { 
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_DEGREEOFESTABLISHMENT;	
+	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment")) { 
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_DEGREEOFESTABLISHMENT;	
+	    } else if (authorityString.toUpperCase().equals("DEGREE OF ESTABLISHMENT CONTROLLED VOCABULARY LIST OF TERMS")) { 
+	    	// TODO: This should point at the TDWG vocabulary
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_DEGREEOFESTABLISHMENT;	
+	    	
 	    } else if (authorityString.toUpperCase().startsWith("HTTPS://INVALID/")) { 
 	    	this.authority = EnumMetadataSourceAuthority.INVALID;	
 	    } else { 

@@ -112,18 +112,33 @@ public class GbifService {
 						String name = item.get("name").toString();
 						ArrayList<String> list = new ArrayList<String>();
 						list.add(name);
+						if (!name.equals(name.toLowerCase())) { 
+							list.add(name.toLowerCase());
+						}
 						logger.debug(name);
 						// label[0].value
 						JSONArray labels = (JSONArray) item.get("label");
 						for (int j=0; j<labels.size(); j++) { 
 							String label = ((JSONObject)labels.get(j)).get("value").toString();
 							list.add(label);
+							if (!label.equals(label.toLowerCase())) { 
+								list.add(label.toLowerCase());
+							}
+							if (!label.equals(label.toUpperCase())) { 
+								list.add(label.toUpperCase());
+							}
 						}
 						// externalDefinitions[0]
 						JSONArray terms = (JSONArray) item.get("externalDefinitions");
 						for (int j=0; j<terms.size(); j++) { 
 							String externalDefinition = terms.get(j).toString();
 							list.add(externalDefinition);
+							if (!externalDefinition.equals(externalDefinition.toLowerCase())) { 
+								list.add(externalDefinition.toLowerCase());
+							}
+							if (!externalDefinition.equals(externalDefinition.toUpperCase())) { 
+								list.add(externalDefinition.toUpperCase());
+							}
 						}
 						result.put(name,list);
 					}

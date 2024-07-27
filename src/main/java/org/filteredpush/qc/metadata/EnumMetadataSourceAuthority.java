@@ -41,6 +41,10 @@ public enum EnumMetadataSourceAuthority {
 	 */
 	GBIF_SEX,
 	/**
+	 * GBIF Degree of Establishment Vocabulary
+	 */
+	GBIF_DEGREEOFESTABLISHMENT,
+	/**
 	 * Darwin Core Class Names
 	 */
     DWC_BASISOFRECORD,

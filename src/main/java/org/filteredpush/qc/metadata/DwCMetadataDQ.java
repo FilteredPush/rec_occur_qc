@@ -63,22 +63,25 @@ import org.filteredpush.qc.metadata.util.URNFormatException;
  * 
  * #72	13d5a10e-188e-40fd-a22c-dbaa87b91df2	ISSUE_DATAGENERALIZATIONS_NOTEMPTY 
  * #94	acc8dff2-d8d1-483a-946d-65a02a452700	ISSUE_ESTABLISHMENTMEANS_NOTEMPTY
- * #58	ac2b7648-d5f9-48ca-9b07-8ad5879a2536	VALIDATION_BASISOFRECORD_NOTEMPTY
- * #103	374b091a-fc90-4791-91e5-c1557c649169	VALIDATION_DCTYPE_NOTEMPTY
- * #99	15f78619-811a-4c6f-997a-a4c7888ad849	VALIDATION_LICENSE_NOTEMPTY
  * #47	c486546c-e6e5-48a7-b286-eba7f5ca56c4	VALIDATION_OCCURRENCEID_NOTEMPTY
+ * #99	15f78619-811a-4c6f-997a-a4c7888ad849	VALIDATION_LICENSE_NOTEMPTY
+ * #38	3136236e-04b6-49ea-8b34-a65f25e3aba1	VALIDATION_LICENSE_STANDARD
+ * #91	cdaabb0d-a863-49d0-bc0f-738d771acba5	VALIDATION_DCTYPE_STANDARD
+ * #103	374b091a-fc90-4791-91e5-c1557c649169	VALIDATION_DCTYPE_NOTEMPTY
+ * #41	bd385eeb-44a2-464b-a503-7abe407ef904	AMENDMENT_DCTYPE_STANDARDIZED
+ * #58	ac2b7648-d5f9-48ca-9b07-8ad5879a2536	VALIDATION_BASISOFRECORD_NOTEMPTY
+ * #104 42408a00-bf71-4892-a399-4325e2bc1fb8	VALIDATION_BASISOFRECORD_STANDARD 
+ * 63	07c28ace-561a-476e-a9b9-3d5ad6e35933	AMENDMENT_BASISOFRECORD_STANDARDIZED
  * #117	eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf	VALIDATION_OCCURRENCESTATUS_NOTEMPTY
  * #116	7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47	VALIDATION_OCCURRENCESTATUS_STANDARD
- * #104 42408a00-bf71-4892-a399-4325e2bc1fb8	VALIDATION_BASISOFRECORD_STANDARD 
- * #91	cdaabb0d-a863-49d0-bc0f-738d771acba5	VALIDATION_DCTYPE_STANDARD
- * #38	3136236e-04b6-49ea-8b34-a65f25e3aba1	VALIDATION_LICENSE_STANDARD
- * #41	bd385eeb-44a2-464b-a503-7abe407ef904	AMENDMENT_DCTYPE_STANDARDIZED
- * 63	07c28ace-561a-476e-a9b9-3d5ad6e35933	AMENDMENT_BASISOFRECORD_STANDARDIZED
  * #75	96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5	AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
  * #115	f8f3a093-042c-47a3-971a-a482aaaf3b75	AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
  * #277 5424e933-bee7-4125-839e-d8743ea69f93	VALIDATION_PATHWAY_STANDARD
  * #285 4833a522-12eb-4fe0-b4cf-7f7a337a6048 	VALIDATION_TYPESTATUS_STANDARD
  * #283 88d8598b-3318-483d-9475-a5acf9887404	VALIDATION_SEX_STANDARD 
+ * #284 33c45ae1-e2db-462a-a59e-7169bb01c5d6	AMENDMENT_SEX_STANDARDIZED
+ * #275 060e7734-607d-4737-8b2c-bfa17788bf1a	VALIDATION_DEGREEOFESTABLISHMENT_STANDARD
+ * #276 74ef1034-e289-4596-b5b0-cde73796697d	AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED
  * 
  * TODO: Implement:
  * 
@@ -1285,33 +1288,64 @@ public class DwCMetadataDQ {
     /**
     * Does the value of dwc:degreeOfEstablishment occur in bdq:sourceAuthority?
     *
-    * Provides: VALIDATION_DEGREEOFESTABLISHMENT_STANDARD
+    * Provides: 275 VALIDATION_DEGREEOFESTABLISHMENT_STANDARD
     * Version: 2024-02-09
     *
     * @param degreeOfEstablishment the provided dwc:degreeOfEstablishment to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type ComplianceValue  to return
     */
     @Validation(label="VALIDATION_DEGREEOFESTABLISHMENT_STANDARD", description="Does the value of dwc:degreeOfEstablishment occur in bdq:sourceAuthority?")
     @Provides("060e7734-607d-4737-8b2c-bfa17788bf1a")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/060e7734-607d-4737-8b2c-bfa17788bf1a/2024-02-09")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is EMPTY; COMPLIANT if the value of dwc:degreeOfEstablishment is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core degreeOfEstablishment' {[https://dwc.tdwg.org/list/#dwc_degreeOfEstablishment]} {dwc:degreeOfEstablishment vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]}")
-    public DQResponse<ComplianceValue> validationDegreeofestablishmentStandard(
-        @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is EMPTY; COMPLIANT if the value of dwc:degreeOfEstablishment is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.")
+    public static DQResponse<ComplianceValue> validationDegreeofestablishmentStandard(
+        @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment,
+    	@Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
-        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
-        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment 
-        // is EMPTY; COMPLIANT if the value of dwc:degreeOfEstablishment 
-        // is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. 
-        // bdq:sourceAuthority default = "Darwin Core degreeOfEstablishment" 
-        // {[https://dwc.tdwg.org/list/#dwc_degreeOfEstablishment]} 
-        // {dwc:degreeOfEstablishment vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]} 
-        // 
+        // specification
+		// EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available;
+		// INTERNAL_PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is EMPTY;
+		// COMPLIANT if the value of dwc:degreeOfEstablishment is in the
+		// bdq:sourceAuthority; otherwise NOT_COMPLIANT.
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
+        // Parameters. This test is defined as parameterized.
+		// bdq:sourceAuthority default = "Degree of Establishment Controlled Vocabulary
+		// List of Terms" {[https://dwc.tdwg.org/doe/]} {GBIF vocabulary API
+		// [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]}
+        
+        if (MetadataUtils.isEmpty(degreeOfEstablishment)) { 
+        	result.addComment("No Value provided for dwc:degreeOfEstablishment");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "GBIF DegreeOfEstablishment Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		} else { 
+        			result.setResultState(ResultState.RUN_HAS_RESULT);	
+        			if (MetadataSingleton.getInstance().getDegreeOfEstablishmentTerms().containsKey(degreeOfEstablishment)) { 
+        				result.addComment("Provided value of dwc:degreeOfEstablishment found in the sourceAuthority");
+        				result.setValue(ComplianceValue.COMPLIANT);
+        			} else {
+        				result.addComment("Provided value of dwc:degreeOfEstablishment [" + degreeOfEstablishment + "] not found in the sourceAuthority");
+        				result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		result.addComment("Error evaluating dwc:degreeOfEstablishment: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	}
+        }
 
         return result;
     }
@@ -1319,22 +1353,24 @@ public class DwCMetadataDQ {
     /**
     * Propose amendment to the value of dwc:degreeOfEstablishment using bdq:sourceAuthority.
     *
-    * Provides: AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED
+    * Provides: 276 AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED
     * Version: 2024-02-09
     *
     * @param degreeOfEstablishment the provided dwc:degreeOfEstablishment to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED", description="Propose amendment to the value of dwc:degreeOfEstablishment using bdq:sourceAuthority.")
     @Provides("74ef1034-e289-4596-b5b0-cde73796697d")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-02-09")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is EMPTY; AMENDED the value of dwc:degreeOfEstablishment if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core degreeOfEstablishment' {[https://dwc.tdwg.org/list/#dwc_degreeOfEstablishment]} {dwc:degreeOfEstablishment vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]}")
-    public DQResponse<AmendmentValue> amendmentDegreeofestablishmentStandardized(
-        @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment
+    public static DQResponse<AmendmentValue> amendmentDegreeofestablishmentStandardized(
+        @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment 
         // is EMPTY; AMENDED the value of dwc:degreeOfEstablishment 
@@ -1347,6 +1383,52 @@ public class DwCMetadataDQ {
         //TODO: Parameters. This test is defined as parameterized.
         // bdq:sourceAuthority
 
+        if (MetadataUtils.isEmpty(degreeOfEstablishment)) { 
+        	result.addComment("No Value provided for dwc:degreeOfEstablishment");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "GBIF DegreeOfEstablishment Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		} else { 
+        			if (MetadataSingleton.getInstance().getDegreeOfEstablishmentTerms().containsKey(degreeOfEstablishment)) { 
+        				result.addComment("Provided value of dwc:degreeOfEstablishment ["+degreeOfEstablishment+"] found in the sourceAuthority");
+        				result.setResultState(ResultState.NOT_AMENDED);	
+        			} else {
+        				// Handle camel case value
+        				if (degreeOfEstablishment.trim().toLowerCase().equals("widespread invasive")) { 
+        					degreeOfEstablishment = "widespreadInvasive";
+        				}
+        				if (degreeOfEstablishment.trim().toLowerCase().equals("widespreadinvasive")) { 
+        					degreeOfEstablishment = "widespreadInvasive";
+        				}
+        				if (MetadataSingleton.getInstance().getDegreeOfEstablishmentValues().containsKey(degreeOfEstablishment.trim())) { 
+        					String match = MetadataSingleton.getInstance().getDegreeOfEstablishmentValues().get(degreeOfEstablishment.trim());
+        					result.setResultState(ResultState.AMENDED);	
+        					Map<String, String> values = new HashMap<>();
+        					values.put("dwc:degreeOfEstablishment", match) ;
+        					result.setValue(new AmendmentValue(values));
+        					result.addComment("Provided value of dwc:degreeOfEstablishment [" + degreeOfEstablishment + "] conformed to the sourceAuthority");
+        				} else { 
+        					result.addComment("Provided value of dwc:degreeOfEstablishment [" + degreeOfEstablishment + "] unable to be conformed to the sourceAuthority");
+        					result.setResultState(ResultState.NOT_AMENDED);
+        				}
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		result.addComment("Error evaluating dwc:degreeOfEstablishment: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	}
+        }
+        
         return result;
     }
 
@@ -1397,7 +1479,7 @@ public class DwCMetadataDQ {
         			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
         		} else { 
         			result.setResultState(ResultState.RUN_HAS_RESULT);	
-        			if (MetadataSingleton.getInstance().getPathwayValues().containsKey(pathway)) { 
+        			if (MetadataSingleton.getInstance().getPathwayTerms().containsKey(pathway)) { 
         				result.addComment("Provided value of dwc:pathway found in the sourceAuthority");
         				result.setValue(ComplianceValue.COMPLIANT);
         			} else {
@@ -1528,7 +1610,7 @@ public class DwCMetadataDQ {
         			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
         		} else { 
         			result.setResultState(ResultState.RUN_HAS_RESULT);	
-        			if (MetadataSingleton.getInstance().getSexValues().containsKey(sex)) { 
+        			if (MetadataSingleton.getInstance().getSexTerms().containsKey(sex)) { 
         				result.addComment("Provided value of dwc:sex found in the sourceAuthority");
         				result.setValue(ComplianceValue.COMPLIANT);
         			} else {
@@ -1551,32 +1633,72 @@ public class DwCMetadataDQ {
     /**
     * Propose amendment to the value of dwc:sex using bdq:sourceAuthority.
     *
-    * Provides: AMENDMENT_SEX_STANDARDIZED
-    * Version: 2024-02-09
+    * Provides: 284 AMENDMENT_SEX_STANDARDIZED
+    * Version: 2024-03-25
     *
     * @param sex the provided dwc:sex to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_SEX_STANDARDIZED", description="Propose amendment to the value of dwc:sex using bdq:sourceAuthority.")
     @Provides("33c45ae1-e2db-462a-a59e-7169bb01c5d6")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/33c45ae1-e2db-462a-a59e-7169bb01c5d6/2024-02-09")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:sex is EMPTY; AMENDED the value of dwc:sex if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core sex' {[https://dwc.tdwg.org/list/#dwc_sex]} {dwc:sex vocabulary API [NO CURRENT API EXISTS]}")
-    public DQResponse<AmendmentValue> amendmentSexStandardized(
-        @ActedUpon("dwc:sex") String sex
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/33c45ae1-e2db-462a-a59e-7169bb01c5d6/2024-03-25")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:sex is EMPTY; AMENDED the value of dwc:sex if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED")
+    public static DQResponse<AmendmentValue> amendmentSexStandardized(
+        @ActedUpon("dwc:sex") String sex,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
-        //TODO:  Implement specification
-        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
-        // is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:sex 
-        // is EMPTY; AMENDED the value of dwc:sex if it can be unambiguously 
-        // matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED 
-        // bdq:sourceAuthority default = "Darwin Core sex" {[https://dwc.tdwg.org/list/#dwc_sex]} 
-        // {dwc:sex vocabulary API [NO CURRENT API EXISTS]} 
+        // specification
+		// EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available;
+		// INTERNAL PREREQUISITES_NOT_MET if dwc:sex is EMPTY; AMENDED the value of
+		// dwc:sex if it can be unambiguously matched to a term in bdq:sourceAuthority;
+		// otherwise NOT_AMENDED
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
+        // Parameters. This test is defined as parameterized.
+		// bdq:sourceAuthority default = "GBIF Sex Vocabulary"
+		// [https://api.gbif.org/v1/vocabularies/Sex]} {"dwc:sex vocabulary API"
+		// [https://api.gbif.org/v1/vocabularies/Sex/concepts]}
 
+        if (MetadataUtils.isEmpty(sex)) { 
+        	result.addComment("No Value provided for dwc:sex");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "GBIF Sex Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		} else { 
+        			if (MetadataSingleton.getInstance().getSexTerms().containsKey(sex)) { 
+        				result.addComment("Provided value of dwc:sex found in the sourceAuthority");
+        				result.setResultState(ResultState.NOT_AMENDED);	
+        			} else {
+        				if (MetadataSingleton.getInstance().getSexValues().containsKey(sex.trim())) { 
+        					String match = MetadataSingleton.getInstance().getSexValues().get(sex.trim());
+        					result.setResultState(ResultState.AMENDED);	
+        					Map<String, String> values = new HashMap<>();
+        					values.put("dwc:sex", match) ;
+        					result.setValue(new AmendmentValue(values));
+        				} else { 
+        					result.addComment("Provided value of dwc:sex [" + sex + "] unable to be conformed to the the sourceAuthority");
+        					result.setResultState(ResultState.NOT_AMENDED);
+        				}
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		result.addComment("Error evaluating dwc:sex: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	}
+        }
+        
         return result;
     }
 
@@ -1625,7 +1747,7 @@ public class DwCMetadataDQ {
         			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
         		} else { 
         			result.setResultState(ResultState.RUN_HAS_RESULT);	
-        			if (MetadataSingleton.getInstance().getTypeStatusValues().containsKey(typeStatus)) { 
+        			if (MetadataSingleton.getInstance().getTypeStatusTerms().containsKey(typeStatus)) { 
         				result.addComment("Provided value of dwc:typeStatus found in the sourceAuthority");
         				result.setValue(ComplianceValue.COMPLIANT);
         			} else {
@@ -1907,7 +2029,7 @@ public class DwCMetadataDQ {
         			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
         		} else { 
         			result.setResultState(ResultState.RUN_HAS_RESULT);	
-        			if (MetadataSingleton.getInstance().getLifeStageValues().containsKey(lifeStage)) { 
+        			if (MetadataSingleton.getInstance().getLifeStageTerms().containsKey(lifeStage)) { 
         				result.addComment("Provided value of dwc:lifeStage found in the sourceAuthority");
         				result.setValue(ComplianceValue.COMPLIANT);
         			} else {
