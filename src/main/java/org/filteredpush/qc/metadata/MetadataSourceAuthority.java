@@ -83,6 +83,11 @@ public class MetadataSourceAuthority {
 	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/TypeStatus")) { 
 	    	this.authority = EnumMetadataSourceAuthority.GBIF_TYPESTATUS;	
 	    	
+	    } else if (authorityString.toUpperCase().equals("GBIF SEX VOCABULARY")) { 
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_SEX;	
+	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/Sex")) { 
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_SEX;		
+	    	
 	    } else if (authorityString.toUpperCase().startsWith("HTTPS://INVALID/")) { 
 	    	this.authority = EnumMetadataSourceAuthority.INVALID;	
 	    } else { 

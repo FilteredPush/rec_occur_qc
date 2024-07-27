@@ -37,6 +37,10 @@ public enum EnumMetadataSourceAuthority {
 	 */
 	GBIF_TYPESTATUS,
 	/**
+	 * GBIF Sex vocabulary
+	 */
+	GBIF_SEX,
+	/**
 	 * Darwin Core Class Names
 	 */
     DWC_BASISOFRECORD,

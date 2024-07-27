@@ -52,6 +52,9 @@ public class MetadataSingleton {
 	private Map<String,List<String>> typeStatusTerms = new HashMap<String,List<String>>();
 	private Map<String,String> typeStatusValues = new HashMap<String,String>();
 	
+	private Map<String,List<String>> sexTerms = new HashMap<String,List<String>>();
+	private Map<String,String> sexValues = new HashMap<String,String>();
+	
 	private MetadataSingleton() { 
 		init();
 	}
@@ -103,6 +106,18 @@ public class MetadataSingleton {
 					typeStatusValues.put(i.next(), key);
 				}
 			}
+			
+			sexTerms = gbif.loadVocabulary("Sex");
+			keys = sexTerms.keySet().iterator();
+			while (keys.hasNext()) { 
+				String key = keys.next();
+				List<String> values = sexTerms.get(key);
+				Iterator<String> i = values.iterator();
+				while (i.hasNext()) { 
+					sexValues.put(i.next(), key);
+				}
+			}
+		
 		
 			loaded = true;
 			loadError = "";
@@ -134,6 +149,15 @@ public class MetadataSingleton {
 	 */
 	public Map<String,String> getTypeStatusValues() { 
 		return typeStatusValues;
+	}
+	
+	/**
+	 * get the sex key:value pairs
+	 * 
+	 * @return the map of sex values from the vocabulary
+	 */
+	public Map<String,String> getSexValues() { 
+		return sexValues;
 	}
 	
 	/**

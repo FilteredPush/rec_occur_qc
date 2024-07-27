@@ -145,4 +145,23 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     ) {
     	return validationPathwayStandard(pathway, null);
     }
+    
+    /**
+    * Does the value of dwc:sex occur in bdq:sourceAuthority? Uses the default source authority.
+    *
+    * Provides: 283 VALIDATION_SEX_STANDARD
+    * Version: 2024-02-09
+    *
+    * @param sex the provided dwc:sex to evaluate as ActedUpon.
+    * @return DQResponse the response of type ComplianceValue  to return
+    */
+    @Validation(label="VALIDATION_SEX_STANDARD", description="Does the value of dwc:sex occur in bdq:sourceAuthority?")
+    @Provides("88d8598b-3318-483d-9475-a5acf9887404")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/88d8598b-3318-483d-9475-a5acf9887404/2024-02-09")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:sex is EMPTY; COMPLIANT if the value of dwc:sex is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core sex' {[https://dwc.tdwg.org/list/#dwc_sex]} {dwc:sex vocabulary API [NO CURRENT API EXISTS]}")
+    public static DQResponse<ComplianceValue> validationSexStandard(
+        @ActedUpon("dwc:sex") String sex
+    ) {
+    	return validationSexStandard(sex, null);
+    }
 }

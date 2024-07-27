@@ -782,6 +782,39 @@ public class DwCMetadataDQTest {
 	}
 	
 	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationSexStandard(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationSexStandard() {
+		String sex = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationSexStandard(sex,"GBIF Sex Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		sex = "";
+		result = DwCMetadataDQ.validationSexStandard(sex,"GBIF Sex Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());	
+		
+		sex = "Male";
+		result = DwCMetadataDQ.validationSexStandard(sex,"GBIF Sex Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		sex = "Female";
+		result = DwCMetadataDQ.validationSexStandard(sex,"GBIF Sex Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+	}
+	
+	/**
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationPreparationsNotempty(java.lang.String)}.
 	 */
 	@Test

@@ -78,6 +78,7 @@ import org.filteredpush.qc.metadata.util.URNFormatException;
  * #115	f8f3a093-042c-47a3-971a-a482aaaf3b75	AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
  * #277 5424e933-bee7-4125-839e-d8743ea69f93	VALIDATION_PATHWAY_STANDARD
  * #285 4833a522-12eb-4fe0-b4cf-7f7a337a6048 	VALIDATION_TYPESTATUS_STANDARD
+ * #283 88d8598b-3318-483d-9475-a5acf9887404	VALIDATION_SEX_STANDARD 
  * 
  * TODO: Implement:
  * 
@@ -1031,6 +1032,8 @@ public class DwCMetadataDQ {
         // {dwc:occurrenceStatus vocabulary [https://rs.gbif.org/vocabulary/gbif/occurrence_status_2020-07-15.xml]} 
         // 
 
+        // TODO: Parameter
+        
         if (MetadataUtils.isEmpty(occurrenceStatus)) { 
         	result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
         	result.addComment("Provided dwc:occurrenceStatus is empty");
@@ -1484,32 +1487,64 @@ public class DwCMetadataDQ {
     /**
     * Does the value of dwc:sex occur in bdq:sourceAuthority?
     *
-    * Provides: VALIDATION_SEX_STANDARD
+    * Provides: 283 VALIDATION_SEX_STANDARD
     * Version: 2024-02-09
     *
     * @param sex the provided dwc:sex to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type ComplianceValue  to return
     */
     @Validation(label="VALIDATION_SEX_STANDARD", description="Does the value of dwc:sex occur in bdq:sourceAuthority?")
     @Provides("88d8598b-3318-483d-9475-a5acf9887404")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/88d8598b-3318-483d-9475-a5acf9887404/2024-02-09")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:sex is EMPTY; COMPLIANT if the value of dwc:sex is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core sex' {[https://dwc.tdwg.org/list/#dwc_sex]} {dwc:sex vocabulary API [NO CURRENT API EXISTS]}")
-    public DQResponse<ComplianceValue> validationSexStandard(
-        @ActedUpon("dwc:sex") String sex
+    public static DQResponse<ComplianceValue> validationSexStandard(
+        @ActedUpon("dwc:sex") String sex,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
-        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
-        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:sex 
-        // is EMPTY; COMPLIANT if the value of dwc:sex is in the bdq:sourceAuthority; 
-        // otherwise NOT_COMPLIANT. bdq:sourceAuthority default = "Darwin 
-        // Core sex" {[https://dwc.tdwg.org/list/#dwc_sex]} {dwc:sex 
-        // vocabulary API [NO CURRENT API EXISTS]} 
+        // Specification
+		// EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available;
+		// INTERNAL_PREREQUISITES_NOT_MET if dwc:sex is EMPTY; COMPLIANT if the value of
+		// dwc:sex is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
+        // Parameters. This test is defined as parameterized.
+		// bdq:sourceAuthority default = "GBIF Sex Vocabulary"
+		// [https://api.gbif.org/v1/vocabularies/Sex]} {"dwc:sex vocabulary API"
+		// [https://api.gbif.org/v1/vocabularies/Sex/concepts]}
 
+        if (MetadataUtils.isEmpty(sex)) { 
+        	result.addComment("No Value provided for dwc:sex");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "GBIF Sex Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		} else { 
+        			result.setResultState(ResultState.RUN_HAS_RESULT);	
+        			if (MetadataSingleton.getInstance().getSexValues().containsKey(sex)) { 
+        				result.addComment("Provided value of dwc:sex found in the sourceAuthority");
+        				result.setValue(ComplianceValue.COMPLIANT);
+        			} else {
+        				result.addComment("Provided value of dwc:sex [" + sex + "] not found in the sourceAuthority");
+        				result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		result.addComment("Error evaluating dwc:sex: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	}
+        }
+        
         return result;
     }
 
