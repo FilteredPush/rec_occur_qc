@@ -57,6 +57,9 @@ public class MetadataSingleton {
 	
 	private Map<String,List<String>> degreeOfEstablishmentTerms = new HashMap<String,List<String>>();
 	private Map<String,String> degreeOfEstablishmentValues = new HashMap<String,String>();
+	
+	private Map<String,List<String>> establishmentMeansTerms = new HashMap<String,List<String>>();
+	private Map<String,String> establishmentMeansValues = new HashMap<String,String>();
 		
 	private MetadataSingleton() { 
 		init();
@@ -129,6 +132,17 @@ public class MetadataSingleton {
 				Iterator<String> i = values.iterator();
 				while (i.hasNext()) { 
 					degreeOfEstablishmentValues.put(i.next(), key);
+				}
+			}
+			
+			establishmentMeansTerms = gbif.loadVocabulary("EstablishmentMeans");
+			keys = establishmentMeansTerms.keySet().iterator();
+			while (keys.hasNext()) { 
+				String key = keys.next();
+				List<String> values = establishmentMeansTerms.get(key);
+				Iterator<String> i = values.iterator();
+				while (i.hasNext()) { 
+					establishmentMeansValues.put(i.next(), key);
 				}
 			}
 		
@@ -233,6 +247,26 @@ public class MetadataSingleton {
 	 */
 	public Map<String, List<String>> getDegreeOfEstablishmentTerms() { 
 		return degreeOfEstablishmentTerms;
+	}
+	
+	/**
+	 * get the establishmentMeans value:key pairs
+	 * for finding vocabulary values for alternative labels
+	 * 
+	 * @return the map of establishmentMeans values from the vocabulary
+	 */
+	public Map<String,String> getEstablishmentMeansValues() { 
+		return establishmentMeansValues;
+	}
+	
+	/**
+	 * get the establishmentMeans key:list of value pairs 
+	 * for finding values in the vocabulary
+	 * 
+	 * @return the map of establishmentMeans values from the vocabulary
+	 */
+	public Map<String, List<String>> getEstablishmentMeansTerms() { 
+		return establishmentMeansTerms;
 	}
 	
 	/**

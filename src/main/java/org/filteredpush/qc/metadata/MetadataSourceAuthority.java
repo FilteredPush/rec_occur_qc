@@ -88,6 +88,14 @@ public class MetadataSourceAuthority {
 	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/Sex")) { 
 	    	this.authority = EnumMetadataSourceAuthority.GBIF_SEX;		
 	    	
+	    } else if (authorityString.toUpperCase().equals("GBIF ESTABLISHMENTMEANS VOCABULARY")) { 
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_ESTABLISHMENTMEANS;	
+	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/EstabllishmentMeans")) { 
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_ESTABLISHMENTMEANS;		
+	    } else if (authorityString.equals("Darwin Core establishmentMeans")) { 
+	    	// TODO: This should point at the TDWG vocabulary
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_ESTABLISHMENTMEANS;		
+	    	
 	    } else if (authorityString.toUpperCase().equals("GBIF DEGREEOFESTABLISHMENT VOCABULARY")) { 
 	    	this.authority = EnumMetadataSourceAuthority.GBIF_DEGREEOFESTABLISHMENT;	
 	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment")) { 

@@ -1416,6 +1416,162 @@ public class DwCMetadataDQTest {
 	}
 	
 	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationIndividualcountInteger(java.lang.String)}.
+	 */
+	@Test 
+	public void testvalidationIndivdualcountInteger() { 
+		String individualCount = "1";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationIndividualcountInteger(individualCount);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		individualCount = "foo";
+		result = DwCMetadataDQ.validationIndividualcountInteger(individualCount);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());	
+		assertNotNull(result.getComment());
+		
+		individualCount = "";
+		result = DwCMetadataDQ.validationIndividualcountInteger(individualCount);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());	
+		assertNotNull(result.getComment());
+		
+		individualCount = "1.1";
+		result = DwCMetadataDQ.validationIndividualcountInteger(individualCount);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());	
+		assertNotNull(result.getComment());
+		
+		individualCount = Integer.toString(Integer.MAX_VALUE);
+		result = DwCMetadataDQ.validationIndividualcountInteger(individualCount);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());	
+		assertNotNull(result.getComment());
+		
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#amendmentEstablishmentMeansStandardized(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public void testAmendmentEstablishmentMeansStandardized() {
+		
+		String establishmentMeans = "";
+		DQResponse<AmendmentValue> result = DwCMetadataDQ.amendmentEstablishmentmeansStandardized(establishmentMeans, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+	
+		Map<String, String> vocabulary = MetadataSingleton.getInstance().getEstablishmentMeansValues();
+		Set<String> keys = vocabulary.keySet();
+		Iterator<String> i = keys.iterator();
+		while (i.hasNext()){ 
+			establishmentMeans=i.next();
+			if  (MetadataSingleton.getInstance().getEstablishmentMeansTerms().containsKey(establishmentMeans)) { 
+				result = DwCMetadataDQ.amendmentEstablishmentmeansStandardized(establishmentMeans, null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+				assertNull(result.getValue());
+				assertNotNull(result.getComment());	
+			} else { 
+				String match = MetadataSingleton.getInstance().getEstablishmentMeansValues().get(establishmentMeans); 
+				result = DwCMetadataDQ.amendmentEstablishmentmeansStandardized(establishmentMeans, null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+				assertEquals(match,result.getValue().getObject().get("dwc:establishmentMeans"));
+				assertNotNull(result.getComment());	
+				
+				if (establishmentMeans.equals(establishmentMeans.toLowerCase())) { 
+					establishmentMeans = establishmentMeans.toUpperCase();
+				} else { 
+					establishmentMeans = " " + establishmentMeans.toLowerCase();
+				}
+				result = DwCMetadataDQ.amendmentEstablishmentmeansStandardized(establishmentMeans, null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+				assertEquals(match,result.getValue().getObject().get("dwc:establishmentMeans"));
+				assertNotNull(result.getComment());	
+			} 
+		} 
+	}
+	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationEstablishmentmeansStandard(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationEstablishmentMeansStandard() {
+		String establishmentMeans = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationEstablishmentmeansStandard(establishmentMeans,"GBIF EstablishmentMeans Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		establishmentMeans = "";
+		result = DwCMetadataDQ.validationEstablishmentmeansStandard(establishmentMeans,"GBIF EstablishmentMeans Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());	
+		
+		establishmentMeans = "foo";
+		result = DwCMetadataDQ.validationEstablishmentmeansStandard(establishmentMeans,"https://invalid/invalidservice");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.EXTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());	
+		
+		establishmentMeans = "introduced";
+		result = DwCMetadataDQ.validationEstablishmentmeansStandard(establishmentMeans,"GBIF EstablishmentMeans Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		establishmentMeans = "Introducida";  // es translation label
+		result = DwCMetadataDQ.validationEstablishmentmeansStandard(establishmentMeans,"GBIF EstablishmentMeans Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		Map<String, List<String>> vocabulary = MetadataSingleton.getInstance().getEstablishmentMeansTerms();
+		Set<String> keys = vocabulary.keySet();
+		Iterator<String> i = keys.iterator();
+		while (i.hasNext()) { 
+			establishmentMeans = i.next();
+			result = DwCMetadataDQ.validationEstablishmentmeansStandard(establishmentMeans,"GBIF EstablishmentMeans Vocabulary");
+			logger.debug(result.getComment());
+			assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+			assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+			assertNotNull(result.getComment());
+			
+			if (establishmentMeans.equals(establishmentMeans.toLowerCase())) { 
+				establishmentMeans = establishmentMeans.toUpperCase();
+				result = DwCMetadataDQ.validationEstablishmentmeansStandard(establishmentMeans,"GBIF EstablishmentMeans Vocabulary");
+				logger.debug(result.getComment());
+				assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+				assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+				assertNotNull(result.getComment());
+			} else { 
+				establishmentMeans = establishmentMeans.toLowerCase();
+				result = DwCMetadataDQ.validationEstablishmentmeansStandard(establishmentMeans,"GBIF EstablishmentMeans Vocabulary");
+				logger.debug(result.getComment());
+				assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+				assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+				assertNotNull(result.getComment());
+			} 
+		}
+		
+	}
+	
+	/**
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#amendmentLicenseStandardized(java.lang.String)}.
 	 */
 	@Test

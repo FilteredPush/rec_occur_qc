@@ -242,4 +242,42 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     ) {
     	return amendmentPathwayStandardized(pathway,null);
     }
+    
+    /**
+    * Does the value of dwc:establishmentMeans occur in the default bdq:sourceAuthority?
+    *
+    * Provides: 268 VALIDATION_ESTABLISHMENTMEANS_STANDARD
+    * Version: 2024-02-08
+    *
+    * @param establishmentMeans the provided dwc:establishmentMeans to evaluate as ActedUpon.
+    * @return DQResponse the response of type ComplianceValue  to return
+    */
+    @Validation(label="VALIDATION_ESTABLISHMENTMEANS_STANDARD", description="Does the value of dwc:establishmentMeans occur in bdq:sourceAuthority?")
+    @Provides("4eb48fdf-7299-4d63-9d08-246902e2857f")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/4eb48fdf-7299-4d63-9d08-246902e2857f/2024-02-08")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:establishmentMeans is EMPTY; COMPLIANT if the value of dwc:establishmentMeans is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core establishmentMeans' {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]}")
+    public static DQResponse<ComplianceValue> validationEstablishmentmeansStandard(
+        @ActedUpon("dwc:establishmentMeans") String establishmentMeans
+    ) {
+    	return validationEstablishmentmeansStandard(establishmentMeans, null);
+    }
+    
+    /**
+    * Propose amendment to the value of dwc:establishmentMeans using bdq:sourceAuthority.
+    *
+    * Provides: 269 AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED
+    * Version: 2024-02-08
+    *
+    * @param establishmentMeans the provided dwc:establishmentMeans to evaluate as ActedUpon.
+    * @return DQResponse the response of type AmendmentValue to return
+    */
+    @Amendment(label="AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED", description="Propose amendment to the value of dwc:establishmentMeans using bdq:sourceAuthority.")
+    @Provides("15d15927-7a22-43f8-88d6-298f5eb45c4c")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/15d15927-7a22-43f8-88d6-298f5eb45c4c/2024-02-08")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:establishmentMeans is EMPTY; AMENDED the value of dwc:establishmentMeans if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core establishmentMeans' {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]}")
+    public static DQResponse<AmendmentValue> amendmentEstablishmentmeansStandardized(
+        @ActedUpon("dwc:establishmentMeans") String establishmentMeans
+    ) {
+    	return amendmentEstablishmentmeansStandardized(establishmentMeans, null);
+    }
 }

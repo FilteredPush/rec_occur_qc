@@ -83,6 +83,8 @@ import org.filteredpush.qc.metadata.util.URNFormatException;
  * #284 33c45ae1-e2db-462a-a59e-7169bb01c5d6	AMENDMENT_SEX_STANDARDIZED
  * #275 060e7734-607d-4737-8b2c-bfa17788bf1a	VALIDATION_DEGREEOFESTABLISHMENT_STANDARD
  * #276 74ef1034-e289-4596-b5b0-cde73796697d	AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED
+ * #268 4eb48fdf-7299-4d63-9d08-246902e2857f	VALIDATION_ESTABLISHMENTMEANS_STANDARD
+ * #269 15d15927-7a22-43f8-88d6-298f5eb45c4c	AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED
  * 
  * TODO: Implement:
  * 
@@ -1187,22 +1189,24 @@ public class DwCMetadataDQ {
     /**
     * Does the value of dwc:establishmentMeans occur in bdq:sourceAuthority?
     *
-    * Provides: VALIDATION_ESTABLISHMENTMEANS_STANDARD
+    * Provides: 268 VALIDATION_ESTABLISHMENTMEANS_STANDARD
     * Version: 2024-02-08
     *
     * @param establishmentMeans the provided dwc:establishmentMeans to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type ComplianceValue  to return
     */
     @Validation(label="VALIDATION_ESTABLISHMENTMEANS_STANDARD", description="Does the value of dwc:establishmentMeans occur in bdq:sourceAuthority?")
     @Provides("4eb48fdf-7299-4d63-9d08-246902e2857f")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/4eb48fdf-7299-4d63-9d08-246902e2857f/2024-02-08")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:establishmentMeans is EMPTY; COMPLIANT if the value of dwc:establishmentMeans is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core establishmentMeans' {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]}")
-    public DQResponse<ComplianceValue> validationEstablishmentmeansStandard(
-        @ActedUpon("dwc:establishmentMeans") String establishmentMeans
+    public static DQResponse<ComplianceValue> validationEstablishmentmeansStandard(
+        @ActedUpon("dwc:establishmentMeans") String establishmentMeans,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:establishmentMeans 
         // is EMPTY; COMPLIANT if the value of dwc:establishmentMeans 
@@ -1212,8 +1216,45 @@ public class DwCMetadataDQ {
         // vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]} 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
+        // Parameters. This test is defined as parameterized.
+		// bdq:sourceAuthority default = "Establishment Means
+		// Controlled Vocabulary List of Terms" {[https://dwc.tdwg.org/em/]} {GBIF
+		// vocabulary API
+		// [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]}
+        
+        if (MetadataUtils.isEmpty(establishmentMeans)) { 
+        	result.addComment("No Value provided for dwc:establishmentMeans");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "GBIF EstablishmentMeans Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
+        			throw new SourceAuthorityException("Invalid source authority.");
+        		}
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		} else { 
+        			result.setResultState(ResultState.RUN_HAS_RESULT);	
+        			if (MetadataSingleton.getInstance().getEstablishmentMeansTerms().containsKey(establishmentMeans)) { 
+        				result.addComment("Provided value of dwc:establishmentMeans found in the sourceAuthority");
+        				result.setValue(ComplianceValue.COMPLIANT);
+        			} else {
+        				result.addComment("Provided value of dwc:establishmentMeans [" + establishmentMeans + "] not found in the sourceAuthority");
+        				result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		result.addComment("Error evaluating dwc:establishmentMeans: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	}
+        }
 
         return result;
     }
@@ -1221,33 +1262,76 @@ public class DwCMetadataDQ {
     /**
     * Propose amendment to the value of dwc:establishmentMeans using bdq:sourceAuthority.
     *
-    * Provides: AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED
+    * Provides: 269 AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED
     * Version: 2024-02-08
     *
     * @param establishmentMeans the provided dwc:establishmentMeans to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED", description="Propose amendment to the value of dwc:establishmentMeans using bdq:sourceAuthority.")
     @Provides("15d15927-7a22-43f8-88d6-298f5eb45c4c")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/15d15927-7a22-43f8-88d6-298f5eb45c4c/2024-02-08")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:establishmentMeans is EMPTY; AMENDED the value of dwc:establishmentMeans if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core establishmentMeans' {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]}")
-    public DQResponse<AmendmentValue> amendmentEstablishmentmeansStandardized(
-        @ActedUpon("dwc:establishmentMeans") String establishmentMeans
+    public static DQResponse<AmendmentValue> amendmentEstablishmentmeansStandardized(
+        @ActedUpon("dwc:establishmentMeans") String establishmentMeans,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:establishmentMeans 
         // is EMPTY; AMENDED the value of dwc:establishmentMeans if 
         // it can be unambiguously matched to a term in bdq:sourceAuthority; 
-        // otherwise NOT_AMENDED bdq:sourceAuthority default = "Darwin 
-        // Core establishmentMeans" {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} 
-        // {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]} 
+        // otherwise NOT_AMENDED 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
+        // Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority default = "Darwin 
+        // Core establishmentMeans" {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} 
+        // {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]} 
+        
+        if (MetadataUtils.isEmpty(establishmentMeans)) { 
+        	result.addComment("No Value provided for dwc:establishmentMeans");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "GBIF EstablishmentMeans Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		}
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		} else { 
+        			if (MetadataSingleton.getInstance().getEstablishmentMeansTerms().containsKey(establishmentMeans)) { 
+        				result.addComment("Provided value of dwc:establishmentMeans found in the sourceAuthority");
+        				result.setResultState(ResultState.NOT_AMENDED);	
+        			} else {
+        				if (MetadataSingleton.getInstance().getEstablishmentMeansValues().containsKey(establishmentMeans.trim().toLowerCase())) { 
+        					String match = MetadataSingleton.getInstance().getEstablishmentMeansValues().get(establishmentMeans.trim().toLowerCase());
+        					result.setResultState(ResultState.AMENDED);	
+        					Map<String, String> values = new HashMap<>();
+        					values.put("dwc:establishmentMeans", match) ;
+        					result.setValue(new AmendmentValue(values));
+        				} else { 
+        					result.addComment("Provided value of dwc:establishmentMeans [" + establishmentMeans + "] unable to be conformed to the the sourceAuthority");
+        					result.setResultState(ResultState.NOT_AMENDED);
+        				}
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		result.addComment("Error evaluating dwc:establishmentMeans: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	}
+        }
 
         return result;
     }
@@ -1935,7 +2019,7 @@ public class DwCMetadataDQ {
     @Provides("43abded0-c3bf-44e7-8c1f-c4207608b1fa")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/43abded0-c3bf-44e7-8c1f-c4207608b1fa/2024-02-11")
     @Specification("COMPLIANT if the value of dwc:individualCount is interpretable an integer; otherwise NOT_COMPLIANT. ")
-    public DQResponse<ComplianceValue> validationIndividualcountInteger(
+    public static DQResponse<ComplianceValue> validationIndividualcountInteger(
         @ActedUpon("dwc:individualCount") String individualCount
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
