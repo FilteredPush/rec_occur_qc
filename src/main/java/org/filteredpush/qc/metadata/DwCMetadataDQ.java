@@ -77,6 +77,7 @@ import org.filteredpush.qc.metadata.util.URNFormatException;
  * #75	96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5	AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
  * #115	f8f3a093-042c-47a3-971a-a482aaaf3b75	AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
  * #277 5424e933-bee7-4125-839e-d8743ea69f93	VALIDATION_PATHWAY_STANDARD
+ * #278 f9205977-f145-44f5-8cb9-e3e2e35ce908	AMENDMENT_PATHWAY_STANDARDIZED
  * #285 4833a522-12eb-4fe0-b4cf-7f7a337a6048 	VALIDATION_TYPESTATUS_STANDARD
  * #283 88d8598b-3318-483d-9475-a5acf9887404	VALIDATION_SEX_STANDARD 
  * #284 33c45ae1-e2db-462a-a59e-7169bb01c5d6	AMENDMENT_SEX_STANDARDIZED
@@ -1392,6 +1393,9 @@ public class DwCMetadataDQ {
         	}
         	try { 
         		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
+        			throw new SourceAuthorityException("Invalid Source Authority.");
+        		}
         		if (!MetadataSingleton.getInstance().isLoaded()) { 
         			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
         			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
@@ -1407,8 +1411,8 @@ public class DwCMetadataDQ {
         				if (degreeOfEstablishment.trim().toLowerCase().equals("widespreadinvasive")) { 
         					degreeOfEstablishment = "widespreadInvasive";
         				}
-        				if (MetadataSingleton.getInstance().getDegreeOfEstablishmentValues().containsKey(degreeOfEstablishment.trim())) { 
-        					String match = MetadataSingleton.getInstance().getDegreeOfEstablishmentValues().get(degreeOfEstablishment.trim());
+        				if (MetadataSingleton.getInstance().getDegreeOfEstablishmentValues().containsKey(degreeOfEstablishment.trim().toLowerCase())) { 
+        					String match = MetadataSingleton.getInstance().getDegreeOfEstablishmentValues().get(degreeOfEstablishment.trim().toLowerCase());
         					result.setResultState(ResultState.AMENDED);	
         					Map<String, String> values = new HashMap<>();
         					values.put("dwc:degreeOfEstablishment", match) ;
@@ -1501,18 +1505,20 @@ public class DwCMetadataDQ {
     /**
     * Propose amendment to the value of dwc:pathway using bdq:sourceAuthority.
     *
-    * Provides: AMENDMENT_PATHWAY_STANDARDIZED
+    * Provides: 278 AMENDMENT_PATHWAY_STANDARDIZED
     * Version: 2024-02-09
     *
     * @param pathway the provided dwc:pathway to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_PATHWAY_STANDARDIZED", description="Propose amendment to the value of dwc:pathway using bdq:sourceAuthority.")
     @Provides("f9205977-f145-44f5-8cb9-e3e2e35ce908")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/f9205977-f145-44f5-8cb9-e3e2e35ce908/2024-02-09")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:pathway is EMPTY; AMENDED the value of dwc:pathway if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core pathway' {[https://dwc.tdwg.org/list/#dwc_pathway]} {dwc:pathway vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]}")
-    public DQResponse<AmendmentValue> amendmentPathwayStandardized(
-        @ActedUpon("dwc:pathway") String pathway
+    public static DQResponse<AmendmentValue> amendmentPathwayStandardized(
+        @ActedUpon("dwc:pathway") String pathway,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
@@ -1529,6 +1535,47 @@ public class DwCMetadataDQ {
         //TODO: Parameters. This test is defined as parameterized.
         // bdq:sourceAuthority
 
+        if (MetadataUtils.isEmpty(pathway)) { 
+        	result.addComment("No Value provided for dwc:pathway");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "GBIF Pathway Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
+        			throw new SourceAuthorityException("Invalid Source Authority.");
+        		}
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		} else { 
+        			if (MetadataSingleton.getInstance().getPathwayTerms().containsKey(pathway)) { 
+        				result.addComment("Provided value of dwc:pathway found in the sourceAuthority");
+        				result.setResultState(ResultState.NOT_AMENDED);	
+        			} else {
+        				if (MetadataSingleton.getInstance().getPathwayValues().containsKey(pathway.trim().toLowerCase())) { 
+        					String match = MetadataSingleton.getInstance().getPathwayValues().get(pathway.trim().toLowerCase());
+        					result.setResultState(ResultState.AMENDED);	
+        					Map<String, String> values = new HashMap<>();
+        					values.put("dwc:pathway", match) ;
+        					result.setValue(new AmendmentValue(values));
+        				} else { 
+        					result.addComment("Provided value of dwc:pathway [" + pathway + "] unable to be conformed to the the sourceAuthority");
+        					result.setResultState(ResultState.NOT_AMENDED);
+        				}
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		result.addComment("Error evaluating dwc:pathway: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	}
+        }
+        
         return result;
     }
 
@@ -1670,6 +1717,9 @@ public class DwCMetadataDQ {
         	}
         	try { 
         		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		}
         		if (!MetadataSingleton.getInstance().isLoaded()) { 
         			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
         			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	

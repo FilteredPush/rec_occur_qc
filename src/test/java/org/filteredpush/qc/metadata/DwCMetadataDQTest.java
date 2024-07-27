@@ -1224,7 +1224,58 @@ public class DwCMetadataDQTest {
 		
 	}
 	
+	/**
+	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#amendmentPathwayStandardized(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	public void testAmendmentPathwayStandardized() {
 
+		String pathway = "";
+		DQResponse<AmendmentValue> result = DwCMetadataDQ.amendmentPathwayStandardized(pathway, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+
+		pathway = "foo";
+		result = DwCMetadataDQ.amendmentPathwayStandardized(pathway, "https://invalid/invalidauthority");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.EXTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+		
+		Map<String, String> vocabulary = MetadataSingleton.getInstance().getPathwayValues();
+		Set<String> keys = vocabulary.keySet();
+		Iterator<String> i = keys.iterator();
+		while (i.hasNext()){ 
+			pathway=i.next();
+			if  (MetadataSingleton.getInstance().getPathwayTerms().containsKey(pathway)) { 
+				result = DwCMetadataDQ.amendmentPathwayStandardized(pathway, null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+				assertNull(result.getValue());
+				assertNotNull(result.getComment());	
+			} else { 
+				String match = MetadataSingleton.getInstance().getPathwayValues().get(pathway); 
+				result = DwCMetadataDQ.amendmentPathwayStandardized(pathway, null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+				assertEquals(match,result.getValue().getObject().get("dwc:pathway"));
+				assertNotNull(result.getComment());	
+
+				if (pathway.equals(pathway.toLowerCase())) { 
+					pathway = pathway.toUpperCase();
+				} else { 
+					pathway = " " + pathway.toLowerCase();
+				}
+				result = DwCMetadataDQ.amendmentPathwayStandardized(pathway, null);
+				logger.debug(result.getComment());
+				assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+				assertEquals(match,result.getValue().getObject().get("dwc:pathway"));
+				assertNotNull(result.getComment());	
+			} 
+		} 
+	}
 	
 	/**
 	 * Test method for {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationOccurrenceidStandard(java.lang.String)}.

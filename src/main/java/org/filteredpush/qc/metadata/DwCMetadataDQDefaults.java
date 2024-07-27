@@ -223,4 +223,23 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     ) {
     	return amendmentDegreeofestablishmentStandardized(degreeOfEstablishment, null);
     }
+    
+    /**
+    * Propose amendment to the value of dwc:pathway using the default bdq:sourceAuthority.
+    *
+    * Provides: AMENDMENT_PATHWAY_STANDARDIZED
+    * Version: 2024-02-09
+    *
+    * @param pathway the provided dwc:pathway to evaluate as ActedUpon.
+    * @return DQResponse the response of type AmendmentValue to return
+    */
+    @Amendment(label="AMENDMENT_PATHWAY_STANDARDIZED", description="Propose amendment to the value of dwc:pathway using bdq:sourceAuthority.")
+    @Provides("f9205977-f145-44f5-8cb9-e3e2e35ce908")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/f9205977-f145-44f5-8cb9-e3e2e35ce908/2024-02-09")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:pathway is EMPTY; AMENDED the value of dwc:pathway if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core pathway' {[https://dwc.tdwg.org/list/#dwc_pathway]} {dwc:pathway vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]}")
+    public static DQResponse<AmendmentValue> amendmentPathwayStandardized(
+        @ActedUpon("dwc:pathway") String pathway
+    ) {
+    	return amendmentPathwayStandardized(pathway,null);
+    }
 }
