@@ -1576,8 +1576,34 @@ public class DwCMetadataDQTest {
 	 */
 	@Test
 	public void testAmendmentLicenseStandardized() {
-		// TODO: Implement
-		// fail("Not yet implemented");
+		String license = "";
+		DQResponse<AmendmentValue> result = DwCMetadataDQ.amendmentLicenseStandardized(license, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+		
+		license = "foo";
+		result = DwCMetadataDQ.amendmentLicenseStandardized(license, "https://invalid/invalidauthority");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.EXTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+		
+		license = "http://creativecommons.org/publicdomain/zero/1.0/legalcode";
+		result = DwCMetadataDQ.amendmentLicenseStandardized(license, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+		
+		license = "CC-BY";
+		result = DwCMetadataDQ.amendmentLicenseStandardized(license, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertEquals("https://creativecommons.org/licenses/by/4.0/", result.getValue().getObject().get("dwc:license"));
+		assertNotNull(result.getComment());
+		
 	}
 	
 }

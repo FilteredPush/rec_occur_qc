@@ -53,6 +53,10 @@ public enum EnumMetadataSourceAuthority {
 	 */
     DWC_BASISOFRECORD,
 	/**
+	 * Creative Commons Licences
+	 */
+    CREATIVE_COMMONS,
+	/**
 	 * Invalid Source Authority
 	 */
     INVALID;

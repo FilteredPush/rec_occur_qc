@@ -65,8 +65,12 @@ public class MetadataSourceAuthority {
 	public MetadataSourceAuthority(String authorityString) throws SourceAuthorityException {
 		logger.debug(authorityString);
 		if (authorityString==null) { authorityString = ""; }
+		
 	    if (authorityString.toUpperCase().equals("DARWIN CORE BASISOFRECORD")) {
 	    	this.authority = EnumMetadataSourceAuthority.DWC_BASISOFRECORD;	
+	    	
+	    } else if (authorityString.toUpperCase().equals("CREATIVE COMMONS")) {
+		    	this.authority = EnumMetadataSourceAuthority.CREATIVE_COMMONS;		
 	    	
 	    } else if (authorityString.toUpperCase().equals("GBIF LIFESTAGE VOCABULARY")) { 
 	    	this.authority = EnumMetadataSourceAuthority.GBIF_LIFESTAGE;	
@@ -81,6 +85,8 @@ public class MetadataSourceAuthority {
 	    } else if (authorityString.toUpperCase().equals("GBIF TYPESTATUS VOCABULARY")) { 
 	    	this.authority = EnumMetadataSourceAuthority.GBIF_TYPESTATUS;	
 	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/TypeStatus")) { 
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_TYPESTATUS;	
+	    } else if (authorityString.equals("DARWIN CORE TYPESTATUS")) { 
 	    	this.authority = EnumMetadataSourceAuthority.GBIF_TYPESTATUS;	
 	    	
 	    } else if (authorityString.toUpperCase().equals("GBIF SEX VOCABULARY")) { 

@@ -61,11 +61,13 @@ import org.filteredpush.qc.metadata.util.URNFormatException;
  * Provides implementation of TDWG BDQ TG2 OTHER tests (related to metadata found in Record-level
  * terms and Occurrence terms).
  * 
+ * CORE tests: 
  * #72	13d5a10e-188e-40fd-a22c-dbaa87b91df2	ISSUE_DATAGENERALIZATIONS_NOTEMPTY 
  * #94	acc8dff2-d8d1-483a-946d-65a02a452700	ISSUE_ESTABLISHMENTMEANS_NOTEMPTY
  * #47	c486546c-e6e5-48a7-b286-eba7f5ca56c4	VALIDATION_OCCURRENCEID_NOTEMPTY
  * #99	15f78619-811a-4c6f-997a-a4c7888ad849	VALIDATION_LICENSE_NOTEMPTY
  * #38	3136236e-04b6-49ea-8b34-a65f25e3aba1	VALIDATION_LICENSE_STANDARD
+ * #133 dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8	AMENDMENT_LICENSE_STANDARDIZED
  * #91	cdaabb0d-a863-49d0-bc0f-738d771acba5	VALIDATION_DCTYPE_STANDARD
  * #103	374b091a-fc90-4791-91e5-c1557c649169	VALIDATION_DCTYPE_NOTEMPTY
  * #41	bd385eeb-44a2-464b-a503-7abe407ef904	AMENDMENT_DCTYPE_STANDARDIZED
@@ -78,7 +80,6 @@ import org.filteredpush.qc.metadata.util.URNFormatException;
  * #115	f8f3a093-042c-47a3-971a-a482aaaf3b75	AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
  * #277 5424e933-bee7-4125-839e-d8743ea69f93	VALIDATION_PATHWAY_STANDARD
  * #278 f9205977-f145-44f5-8cb9-e3e2e35ce908	AMENDMENT_PATHWAY_STANDARDIZED
- * #285 4833a522-12eb-4fe0-b4cf-7f7a337a6048 	VALIDATION_TYPESTATUS_STANDARD
  * #283 88d8598b-3318-483d-9475-a5acf9887404	VALIDATION_SEX_STANDARD 
  * #284 33c45ae1-e2db-462a-a59e-7169bb01c5d6	AMENDMENT_SEX_STANDARDIZED
  * #275 060e7734-607d-4737-8b2c-bfa17788bf1a	VALIDATION_DEGREEOFESTABLISHMENT_STANDARD
@@ -86,16 +87,20 @@ import org.filteredpush.qc.metadata.util.URNFormatException;
  * #268 4eb48fdf-7299-4d63-9d08-246902e2857f	VALIDATION_ESTABLISHMENTMEANS_STANDARD
  * #269 15d15927-7a22-43f8-88d6-298f5eb45c4c	AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED
  * 
+ * CORE Tests under consideration for reworking or removal: 
+ * #285 4833a522-12eb-4fe0-b4cf-7f7a337a6048 	VALIDATION_TYPESTATUS_STANDARD
+ * #286 b3471c65-b53e-453b-8282-abfa27bf1805	AMENDMENT_TYPESTATUS_STANDARDIZED
+ * 
  * TODO: Implement:
  * 
  * 29	fecaa8a3-bbd8-4c5a-a424-13c37c4bb7b1	ISSUE_ANNOTATION_NOTEMPTY
- * 133	dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8	AMENDMENT_LICENSE_STANDARDIZED
  *
  * And the following supplementary tests: 
  * 
- * #23 VALIDATION_OCCURRENCEID_STANDARD 3cfe9ab4-79f8-4afd-8da5-723183ef16a3
+ * #23  VALIDATION_OCCURRENCEID_STANDARD 3cfe9ab4-79f8-4afd-8da5-723183ef16a3
  * #235 VALIDATION_LIFESTAGE_NOTEMPTY 34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87
  * #270 VALIDATION_LIFESTAGE_STANDARD be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a
+ * #271 AMENDMENT_LIFESTAGE_STANDARDIZED 07e79079-42e9-48e9-826e-4874ae34bce3	
  * #225 VALIDATION_DISPOSITION_NOTEMPTY b4c17611-2703-474f-b46a-93b08ecfee16
  * #232 VALIDATION_INDIVIDUALCOUNT_NOTEMPTY aff0facd-1d2a-40a5-a55a-61f950cd68a0
  * #290 VALIDATION_INDIVIDUALCOUNT_INTEGER 43abded0-c3bf-44e7-8c1f-c4207608b1fa
@@ -1006,10 +1011,6 @@ public class DwCMetadataDQ {
         return result;
     }
 
-// TODO: Implementation of ISSUE_ESTABLISHMENTMEANS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdq/terms/acc8dff2-d8d1-483a-946d-65a02a452700/2023-09-18 see line: 180
-// TODO: Implementation of VALIDATION_LICENSE_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdq/terms/15f78619-811a-4c6f-997a-a4c7888ad849/2023-09-18 see line: 210
-// TODO: Implementation of VALIDATION_DCTYPE_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdq/terms/374b091a-fc90-4791-91e5-c1557c649169/2023-09-18 see line: 240
-// TODO: Implementation of VALIDATION_BASISOFRECORD_STANDARD is not up to date with current version: https://rs.tdwg.org/bdq/terms/42408a00-bf71-4892-a399-4325e2bc1fb8/2023-09-18 see line: 272
     /**
     * Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.
     *
@@ -1081,38 +1082,136 @@ public class DwCMetadataDQ {
         return result;
     }
 
-// TODO: Implementation of VALIDATION_OCCURRENCESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdq/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2023-09-18 see line: 339
-// TODO: Implementation of VALIDATION_OCCURRENCESTATUS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdq/terms/eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf/2023-09-18 see line: 402
     /**
     * Propose amendment to the value of dwc:license using bdq:sourceAuthority.
     *
-    * Provides: AMENDMENT_LICENSE_STANDARDIZED
+    * Provides: 133 AMENDMENT_LICENSE_STANDARDIZED
     * Version: 2023-09-18
     *
     * @param license the provided dcterms:license to evaluate as ActedUpon.
+    * @param sourceAuthority the source authority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_LICENSE_STANDARDIZED", description="Propose amendment to the value of dwc:license using bdq:sourceAuthority.")
     @Provides("dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8/2023-09-18")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; AMENDED value of dcterms:license if it could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Creative Commons' {[https://creativecommons.org/]} {Creative Commons licenses [https://creativecommons.org/about/cclicenses/]}")
-    public DQResponse<AmendmentValue> amendmentLicenseStandardized(
-        @ActedUpon("dcterms:license") String license
+    public static DQResponse<AmendmentValue> amendmentLicenseStandardized(
+        @ActedUpon("dcterms:license") String license,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; AMENDED value of dcterms:license if it 
         // could be unambiguously interpreted as a value in bdq:sourceAuthority; 
-        // otherwise NOT_AMENDED. bdq:sourceAuthority default = "Creative 
-        // Commons" {[https://creativecommons.org/]} {Creative Commons 
-        // licenses [https://creativecommons.org/about/cclicenses/]} 
+        // otherwise NOT_AMENDED. 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
+        // Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority default = "Creative 
+        // Commons" {[https://creativecommons.org/]} {Creative Commons 
+        // licenses [https://creativecommons.org/about/cclicenses/]} 
 
+        if (MetadataUtils.isEmpty(license)) { 
+        	result.addComment("No Value provided for dwc:licence");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "Creative Commons";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		}
+        		String pattern = "";
+        		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.CREATIVE_COMMONS)) { 
+        			pattern = "^(http(s){0,1}://creativecommons[.]org/licenses/"
+                			+ "(by|by-sa|by-nc|by-nc-sa|by-nd|by-nc-nd)/4[.]0/"
+                			+ "((deed|legalcode)"
+                			+ "([.](id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|mi|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)"
+                			+ "){0,1}){0,1})"
+                			+ "|"
+                			+ "(http(s){0,1}://creativecommons[.]org/publicdomain/zero/1[.]0/"
+                			+ "((deed|legalcode)"
+                			+ "([.](id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)"
+                			+ "){0,1}){0,1})$";
+                	Pattern licencePattern = Pattern.compile(pattern);
+                	Matcher m = licencePattern.matcher(license);
+        		} else { 
+        			if (!MetadataSingleton.getInstance().isLoaded()) { 
+        				result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        				result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        			}
+        			// TODO: Alternate patterns here.
+        		}
+        	    if (pattern.length() > 0) { 
+        	        if (MetadataUtils.isEmpty(license)) {
+        	        	result.addComment("No value provided for dwc:license.");
+        				result.setResultState(ResultState.NOT_AMENDED);	
+        	        } else if (license.matches(pattern)) {	
+                		result.addComment("Provided value for dwc:license conforms to expectations.");
+        				result.setResultState(ResultState.NOT_AMENDED);	
+        			} else {
+        				String match = "";
+        				// "(by|by-sa|by-nc|by-nc-sa|by-nd|by-nc-nd)/4[.]0/"
+        				if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CC0")) { 
+        					match = "https://creativecommons.org/publicdomain/zero/1.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCBY")) { 
+        					match = "https://creativecommons.org/licenses/by/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCBYSA")) { 
+        					match = "https://creativecommons.org/licenses/by-sa/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCSABY")) { 
+        					match = "https://creativecommons.org/licenses/by-sa/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCBYNC")) { 
+        					match = "https://creativecommons.org/licenses/by-nc/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCNCBY")) { 
+        					match = "https://creativecommons.org/licenses/by-nc/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCBYND")) { 
+        					match = "https://creativecommons.org/licenses/by-nd/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCNDBY")) { 
+        					match = "https://creativecommons.org/licenses/by-nd/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCBYNCSA")) { 
+        					match = "https://creativecommons.org/licenses/by-nc-sa/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCNCSABY")) { 
+        					match = "https://creativecommons.org/licenses/by-nc-sa/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCBYSANC")) { 
+        					match = "https://creativecommons.org/licenses/by-nc-sa/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCSANCBY")) { 
+        					match = "https://creativecommons.org/licenses/by-nc-sa/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCBYNCD")) { 
+        					match = "https://creativecommons.org/licenses/by-nc-nd/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCNDSABY")) { 
+        					match = "https://creativecommons.org/licenses/by-nc-nd/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCBYSAND")) { 
+        					match = "https://creativecommons.org/licenses/by-nc-nd/4.0";
+        				} else if (license.trim().toUpperCase().replace("-","").replace(" ","").equals("CCSANDBY")) { 
+        					match = "https://creativecommons.org/licenses/by-nc-nd/4.0";
+        				} 
+        				if (match.length()>0) {
+        					match = match + "/";   // could add legalcode here if expected
+        					result.setResultState(ResultState.AMENDED);	
+        					Map<String, String> values = new HashMap<>();
+        					values.put("dwc:license", match) ;
+        					result.setValue(new AmendmentValue(values));
+        					result.addComment("Provided value for dwc:license ["+license+"] modified to match controlled vocabulary.");
+        				} else { 
+        					result.addComment("Provided value of dwc:licence [" + license + "] unable to be conformed to the the sourceAuthority");
+        					result.setResultState(ResultState.NOT_AMENDED);
+        				}
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		result.addComment("Error evaluating dwc:licence: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	}
+        }
+        
         return result;
     }
 
@@ -1339,34 +1438,77 @@ public class DwCMetadataDQ {
     /**
     * Propose amendment to the value of dwc:lifeStage using bdq:sourceAuthority.
     *
-    * Provides: AMENDMENT_LIFESTAGE_STANDARDIZED
+    * Provides: 271 AMENDMENT_LIFESTAGE_STANDARDIZED
     * Version: 2024-02-09
     *
     * @param lifeStage the provided dwc:lifeStage to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_LIFESTAGE_STANDARDIZED", description="Propose amendment to the value of dwc:lifeStage using bdq:sourceAuthority.")
     @Provides("07e79079-42e9-48e9-826e-4874ae34bce3")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/07e79079-42e9-48e9-826e-4874ae34bce3/2024-02-09")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:lifeStage is EMPTY; AMENDED the value of dwc:lifeStage if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core lifeStage [https://dwc.tdwg.org/list/#dwc_lifeStage]} {dwc:lifeStage vocabulary API' [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}")
-    public DQResponse<AmendmentValue> amendmentLifestageStandardized(
-        @ActedUpon("dwc:lifeStage") String lifeStage
+    public static DQResponse<AmendmentValue> amendmentLifestageStandardized(
+        @ActedUpon("dwc:lifeStage") String lifeStage,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
-        //TODO:  Implement specification
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:lifeStage 
         // is EMPTY; AMENDED the value of dwc:lifeStage if it can be 
         // unambiguously matched to a term in bdq:sourceAuthority; 
-        // otherwise NOT_AMENDED bdq:sourceAuthority default = "Darwin 
-        // Core lifeStage [https://dwc.tdwg.org/list/#dwc_lifeStage]} 
-        // {dwc:lifeStage vocabulary API" [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]} 
+        // otherwise NOT_AMENDED 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
+        // Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority default = "Darwin Core lifeStage
+        // [https://dwc.tdwg.org/list/#dwc_lifeStage]} 
+        // {dwc:lifeStage vocabulary API" [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]} 
 
+        if (MetadataUtils.isEmpty(lifeStage)) { 
+        	result.addComment("No Value provided for dwc:lifeStage");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "GBIF LifeStage Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		}
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		} else { 
+        			if (MetadataSingleton.getInstance().getLifeStageTerms().containsKey(lifeStage)) { 
+        				result.addComment("Provided value of dwc:lifeStage found in the sourceAuthority");
+        				result.setResultState(ResultState.NOT_AMENDED);	
+        			} else {
+        				if (MetadataSingleton.getInstance().getLifeStageValues().containsKey(lifeStage.trim().toLowerCase())) { 
+        					String match = MetadataSingleton.getInstance().getLifeStageValues().get(lifeStage.trim().toLowerCase());
+        					result.setResultState(ResultState.AMENDED);	
+        					Map<String, String> values = new HashMap<>();
+        					values.put("dwc:lifeStage", match) ;
+        					result.setValue(new AmendmentValue(values));
+        				} else { 
+        					result.addComment("Provided value of dwc:lifeStage [" + lifeStage + "] unable to be conformed to the the sourceAuthority");
+        					result.setResultState(ResultState.NOT_AMENDED);
+        				}
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		result.addComment("Error evaluating dwc:lifeStage: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	}
+        }
+        
         return result;
     }
 
@@ -1812,8 +1954,8 @@ public class DwCMetadataDQ {
         				result.addComment("Provided value of dwc:sex found in the sourceAuthority");
         				result.setResultState(ResultState.NOT_AMENDED);	
         			} else {
-        				if (MetadataSingleton.getInstance().getSexValues().containsKey(sex.trim())) { 
-        					String match = MetadataSingleton.getInstance().getSexValues().get(sex.trim());
+        				if (MetadataSingleton.getInstance().getSexValues().containsKey(sex.trim().toLowerCase())) { 
+        					String match = MetadataSingleton.getInstance().getSexValues().get(sex.trim().toLowerCase());
         					result.setResultState(ResultState.AMENDED);	
         					Map<String, String> values = new HashMap<>();
         					values.put("dwc:sex", match) ;
@@ -1856,17 +1998,22 @@ public class DwCMetadataDQ {
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
+        //TODO: Discussion underway if this test should be treated as immature, or if it
+        // should have the specification reworked to treat only the first word in each pipe delimited 
+        // part of dwc:typeStatus
+        
         // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus 
         // is EMPTY; COMPLIANT if the value of dwc:typeStatus is in 
         // the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority 
-        // default = "Darwin Core typeStatus" {[https://dwc.tdwg.org/list/#dwc_typeStatus]} 
-        // {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]} 
         // 
 
         //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
+        // bdq:sourceAuthority default = "Darwin Core typeStatus" 
+        // {[https://dwc.tdwg.org/list/#dwc_typeStatus]} 
+        // {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]} 
+
         if (MetadataUtils.isEmpty(typeStatus)) { 
         	result.addComment("No Value provided for dwc:typeStatus");
 			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
@@ -1903,34 +2050,80 @@ public class DwCMetadataDQ {
     /**
     * Propose amendment to the value of dwc:typeStatus using bdq:sourceAuthority.
     *
-    * Provides: AMENDMENT_TYPESTATUS_STANDARDIZED
+    * Provides: 286 AMENDMENT_TYPESTATUS_STANDARDIZED
     * Version: 2024-02-09
     *
     * @param typeStatus the provided dwc:typeStatus to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_TYPESTATUS_STANDARDIZED", description="Propose amendment to the value of dwc:typeStatus using bdq:sourceAuthority.")
     @Provides("b3471c65-b53e-453b-8282-abfa27bf1805")
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/b3471c65-b53e-453b-8282-abfa27bf1805/2024-02-09")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is EMPTY; AMENDED the value of dwc:typeStatus if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core typeStatus' {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}")
-    public DQResponse<AmendmentValue> amendmentTypestatusStandardized(
-        @ActedUpon("dwc:typeStatus") String typeStatus
+    public static DQResponse<AmendmentValue> amendmentTypestatusStandardized(
+        @ActedUpon("dwc:typeStatus") String typeStatus,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
-        //TODO:  Implement specification
+        //TODO: Discussion underway if this test should be treated as immature, or if it
+        // should have the specification reworked to treat only the first word in each pipe delimited 
+        // part of dwc:typeStatus
+        
+        // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus 
         // is EMPTY; AMENDED the value of dwc:typeStatus if it can 
         // be unambiguously matched to a term in bdq:sourceAuthority; 
-        // otherwise NOT_AMENDED bdq:sourceAuthority default = "Darwin 
-        // Core typeStatus" {[https://dwc.tdwg.org/list/#dwc_typeStatus]} 
-        // {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]} 
+        // otherwise NOT_AMENDED 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
+        // Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority default = "Darwin 
+        // Core typeStatus" {[https://dwc.tdwg.org/list/#dwc_typeStatus]} 
+        // {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]} 
 
+        if (MetadataUtils.isEmpty(typeStatus)) { 
+        	result.addComment("No Value provided for dwc:typeStatus");
+			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        } else { 
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "GBIF TypeStatus Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		}
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
+        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        		} else { 
+        			if (MetadataSingleton.getInstance().getTypeStatusTerms().containsKey(typeStatus)) { 
+        				result.addComment("Provided value of dwc:typeStatus found in the sourceAuthority");
+        				result.setResultState(ResultState.NOT_AMENDED);	
+        			} else {
+        				if (MetadataSingleton.getInstance().getTypeStatusValues().containsKey(typeStatus.trim().toLowerCase())) { 
+        					String match = MetadataSingleton.getInstance().getTypeStatusValues().get(typeStatus.trim().toLowerCase());
+        					result.setResultState(ResultState.AMENDED);	
+        					Map<String, String> values = new HashMap<>();
+        					values.put("dwc:typeStatus", match) ;
+        					result.setValue(new AmendmentValue(values));
+        				} else { 
+        					result.addComment("Provided value of dwc:typeStatus [" + typeStatus + "] unable to be conformed to the the sourceAuthority");
+        					result.setResultState(ResultState.NOT_AMENDED);
+        				}
+        			}
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception e) {
+        		result.addComment("Error evaluating dwc:typeStatus: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	}
+        }
 
         
         return result;

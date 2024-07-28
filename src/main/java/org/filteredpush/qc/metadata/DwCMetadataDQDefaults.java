@@ -108,6 +108,25 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     }
    
     /**
+    * Propose amendment to the value of dwc:license using the default bdq:sourceAuthority.
+    *
+    * Provides: 133 AMENDMENT_LICENSE_STANDARDIZED
+    * Version: 2023-09-18
+    *
+    * @param license the provided dcterms:license to evaluate as ActedUpon.
+    * @return DQResponse the response of type AmendmentValue to return
+    */
+    @Amendment(label="AMENDMENT_LICENSE_STANDARDIZED", description="Propose amendment to the value of dwc:license using bdq:sourceAuthority.")
+    @Provides("dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8/2023-09-18")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; AMENDED value of dcterms:license if it could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Creative Commons' {[https://creativecommons.org/]} {Creative Commons licenses [https://creativecommons.org/about/cclicenses/]}")
+    public static DQResponse<AmendmentValue> amendmentLicenseStandardized(
+        @ActedUpon("dcterms:license") String license
+    ) {
+    	return amendmentLicenseStandardized(license, null);
+    }
+    
+    /**
     * Does the value of dwc:lifeStage occur in bdq:sourceAuthority, using the default source authority?
     *
     * Provides: #270 VALIDATION_LIFESTAGE_STANDARD
@@ -279,5 +298,43 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
         @ActedUpon("dwc:establishmentMeans") String establishmentMeans
     ) {
     	return amendmentEstablishmentmeansStandardized(establishmentMeans, null);
+    }
+    
+    /**
+    * Propose amendment to the value of dwc:typeStatus using the default bdq:sourceAuthority.
+    *
+    * Provides: AMENDMENT_TYPESTATUS_STANDARDIZED
+    * Version: 2024-02-09
+    *
+    * @param typeStatus the provided dwc:typeStatus to evaluate as ActedUpon.
+    * @return DQResponse the response of type AmendmentValue to return
+    */
+    @Amendment(label="AMENDMENT_TYPESTATUS_STANDARDIZED", description="Propose amendment to the value of dwc:typeStatus using bdq:sourceAuthority.")
+    @Provides("b3471c65-b53e-453b-8282-abfa27bf1805")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/b3471c65-b53e-453b-8282-abfa27bf1805/2024-02-09")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is EMPTY; AMENDED the value of dwc:typeStatus if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core typeStatus' {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}")
+    public static DQResponse<AmendmentValue> amendmentTypestatusStandardized(
+        @ActedUpon("dwc:typeStatus") String typeStatus
+    ) {
+    	return amendmentTypestatusStandardized(typeStatus, null);
+    }
+    
+    /**
+    * Does the value of dwc:typeStatus occur in bdq:sourceAuthority?
+    *
+    * Provides: 285 VALIDATION_TYPESTATUS_STANDARD
+    * Version: 2024-02-09
+    *
+    * @param typeStatus the provided dwc:typeStatus to evaluate as ActedUpon.
+    * @return DQResponse the response of type ComplianceValue  to return
+    */
+    @Validation(label="VALIDATION_TYPESTATUS_STANDARD", description="Does the value of dwc:typeStatus occur in bdq:sourceAuthority?")
+    @Provides("4833a522-12eb-4fe0-b4cf-7f7a337a6048")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-02-09")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is EMPTY; COMPLIANT if the value of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core typeStatus' {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}")
+    public static DQResponse<ComplianceValue> validationTypestatusStandard(
+        @ActedUpon("dwc:typeStatus") String typeStatus
+    ) {
+    	return validationTypestatusStandard(typeStatus, null);
     }
 }
