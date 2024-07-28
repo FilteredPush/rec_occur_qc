@@ -22,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.datakurator.ffdq.annotations.ActedUpon;
 import org.datakurator.ffdq.annotations.Amendment;
+import org.datakurator.ffdq.annotations.Consulted;
 import org.datakurator.ffdq.annotations.Parameter;
 import org.datakurator.ffdq.annotations.Provides;
 import org.datakurator.ffdq.annotations.ProvidesVersion;
@@ -336,5 +337,29 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
         @ActedUpon("dwc:typeStatus") String typeStatus
     ) {
     	return validationTypestatusStandard(typeStatus, null);
+    }
+    
+    /**
+    * Propose an amendment of the value of dwc:occurrenceStatus to the default value of
+    * present if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty.
+    *
+    * Provides: 75 AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
+    * Version: 2023-09-18
+    *
+    * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate as ActedUpon.
+    * @param individualCount the provided dwc:individualCount to evaluate as Consulted.
+    * @param organismQuantity the provided dwc:organismQuantity to evaluate as Consulted.
+    * @return DQResponse the response of type AmendmentValue to return
+    */
+    @Amendment(label="AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT", description="Propose an amendment of the value of dwc:occurrenceStatus to the default parameter value if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty.")
+    @Provides("96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2023-09-18")
+    @Specification("FILLED_IN the value of dwc:occurrenceStatus using the Parameter value if dwc:occurrence.Status,  dwc:individualCount and dwc:organismQuantity are EMPTY; otherwise NOT_AMENDED dwc:occurrenceStatus default = 'present'")
+    public static DQResponse<AmendmentValue> amendmentOccurrencestatusAssumeddefault(
+        @ActedUpon("dwc:occurrenceStatus") String occurrenceStatus, 
+        @Consulted("dwc:individualCount") String individualCount, 
+        @Consulted("dwc:organismQuantity") String organismQuantity
+    ) {
+    	return DwCMetadataDQ.amendmentOccurrencestatusAssumeddefault(occurrenceStatus, individualCount, organismQuantity, "present");
     }
 }
