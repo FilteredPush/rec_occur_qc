@@ -619,41 +619,54 @@ public class DwCMetadataDQ {
         
  
         if (sourceAuthority==null) { sourceAuthority = "Creative Commons"; }
-        String pattern = "";
-        if (sourceAuthority.equals("Creative Commons")) { 
-        	// regex to match cc licences, version 4, and public domain dedication, version 1
-        	pattern = "^(http(s){0,1}://creativecommons[.]org/licenses/"
-        			+ "(by|by-sa|by-nc|by-nc-sa|by-nd|by-nc-nd)/4[.]0/"
-        			+ "((deed|legalcode)"
-        			+ "([.](id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|mi|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)"
-        			+ "){0,1}){0,1})"
-        			+ "|"
-        			+ "(http(s){0,1}://creativecommons[.]org/publicdomain/zero/1[.]0/"
-        			+ "((deed|legalcode)"
-        			+ "([.](id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)"
-        			+ "){0,1}){0,1})$";
-        	Pattern licencePattern = Pattern.compile(pattern);
-        	Matcher m = licencePattern.matcher(license);
-        } else { 
-			result.addComment("Unknown Source Authority ["+sourceAuthority+"]");
-			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
-        }
-        logger.debug(pattern);
-        if (pattern.length() > 0) { 
-        	if (MetadataUtils.isEmpty(license)) {
-        		result.addComment("No value provided for dwc:licence.");
-        		result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
-        	} else if (license.matches(pattern)) {	
-        		result.addComment("Provided value for dcterms:license conforms to expectations.");
-        		result.setValue(ComplianceValue.COMPLIANT);
-        		result.setResultState(ResultState.RUN_HAS_RESULT);
+        
+        try { 
+        	String pattern = "";
+        	MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        	if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
+        		throw new SourceAuthorityException("Invalid source authority.");
+        	} 
+
+        	if (sourceAuthority.equals("Creative Commons")) { 
+        		// regex to match cc licences, version 4, and public domain dedication, version 1
+        		pattern = "^(http(s){0,1}://creativecommons[.]org/licenses/"
+        				+ "(by|by-sa|by-nc|by-nc-sa|by-nd|by-nc-nd)/4[.]0/"
+        				+ "((deed|legalcode)"
+        				+ "([.](id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|mi|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)"
+        				+ "){0,1}){0,1})"
+        				+ "|"
+        				+ "(http(s){0,1}://creativecommons[.]org/publicdomain/zero/1[.]0/"
+        				+ "((deed|legalcode)"
+        				+ "([.](id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)"
+        				+ "){0,1}){0,1})$";
+        		Pattern licencePattern = Pattern.compile(pattern);
+        		Matcher m = licencePattern.matcher(license);
         	} else { 
-        		result.addComment("Provided value for dcterms:licence [" + license +"] does not conform to expectations.");
-        		result.setValue(ComplianceValue.NOT_COMPLIANT);
-        		result.setResultState(ResultState.RUN_HAS_RESULT);
+        		throw new SourceAuthorityException("Unknown source authority.");
         	}
+        	logger.debug(pattern);
+        	if (pattern.length() > 0) { 
+        		if (MetadataUtils.isEmpty(license)) {
+        			result.addComment("No value provided for dwc:licence.");
+        			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+        		} else if (license.matches(pattern)) {	
+        			result.addComment("Provided value for dcterms:license conforms to expectations.");
+        			result.setValue(ComplianceValue.COMPLIANT);
+        			result.setResultState(ResultState.RUN_HAS_RESULT);
+        		} else { 
+        			result.addComment("Provided value for dcterms:licence [" + license +"] does not conform to expectations.");
+        			result.setValue(ComplianceValue.NOT_COMPLIANT);
+        			result.setResultState(ResultState.RUN_HAS_RESULT);
+        		}
+        	}
+        } catch (SourceAuthorityException e) {
+        	result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        	result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        } catch (Exception ex) {
+        	result.addComment("Error evaluating dcterms:license " + ex.getMessage());
+        	result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
         }
-		
+        
         return result;
     }
 
@@ -1083,7 +1096,7 @@ public class DwCMetadataDQ {
     }
 
     /**
-    * Propose amendment to the value of dwc:license using bdq:sourceAuthority.
+    * Propose amendment to the value of dcterms:license using bdq:sourceAuthority.
     *
     * Provides: 133 AMENDMENT_LICENSE_STANDARDIZED
     * Version: 2023-09-18
@@ -1116,7 +1129,7 @@ public class DwCMetadataDQ {
 
         if (MetadataUtils.isEmpty(license)) { 
         	result.addComment("No Value provided for dcterms:license");
-			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+			result.setResultState(ResultState.NOT_AMENDED);
         } else { 
         	if (MetadataUtils.isEmpty(sourceAuthority)) { 
         		sourceAuthority = "Creative Commons";
