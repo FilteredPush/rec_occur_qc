@@ -88,7 +88,7 @@ The unit test below shows an example of a call on DwCMetadataDQ.amendmentLicense
     
 The APIs for both the java annotations for the framework and the result objects for the framework are not expected to change.    
 
-13 of 26 implementations of the TDWG BDQ TG2 test specifications are passing against all related validation data with the 2024-07-24- [test validation data](https://github.com/tdwg/bdq/tree/master/tg2/core/TG2_test_validation_data.csv) including [non-printing characters](https://github.com/tdwg/bdq/tree/master/tg2/core/TG2_test_validation_data_nonprintingchars.csv)). 
+13 of 26 implementations of the TDWG BDQ TG2 test specifications are passing against all related validation data with the 2024-07-24- [test validation data](https://github.com/tdwg/bdq/tree/master/tg2/core/TG2_test_validation_data.csv) including [non-printing characters](https://github.com/tdwg/bdq/tree/master/tg2/core/TG2_test_validation_data_nonprintingchars.csv)).   Cases that are not passing may indicate a problem with the implementation, with the validation data, or with the specification of the test.
 
 	java -jar bdqtestrunner-0.0.1-SNAPSHOT-6b0bfe0-executable.jar -c DwCMetadataDQDefaults > output.log
 
