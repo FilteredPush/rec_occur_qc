@@ -2214,7 +2214,6 @@ public class DwCMetadataDQ {
         		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
         	}
         }
-
         
         return result;
     }
