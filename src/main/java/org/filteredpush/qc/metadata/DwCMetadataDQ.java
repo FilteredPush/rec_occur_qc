@@ -1972,7 +1972,6 @@ public class DwCMetadataDQ {
         					String matchKey = "";
         					while (i.hasNext()) { 
         						String aValue = i.next();
-        						logger.debug(aValue);
         						if (aValue.toLowerCase().startsWith(sex.trim().toLowerCase())) { 
         							if (!matched) { 
         								matched = true;
