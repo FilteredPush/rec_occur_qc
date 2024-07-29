@@ -1115,7 +1115,7 @@ public class DwCMetadataDQ {
         // licenses [https://creativecommons.org/about/cclicenses/]} 
 
         if (MetadataUtils.isEmpty(license)) { 
-        	result.addComment("No Value provided for dwc:licence");
+        	result.addComment("No Value provided for dcterms:license");
 			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
         } else { 
         	if (MetadataUtils.isEmpty(sourceAuthority)) { 
@@ -1149,10 +1149,10 @@ public class DwCMetadataDQ {
         		}
         	    if (pattern.length() > 0) { 
         	        if (MetadataUtils.isEmpty(license)) {
-        	        	result.addComment("No value provided for dwc:license.");
+        	        	result.addComment("No value provided for dcterms:license.");
         				result.setResultState(ResultState.NOT_AMENDED);	
         	        } else if (license.matches(pattern)) {	
-                		result.addComment("Provided value for dwc:license conforms to expectations.");
+                		result.addComment("Provided value for dcterms:license conforms to expectations.");
         				result.setResultState(ResultState.NOT_AMENDED);	
         			} else {
         				String match = "";
@@ -1194,11 +1194,11 @@ public class DwCMetadataDQ {
         					match = match + "/";   // could add legalcode here if expected
         					result.setResultState(ResultState.AMENDED);	
         					Map<String, String> values = new HashMap<>();
-        					values.put("dwc:license", match) ;
+        					values.put("dcterms:license", match) ;
         					result.setValue(new AmendmentValue(values));
-        					result.addComment("Provided value for dwc:license ["+license+"] modified to match controlled vocabulary.");
+        					result.addComment("Provided value for dcterms:license ["+license+"] modified to match controlled vocabulary.");
         				} else { 
-        					result.addComment("Provided value of dwc:licence [" + license + "] unable to be conformed to the the sourceAuthority");
+        					result.addComment("Provided value of dcterms:license [" + license + "] unable to be conformed to the the sourceAuthority");
         					result.setResultState(ResultState.NOT_AMENDED);
         				}
         			}
@@ -1207,7 +1207,7 @@ public class DwCMetadataDQ {
         		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
         		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
         	} catch (Exception e) {
-        		result.addComment("Error evaluating dwc:licence: " + e.getMessage());
+        		result.addComment("Error evaluating dcterms:license: " + e.getMessage());
         		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
         	}
         }
