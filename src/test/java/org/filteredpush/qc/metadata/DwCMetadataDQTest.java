@@ -897,6 +897,20 @@ public class DwCMetadataDQTest {
 				assertNotNull(result.getComment());	
 			} 
 		} 
+		
+		sex = "m"; // could match male or mixed
+		result = DwCMetadataDQ.amendmentSexStandardized(sex, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());	
+		
+		sex = "f"; 
+		result = DwCMetadataDQ.amendmentSexStandardized(sex, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertEquals("Female",result.getValue().getObject().get("dwc:sex"));
+		assertNotNull(result.getComment());	
 	}
 	
 	/**

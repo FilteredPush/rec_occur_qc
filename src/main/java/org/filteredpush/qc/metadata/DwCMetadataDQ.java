@@ -1960,9 +1960,39 @@ public class DwCMetadataDQ {
         					Map<String, String> values = new HashMap<>();
         					values.put("dwc:sex", match) ;
         					result.setValue(new AmendmentValue(values));
+        				} else if (MetadataSingleton.getInstance().getSexValues().containsKey(sex.trim().toLowerCase().replace(".",""))) { 
+            					String match = MetadataSingleton.getInstance().getSexValues().get(sex.trim().toLowerCase());
+            					result.setResultState(ResultState.AMENDED);	
+            					Map<String, String> values = new HashMap<>();
+            					values.put("dwc:sex", match) ;
+            					result.setValue(new AmendmentValue(values));	
         				} else { 
-        					result.addComment("Provided value of dwc:sex [" + sex + "] unable to be conformed to the the sourceAuthority");
-        					result.setResultState(ResultState.NOT_AMENDED);
+        					Iterator<String> i = MetadataSingleton.getInstance().getSexTerms().keySet().iterator();
+        					boolean matched = false;
+        					String matchKey = "";
+        					while (i.hasNext()) { 
+        						String aValue = i.next();
+        						logger.debug(aValue);
+        						if (aValue.toLowerCase().startsWith(sex.trim().toLowerCase())) { 
+        							if (!matched) { 
+        								matched = true;
+        								matchKey =  MetadataSingleton.getInstance().getSexValues().get(aValue);
+        							} else { 
+        								// non-unique match.
+        								matchKey = "";
+        							}
+        						}
+         					}
+        					if (matched && matchKey.length()>0) { 
+        						result.addComment("Provided value of dwc:sex [" + sex + "] conformed to the the sourceAuthority");
+        						result.setResultState(ResultState.AMENDED);	
+        						Map<String, String> values = new HashMap<>();
+        						values.put("dwc:sex", matchKey) ;
+        						result.setValue(new AmendmentValue(values));
+        					} else { 
+        						result.addComment("Provided value of dwc:sex [" + sex + "] unable to be conformed to the the sourceAuthority");
+        						result.setResultState(ResultState.NOT_AMENDED);
+        					}
         				}
         			}
         		}
