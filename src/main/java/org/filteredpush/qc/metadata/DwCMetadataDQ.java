@@ -2640,4 +2640,15 @@ public class DwCMetadataDQ {
 
 
 
+// TODO: Implementation of AMENDMENT_DCTYPE_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdq/terms/bd385eeb-44a2-464b-a503-7abe407ef904/2024-03-20 see line: 673
+// TODO: Implementation of VALIDATION_OCCURRENCEID_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdq/terms/c486546c-e6e5-48a7-b286-eba7f5ca56c4/2023-09-17 see line: 173
+// TODO: Implementation of VALIDATION_BASISOFRECORD_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdq/terms/ac2b7648-d5f9-48ca-9b07-8ad5879a2536/2023-09-17 see line: 204
+// TODO: Implementation of AMENDMENT_BASISOFRECORD_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdq/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2024-07-24 see line: 783
+// TODO: Implementation of ISSUE_ESTABLISHMENTMEANS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdq/terms/acc8dff2-d8d1-483a-946d-65a02a452700/2023-09-18 see line: 234
+// TODO: Implementation of VALIDATION_LICENSE_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdq/terms/15f78619-811a-4c6f-997a-a4c7888ad849/2023-09-18 see line: 264
+// TODO: Implementation of VALIDATION_DCTYPE_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdq/terms/374b091a-fc90-4791-91e5-c1557c649169/2023-09-18 see line: 294
+// TODO: Implementation of VALIDATION_BASISOFRECORD_STANDARD is not up to date with current version: https://rs.tdwg.org/bdq/terms/42408a00-bf71-4892-a399-4325e2bc1fb8/2024-07-24 see line: 326
+// TODO: Implementation of VALIDATION_OCCURRENCESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdq/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2023-09-18 see line: 392
+// TODO: Implementation of VALIDATION_OCCURRENCESTATUS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdq/terms/eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf/2023-09-18 see line: 455
+// TODO: Implementation of AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdq/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16 see line: 1591
 }
