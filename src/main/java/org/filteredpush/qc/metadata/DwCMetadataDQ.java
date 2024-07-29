@@ -270,11 +270,11 @@ public class DwCMetadataDQ {
         // 
 
 		if (MetadataUtils.isEmpty(license)) {
-			result.addComment("No value provided for license.");
+			result.addComment("No value provided for dcterms:license.");
 			result.setValue(ComplianceValue.NOT_COMPLIANT);
 			result.setResultState(ResultState.RUN_HAS_RESULT);
 		} else { 
-			result.addComment("Some value provided for license.");
+			result.addComment("Some value provided for dcterms:license.");
 			result.setValue(ComplianceValue.COMPLIANT);
 			result.setResultState(ResultState.RUN_HAS_RESULT);
 		}
@@ -644,11 +644,11 @@ public class DwCMetadataDQ {
         		result.addComment("No value provided for dwc:licence.");
         		result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
         	} else if (license.matches(pattern)) {	
-        		result.addComment("Provided value for dwc:license conforms to expectations.");
+        		result.addComment("Provided value for dcterms:license conforms to expectations.");
         		result.setValue(ComplianceValue.COMPLIANT);
         		result.setResultState(ResultState.RUN_HAS_RESULT);
         	} else { 
-        		result.addComment("Provided value for dwc:licence [" + license +"] does not conform to expectations.");
+        		result.addComment("Provided value for dcterms:licence [" + license +"] does not conform to expectations.");
         		result.setValue(ComplianceValue.NOT_COMPLIANT);
         		result.setResultState(ResultState.RUN_HAS_RESULT);
         	}
