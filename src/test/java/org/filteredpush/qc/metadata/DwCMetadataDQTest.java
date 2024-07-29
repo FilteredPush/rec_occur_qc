@@ -1615,7 +1615,7 @@ public class DwCMetadataDQTest {
 		result = DwCMetadataDQ.amendmentLicenseStandardized(license, null);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
-		assertEquals("https://creativecommons.org/licenses/by/4.0/", result.getValue().getObject().get("dcterms:license"));
+		assertEquals("https://creativecommons.org/licenses/by/4.0/legalcode", result.getValue().getObject().get("dcterms:license"));
 		assertNotNull(result.getComment());
 		
 	}

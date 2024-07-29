@@ -1191,7 +1191,7 @@ public class DwCMetadataDQ {
         					match = "https://creativecommons.org/licenses/by-nc-nd/4.0";
         				} 
         				if (match.length()>0) {
-        					match = match + "/";   // could add legalcode here if expected
+        					match = match + "/legalcode";   // terminal legalcode expected as given in Darwin Core examples.
         					result.setResultState(ResultState.AMENDED);	
         					Map<String, String> values = new HashMap<>();
         					values.put("dcterms:license", match) ;
