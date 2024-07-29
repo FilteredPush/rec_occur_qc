@@ -364,4 +364,24 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     ) {
     	return DwCMetadataDQ.amendmentOccurrencestatusAssumeddefault(occurrenceStatus, individualCount, organismQuantity, "present");
     }
+    
+    /**
+    * Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.
+    *
+    * Provides: 115 AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
+    * Version: 2024-07-26
+    *
+    * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate as ActedUpon.
+    * @return DQResponse the response of type AmendmentValue to return
+    */
+    @Amendment(label="AMENDMENT_OCCURRENCESTATUS_STANDARDIZED", description="Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.")
+    @Provides("f8f3a093-042c-47a3-971a-a482aaaf3b75")
+    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/f8f3a093-042c-47a3-971a-a482aaaf3b75/2024-07-26")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus is EMPTY; AMENDED the value of dwc:occurrenceStatus if could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority = 'Darwin Core occurrenceStatus' {https://dwc.tdwg.org/list/#dwc_occurrenceStatus} {dwc:occurrenceStatus vocabulary [https://rs.gbif.org/vocabulary/gbif/occurrence_status_2020-07-15.xml]}")
+    public static DQResponse<AmendmentValue> amendmentOccurrencestatusStandardized(
+        @ActedUpon("dwc:occurrenceStatus") String occurrenceStatus
+    ) {
+    	return amendmentOccurrencestatusStandardized(occurrenceStatus, null);
+    }
+    
 }

@@ -77,6 +77,11 @@ public class MetadataSourceAuthority {
 	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/LifeStage")) { 
 	    	this.authority = EnumMetadataSourceAuthority.GBIF_LIFESTAGE;
 	    	
+	    } else if (authorityString.toUpperCase().equals("GBIF OCCURRENCESTATUS VOCABULARY")) { 
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_OCCURRENCESTATUS;	
+	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/OccurrenceStatus")) { 
+	    	this.authority = EnumMetadataSourceAuthority.GBIF_OCCURRENCESTATUS;	
+	    	
 	    } else if (authorityString.toUpperCase().equals("GBIF PATHWAY VOCABULARY")) { 
 	    	this.authority = EnumMetadataSourceAuthority.GBIF_PATHWAY;	
 	    } else if (authorityString.equals("https://api.gbif.org/v1/vocabularies/Pathway")) { 

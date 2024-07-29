@@ -60,6 +60,9 @@ public class MetadataSingleton {
 	
 	private Map<String,List<String>> establishmentMeansTerms = new HashMap<String,List<String>>();
 	private Map<String,String> establishmentMeansValues = new HashMap<String,String>();
+	
+	private Map<String,List<String>> occurrenceStatusTerms = new HashMap<String,List<String>>();
+	private Map<String,String> occurrenceStatusValues = new HashMap<String,String>();
 		
 	private MetadataSingleton() { 
 		init();
@@ -143,6 +146,17 @@ public class MetadataSingleton {
 				Iterator<String> i = values.iterator();
 				while (i.hasNext()) { 
 					establishmentMeansValues.put(i.next(), key);
+				}
+			}
+			
+			occurrenceStatusTerms = gbif.loadVocabulary("OccurrenceStatus");
+			keys = occurrenceStatusTerms.keySet().iterator();
+			while (keys.hasNext()) { 
+				String key = keys.next();
+				List<String> values = occurrenceStatusTerms.get(key);
+				Iterator<String> i = values.iterator();
+				while (i.hasNext()) { 
+					occurrenceStatusValues.put(i.next(), key);
 				}
 			}
 		
@@ -267,6 +281,26 @@ public class MetadataSingleton {
 	 */
 	public Map<String, List<String>> getEstablishmentMeansTerms() { 
 		return establishmentMeansTerms;
+	}
+	
+	/**
+	 * get the occurrenceStatus value:key pairs
+	 * for finding vocabulary values for alternative labels
+	 * 
+	 * @return the map of occurrenceStatus values from the vocabulary
+	 */
+	public Map<String,String> getOccurrenceStatusValues() { 
+		return occurrenceStatusValues;
+	}
+	
+	/**
+	 * get the occurrenceStatus key:list of value pairs 
+	 * for finding values in the vocabulary
+	 * 
+	 * @return the map of occurrenceStatus values from the vocabulary
+	 */
+	public Map<String, List<String>> getOccurrenceStatusTerms() { 
+		return occurrenceStatusTerms;
 	}
 	
 	/**

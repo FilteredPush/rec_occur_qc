@@ -1440,14 +1440,14 @@ public class DwCMetadataDQTest {
 	@Test
 	public void testAmendmentOccurrencestatusStandardized() {
 		String occurrenceStatus = "";
-		DQResponse<AmendmentValue> result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus);
+		DQResponse<AmendmentValue> result = DwCMetadataDQDefaults.amendmentOccurrencestatusStandardized(occurrenceStatus);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
 		assertNull(result.getValue());
 		assertNotNull(result.getComment());
 
 		occurrenceStatus = "1";
-		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus);
+		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus,null);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
 		assertNotNull(result.getValue());
@@ -1455,15 +1455,23 @@ public class DwCMetadataDQTest {
 		assertNotNull(result.getComment());
 
 		occurrenceStatus = " Present";
-		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus);
+		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus,null);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
 		assertNotNull(result.getValue());
 		assertEquals("present", result.getValue().getObject().get("dwc:occurrenceStatus"));
 		assertNotNull(result.getComment());
 
+		occurrenceStatus = "Presente";
+		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus,null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNotNull(result.getValue());
+		assertEquals("present", result.getValue().getObject().get("dwc:occurrenceStatus"));
+		assertNotNull(result.getComment());
+		
 		occurrenceStatus = "0";
-		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus);
+		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus,null);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
 		assertNotNull(result.getValue());
@@ -1471,9 +1479,16 @@ public class DwCMetadataDQTest {
 		assertNotNull(result.getComment());
 
 		occurrenceStatus = "abnsent";
-		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus);
+		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus,null);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+		
+		occurrenceStatus = "foo";
+		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus,"https://invalid/invalidauthority");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.EXTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
 		assertNull(result.getValue());
 		assertNotNull(result.getComment());
 

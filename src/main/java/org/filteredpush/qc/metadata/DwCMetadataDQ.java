@@ -1031,6 +1031,7 @@ public class DwCMetadataDQ {
     * Version: 2024-07-26
     *
     * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_OCCURRENCESTATUS_STANDARDIZED", description="Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.")
@@ -1038,60 +1039,90 @@ public class DwCMetadataDQ {
     @ProvidesVersion("https://rs.tdwg.org/bdq/terms/f8f3a093-042c-47a3-971a-a482aaaf3b75/2024-07-26")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus is EMPTY; AMENDED the value of dwc:occurrenceStatus if could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority = 'Darwin Core occurrenceStatus' {https://dwc.tdwg.org/list/#dwc_occurrenceStatus} {dwc:occurrenceStatus vocabulary [https://rs.gbif.org/vocabulary/gbif/occurrence_status_2020-07-15.xml]}")
     public static DQResponse<AmendmentValue> amendmentOccurrencestatusStandardized(
-        @ActedUpon("dwc:occurrenceStatus") String occurrenceStatus
+        @ActedUpon("dwc:occurrenceStatus") String occurrenceStatus,
+        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
-        //TODO:  Implement specification
-        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
-        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus 
-        // is EMPTY; AMENDED the value of dwc:occurrenceStatus if could 
-        // be unambiguously interpreted as a value in bdq:sourceAuthority; 
-        // otherwise NOT_AMENDED bdq:sourceAuthority = "Darwin Core 
-        // occurrenceStatus" {https://dwc.tdwg.org/list/#dwc_occurrenceStatus} 
-        // {dwc:occurrenceStatus vocabulary [https://rs.gbif.org/vocabulary/gbif/occurrence_status_2020-07-15.xml]} 
+        // Specification
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; 
+        // INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus is EMPTY; 
+        // AMENDED the value of dwc:occurrenceStatus if could be unambiguously interpreted as a 
+        // value in bdq:sourceAuthority; 
+        // otherwise NOT_AMENDED
         // 
 
-        // TODO: Parameter
+        // Parameter
+        // bdq:sourceAuthority default = "GBIF OccurrenceStatus Vocabulary" 
+        // [https://api.gbif.org/v1/vocabularies/OccurrenceStatus]} 
+        // {"dwc:occurrenceStatus vocabulary API" [https://api.gbif.org/v1/vocabularies/OccurrenceStatus/concepts]}
         
+
         if (MetadataUtils.isEmpty(occurrenceStatus)) { 
         	result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
         	result.addComment("Provided dwc:occurrenceStatus is empty");
-        } else if (occurrenceStatus.equals("present")) { 
-        	result.setResultState(ResultState.NOT_AMENDED);
-        	result.addComment("Provided dwc:occurrenceStatus is a valid value");
-        } else if (occurrenceStatus.equals("absent")) { 
-        	result.setResultState(ResultState.NOT_AMENDED);
-        	result.addComment("Provided dwc:occurrenceStatus is a valid value");
-        } else if (!occurrenceStatus.equals("present") && occurrenceStatus.trim().toLowerCase().equals("present")) { 
-        	result.setResultState(ResultState.AMENDED);
-			Map<String, String> values = new HashMap<>();
-			values.put("dwc:occurrenceStatus", "present") ;
-			result.setValue(new AmendmentValue(values));
-        	result.addComment("Provided dwc:occurrenceStatus interpreted as present");
-        } else if (!occurrenceStatus.equals("absent") && occurrenceStatus.trim().toLowerCase().equals("absent")) { 
-        	result.setResultState(ResultState.AMENDED);
-			Map<String, String> values = new HashMap<>();
-			values.put("dwc:occurrenceStatus", "absent") ;
-			result.setValue(new AmendmentValue(values));
-        	result.addComment("Provided dwc:occurrenceStatus interpreted as absent");
-        } else if (occurrenceStatus.trim().equals("1")) { 
-        	result.setResultState(ResultState.AMENDED);
-			Map<String, String> values = new HashMap<>();
-			values.put("dwc:occurrenceStatus", "present") ;
-			result.setValue(new AmendmentValue(values));
-        	result.addComment("Provided dwc:occurrenceStatus interpreted as present");
-        } else if (occurrenceStatus.trim().equals("0")) { 
-        	result.setResultState(ResultState.AMENDED);
-			Map<String, String> values = new HashMap<>();
-			values.put("dwc:occurrenceStatus", "absent") ;
-			result.setValue(new AmendmentValue(values));
-        	result.addComment("Provided dwc:occurrenceStatus interpreted as absent");
         } else { 
-        	result.setResultState(ResultState.NOT_AMENDED);
-        	result.addComment("Provided dwc:occurrenceStatus ["+occurrenceStatus+"] not interpretable");
+        	if (MetadataUtils.isEmpty(sourceAuthority)) { 
+        		sourceAuthority = "GBIF OccurrenceStatus Vocabulary";
+        	}
+        	try { 
+        		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
+        		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
+        			throw new SourceAuthorityException("Invalid Source Authority");
+        		}
+        		if (!MetadataSingleton.getInstance().isLoaded()) { 
+        			throw new SourceAuthorityException("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError());
+        		}
+        		if (occurrenceStatus.equals("present")) { 
+        			result.setResultState(ResultState.NOT_AMENDED);
+        			result.addComment("Provided dwc:occurrenceStatus is a valid value");
+        		} else if (occurrenceStatus.equals("absent")) { 
+        			result.setResultState(ResultState.NOT_AMENDED);
+        			result.addComment("Provided dwc:occurrenceStatus is a valid value");
+        		} else if (!occurrenceStatus.equals("present") && occurrenceStatus.trim().toLowerCase().equals("present")) { 
+        			result.setResultState(ResultState.AMENDED);
+        			Map<String, String> values = new HashMap<>();
+        			values.put("dwc:occurrenceStatus", "present") ;
+        			result.setValue(new AmendmentValue(values));
+        			result.addComment("Provided dwc:occurrenceStatus interpreted as present");
+        		} else if (!occurrenceStatus.equals("absent") && occurrenceStatus.trim().toLowerCase().equals("absent")) { 
+        			result.setResultState(ResultState.AMENDED);
+        			Map<String, String> values = new HashMap<>();
+        			values.put("dwc:occurrenceStatus", "absent") ;
+        			result.setValue(new AmendmentValue(values));
+        			result.addComment("Provided dwc:occurrenceStatus interpreted as absent");
+        		} else if (occurrenceStatus.trim().equals("1")) { 
+        			result.setResultState(ResultState.AMENDED);
+        			Map<String, String> values = new HashMap<>();
+        			values.put("dwc:occurrenceStatus", "present") ;
+        			result.setValue(new AmendmentValue(values));
+        			result.addComment("Provided dwc:occurrenceStatus interpreted as present");
+        		} else if (occurrenceStatus.trim().equals("0")) { 
+        			result.setResultState(ResultState.AMENDED);
+        			Map<String, String> values = new HashMap<>();
+        			values.put("dwc:occurrenceStatus", "absent") ;
+        			result.setValue(new AmendmentValue(values));
+        			result.addComment("Provided dwc:occurrenceStatus interpreted as absent");
+        		} else if (MetadataSingleton.getInstance().getOccurrenceStatusValues().containsKey(occurrenceStatus.trim().toLowerCase())) { 
+        			result.setResultState(ResultState.AMENDED);
+        			Map<String, String> values = new HashMap<>();
+        			String match = MetadataSingleton.getInstance().getOccurrenceStatusValues().get(occurrenceStatus.trim().toLowerCase());
+        			match = match.toLowerCase(); /// NOTE: Darwin Core examples and recommendation is lower case, GBIF vocabulary is capitalized.
+        			values.put("dwc:occurrenceStatus", match);
+        			result.setValue(new AmendmentValue(values));
+        			result.addComment("Provided dwc:occurrenceStatus ["+ occurrenceStatus +"] interpreted from vocabulary.");
+        		} else { 
+        			result.setResultState(ResultState.NOT_AMENDED);
+        			result.addComment("Provided dwc:occurrenceStatus ["+occurrenceStatus+"] not interpretable");
+        		}
+        	} catch (SourceAuthorityException e) { 
+        		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        	} catch (Exception ex) {
+        		result.addComment("Error evaluating dwc:occurrenceStaus: " + ex.getMessage());
+        		result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
+        	}
         }
-        
         return result;
     }
 
@@ -2146,9 +2177,32 @@ public class DwCMetadataDQ {
         					Map<String, String> values = new HashMap<>();
         					values.put("dwc:typeStatus", match) ;
         					result.setValue(new AmendmentValue(values));
-        				} else { 
-        					result.addComment("Provided value of dwc:typeStatus [" + typeStatus + "] unable to be conformed to the the sourceAuthority");
-        					result.setResultState(ResultState.NOT_AMENDED);
+        				} else {
+        					Iterator<String> i = MetadataSingleton.getInstance().getTypeStatusTerms().keySet().iterator();
+        					boolean matched = false;
+        					String matchKey = "";
+        					while (i.hasNext()) { 
+        						String aValue = i.next();
+        						if (aValue.toLowerCase().startsWith(typeStatus.trim().toLowerCase().replace(".", ""))) { 
+        							if (!matched) { 
+        								matched = true;
+        								matchKey =  MetadataSingleton.getInstance().getTypeStatusValues().get(aValue);
+        							} else { 
+        								// non-unique match.
+        								matchKey = "";
+        							}
+        						}
+         					}
+        					if (matched && matchKey.length()>0) { 
+        						result.addComment("Provided value of dwc:typeStatus [" + typeStatus + "] conformed to the the sourceAuthority");
+        						result.setResultState(ResultState.AMENDED);	
+        						Map<String, String> values = new HashMap<>();
+        						values.put("dwc:typeStatus", matchKey) ;
+        						result.setValue(new AmendmentValue(values));
+        					} else { 
+        						result.addComment("Provided value of dwc:typeStatus [" + typeStatus + "] unable to be conformed to the the sourceAuthority");
+        						result.setResultState(ResultState.NOT_AMENDED);
+        					}
         				}
         			}
         		}

@@ -49,6 +49,11 @@ public enum EnumMetadataSourceAuthority {
 	 */
     GBIF_ESTABLISHMENTMEANS,
 	/**
+	 * GBIF OccurrenceStatusVocabulary
+	 */
+    GBIF_OCCURRENCESTATUS,
+    
+	/**
 	 * Darwin Core Class Names
 	 */
     DWC_BASISOFRECORD,
