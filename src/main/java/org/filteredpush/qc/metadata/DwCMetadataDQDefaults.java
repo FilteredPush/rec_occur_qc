@@ -1,7 +1,7 @@
 /**
  * DwCMetadataDQDefaults.java
  *
- * Copyright 2022 President and Fellows of Harvard College
+ * Copyright 2022-2024 President and Fellows of Harvard College
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import org.datakurator.ffdq.annotations.Provides;
 import org.datakurator.ffdq.annotations.ProvidesVersion;
 import org.datakurator.ffdq.annotations.Specification;
 import org.datakurator.ffdq.annotations.Validation;
+import org.datakurator.ffdq.annotations.Mechanism;
 import org.datakurator.ffdq.api.DQResponse;
 import org.datakurator.ffdq.api.result.AmendmentValue;
 import org.datakurator.ffdq.api.result.ComplianceValue;
@@ -36,6 +37,7 @@ import org.datakurator.ffdq.api.result.ComplianceValue;
  * @author mole
  *
  */
+@Mechanism(value="09fd4e2f-cf10-4665-aa74-bcf8e3795163",label="Kurator: Metadata/Record-Level Validator - DwCMetadataDQ:v1.0.0")
 public class DwCMetadataDQDefaults extends DwCMetadataDQ {
 
 	private static final Log logger = LogFactory.getLog(DwCMetadataDQDefaults.class);

@@ -13,7 +13,7 @@
 <http://rs.tdwg.org/bdq/ffdq/Specification> rdfbeans:bindingClass "org.datakurator.ffdq.model.Specification" .
 
 <urn:uuid:09fd4e2f-cf10-4665-aa74-bcf8e3795163> a <http://rs.tdwg.org/bdq/ffdq/Mechanism> ;
-	rdfs:label "Kurator: Metadata/Record-Level Validator - DwCMetadataDQ:v0.0.1" .
+	rdfs:label "Kurator: Metadata/Record-Level Validator - DwCMetadataDQ:v1.0.0" .
 
 <urn:uuid:3cfe9ab4-79f8-4afd-8da5-723183ef16a3> a <http://rs.tdwg.org/bdq/ffdq/Specification> ;
 	rdfs:comment "INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceID is EMPTY; COMPLIANT if the value of dwc:occurrenceID follows a format commonly associated with globally unique identifiers (GUIDs); otherwise NOT_COMPLIANT " ;
