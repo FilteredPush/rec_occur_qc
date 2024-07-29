@@ -1960,19 +1960,13 @@ public class DwCMetadataDQ {
         					Map<String, String> values = new HashMap<>();
         					values.put("dwc:sex", match) ;
         					result.setValue(new AmendmentValue(values));
-        				} else if (MetadataSingleton.getInstance().getSexValues().containsKey(sex.trim().toLowerCase().replace(".",""))) { 
-            					String match = MetadataSingleton.getInstance().getSexValues().get(sex.trim().toLowerCase());
-            					result.setResultState(ResultState.AMENDED);	
-            					Map<String, String> values = new HashMap<>();
-            					values.put("dwc:sex", match) ;
-            					result.setValue(new AmendmentValue(values));	
         				} else { 
         					Iterator<String> i = MetadataSingleton.getInstance().getSexTerms().keySet().iterator();
         					boolean matched = false;
         					String matchKey = "";
         					while (i.hasNext()) { 
         						String aValue = i.next();
-        						if (aValue.toLowerCase().startsWith(sex.trim().toLowerCase())) { 
+        						if (aValue.toLowerCase().startsWith(sex.trim().toLowerCase().replace(".", ""))) { 
         							if (!matched) { 
         								matched = true;
         								matchKey =  MetadataSingleton.getInstance().getSexValues().get(aValue);
