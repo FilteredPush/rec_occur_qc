@@ -926,6 +926,7 @@ public class DwCMetadataDQTest {
 				assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
 				assertEquals(match, result.getValue().getObject().get("dwc:sex"));
 				assertNotNull(result.getComment());
+				
 			}
 		}
 
@@ -942,6 +943,14 @@ public class DwCMetadataDQTest {
 		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
 		assertEquals("Female", result.getValue().getObject().get("dwc:sex"));
 		assertNotNull(result.getComment());
+		
+		sex = "f.";
+		result = DwCMetadataDQ.amendmentSexStandardized(sex, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertEquals("Female", result.getValue().getObject().get("dwc:sex"));
+		assertNotNull(result.getComment());
+		
 	}
 
 	/**
