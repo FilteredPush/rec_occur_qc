@@ -1988,11 +1988,11 @@ public class DwCMetadataDQ {
         	try { 
         		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
         		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
-        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        			throw new SourceAuthorityException("Invalid source authority");
         		}
         		if (!MetadataSingleton.getInstance().isLoaded()) { 
         			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
-        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        			throw new SourceAuthorityException("Error loading data from sourceAuthority");
         		} else { 
         			if (MetadataSingleton.getInstance().getSexTerms().containsKey(sex)) { 
         				result.addComment("Provided value of dwc:sex found in the sourceAuthority");
@@ -2161,11 +2161,11 @@ public class DwCMetadataDQ {
         	try { 
         		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
         		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
-        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        			throw new SourceAuthorityException("Invalid source authority");
         		}
         		if (!MetadataSingleton.getInstance().isLoaded()) { 
         			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
-        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        			throw new SourceAuthorityException("Error loading data from sourceAuthority");
         		} else { 
         			if (MetadataSingleton.getInstance().getTypeStatusTerms().containsKey(typeStatus)) { 
         				result.addComment("Provided value of dwc:typeStatus found in the sourceAuthority");
