@@ -1462,8 +1462,40 @@ public class DwCMetadataDQ {
         					values.put("dwc:establishmentMeans", match) ;
         					result.setValue(new AmendmentValue(values));
         				} else { 
-        					result.addComment("Provided value of dwc:establishmentMeans [" + establishmentMeans + "] unable to be conformed to the the sourceAuthority");
-        					result.setResultState(ResultState.NOT_AMENDED);
+        					
+        					// try a broader net
+        					Iterator<String> i = MetadataSingleton.getInstance().getEstablishmentMeansTerms().keySet().iterator();
+        					boolean matched = false;
+        					String matchKey = "";
+        					while (i.hasNext()) { 
+        						String aValue = i.next();
+        						// Try for unique match of abbreviation to first few letters of term, or if a longer string, a substring in the term
+        						String trimValue = establishmentMeans.trim().toLowerCase().replace(".", "");
+        						if (
+        							(aValue.toLowerCase().startsWith(trimValue) && establishmentMeans.endsWith(".") )
+        							 || 
+        							(trimValue.length()>4 && aValue.toLowerCase().contains(trimValue))
+        						) { 
+        							if (!matched) { 
+        								matched = true;
+        								matchKey =  MetadataSingleton.getInstance().getEstablishmentMeansValues().get(aValue);
+        							} else { 
+        								// non-unique match.
+        								matchKey = "";
+        							}
+        						}
+         					}
+        					if (matched && matchKey.length()>0) { 
+        						result.addComment("Provided value of dwc:establishmentMeans [" + establishmentMeans + "] conformed to the the sourceAuthority");
+        						result.setResultState(ResultState.AMENDED);	
+        						Map<String, String> values = new HashMap<>();
+        						values.put("dwc:establishmentMeans", matchKey) ;
+        						result.setValue(new AmendmentValue(values));
+        					} else { 
+        						result.addComment("Provided value of dwc:establishmentMeans [" + establishmentMeans + "] unable to be conformed to the the sourceAuthority");
+        						result.setResultState(ResultState.NOT_AMENDED);
+        					}
+        					
         				}
         			}
         		}
@@ -1689,8 +1721,39 @@ public class DwCMetadataDQ {
         					result.setValue(new AmendmentValue(values));
         					result.addComment("Provided value of dwc:degreeOfEstablishment [" + degreeOfEstablishment + "] conformed to the sourceAuthority");
         				} else { 
-        					result.addComment("Provided value of dwc:degreeOfEstablishment [" + degreeOfEstablishment + "] unable to be conformed to the sourceAuthority");
-        					result.setResultState(ResultState.NOT_AMENDED);
+        					// try a broader net
+        					Iterator<String> i = MetadataSingleton.getInstance().getDegreeOfEstablishmentTerms().keySet().iterator();
+        					boolean matched = false;
+        					String matchKey = "";
+        					while (i.hasNext()) { 
+        						String aValue = i.next();
+        						// Try for unique match of abbreviation to first few letters of term, or if a longer string, a substring in the term
+        						String trimValue = degreeOfEstablishment.trim().toLowerCase().replace(".", "");
+        						if (
+        							(aValue.toLowerCase().startsWith(trimValue) && degreeOfEstablishment.endsWith(".") )
+        							 || 
+        							(trimValue.length()>4 && aValue.toLowerCase().contains(trimValue))
+        						) { 
+        							if (!matched) { 
+        								matched = true;
+        								matchKey =  MetadataSingleton.getInstance().getDegreeOfEstablishmentValues().get(aValue);
+        							} else { 
+        								// non-unique match.
+        								matchKey = "";
+        							}
+        						}
+         					}
+        					if (matched && matchKey.length()>0) { 
+        						result.addComment("Provided value of dwc:degreeOfEstablshment [" + degreeOfEstablishment + "] conformed to the the sourceAuthority");
+        						result.setResultState(ResultState.AMENDED);	
+        						Map<String, String> values = new HashMap<>();
+        						values.put("dwc:degreeOfEstablishment", matchKey) ;
+        						result.setValue(new AmendmentValue(values));
+        					} else { 
+        						result.addComment("Provided value of dwc:degreeOfEstablishment [" + degreeOfEstablishment + "] unable to be conformed to the sourceAuthority");
+        						result.setResultState(ResultState.NOT_AMENDED);
+        					}
+        					
         				}
         			}
         		}
@@ -1832,8 +1895,40 @@ public class DwCMetadataDQ {
         					values.put("dwc:pathway", match) ;
         					result.setValue(new AmendmentValue(values));
         				} else { 
-        					result.addComment("Provided value of dwc:pathway [" + pathway + "] unable to be conformed to the the sourceAuthority");
-        					result.setResultState(ResultState.NOT_AMENDED);
+        					
+        					// try a broader net
+        					Iterator<String> i = MetadataSingleton.getInstance().getPathwayTerms().keySet().iterator();
+        					boolean matched = false;
+        					String matchKey = "";
+        					while (i.hasNext()) { 
+        						String aValue = i.next();
+        						// Try for unique match of abbreviation to first few letters of term, or if a longer string, a substring in the term
+        						String trimValue = pathway.trim().toLowerCase().replace(".", "");
+        						if (
+        							(aValue.toLowerCase().startsWith(trimValue) && pathway.endsWith(".") )
+        							 || 
+        							(trimValue.length()>4 && aValue.toLowerCase().contains(trimValue))
+        						) { 
+        							if (!matched) { 
+        								matched = true;
+        								matchKey =  MetadataSingleton.getInstance().getPathwayValues().get(aValue);
+        							} else { 
+        								// non-unique match.
+        								matchKey = "";
+        							}
+        						}
+         					}
+        					if (matched && matchKey.length()>0) { 
+        						result.addComment("Provided value of dwc:pathway [" + pathway + "] conformed to the the sourceAuthority");
+        						result.setResultState(ResultState.AMENDED);	
+        						Map<String, String> values = new HashMap<>();
+        						values.put("dwc:pathway", matchKey) ;
+        						result.setValue(new AmendmentValue(values));
+        					} else { 
+        						result.addComment("Provided value of dwc:pathway [" + pathway + "] unable to be conformed to the the sourceAuthority");
+        						result.setResultState(ResultState.NOT_AMENDED);
+        					}
+        					
         				}
         			}
         		}
