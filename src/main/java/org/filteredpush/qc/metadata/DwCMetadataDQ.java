@@ -1445,7 +1445,7 @@ public class DwCMetadataDQ {
         	try { 
         		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
         		if (sourceAuthorityObject.getAuthority().equals(EnumMetadataSourceAuthority.INVALID)) { 
-        			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
+        			throw new SourceAuthorityException("Invalid source authority.");
         		}
         		if (!MetadataSingleton.getInstance().isLoaded()) { 
         			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
