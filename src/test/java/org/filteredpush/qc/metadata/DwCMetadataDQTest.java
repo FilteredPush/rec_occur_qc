@@ -360,6 +360,23 @@ public class DwCMetadataDQTest {
 		assertNotNull(result.getValue());
 		assertEquals("FossilSpecimen", result.getValue().getObject().get("dwc:basisOfRecord"));
 		assertNotNull(result.getComment());
+		
+		// unique substring
+		basisOfRecord = "Fossil";
+		result = DwCMetadataDQ.amendmentBasisofrecordStandardized(basisOfRecord, sourceAuthority);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNotNull(result.getValue());
+		assertEquals("FossilSpecimen", result.getValue().getObject().get("dwc:basisOfRecord"));
+		assertNotNull(result.getComment());
+		
+		// non unique substring
+		basisOfRecord = "Observatpom";
+		result = DwCMetadataDQ.amendmentBasisofrecordStandardized(basisOfRecord, sourceAuthority);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.NOT_AMENDED.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
 
 		Iterator<String> i = values.iterator();
 		while (i.hasNext()) {

@@ -904,12 +904,31 @@ public class DwCMetadataDQ {
         					result.setValue(new AmendmentValue(newValues));
         				}
         			} else if (editDistance.apply(basisOfRecord, aLiteral)==1) { 
+        				// single character difference
         				matched = true;	
         				result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] is one edit away from ["+aLiteral+"] so corrected to this valid dwc:basisOfRecord literal.");
         				result.setResultState(ResultState.AMENDED);
         				Map<String, String> newValues = new HashMap<>();
         				newValues.put("dwc:basisOfRecord", aLiteral) ;
         				result.setValue(new AmendmentValue(newValues));
+        			} else if (basisOfRecord.length() > 4 && aLiteral.toLowerCase().contains(basisOfRecord.toLowerCase())) {
+        				// substring match
+        				Iterator<String> iduplicates = basisOfRecordLiteralList.iterator();
+        				int totalSubstringMatchCount = 0;
+        				while (iduplicates.hasNext()) {
+        					// make sure the substring match is to only one term
+        					if (iduplicates.next().toLowerCase().matches(basisOfRecord.toLowerCase())) { 
+        						totalSubstringMatchCount++;
+        					}
+        				}
+        				if (totalSubstringMatchCount==1) { 
+        					matched = true;	
+        					result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] is a unique substring of ["+aLiteral+"] so corrected to this valid dwc:basisOfRecord literal.");
+        					result.setResultState(ResultState.AMENDED);
+        					Map<String, String> newValues = new HashMap<>();
+        					newValues.put("dwc:basisOfRecord", aLiteral) ;
+        					result.setValue(new AmendmentValue(newValues));
+        				}
         			}
         		}
         		if (!matched) { 
@@ -1466,7 +1485,7 @@ public class DwCMetadataDQ {
         					// try a broader net
         					Iterator<String> i = MetadataSingleton.getInstance().getEstablishmentMeansValues().keySet().iterator();
         					boolean matched = false;
-        					String matchedKey = "";
+        					String lastMatchedKey = "";
         					String matchKey = "";
         					while (i.hasNext()) { 
         						String aValue = i.next();
@@ -1481,10 +1500,10 @@ public class DwCMetadataDQ {
         								matched = true;
         								matchKey =  MetadataSingleton.getInstance().getEstablishmentMeansValues().get(aValue);
         								logger.debug(matchKey);
-        								matchedKey = matchKey;
+        								lastMatchedKey = matchKey;
         							} else { 
         								matchKey =  MetadataSingleton.getInstance().getEstablishmentMeansValues().get(aValue);
-        								if (matchedKey != matchKey) { 
+        								if (lastMatchedKey != matchKey) { 
         									logger.debug(matchKey);
         									// non-unique match.
         									matchKey = "";
