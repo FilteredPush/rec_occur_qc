@@ -872,12 +872,14 @@ public class DwCMetadataDQ {
         			logger.debug(editDistance.apply(basisOfRecord, aLiteral));
         			if (basisOfRecord.trim().replace(" ", "").toUpperCase().equals(aLiteral.toUpperCase().replace(" ", ""))) { 
         				matched = true;	
+        				logger.debug(aLiteral);
         				result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] corrected to form a valid dwc:basisOfRecord literal.");
         				result.setResultState(ResultState.AMENDED);
         				Map<String, String> newValues = new HashMap<>();
         				newValues.put("dwc:basisOfRecord", aLiteral) ;
         				result.setValue(new AmendmentValue(newValues));
         			} else if (basisOfRecord.trim().replaceAll(uriMatcher, "").toUpperCase().equals(aLiteral.toUpperCase())) { 
+        				logger.debug(aLiteral);
         				matched = true;	
         				result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] corrected to form a valid dwc:basisOfRecord literal, the provided value was an IRI, and dwc:basisOfRecord must be a literal.");
         				result.setResultState(ResultState.AMENDED);
@@ -885,6 +887,7 @@ public class DwCMetadataDQ {
         				newValues.put("dwc:basisOfRecord", aLiteral) ;
         				result.setValue(new AmendmentValue(newValues));
         			} else if (typeSoundex.equals(literalSoundex)) {
+        				logger.debug(literalSoundex);
         				// check that soundex match is unambiguous 
         				int totalMatches = 0;
         				Iterator<String> ic = basisOfRecordLiteralList.iterator();
@@ -905,6 +908,7 @@ public class DwCMetadataDQ {
         				}
         			} else if (editDistance.apply(basisOfRecord, aLiteral)==1) { 
         				// single character difference
+        				logger.debug(aLiteral);
         				matched = true;	
         				result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] is one edit away from ["+aLiteral+"] so corrected to this valid dwc:basisOfRecord literal.");
         				result.setResultState(ResultState.AMENDED);
@@ -913,14 +917,17 @@ public class DwCMetadataDQ {
         				result.setValue(new AmendmentValue(newValues));
         			} else if (basisOfRecord.length() > 4 && aLiteral.toLowerCase().contains(basisOfRecord.toLowerCase())) {
         				// substring match
+        				logger.debug(aLiteral);
         				Iterator<String> iduplicates = basisOfRecordLiteralList.iterator();
         				int totalSubstringMatchCount = 0;
         				while (iduplicates.hasNext()) {
         					// make sure the substring match is to only one term
-        					if (iduplicates.next().toLowerCase().matches(basisOfRecord.toLowerCase())) { 
+        					String term = iduplicates.next();
+        					if (term.toLowerCase().contains(basisOfRecord.toLowerCase())) { 
         						totalSubstringMatchCount++;
         					}
         				}
+        				logger.debug(totalSubstringMatchCount);
         				if (totalSubstringMatchCount==1) { 
         					matched = true;	
         					result.addComment("Provided value for dwc:basisOfRecord ["+basisOfRecord+"] is a unique substring of ["+aLiteral+"] so corrected to this valid dwc:basisOfRecord literal.");
