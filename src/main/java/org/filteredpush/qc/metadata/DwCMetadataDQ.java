@@ -1462,10 +1462,11 @@ public class DwCMetadataDQ {
         					values.put("dwc:establishmentMeans", match) ;
         					result.setValue(new AmendmentValue(values));
         				} else { 
-        					
+        					logger.debug(establishmentMeans);
         					// try a broader net
-        					Iterator<String> i = MetadataSingleton.getInstance().getEstablishmentMeansTerms().keySet().iterator();
+        					Iterator<String> i = MetadataSingleton.getInstance().getEstablishmentMeansValues().keySet().iterator();
         					boolean matched = false;
+        					String matchedKey = "";
         					String matchKey = "";
         					while (i.hasNext()) { 
         						String aValue = i.next();
@@ -1479,9 +1480,15 @@ public class DwCMetadataDQ {
         							if (!matched) { 
         								matched = true;
         								matchKey =  MetadataSingleton.getInstance().getEstablishmentMeansValues().get(aValue);
+        								logger.debug(matchKey);
+        								matchedKey = matchKey;
         							} else { 
-        								// non-unique match.
-        								matchKey = "";
+        								matchKey =  MetadataSingleton.getInstance().getEstablishmentMeansValues().get(aValue);
+        								if (matchedKey != matchKey) { 
+        									logger.debug(matchKey);
+        									// non-unique match.
+        									matchKey = "";
+        								}
         							}
         						}
          					}
@@ -1495,7 +1502,6 @@ public class DwCMetadataDQ {
         						result.addComment("Provided value of dwc:establishmentMeans [" + establishmentMeans + "] unable to be conformed to the the sourceAuthority");
         						result.setResultState(ResultState.NOT_AMENDED);
         					}
-        					
         				}
         			}
         		}

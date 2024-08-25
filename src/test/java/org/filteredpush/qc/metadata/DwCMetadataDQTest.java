@@ -1561,6 +1561,14 @@ public class DwCMetadataDQTest {
 		assertNull(result.getValue());
 		assertNotNull(result.getComment());
 
+		establishmentMeans = "alien";
+		result = DwCMetadataDQ.amendmentEstablishmentmeansStandardized(establishmentMeans, null);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertEquals(1,result.getValue().getObject().size());
+		assertEquals("introduced", result.getValue().getObject().get("dwc:establishmentMeans"));
+		assertNotNull(result.getComment());
+				
 		Map<String, String> vocabulary = MetadataSingleton.getInstance().getEstablishmentMeansValues();
 		Set<String> keys = vocabulary.keySet();
 		Iterator<String> i = keys.iterator();
