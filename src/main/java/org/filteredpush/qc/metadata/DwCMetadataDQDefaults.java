@@ -325,17 +325,18 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     
     /**
     * Does the value of dwc:typeStatus occur in bdq:sourceAuthority?
+    * Uses the default sourceAuthority.
     *
     * Provides: 285 VALIDATION_TYPESTATUS_STANDARD
-    * Version: 2024-02-09
+    * Version: 2024-11-11
     *
     * @param typeStatus the provided dwc:typeStatus to evaluate as ActedUpon.
     * @return DQResponse the response of type ComplianceValue  to return
     */
     @Validation(label="VALIDATION_TYPESTATUS_STANDARD", description="Does the value of dwc:typeStatus occur in bdq:sourceAuthority?")
     @Provides("4833a522-12eb-4fe0-b4cf-7f7a337a6048")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-02-09")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is EMPTY; COMPLIANT if the value of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core typeStatus' {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-08-03")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; COMPLIANT if the value of the first word in each &#124; delimited portion of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.. bdq:sourceAuthority default = \"GBIF TypeStatus Vocabulary\" {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}")
     public static DQResponse<ComplianceValue> validationTypestatusStandard(
         @ActedUpon("dwc:typeStatus") String typeStatus
     ) {

@@ -460,18 +460,21 @@ public class DwCMetadataDQ {
     /**
      * Is there a value in dwc:occurrenceStatus?
      *
-     * Provides: VALIDATION_OCCURRENCESTATUS_NOTEMPTY
+     * Provides: 117 VALIDATION_OCCURRENCESTATUS_NOTEMPTY
+     * Version: 2023-09-18
      *
      * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate
      * @return DQResponse the response of type ComplianceValue  to return
      */
     @Validation(label="VALIDATION_OCCURRENCESTATUS_NOTEMPTY", description="Is there a value in dwc:occurrenceStatus?")
     @Provides("eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf/2023-09-18")
+    @Specification("COMPLIANT if dwc:occurrenceStatus is bdq:NotEmpty; otherwise NOT_COMPLIANT. ")
     public static DQResponse<ComplianceValue> validationOccurrencestatusNotempty(@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
         // Specification
-        // COMPLIANT if dwc:occurrenceStatus is not EMPTY; otherwise 
+        // COMPLIANT if dwc:occurrenceStatus is bdq:NotEmpty; otherwise 
         // NOT_COMPLIANT 
 
 		if (MetadataUtils.isEmpty(occurrenceStatus)) {
@@ -2880,7 +2883,6 @@ public class DwCMetadataDQ {
 // TODO: Implementation of ISSUE_ESTABLISHMENTMEANS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/acc8dff2-d8d1-483a-946d-65a02a452700/2023-09-18 see line: 241
 // TODO: Implementation of VALIDATION_BASISOFRECORD_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/42408a00-bf71-4892-a399-4325e2bc1fb8/2024-08-18 see line: 340
 // TODO: Implementation of VALIDATION_OCCURRENCESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2023-09-18 see line: 406
-// TODO: Implementation of VALIDATION_OCCURRENCESTATUS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf/2023-09-18 see line: 469
 // TODO: Implementation of AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16 see line: 1714
 // TODO: Implementation of AMENDMENT_PATHWAY_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/f9205977-f145-44f5-8cb9-e3e2e35ce908/2024-09-18 see line: 1896
 }
