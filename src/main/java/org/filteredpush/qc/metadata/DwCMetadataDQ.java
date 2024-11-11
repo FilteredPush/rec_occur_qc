@@ -2191,7 +2191,7 @@ public class DwCMetadataDQ {
     * Does the value of dwc:typeStatus occur in bdq:sourceAuthority?
     *
     * Provides: 285 VALIDATION_TYPESTATUS_STANDARD
-    * Version: 2024-02-09
+    * Version: 2024-11-11
     *
     * @param typeStatus the provided dwc:typeStatus to evaluate as ActedUpon.
     * @param sourceAuthority the bdq:sourceAuthority to consult.
@@ -2199,30 +2199,27 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_TYPESTATUS_STANDARD", description="Does the value of dwc:typeStatus occur in bdq:sourceAuthority?")
     @Provides("4833a522-12eb-4fe0-b4cf-7f7a337a6048")
-    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-02-09")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is EMPTY; COMPLIANT if the value of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core typeStatus' {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-08-03")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; COMPLIANT if the value of the first word in each &#124; delimited portion of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.. bdq:sourceAuthority default = \"GBIF TypeStatus Vocabulary\" {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}")
     public static DQResponse<ComplianceValue> validationTypestatusStandard(
         @ActedUpon("dwc:typeStatus") String typeStatus,
         @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO: Discussion underway if this test should be treated as immature, or if it
-        // should have the specification reworked to treat only the first word in each pipe delimited 
-        // part of dwc:typeStatus
-        
         // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus 
-        // is EMPTY; COMPLIANT if the value of dwc:typeStatus is in 
-        // the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority 
+        // is bdq:Empty; COMPLIANT if the value of the first word in 
+        // each | delimited portion of dwc:typeStatus is in the 
+        // bdq:sourceAuthority; otherwise NOT_COMPLIANT. 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority default = "Darwin Core typeStatus" 
-        // {[https://dwc.tdwg.org/list/#dwc_typeStatus]} 
-        // {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]} 
-
+        // Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority default = "GBIF TypeStatus Vocabulary" 
+        // {[https://api.gbif.org/v1/vocabularies/TypeStatus]} 
+        // {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}
+        
         if (MetadataUtils.isEmpty(typeStatus)) { 
         	result.addComment("No Value provided for dwc:typeStatus");
 			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
@@ -2236,12 +2233,38 @@ public class DwCMetadataDQ {
         			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
         			result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);	
         		} else { 
-        			result.setResultState(ResultState.RUN_HAS_RESULT);	
-        			if (MetadataSingleton.getInstance().getTypeStatusTerms().containsKey(typeStatus)) { 
-        				result.addComment("Provided value of dwc:typeStatus found in the sourceAuthority");
+        			result.setResultState(ResultState.RUN_HAS_RESULT);
+        			
+        			List<String> typeStatusBits = new ArrayList<String>();
+        			if (typeStatus.contains("|")) { 
+        				// Handle pipe delimited list.
+        				typeStatusBits = Arrays.asList(typeStatus.split("|"));
+        			} else { 
+        				typeStatusBits.add(typeStatus);
+        			}
+        			boolean allCompliant = true;
+        			Iterator<String> i = typeStatusBits.iterator();
+        			int fails = 0;
+        			while (i.hasNext()) { 
+        				String bit = i.next().trim();
+        				String firstWord = bit;
+        				if (bit.contains(" ")) { 
+        					// evaluate just the first word
+        					firstWord = bit.substring(0,bit.indexOf(" "));
+        				}
+        				if (!MetadataSingleton.getInstance().getTypeStatusTerms().containsKey(firstWord)) {
+        					result.addComment("Provided first word of element in dwc:typeStatus [" + firstWord + "] not found in the sourceAuthority");
+        					allCompliant = false;
+        					fails = fails + 1;
+        				} else { 
+        					result.addComment("Provided first word of element in dwc:typeStatus [" + firstWord + "] was found in the sourceAuthority");
+        				}
+        			}
+        			if (allCompliant) { 
+        				result.addComment("Provided value of first word in each pipe delimited part of dwc:typeStatus found in the sourceAuthority " + sourceAuthority);
         				result.setValue(ComplianceValue.COMPLIANT);
         			} else {
-        				result.addComment("Provided value of dwc:typeStatus [" + typeStatus + "] not found in the sourceAuthority");
+        				result.addComment("Provided value of " + fails + " of " + typeStatusBits.size() +" first words of pipe delimited bits of dwc:typeStatus [" + typeStatus + "] not found in the sourceAuthority " + sourceAuthority);
         				result.setValue(ComplianceValue.NOT_COMPLIANT);
         			}
         		}
@@ -2303,8 +2326,17 @@ public class DwCMetadataDQ {
         		if (!MetadataSingleton.getInstance().isLoaded()) { 
         			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
         			throw new SourceAuthorityException("Error loading data from sourceAuthority");
-        		} else { 
-        			// TODO: Handle first words in pipe delimited list.
+        		} else {
+        			List<String> typeStatusBits = new ArrayList<String>();
+        			if (typeStatus.contains("|")) { 
+        				// Handle pipe delimited list.
+        				typeStatusBits = Arrays.asList(typeStatus.split("|"));
+        			} else { 
+        				typeStatusBits.add(typeStatus);
+        			}
+        			
+        			// TODO: Iterate through bits
+        			
         			if (MetadataSingleton.getInstance().getTypeStatusTerms().containsKey(typeStatus)) { 
         				result.addComment("Provided value of dwc:typeStatus found in the sourceAuthority");
         				result.setResultState(ResultState.NOT_AMENDED);	
@@ -2851,5 +2883,4 @@ public class DwCMetadataDQ {
 // TODO: Implementation of VALIDATION_OCCURRENCESTATUS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf/2023-09-18 see line: 469
 // TODO: Implementation of AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16 see line: 1714
 // TODO: Implementation of AMENDMENT_PATHWAY_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/f9205977-f145-44f5-8cb9-e3e2e35ce908/2024-09-18 see line: 1896
-// TODO: Implementation of VALIDATION_TYPESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-08-03 see line: 2201
 }
