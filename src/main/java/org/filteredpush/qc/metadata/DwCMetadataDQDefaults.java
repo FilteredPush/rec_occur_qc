@@ -331,7 +331,6 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     * Version: 2024-11-11
     *
     * @param typeStatus the provided dwc:typeStatus to evaluate as ActedUpon.
-    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type ComplianceValue  to return
     */
     @Validation(label="VALIDATION_TYPESTATUS_STANDARD", description="Does the value of dwc:typeStatus occur in bdq:sourceAuthority?")
