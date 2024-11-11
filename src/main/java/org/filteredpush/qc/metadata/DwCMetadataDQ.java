@@ -262,18 +262,22 @@ public class DwCMetadataDQ {
     /**
      * Is there a value in dcterms:license?
      *
-     * Provides: VALIDATION_LICENSE_NOTEMPTY
+     * Provides: 99 VALIDATION_LICENSE_NOTEMPTY
+     * Version: 2023-09-18
      *
      * @param license the provided dcterms:license to evaluate
      * @return DQResponse the response of type ComplianceValue  to return
      */
     @Validation(label="VALIDATION_LICENSE_NOTEMPTY", description="Is there a value in dcterms:license?")
     @Provides("15f78619-811a-4c6f-997a-a4c7888ad849")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/15f78619-811a-4c6f-997a-a4c7888ad849/2023-09-18")
+    @Specification("COMPLIANT if dcterms:license is bdq:NotEmpty; otherwise NOT_COMPLIANT. ")
     public static DQResponse<ComplianceValue> validationLicenseNotempty(@ActedUpon("dcterms:license") String license) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
         // Specification
-        // COMPLIANT if dcterms:license is not EMPTY; otherwise NOT_COMPLIANT 
+        // COMPLIANT if dcterms:license is bdq:NotEmpty; otherwise 
+        // NOT_COMPLIANT 
         // 
 
 		if (MetadataUtils.isEmpty(license)) {
@@ -292,18 +296,21 @@ public class DwCMetadataDQ {
     /**
      * Is there a value in dc:type?
      *
-     * Provides: VALIDATION_DCTYPE_NOTEMPTY
+     * Provides: 103 VALIDATION_DCTYPE_NOTEMPTY
+     * Version: 2023-09-18
      *
      * @param type the provided dc:type to evaluate
      * @return DQResponse the response of type ComplianceValue  to return
      */
     @Validation(label="VALIDATION_DCTYPE_NOTEMPTY", description="Is there a value in dc:type?")
     @Provides("374b091a-fc90-4791-91e5-c1557c649169")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/374b091a-fc90-4791-91e5-c1557c649169/2023-09-18")
+    @Specification("COMPLIANT if dc:type is bdq:NotEmpty; otherwise NOT_COMPLIANT. ")
     public static DQResponse<ComplianceValue> validationDctypeNotempty(@ActedUpon("dc:type") String type) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
         // Specification
-        // COMPLIANT if dc:type is not EMPTY; otherwise NOT_COMPLIANT 
+        // COMPLIANT if dc:type is bdq:NotEmpty; otherwise NOT_COMPLIANT 
         // 
         
 		if (MetadataUtils.isEmpty(type)) {
@@ -2842,8 +2849,6 @@ public class DwCMetadataDQ {
 
 // TODO: Implementation of AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-08-23 see line: 967
 // TODO: Implementation of ISSUE_ESTABLISHMENTMEANS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/acc8dff2-d8d1-483a-946d-65a02a452700/2023-09-18 see line: 234
-// TODO: Implementation of VALIDATION_LICENSE_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/15f78619-811a-4c6f-997a-a4c7888ad849/2023-09-18 see line: 264
-// TODO: Implementation of VALIDATION_DCTYPE_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/374b091a-fc90-4791-91e5-c1557c649169/2023-09-18 see line: 294
 // TODO: Implementation of VALIDATION_BASISOFRECORD_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/42408a00-bf71-4892-a399-4325e2bc1fb8/2024-08-18 see line: 326
 // TODO: Implementation of VALIDATION_OCCURRENCESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2023-09-18 see line: 392
 // TODO: Implementation of VALIDATION_OCCURRENCESTATUS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf/2023-09-18 see line: 455
