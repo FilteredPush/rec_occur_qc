@@ -1886,37 +1886,37 @@ public class DwCMetadataDQ {
     }
 
     /**
-    * Propose amendment to the value of dwc:pathway using bdq:sourceAuthority.
+    * Propose an amendment to the value of dwc:pathway using the bdq:sourceAuthority.
     *
     * Provides: 278 AMENDMENT_PATHWAY_STANDARDIZED
-    * Version: 2024-02-09
+    * Version: 2024-09-18
     *
     * @param pathway the provided dwc:pathway to evaluate as ActedUpon.
     * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
-    @Amendment(label="AMENDMENT_PATHWAY_STANDARDIZED", description="Propose amendment to the value of dwc:pathway using bdq:sourceAuthority.")
+    @Amendment(label="AMENDMENT_PATHWAY_STANDARDIZED", description="Propose an amendment to the value of dwc:pathway using the bdq:sourceAuthority.")
     @Provides("f9205977-f145-44f5-8cb9-e3e2e35ce908")
-    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/f9205977-f145-44f5-8cb9-e3e2e35ce908/2024-02-09")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:pathway is EMPTY; AMENDED the value of dwc:pathway if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core pathway' {[https://dwc.tdwg.org/list/#dwc_pathway]} {dwc:pathway vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/f9205977-f145-44f5-8cb9-e3e2e35ce908/2024-09-18")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:pathway is bdq:Empty; AMENDED the value of dwc:pathway if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Pathway Controlled Vocabulary List of Terms' {[https://dwc.tdwg.org/pw/]} {GBIF vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]}")
     public static DQResponse<AmendmentValue> amendmentPathwayStandardized(
         @ActedUpon("dwc:pathway") String pathway,
         @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
-        //TODO:  Implement specification
+        // Implement specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
-        // is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:pathway 
-        // is EMPTY; AMENDED the value of dwc:pathway if it can be 
-        // unambiguously matched to a term in bdq:sourceAuthority; 
-        // otherwise NOT_AMENDED bdq:sourceAuthority default = "Darwin 
-        // Core pathway" {[https://dwc.tdwg.org/list/#dwc_pathway]} 
-        // {dwc:pathway vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]} 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:pathway 
+        // is bdq:Empty; AMENDED the value of dwc:pathway if it can 
+        // be unambiguously matched to a term in the bdq:sourceAuthority; 
+        // otherwise NOT_AMENDED 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
+        // Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority default = "Pathway Controlled Vocabulary List of Terms" 
+        // {[https://dwc.tdwg.org/pw/]} 
+        // {GBIF vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]} 
 
         if (MetadataUtils.isEmpty(pathway)) { 
         	result.addComment("No Value provided for dwc:pathway");
@@ -2203,7 +2203,7 @@ public class DwCMetadataDQ {
     @Validation(label="VALIDATION_TYPESTATUS_STANDARD", description="Does the value of dwc:typeStatus occur in bdq:sourceAuthority?")
     @Provides("4833a522-12eb-4fe0-b4cf-7f7a337a6048")
     @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-08-03")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; COMPLIANT if the value of the first word in each &#124; delimited portion of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.. bdq:sourceAuthority default = \"GBIF TypeStatus Vocabulary\" {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; COMPLIANT if the value of the first word in each &#124; delimited portion of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.. bdq:sourceAuthority default = 'GBIF TypeStatus Vocabulary' {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}")
     public static DQResponse<ComplianceValue> validationTypestatusStandard(
         @ActedUpon("dwc:typeStatus") String typeStatus,
         @Parameter(name="bdq:sourceAuthority") String sourceAuthority
@@ -2220,8 +2220,8 @@ public class DwCMetadataDQ {
 
         // Parameters. This test is defined as parameterized.
         // bdq:sourceAuthority default = "GBIF TypeStatus Vocabulary" 
-        // {[https://api.gbif.org/v1/vocabularies/TypeStatus]} 
-        // {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}
+        // {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus 
+        // vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]} 
         
         if (MetadataUtils.isEmpty(typeStatus)) { 
         	result.addComment("No Value provided for dwc:typeStatus");
@@ -2286,7 +2286,7 @@ public class DwCMetadataDQ {
     * Proposes an amendment to the value of dwc:typeStatus using the bdq:sourceAuthority.
     *
     * Provides: 286 AMENDMENT_TYPESTATUS_STANDARDIZED
-    * Version: 2024-08-16
+    * Version: 2024-11-11
     *
     * @param typeStatus the provided dwc:typeStatus to evaluate as ActedUpon.
     * @param sourceAuthority the bdq:sourceAuthority to consult.
@@ -2294,8 +2294,8 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_TYPESTATUS_STANDARDIZED", description="Proposes an amendment to the value of dwc:typeStatus using the bdq:sourceAuthority.")
     @Provides("b3471c65-b53e-453b-8282-abfa27bf1805")
-    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/b3471c65-b53e-453b-8282-abfa27bf1805/2024-08-16")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; AMENDED the value of the first word in each &#124; delimited portion of dwc:typeStatus if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED.. bdq:sourceAuthority default = 'Darwin Core typeStatus' {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/b3471c65-b53e-453b-8282-abfa27bf1805/2024-11-11")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; AMENDED the value of the first word in each &#124; delimited portion of dwc:typeStatus if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED.. bdq:sourceAuthority default = 'GBIF TypeStatus Vocabulary' {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}")
     public static DQResponse<AmendmentValue> amendmentTypestatusStandardized(
         @ActedUpon("dwc:typeStatus") String typeStatus,
         @Parameter(name="bdq:sourceAuthority") String sourceAuthority
@@ -2309,10 +2309,12 @@ public class DwCMetadataDQ {
         // | delimited portion of dwc:typeStatus if it can be 
         // unambiguously matched to a term in the bdq:sourceAuthority; 
         // otherwise NOT_AMENDED. 
+        // 
         
         // Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority default = "Darwin Core typeStatus" {[https://dwc.tdwg.org/list/#dwc_typeStatus]} 
-        // {dwc:typeStatus vocabulary API [https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]} 
+        // bdq:sourceAuthority default = "GBIF TypeStatus Vocabulary" 
+        // {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus 
+        // vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]} 
         
         if (MetadataUtils.isEmpty(typeStatus)) { 
         	result.addComment("No Value provided for dwc:typeStatus");
@@ -2878,11 +2880,10 @@ public class DwCMetadataDQ {
     }
 
 
-// TODO: Implementation of AMENDMENT_BASISOFRECORD_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2024-07-24 see line: 811
-// TODO: Implementation of AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-08-23 see line: 982
+// TODO: Implementation of AMENDMENT_BASISOFRECORD_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2024-07-24 see line: 814
+// TODO: Implementation of AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-08-23 see line: 985
 // TODO: Implementation of ISSUE_ESTABLISHMENTMEANS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/acc8dff2-d8d1-483a-946d-65a02a452700/2023-09-18 see line: 241
 // TODO: Implementation of VALIDATION_BASISOFRECORD_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/42408a00-bf71-4892-a399-4325e2bc1fb8/2024-08-18 see line: 340
 // TODO: Implementation of VALIDATION_OCCURRENCESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2023-09-18 see line: 406
-// TODO: Implementation of AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16 see line: 1714
-// TODO: Implementation of AMENDMENT_PATHWAY_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/f9205977-f145-44f5-8cb9-e3e2e35ce908/2024-09-18 see line: 1896
+// TODO: Implementation of AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16 see line: 1717
 }
