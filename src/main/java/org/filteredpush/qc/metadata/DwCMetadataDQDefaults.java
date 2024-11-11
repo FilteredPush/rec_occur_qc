@@ -238,18 +238,20 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     }
     
     /**
-    * Propose amendment to the value of dwc:degreeOfEstablishment using the default bdq:sourceAuthority.
+    * Proposes an amendment to the value of dwc:degreeOfEstablishment using the default bdq:sourceAuthority.
     *
     * Provides: 276 AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED
-    * Version: 2024-02-09
+    * Version: 2024-04-16
     *
     * @param degreeOfEstablishment the provided dwc:degreeOfEstablishment to evaluate as ActedUpon.
+    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
-    @Amendment(label="AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED", description="Propose amendment to the value of dwc:degreeOfEstablishment using bdq:sourceAuthority.")
+    @Amendment(label="AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED", description="Proposes an amendment to the value of dwc:degreeOfEstablishment using the bdq:sourceAuthority.")
     @Provides("74ef1034-e289-4596-b5b0-cde73796697d")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-02-09")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is EMPTY; AMENDED the value of dwc:degreeOfEstablishment if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core degreeOfEstablishment' {[https://dwc.tdwg.org/list/#dwc_degreeOfEstablishment]} {dwc:degreeOfEstablishment vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is bdq:Empty; AMENDED the value of dwc:degreeOfEstablishment if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Degree of Establishment Controlled Vocabulary List of Terms' {[https://dwc.tdwg.org/doe/]} {GBIF vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]}")
+    
     public static DQResponse<AmendmentValue> amendmentDegreeofestablishmentStandardized(
         @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment
     ) {

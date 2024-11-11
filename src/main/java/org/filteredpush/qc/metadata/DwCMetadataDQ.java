@@ -1735,19 +1735,19 @@ public class DwCMetadataDQ {
     }
 
     /**
-    * Propose amendment to the value of dwc:degreeOfEstablishment using bdq:sourceAuthority.
+    * Proposes an amendment to the value of dwc:degreeOfEstablishment using the bdq:sourceAuthority.
     *
     * Provides: 276 AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED
-    * Version: 2024-02-09
+    * Version: 2024-04-16
     *
     * @param degreeOfEstablishment the provided dwc:degreeOfEstablishment to evaluate as ActedUpon.
     * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
-    @Amendment(label="AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED", description="Propose amendment to the value of dwc:degreeOfEstablishment using bdq:sourceAuthority.")
+    @Amendment(label="AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED", description="Proposes an amendment to the value of dwc:degreeOfEstablishment using the bdq:sourceAuthority.")
     @Provides("74ef1034-e289-4596-b5b0-cde73796697d")
-    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-02-09")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is EMPTY; AMENDED the value of dwc:degreeOfEstablishment if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core degreeOfEstablishment' {[https://dwc.tdwg.org/list/#dwc_degreeOfEstablishment]} {dwc:degreeOfEstablishment vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is bdq:Empty; AMENDED the value of dwc:degreeOfEstablishment if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Degree of Establishment Controlled Vocabulary List of Terms' {[https://dwc.tdwg.org/doe/]} {GBIF vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]}")
     public static DQResponse<AmendmentValue> amendmentDegreeofestablishmentStandardized(
         @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment,
         @Parameter(name="bdq:sourceAuthority") String sourceAuthority
@@ -1756,23 +1756,23 @@ public class DwCMetadataDQ {
 
         // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
-        // is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment 
-        // is EMPTY; AMENDED the value of dwc:degreeOfEstablishment 
-        // if it can be unambiguously matched to a term in bdq:sourceAuthority; 
-        // otherwise NOT_AMENDED bdq:sourceAuthority default = "Darwin 
-        // Core degreeOfEstablishment" {[https://dwc.tdwg.org/list/#dwc_degreeOfEstablishment]} 
-        // {dwc:degreeOfEstablishment vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]} 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment 
+        // is bdq:Empty; AMENDED the value of dwc:degreeOfEstablishment 
+        // if it can be unambiguously matched to a term in the bdq:sourceAuthority; 
+        // otherwise NOT_AMENDED 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
+        // Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority default = "Degree of Establishment Controlled Vocabulary List of Terms" 
+        // {[https://dwc.tdwg.org/doe/]} 
+        // {GBIF vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]} 
 
         if (MetadataUtils.isEmpty(degreeOfEstablishment)) { 
         	result.addComment("No Value provided for dwc:degreeOfEstablishment");
 			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
         } else { 
         	if (MetadataUtils.isEmpty(sourceAuthority)) { 
-        		sourceAuthority = "GBIF DegreeOfEstablishment Vocabulary";
+        		sourceAuthority = "Degree of Establishment Controlled Vocabulary List of Terms";
         	}
         	try { 
         		MetadataSourceAuthority sourceAuthorityObject = new MetadataSourceAuthority(sourceAuthority);
@@ -2913,6 +2913,4 @@ public class DwCMetadataDQ {
 // TODO: see line 2322  incomplete implementation: 286 AMENDMENT_TYPESTATUS_STANDARDIZED
 
 // TODO: Implementation of AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-08-23 see line: 985
-// TODO: Implementation of VALIDATION_OCCURRENCESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2023-09-18 see line: 406
-// TODO: Implementation of AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16 see line: 1717
 }
