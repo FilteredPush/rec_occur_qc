@@ -8,7 +8,7 @@ To obtain this subset of tests from the list of core tests, assuming a checkout 
     grep DATAGENERALIZATIONS ../../bdq/tg2/core/TG2_tests.csv | grep -v AllDarwinCoreTerms | grep -v AllValidationTestsRunOnSingleRecord | grep -v AllAmendmentTestsRunOnSingleRecord  >> metadata_tests.csv
     grep OTHER ../../bdq/tg2/supplementary/TG2_supplementary_tests.csv  | grep -v AllDarwinCoreTerms | grep -v AllValidationTestsRunOnSingleRecord | grep -v AllAmendmentTestsRunOnSingleRecord >> metadata_tests.csv
     cp ../../bdq/tg2/core/TG2_tests_additional_guids.csv additional_guids.csv
-    grep -v Method ../../bdq/tg2/supplementary/TG2_supplementary_additional_guids.csv >> additional_guids.cs
+    grep -v Method ../../bdq/tg2/supplementary/TG2_supplementary_additional_guids.csv >> additional_guids.csv
 
 Turtle RDF generated using kurator-ffdq using (from a kurator-ffdq directory in the same parent directory as rec_occur_qc) with:
 
