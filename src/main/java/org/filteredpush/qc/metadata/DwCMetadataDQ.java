@@ -160,22 +160,26 @@ public class DwCMetadataDQ {
         return result;
     }
 	
-// TODO: Implementation of VALIDATION_OCCURRENCEID_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/c486546c-e6e5-48a7-b286-eba7f5ca56c4/2023-09-17 see line: 120
+    
     /**
      * Is there a value in dwc:occurrenceID?
      *
-     * Provides: VALIDATION_OCCURRENCEID_NOTEMPTY
+     * Provides: #47 VALIDATION_OCCURRENCEID_NOTEMPTY
+     * Version: 2023-09-17
      *
      * @param occurrenceID the provided dwc:occurrenceID to evaluate
      * @return DQResponse the response of type ComplianceValue  to return
      */
     @Validation(label="VALIDATION_OCCURRENCEID_NOTEMPTY", description="Is there a value in dwc:occurrenceID?")
     @Provides("c486546c-e6e5-48a7-b286-eba7f5ca56c4")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/c486546c-e6e5-48a7-b286-eba7f5ca56c4/2023-09-17")
+    @Specification("COMPLIANT if dwc:occurrenceID is bdq:NotEmpty; otherwise NOT_COMPLIANT. ")
     public static DQResponse<ComplianceValue> validationOccurrenceidNotempty(@ActedUpon("dwc:occurrenceID") String occurrenceID) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
         // Specification
-        // COMPLIANT if dwc:occurrenceID is not EMPTY; otherwise NOT_COMPLIANT 
+         // COMPLIANT if dwc:occurrenceID is bdq:NotEmpty; otherwise 
+         // NOT_COMPLIANT 
         // 
        
 		if (MetadataUtils.isEmpty(occurrenceID)) {
@@ -191,22 +195,25 @@ public class DwCMetadataDQ {
         return result;
     }
 
-// TODO: Implementation of VALIDATION_BASISOFRECORD_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/ac2b7648-d5f9-48ca-9b07-8ad5879a2536/2023-09-17 see line: 150
     /**
      * Is there a value in dwc:basisOfRecord?
      *
-     * Provides: VALIDATION_BASISOFRECORD_NOTEMPTY
+     * Provides: 58 VALIDATION_BASISOFRECORD_NOTEMPTY
+     * Version: 2023-09-17
      *
      * @param basisOfRecord the provided dwc:basisOfRecord to evaluate
      * @return DQResponse the response of type ComplianceValue  to return
      */
     @Validation(label="VALIDATION_BASISOFRECORD_NOTEMPTY", description="Is there a value in dwc:basisOfRecord?")
     @Provides("ac2b7648-d5f9-48ca-9b07-8ad5879a2536")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/ac2b7648-d5f9-48ca-9b07-8ad5879a2536/2023-09-17")
+    @Specification("COMPLIANT if dwc:basisOfRecord is bdq:NotEmpty; otherwise NOT_COMPLIANT. ")
     public static DQResponse<ComplianceValue> validationBasisofrecordNotempty(@ActedUpon("dwc:basisOfRecord") String basisOfRecord) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
         // Specification
-        // COMPLIANT if dwc:basisOfRecord is not EMPTY; otherwise NOT_COMPLIANT 
+        // COMPLIANT if dwc:basisOfRecord is bdq:NotEmpty; otherwise 
+        // NOT_COMPLIANT 
         // 
         
 		if (MetadataUtils.isEmpty(basisOfRecord)) {
@@ -2833,9 +2840,6 @@ public class DwCMetadataDQ {
     }
 
 
-// TODO: Implementation of VALIDATION_OCCURRENCEID_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/c486546c-e6e5-48a7-b286-eba7f5ca56c4/2023-09-17 see line: 173
-// TODO: Implementation of VALIDATION_BASISOFRECORD_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/ac2b7648-d5f9-48ca-9b07-8ad5879a2536/2023-09-17 see line: 204
-// TODO: Implementation of AMENDMENT_BASISOFRECORD_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2024-07-24 see line: 796
 // TODO: Implementation of AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-08-23 see line: 967
 // TODO: Implementation of ISSUE_ESTABLISHMENTMEANS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/acc8dff2-d8d1-483a-946d-65a02a452700/2023-09-18 see line: 234
 // TODO: Implementation of VALIDATION_LICENSE_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/15f78619-811a-4c6f-997a-a4c7888ad849/2023-09-18 see line: 264
