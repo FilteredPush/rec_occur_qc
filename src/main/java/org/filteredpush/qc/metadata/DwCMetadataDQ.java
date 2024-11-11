@@ -326,18 +326,20 @@ public class DwCMetadataDQ {
         return result;
     }
 
-
     /**
-     * Does the value of dwc:basisOfRecord occur in bdq:sourceAuthority?
+     * Does the value of dwc:basisOfRecord occur in the bdq:sourceAuthority?
      *
      * Provides: #104 VALIDATION_BASISOFRECORD_STANDARD
+     * Version: 2024-08-18
      *
      * @param basisOfRecord the provided dwc:basisOfRecord to evaluate
-     * @param sourceAuthority the source authority for basis of record values to evaluate against, Darwin Core Terms used as default.
-     * @return DQResponse the response of type ComplianceValue  to return
+     * @param sourceAuthority the source authority for basis of record values to evaluate against, use null for default value.
+     * @return DQResponse the response of type ComplianceValue to return
      */
-    @Validation(label="VALIDATION_BASISOFRECORD_STANDARD", description="Does the value of dwc:basisOfRecord occur in bdq:sourceAuthority?")
+    @Validation(label="VALIDATION_BASISOFRECORD_STANDARD", description="Does the value of dwc:basisOfRecord occur in the bdq:sourceAuthority?")
     @Provides("42408a00-bf71-4892-a399-4325e2bc1fb8")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/42408a00-bf71-4892-a399-4325e2bc1fb8/2024-08-18")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is bdq:Empty; COMPLIANT if the value of dwc:basisOfRecord is valid in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core basisOfRecord' {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]}{dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}")
     public static DQResponse<ComplianceValue> validationBasisofrecordStandard(
     		@ActedUpon("dwc:basisOfRecord") String basisOfRecord,
     		@Parameter(name="bdq:sourceAuthority") String sourceAuthority
@@ -347,20 +349,28 @@ public class DwCMetadataDQ {
         // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord 
+        // is bdq:Empty; COMPLIANT if the value of dwc:basisOfRecord 
+        // is valid in the bdq:sourceAuthority; otherwise NOT_COMPLIANT 
+        // 
+        // 
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord 
         // is EMPTY; COMPLIANT if the value of dwc:basisOfRecord is 
         // valid using the bdq:sourceAuthority; otherwise NOT_COMPLIANT 
         // 
         
         // Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority default = "Darwin Core Terms" [https://dwc.tdwg.org/terms/#dwc:basisOfRecord] 
+        // bdq:sourceAuthority default = "Darwin Core basisOfRecord" 
+        // {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]}{dwc:basisOfRecord 
+        // vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]} 
         
         if (MetadataUtils.isEmpty(sourceAuthority)) { 
-        	sourceAuthority = "Darwin Core Terms";
+        	sourceAuthority = "Darwin Core basisOfRecord";
         }
         if (sourceAuthority.equals("dwc:basistOfRecord")) { 
-        	sourceAuthority = "Darwin Core Terms";
+        	sourceAuthority = "Darwin Core basisOfRecord";
         } else if (sourceAuthority.equals("https://dwc.tdwg.org/terms/#dwc:basisOfRecord")) {
-        	sourceAuthority = "Darwin Core Terms";
+        	sourceAuthority = "Darwin Core basisOfRecord";
     	}
         
         if (MetadataUtils.isEmpty(basisOfRecord)) { 
@@ -368,7 +378,7 @@ public class DwCMetadataDQ {
 			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
         } else {
         	List<String> values = null;
-        	if (sourceAuthority.equals("Darwin Core Terms")) {
+        	if (sourceAuthority.equals("Darwin Core basisOfRecord")) {
         		// "Recommended best practice is to use the local name of one of the Darwin Core classes."
         		values = List.of("Dataset","Event","EventAttribute","EventMeasurement","FossilSpecimen","GeologicalContext","HumanObservation","Identification","LivingSpecimen","Location","MachineObservation","MaterialCitation","MaterialSample","MeasurementOrFact","Occurrence","OccurrenceMeasurement","Organism","PreservedSpecimen","ResourceRelationship","Sample","Sample Attribute","SamplingEvent","SamplingLocation","Taxon");
         	} 
@@ -801,19 +811,19 @@ public class DwCMetadataDQ {
     }
 
     /**
-    * Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority.
+    * Proposes an amendment to the value of dwc:basisOfRecord using the bdq:sourceAuthority.
     *
     * Provides: #63 AMENDMENT_BASISOFRECORD_STANDARDIZED
-    * Version: 2023-07-24
+    * Version: 2024-07-24
     *
     * @param basisOfRecord the provided dwc:basisOfRecord to evaluate as ActedUpon.
     * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
-    @Amendment(label="AMENDMENT_BASISOFRECORD_STANDARDIZED", description="Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority.")
+    @Amendment(label="AMENDMENT_BASISOFRECORD_STANDARDIZED", description="Proposes an amendment to the value of dwc:basisOfRecord using the bdq:sourceAuthority.")
     @Provides("07c28ace-561a-476e-a9b9-3d5ad6e35933")
-    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2023-07-24")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is EMPTY; AMENDED the value of dwc:basisOfRecord if it could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core basisOfRecord' {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2024-07-24")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is bdq:Empty; AMENDED the value of dwc:basisOfRecord if it could be unambiguously interpreted as a value in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Darwin Core basisOfRecord' {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}")
     public static DQResponse<AmendmentValue> amendmentBasisofrecordStandardized(
         @ActedUpon("dwc:basisOfRecord") String basisOfRecord,
         @Parameter(name="bdq:sourceAuthority") String sourceAuthority
@@ -823,16 +833,29 @@ public class DwCMetadataDQ {
         // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord 
-        // is EMPTY; AMENDED the value of dwc:basisOfRecord if it could 
-        // be unambiguously interpreted as a value in bdq:sourceAuthority; 
-        // otherwise NOT_AMENDED bdq:sourceAuthority 
+        // is bdq:Empty; AMENDED the value of dwc:basisOfRecord if 
+        // it could be unambiguously interpreted as a value in the 
+        // bdq:sourceAuthority; otherwise NOT_AMENDED 
         // 
 
         // Parameters. This test is defined as parameterized.
-        // dwc:basisOfRecord vocabulary
-        // default = "Darwin 
-        // Core basisOfRecord" {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} 
-        // {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]} 
+        // bdq:sourceAuthority default = "Darwin Core basisOfRecord" 
+        // {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} {dwc:basisOfRecord 
+        // vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]} 
+        
+		// Note: The term dwc:basisOfRecord has the comment "Recommended best practice
+		// is to use a controlled vocabulary such as the set of local names of the
+		// identifiers for classes in Darwin Core." The list of these values can be
+		// determined by searching
+		// https://github.com/tdwg/dwc/blob/master/vocabulary/term_versions.csv for rows
+		// with status="recommended" and
+		// rdf_type="http://www.w3.org/2000/01/rdf-schema#Class". For example, the term
+		// http://rs.tdwg.org/dwc/terms/PreservedSpecimen has a local name
+		// PreservedSpecimen. For tests against a dwc:Occurrence record, the set of
+		// valid terms is more limited and embodied in the resource found at
+		// https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml, which contains the
+		// local name for the identifier, as well as preferred and alternate labels from
+		// which to standardize values.
         
         List<String> basisOfRecordLiteralList = null;
         if (sourceAuthority == null) {
@@ -2879,11 +2902,10 @@ public class DwCMetadataDQ {
         return result;
     }
 
+// TODO: see line 2322  incomplete implementation: 286 AMENDMENT_TYPESTATUS_STANDARDIZED
 
-// TODO: Implementation of AMENDMENT_BASISOFRECORD_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2024-07-24 see line: 814
 // TODO: Implementation of AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-08-23 see line: 985
 // TODO: Implementation of ISSUE_ESTABLISHMENTMEANS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/acc8dff2-d8d1-483a-946d-65a02a452700/2023-09-18 see line: 241
-// TODO: Implementation of VALIDATION_BASISOFRECORD_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/42408a00-bf71-4892-a399-4325e2bc1fb8/2024-08-18 see line: 340
 // TODO: Implementation of VALIDATION_OCCURRENCESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2023-09-18 see line: 406
 // TODO: Implementation of AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16 see line: 1717
 }

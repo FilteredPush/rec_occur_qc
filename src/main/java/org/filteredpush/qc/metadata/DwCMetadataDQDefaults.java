@@ -43,18 +43,18 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
 	private static final Log logger = LogFactory.getLog(DwCMetadataDQDefaults.class);
 	
     /**
-    * Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority.
+    * Proposes an amendment to the value of dwc:basisOfRecord using the default bdq:sourceAuthority.
     *
-    * Provides: AMENDMENT_BASISOFRECORD_STANDARDIZED
-    * Version: 2023-09-18
+    * Provides: #63 AMENDMENT_BASISOFRECORD_STANDARDIZED
+    * Version: 2024-07-24
     *
     * @param basisOfRecord the provided dwc:basisOfRecord to evaluate as ActedUpon.
     * @return DQResponse the response of type AmendmentValue to return
     */
-    @Amendment(label="AMENDMENT_BASISOFRECORD_STANDARDIZED", description="Propose amendment to the value of dwc:basisOfRecord using bdq:sourceAuthority.")
+    @Amendment(label="AMENDMENT_BASISOFRECORD_STANDARDIZED", description="Proposes an amendment to the value of dwc:basisOfRecord using the bdq:sourceAuthority.")
     @Provides("07c28ace-561a-476e-a9b9-3d5ad6e35933")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2023-09-18")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is EMPTY; AMENDED the value of dwc:basisOfRecord if it could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core basisOfRecord' {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2024-07-24")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is bdq:Empty; AMENDED the value of dwc:basisOfRecord if it could be unambiguously interpreted as a value in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Darwin Core basisOfRecord' {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}")
     public static DQResponse<AmendmentValue> amendmentBasisofrecordStandardized(
         @ActedUpon("dwc:basisOfRecord") String basisOfRecord
     ) {
@@ -63,15 +63,20 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     }
 
     /**
-     * Does the value of dwc:basisOfRecord occur in bdq:sourceAuthority?
+     * Does the value of dwc:basisOfRecord occur in the bdq:sourceAuthority?
+     * Using the default sourceAuthority.
      *
      * Provides: #104 VALIDATION_BASISOFRECORD_STANDARD
+     * Version: 2024-08-18
      *
      * @param basisOfRecord the provided dwc:basisOfRecord to evaluate
-     * @return DQResponse the response of type ComplianceValue  to return
+     * @return DQResponse the response of type ComplianceValue to return
      */
-    @Validation(label="VALIDATION_BASISOFRECORD_STANDARD", description="Does the value of dwc:basisOfRecord occur in bdq:sourceAuthority?")
+    @Validation(label="VALIDATION_BASISOFRECORD_STANDARD", description="Does the value of dwc:basisOfRecord occur in the bdq:sourceAuthority?")
     @Provides("42408a00-bf71-4892-a399-4325e2bc1fb8")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/42408a00-bf71-4892-a399-4325e2bc1fb8/2024-08-18")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is bdq:Empty; COMPLIANT if the value of dwc:basisOfRecord is valid in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core basisOfRecord' {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]}{dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}")
+    
     public static DQResponse<ComplianceValue> validationBasisofrecordStandard(@ActedUpon("dwc:basisOfRecord") String basisOfRecord) {
     	return validationBasisofrecordStandard(basisOfRecord, null);
     }
