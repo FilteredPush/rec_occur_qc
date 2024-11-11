@@ -304,18 +304,19 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     }
     
     /**
-    * Propose amendment to the value of dwc:typeStatus using the default bdq:sourceAuthority.
+    * Proposes an amendment to the value of dwc:typeStatus using the default bdq:sourceAuthority.
     *
-    * Provides: AMENDMENT_TYPESTATUS_STANDARDIZED
-    * Version: 2024-02-09
+    * Provides: 286 AMENDMENT_TYPESTATUS_STANDARDIZED
+    * Version: 2024-08-16
     *
     * @param typeStatus the provided dwc:typeStatus to evaluate as ActedUpon.
     * @return DQResponse the response of type AmendmentValue to return
     */
-    @Amendment(label="AMENDMENT_TYPESTATUS_STANDARDIZED", description="Propose amendment to the value of dwc:typeStatus using bdq:sourceAuthority.")
+    @Amendment(label="AMENDMENT_TYPESTATUS_STANDARDIZED", description="Proposes an amendment to the value of dwc:typeStatus using the bdq:sourceAuthority.")
     @Provides("b3471c65-b53e-453b-8282-abfa27bf1805")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/b3471c65-b53e-453b-8282-abfa27bf1805/2024-02-09")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is EMPTY; AMENDED the value of dwc:typeStatus if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core typeStatus' {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/b3471c65-b53e-453b-8282-abfa27bf1805/2024-08-16")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; AMENDED the value of the first word in each &#124; delimited portion of dwc:typeStatus if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED.. bdq:sourceAuthority default = 'Darwin Core typeStatus' {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}")
+    
     public static DQResponse<AmendmentValue> amendmentTypestatusStandardized(
         @ActedUpon("dwc:typeStatus") String typeStatus
     ) {

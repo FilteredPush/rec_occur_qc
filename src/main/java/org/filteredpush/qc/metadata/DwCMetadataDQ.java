@@ -2257,42 +2257,37 @@ public class DwCMetadataDQ {
     }
 
     /**
-    * Propose amendment to the value of dwc:typeStatus using bdq:sourceAuthority.
+    * Proposes an amendment to the value of dwc:typeStatus using the bdq:sourceAuthority.
     *
     * Provides: 286 AMENDMENT_TYPESTATUS_STANDARDIZED
-    * Version: 2024-02-09
+    * Version: 2024-08-16
     *
     * @param typeStatus the provided dwc:typeStatus to evaluate as ActedUpon.
     * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
-    @Amendment(label="AMENDMENT_TYPESTATUS_STANDARDIZED", description="Propose amendment to the value of dwc:typeStatus using bdq:sourceAuthority.")
+    @Amendment(label="AMENDMENT_TYPESTATUS_STANDARDIZED", description="Proposes an amendment to the value of dwc:typeStatus using the bdq:sourceAuthority.")
     @Provides("b3471c65-b53e-453b-8282-abfa27bf1805")
-    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/b3471c65-b53e-453b-8282-abfa27bf1805/2024-02-09")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is EMPTY; AMENDED the value of dwc:typeStatus if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core typeStatus' {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/b3471c65-b53e-453b-8282-abfa27bf1805/2024-08-16")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; AMENDED the value of the first word in each &#124; delimited portion of dwc:typeStatus if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED.. bdq:sourceAuthority default = 'Darwin Core typeStatus' {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}")
     public static DQResponse<AmendmentValue> amendmentTypestatusStandardized(
         @ActedUpon("dwc:typeStatus") String typeStatus,
         @Parameter(name="bdq:sourceAuthority") String sourceAuthority
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
-        //TODO: Discussion underway if this test should be treated as immature, or if it
-        // should have the specification reworked to treat only the first word in each pipe delimited 
-        // part of dwc:typeStatus
-        
-        // Specification
+        // TODO: Implement Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus 
-        // is EMPTY; AMENDED the value of dwc:typeStatus if it can 
-        // be unambiguously matched to a term in bdq:sourceAuthority; 
-        // otherwise NOT_AMENDED 
-        // 
-
+        // is bdq:Empty; AMENDED the value of the first word in each 
+        // | delimited portion of dwc:typeStatus if it can be 
+        // unambiguously matched to a term in the bdq:sourceAuthority; 
+        // otherwise NOT_AMENDED. 
+        
         // Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority default = "Darwin 
-        // Core typeStatus" {[https://dwc.tdwg.org/list/#dwc_typeStatus]} 
-        // {dwc:typeStatus vocabulary API [(https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]} 
-
+        // bdq:sourceAuthority default = "Darwin Core typeStatus" {[https://dwc.tdwg.org/list/#dwc_typeStatus]} 
+        // {dwc:typeStatus vocabulary API [https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]} 
+        
         if (MetadataUtils.isEmpty(typeStatus)) { 
         	result.addComment("No Value provided for dwc:typeStatus");
 			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
@@ -2309,6 +2304,7 @@ public class DwCMetadataDQ {
         			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
         			throw new SourceAuthorityException("Error loading data from sourceAuthority");
         		} else { 
+        			// TODO: Handle first words in pipe delimited list.
         			if (MetadataSingleton.getInstance().getTypeStatusTerms().containsKey(typeStatus)) { 
         				result.addComment("Provided value of dwc:typeStatus found in the sourceAuthority");
         				result.setResultState(ResultState.NOT_AMENDED);	
@@ -2847,13 +2843,13 @@ public class DwCMetadataDQ {
     }
 
 
-// TODO: Implementation of AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-08-23 see line: 967
-// TODO: Implementation of ISSUE_ESTABLISHMENTMEANS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/acc8dff2-d8d1-483a-946d-65a02a452700/2023-09-18 see line: 234
-// TODO: Implementation of VALIDATION_BASISOFRECORD_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/42408a00-bf71-4892-a399-4325e2bc1fb8/2024-08-18 see line: 326
-// TODO: Implementation of VALIDATION_OCCURRENCESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2023-09-18 see line: 392
-// TODO: Implementation of VALIDATION_OCCURRENCESTATUS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf/2023-09-18 see line: 455
-// TODO: Implementation of AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16 see line: 1699
-// TODO: Implementation of AMENDMENT_PATHWAY_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/f9205977-f145-44f5-8cb9-e3e2e35ce908/2024-09-18 see line: 1881
-// TODO: Implementation of VALIDATION_TYPESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-08-03 see line: 2186
-// TODO: Implementation of AMENDMENT_TYPESTATUS_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/b3471c65-b53e-453b-8282-abfa27bf1805/2024-08-16 see line: 2255
+// TODO: Implementation of AMENDMENT_BASISOFRECORD_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2024-07-24 see line: 811
+// TODO: Implementation of AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-08-23 see line: 982
+// TODO: Implementation of ISSUE_ESTABLISHMENTMEANS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/acc8dff2-d8d1-483a-946d-65a02a452700/2023-09-18 see line: 241
+// TODO: Implementation of VALIDATION_BASISOFRECORD_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/42408a00-bf71-4892-a399-4325e2bc1fb8/2024-08-18 see line: 340
+// TODO: Implementation of VALIDATION_OCCURRENCESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2023-09-18 see line: 406
+// TODO: Implementation of VALIDATION_OCCURRENCESTATUS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf/2023-09-18 see line: 469
+// TODO: Implementation of AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16 see line: 1714
+// TODO: Implementation of AMENDMENT_PATHWAY_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/f9205977-f145-44f5-8cb9-e3e2e35ce908/2024-09-18 see line: 1896
+// TODO: Implementation of VALIDATION_TYPESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-08-03 see line: 2201
 }
