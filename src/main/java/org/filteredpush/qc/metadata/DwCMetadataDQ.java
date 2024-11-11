@@ -232,18 +232,21 @@ public class DwCMetadataDQ {
     /**
      * Is there a value in dwc:establishmentMeans?
      *
-     * Provides: ISSUE_ESTABLISHMENTMEANS_NOTEMPTY
+     * Provides: 94 ISSUE_ESTABLISHMENTMEANS_NOTEMPTY
+     * Version: 2023-09-18
      *
      * @param establishmentMeans the provided dwc:establishmentMeans to evaluate
      * @return DQResponse the response of type IssueValue to return
      */
     @Issue(label="ISSUE_ESTABLISHMENTMEANS_NOTEMPTY", description="Is there a value in dwc:establishmentMeans?")
     @Provides("acc8dff2-d8d1-483a-946d-65a02a452700")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/acc8dff2-d8d1-483a-946d-65a02a452700/2023-09-18")
+    @Specification("POTENTIAL_ISSUE if dwc:establishmentMeans is bdq:NotEmpty; otherwise NOT_ISSUE. ")
     public static DQResponse<IssueValue> issueEstablishmentmeansNotempty(@ActedUpon("dwc:establishmentMeans") String establishmentMeans) {
         DQResponse<IssueValue> result = new DQResponse<IssueValue>();
 
         // Specification
-        // POTENTIAL_ISSUE if dwc:establishmentMeans is not EMPTY; 
+        // POTENTIAL_ISSUE if dwc:establishmentMeans is bdq:NotEmpty; 
         // otherwise NOT_ISSUE 
         
 		if (MetadataUtils.isEmpty(establishmentMeans)) {
@@ -402,18 +405,20 @@ public class DwCMetadataDQ {
         return result;
     }
 
-
     /**
-     * Does the value of dwc:occurrenceStatus occur in bdq:sourceAuthority?
+     * Does the value of dwc:occurrenceStatus occur in the bdq:sourceAuthority?
      *
-     * Provides: VALIDATION_OCCURRENCESTATUS_STANDARD
+     * Provides: 116 VALIDATION_OCCURRENCESTATUS_STANDARD
+     * Version: 2023-09-18
      *
      * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate
      * @param sourceAuthority the provided source authority against which to evaluate occurrenceStatus
      * @return DQResponse the response of type ComplianceValue  to return
      */
-    @Validation(label="VALIDATION_OCCURRENCESTATUS_STANDARD", description="Does the value of dwc:occurrenceStatus occur in bdq:sourceAuthority?")
+    @Validation(label="VALIDATION_OCCURRENCESTATUS_STANDARD", description="Does the value of dwc:occurrenceStatus occur in the bdq:sourceAuthority?")
     @Provides("7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2023-09-18")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus is bdq:Empty; COMPLIANT if the value of dwc:occurrenceStatus is resolved in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'GBIF OccurrenceStatus Vocabulary' [https://api.gbif.org/v1/vocabularies/OccurrenceStatus]} {'dwc:occurrenceStatus vocabulary API' [https://api.gbif.org/v1/vocabularies/OccurrenceStatus/concepts]}")
     public static DQResponse<ComplianceValue> validationOccurrencestatusStandard(
     		@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus,
     		@Parameter(name="bdq:sourceAuthority") String sourceAuthority
@@ -423,19 +428,20 @@ public class DwCMetadataDQ {
         // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus 
-        // is EMPTY; COMPLIANT if the value of dwc:occurrenceStatus 
-        // is resolved by the bdq:sourceAuthority; otherwise NOT_COMPLIANT 
-
-        //  Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority default = "Darwin Core Standard" [https://dwc.tdwg.org/terms/#occurrenceStatus] 
+        // is bdq:Empty; COMPLIANT if the value of dwc:occurrenceStatus 
+        // is resolved in the bdq:sourceAuthority; otherwise NOT_COMPLIANT 
+        //
+        
+        // Parameters. This test is defined as parameterized.
+        // bdq:sourceAuthority default = "GBIF OccurrenceStatus Vocabulary" 
+        // [https://api.gbif.org/v1/vocabularies/OccurrenceStatus]} 
+        // {"dwc:occurrenceStatus vocabulary API" [https://api.gbif.org/v1/vocabularies/OccurrenceStatus/concepts]} 
 
         if (MetadataUtils.isEmpty(sourceAuthority)) { 
-        	sourceAuthority = "Darwin Core Standard";
+        	sourceAuthority = "GBIF OccurrenceStatus Vocabulary";
         }
         if (sourceAuthority.equals("dwc:occurrenceStatus")) { 
-        	sourceAuthority = "Darwin Core Terms";
-        } else if (sourceAuthority.equals("https://dwc.tdwg.org/terms/#occurrenceStatus")) {
-        	sourceAuthority = "Darwin Core Terms";
+        	sourceAuthority = "Darwin Core recommended OccurrenceStatus values";
     	}
         
         if (MetadataUtils.isEmpty(occurrenceStatus)) { 
@@ -443,9 +449,12 @@ public class DwCMetadataDQ {
 			result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
         } else {
         	List<String> values = null;
-        	if (sourceAuthority.equals("Darwin Core Standard")) {
+        	if (sourceAuthority.equals("Darwin Core recommended OccurrenceStatus values")) {
         		// "For Occurrences, the default vocabulary is recommended to consist of "present" and "absent", but can be extended by implementers with good justification."
         		values = List.of("present","absent");
+        	} else if (sourceAuthority.equals("GBIF OccurrenceStatus Vocabulary")) {
+        		// GBIF vocabulary uses upper case Present and Absent, not all lower case.
+        		values = List.of("Present","Absent");
         	} 
         	
         	if (values==null) { 
@@ -1092,7 +1101,7 @@ public class DwCMetadataDQ {
     }
 
     /**
-    * Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.
+    * Proposes an amendment to the value of dwc:occurrenceStatus using the bdq:sourceAuthority.
     *
     * Provides: 115 AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
     * Version: 2024-07-26
@@ -1104,7 +1113,7 @@ public class DwCMetadataDQ {
     @Amendment(label="AMENDMENT_OCCURRENCESTATUS_STANDARDIZED", description="Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.")
     @Provides("f8f3a093-042c-47a3-971a-a482aaaf3b75")
     @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/f8f3a093-042c-47a3-971a-a482aaaf3b75/2024-07-26")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus is EMPTY; AMENDED the value of dwc:occurrenceStatus if could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority = 'Darwin Core occurrenceStatus' {https://dwc.tdwg.org/list/#dwc_occurrenceStatus} {dwc:occurrenceStatus vocabulary [https://rs.gbif.org/vocabulary/gbif/occurrence_status_2020-07-15.xml]}")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus is bdq:Empty; AMENDED the value of dwc:occurrenceStatus if it can be unambiguously interpreted as a value in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'GBIF OccurrenceStatus Vocabulary' [https://api.gbif.org/v1/vocabularies/OccurrenceStatus]} {'dwc:occurrenceStatus vocabulary API' [https://api.gbif.org/v1/vocabularies/OccurrenceStatus/concepts]}")
     public static DQResponse<AmendmentValue> amendmentOccurrencestatusStandardized(
         @ActedUpon("dwc:occurrenceStatus") String occurrenceStatus,
         @Parameter(name="bdq:sourceAuthority") String sourceAuthority
@@ -1112,17 +1121,16 @@ public class DwCMetadataDQ {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
         // Specification
-        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; 
-        // INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus is EMPTY; 
-        // AMENDED the value of dwc:occurrenceStatus if could be unambiguously interpreted as a 
-        // value in bdq:sourceAuthority; 
-        // otherwise NOT_AMENDED
-        // 
-
+        // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus 
+        // is bdq:Empty; AMENDED the value of dwc:occurrenceStatus 
+        // if it can be unambiguously interpreted as a value in the 
+        // bdq:sourceAuthority; otherwise NOT_AMENDED 
+        
         // Parameter
         // bdq:sourceAuthority default = "GBIF OccurrenceStatus Vocabulary" 
         // [https://api.gbif.org/v1/vocabularies/OccurrenceStatus]} 
-        // {"dwc:occurrenceStatus vocabulary API" [https://api.gbif.org/v1/vocabularies/OccurrenceStatus/concepts]}
+        // {"dwc:occurrenceStatus vocabulary API" [https://api.gbif.org/v1/vocabularies/OccurrenceStatus/concepts]} 
         
 
         if (MetadataUtils.isEmpty(occurrenceStatus)) { 
@@ -2905,7 +2913,6 @@ public class DwCMetadataDQ {
 // TODO: see line 2322  incomplete implementation: 286 AMENDMENT_TYPESTATUS_STANDARDIZED
 
 // TODO: Implementation of AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-08-23 see line: 985
-// TODO: Implementation of ISSUE_ESTABLISHMENTMEANS_NOTEMPTY is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/acc8dff2-d8d1-483a-946d-65a02a452700/2023-09-18 see line: 241
 // TODO: Implementation of VALIDATION_OCCURRENCESTATUS_STANDARD is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2023-09-18 see line: 406
 // TODO: Implementation of AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16 see line: 1717
 }
