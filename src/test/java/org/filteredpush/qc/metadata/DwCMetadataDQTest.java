@@ -90,7 +90,80 @@ public class DwCMetadataDQTest {
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), response.getResultState().getLabel());
 		assertEquals(IssueValue.POTENTIAL_ISSUE.getLabel(), response.getValue().getLabel());
 	}
+	
+	/**
+	 * Test method for
+	 * {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationTypeStatusStandard(java.lang.String)}.
+	 */
+	@Test
+	public void testValidationTypeStatustandard() {
+		String typeStatus = "foo";
+		DQResponse<ComplianceValue> result = DwCMetadataDQ.validationTypestatusStandard(typeStatus,"GBIF TypeStatus Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		typeStatus = "Holotype | Paratype";
+		result = DwCMetadataDQDefaults.validationTypestatusStandard(typeStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		typeStatus = "Holotype of Aus bus | Paratype of Cus bus ";
+		result = DwCMetadataDQDefaults.validationTypestatusStandard(typeStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+		
+		typeStatus = "Holotype | Foo";
+		result = DwCMetadataDQDefaults.validationTypestatusStandard(typeStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+	} 
 
+	/**
+	 * Test method for
+	 * {@link org.filteredpush.qc.metadata.DwCMetadataDQ#amendmentTypestatusStandardized(java.lang.String)}.
+	 */
+	@Test
+	public void testAmendmentTypestatusStandardized() {
+
+		String typeStatus = "";
+		DQResponse<AmendmentValue> result = DwCMetadataDQ.amendmentTypestatusStandardized(typeStatus, "GBIF TypeStatus Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+		assertNull(result.getValue());
+		assertNotNull(result.getComment());
+	
+		typeStatus = " holotype";
+		result = DwCMetadataDQ.amendmentTypestatusStandardized(typeStatus, "GBIF TypeStatus Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertEquals("Holotype", result.getValue().getObject().get("dwc:typeStatus"));
+		assertNotNull(result.getComment());
+	
+		typeStatus = " holotype of Aus bus";
+		result = DwCMetadataDQ.amendmentTypestatusStandardized(typeStatus, "GBIF TypeStatus Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertEquals("Holotype of Aus bus", result.getValue().getObject().get("dwc:typeStatus"));
+		assertNotNull(result.getComment());
+	
+		typeStatus = " holotype of Aus bus | Paratype of Cus bus";
+		result = DwCMetadataDQ.amendmentTypestatusStandardized(typeStatus, "GBIF TypeStatus Vocabulary");
+		logger.debug(result.getComment());
+		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
+		assertEquals("Holotype of Aus bus | Paratype of Cus bus", result.getValue().getObject().get("dwc:typeStatus"));
+		assertNotNull(result.getComment());
+	
+		
+	}
+	
 	/**
 	 * Test method for
 	 * {@link org.filteredpush.qc.metadata.DwCMetadataDQ#validationLicenseStandard(java.lang.String)}.

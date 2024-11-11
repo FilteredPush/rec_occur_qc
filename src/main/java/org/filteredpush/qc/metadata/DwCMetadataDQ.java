@@ -2272,7 +2272,7 @@ public class DwCMetadataDQ {
         			List<String> typeStatusBits = new ArrayList<String>();
         			if (typeStatus.contains("|")) { 
         				// Handle pipe delimited list.
-        				typeStatusBits = Arrays.asList(typeStatus.split("|"));
+        				typeStatusBits = Arrays.asList(typeStatus.split("[|]"));
         			} else { 
         				typeStatusBits.add(typeStatus);
         			}
@@ -2363,54 +2363,86 @@ public class DwCMetadataDQ {
         			result.addComment("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError() );
         			throw new SourceAuthorityException("Error loading data from sourceAuthority");
         		} else {
+        			boolean changeProposed = false;
+        			boolean allFound = true;
         			List<String> typeStatusBits = new ArrayList<String>();
+        			List<String> outputBits = new ArrayList<String>();
         			if (typeStatus.contains("|")) { 
         				// Handle pipe delimited list.
-        				typeStatusBits = Arrays.asList(typeStatus.split("|"));
+        				typeStatusBits = Arrays.asList(typeStatus.split("[|]"));
         			} else { 
         				typeStatusBits.add(typeStatus);
         			}
-        			
-        			// TODO: Iterate through bits
-        			
-        			if (MetadataSingleton.getInstance().getTypeStatusTerms().containsKey(typeStatus)) { 
-        				result.addComment("Provided value of dwc:typeStatus found in the sourceAuthority");
+        			// Iterate through bits
+        			Iterator<String> i = typeStatusBits.iterator();
+        			while (i.hasNext()) { 
+        				String typeStatusBit = i.next().trim();
+        				String outputBit = typeStatusBit;
+        				String typeStatusWord = typeStatusBit;
+        				if (typeStatusBit.contains(" ")) { 
+        					typeStatusWord = typeStatusBit.substring(0, typeStatusWord.indexOf(" "));
+        				}
+        				if (MetadataSingleton.getInstance().getTypeStatusTerms().containsKey(typeStatusWord)) { 
+        				   result.addComment("Provided value of first word ["+typeStatusWord+"] of a pipe delimited element of dwc:typeStatus found in the sourceAuthority");
+        				   outputBit = typeStatusBit;
+        				} else { 
+        					allFound = false;
+            				if (MetadataSingleton.getInstance().getTypeStatusValues().containsKey(typeStatusWord.trim().toLowerCase())) {
+            					String match = MetadataSingleton.getInstance().getTypeStatusValues().get(typeStatusWord.trim().toLowerCase());
+            					changeProposed=true;
+            					outputBit = outputBit.replace(typeStatusWord,match);
+            					result.addComment("Provided first word from of dwc:typeStatus [" + typeStatusWord + "] conformed to the the sourceAuthority");
+            				} else {
+            					Iterator<String> it = MetadataSingleton.getInstance().getTypeStatusTerms().keySet().iterator();
+            					boolean matched = false;
+            					String matchKey = "";
+            					while (it.hasNext()) { 
+            						String aValue = it.next();
+            						if (aValue.toLowerCase().startsWith(typeStatusWord.trim().toLowerCase().replace(".", ""))) { 
+            							if (!matched) { 
+            								matched = true;
+            								matchKey =  MetadataSingleton.getInstance().getTypeStatusValues().get(aValue);
+            							} else { 
+            								// non-unique match.
+            								matchKey = "";
+            							}
+            						}
+             					}
+            					if (matched && matchKey.length()>0) { 
+            						changeProposed = true;
+            						result.addComment("Provided first word from of dwc:typeStatus [" + typeStatusWord + "] conformed to the the sourceAuthority");
+            						outputBit = outputBit.replace(typeStatusWord,matchKey);
+            					} else { 
+            						result.addComment("Provided first word from value of dwc:typeStatus [" + typeStatusWord + "] unable to be conformed to the the sourceAuthority");
+            						outputBit = outputBit;
+            					}
+            				}
+        				}
+        				outputBits.add(outputBit);
+        			}
+        			if (allFound) { 
+        				result.addComment("All provided first words of value of dwc:typeStatus found in the sourceAuthority " + sourceAuthority);
         				result.setResultState(ResultState.NOT_AMENDED);	
-        			} else {
-        				if (MetadataSingleton.getInstance().getTypeStatusValues().containsKey(typeStatus.trim().toLowerCase())) { 
-        					String match = MetadataSingleton.getInstance().getTypeStatusValues().get(typeStatus.trim().toLowerCase());
-        					result.setResultState(ResultState.AMENDED);	
-        					Map<String, String> values = new HashMap<>();
-        					values.put("dwc:typeStatus", match) ;
-        					result.setValue(new AmendmentValue(values));
-        				} else {
-        					Iterator<String> i = MetadataSingleton.getInstance().getTypeStatusTerms().keySet().iterator();
-        					boolean matched = false;
-        					String matchKey = "";
-        					while (i.hasNext()) { 
-        						String aValue = i.next();
-        						if (aValue.toLowerCase().startsWith(typeStatus.trim().toLowerCase().replace(".", ""))) { 
-        							if (!matched) { 
-        								matched = true;
-        								matchKey =  MetadataSingleton.getInstance().getTypeStatusValues().get(aValue);
-        							} else { 
-        								// non-unique match.
-        								matchKey = "";
-        							}
-        						}
-         					}
-        					if (matched && matchKey.length()>0) { 
-        						result.addComment("Provided value of dwc:typeStatus [" + typeStatus + "] conformed to the the sourceAuthority");
-        						result.setResultState(ResultState.AMENDED);	
-        						Map<String, String> values = new HashMap<>();
-        						values.put("dwc:typeStatus", matchKey) ;
-        						result.setValue(new AmendmentValue(values));
-        					} else { 
-        						result.addComment("Provided value of dwc:typeStatus [" + typeStatus + "] unable to be conformed to the the sourceAuthority");
-        						result.setResultState(ResultState.NOT_AMENDED);
+        			} else { 
+        				if (changeProposed) { 
+        					Iterator<String> j = outputBits.iterator();
+        					String separator = "";
+        					StringBuilder output = new StringBuilder();
+        					while (j.hasNext()) { 
+        						output.append(separator).append(j.next());
+        						separator = " | ";
         					}
+       						result.addComment("First word(s) of provided value of dwc:typeStatus [" + typeStatus + "] conformed to the the sourceAuthority " + sourceAuthority);
+       						result.setResultState(ResultState.AMENDED);	
+       						Map<String, String> values = new HashMap<>();
+       						values.put("dwc:typeStatus", output.toString()) ;
+       						result.setValue(new AmendmentValue(values));
+        				} else { 
+       						result.addComment("No first word from provided value of dwc:typeStatus [" + typeStatus + "] able to be conformed to the the sourceAuthority " + sourceAuthority);
+       						result.setResultState(ResultState.NOT_AMENDED);
         				}
         			}
+        			
         		}
         	} catch (SourceAuthorityException e) { 
         		result.addComment("Error with specified bdq:sourceAuthority ["+ sourceAuthority +"]: " + e.getMessage());
@@ -2910,7 +2942,6 @@ public class DwCMetadataDQ {
         return result;
     }
 
-// TODO: see line 2322  incomplete implementation: 286 AMENDMENT_TYPESTATUS_STANDARDIZED
 
 // TODO: Implementation of AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT is not up to date with current version: https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-08-23 see line: 985
 }
