@@ -942,15 +942,15 @@
 <urn:uuid:e4dbf38d-bdd7-4cf7-8c60-5b3bfc6af4ff> a <https://rs.tdwg.org/bdqffdq/terms/Specification>;
   skos:example "dwc:typeStatus=\"Holotype\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:typeStatus found in the bdq:sourceAuthority\"",
     "dwc:typeStatus=\"cleptotype\": Response.status=RUN_HAS_RESULT, Response.result=NOT_COMPLIANT, Response.comment=\"dwc:typeStatus not found in the bdq:sourceAuthority\"";
-  <https://rs.tdwg.org/bdqffdq/terms/hasAuthoritiesDefaults> "bdq:sourceAuthority default = \"Darwin Core typeStatus\" {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}";
-  rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; COMPLIANT if the value of the first word in each &#124; delimited portion of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = \"Darwin Core typeStatus\" {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}";
+  <https://rs.tdwg.org/bdqffdq/terms/hasAuthoritiesDefaults> "bdq:sourceAuthority default = \"GBIF TypeStatus Vocabulary\" {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}";
+  rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; COMPLIANT if the value of the first word in each &#124; delimited portion of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = \"GBIF TypeStatus Vocabulary\" {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}";
   <https://rs.tdwg.org/bdqffdq/terms/hasExpectedResponse> "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; COMPLIANT if the value of the first word in each &#124; delimited portion of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.";
   rdfs:label "Specification for: VALIDATION_TYPESTATUS_STANDARD";
-  <https://rs.tdwg.org/bdqffdq/terms/hasArgument> <urn:uuid:63b0193f-a8df-4345-8d60-caf667cd62b0> .
+  <https://rs.tdwg.org/bdqffdq/terms/hasArgument> <urn:uuid:570a7e09-ff35-4667-9af0-2017bbf814fb> .
 
-<urn:uuid:63b0193f-a8df-4345-8d60-caf667cd62b0> a <https://rs.tdwg.org/bdqffdq/terms/Argument>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasArgumentValue> "Darwin Core typeStatus";
-  rdfs:label "Default value for bdq:sourceAuthority:\"Darwin Core typeStatus\"";
+<urn:uuid:570a7e09-ff35-4667-9af0-2017bbf814fb> a <https://rs.tdwg.org/bdqffdq/terms/Argument>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasArgumentValue> "GBIF TypeStatus Vocabulary";
+  rdfs:label "Default value for bdq:sourceAuthority:\"GBIF TypeStatus Vocabulary\"";
   <https://rs.tdwg.org/bdqffdq/terms/hasParameter> <bdq:sourceAuthority> .
 
 <https://rs.tdwg.org/bdqcore/terms/b3471c65-b53e-453b-8282-abfa27bf1805-2024-11-11>
@@ -979,15 +979,15 @@
 <urn:uuid:401e2562-cb26-43a7-8690-b06eabd5982a> a <https://rs.tdwg.org/bdqffdq/terms/Specification>;
   skos:example "dwc:typeStatus=\"Holo.\": Response.status=AMENDED, Response.result=dwc:typeStatus=\"Holotype\", Response.comment=\"dwc:typeStatus found in the bdq:sourceAuthority\"",
     "dwc:typeStatus=\"x\": Response.status=NOT_AMENDED, Response.result=\"\", Response.comment=\"dwc:typeStatus not found in the bdq:sourceAuthority\"";
-  <https://rs.tdwg.org/bdqffdq/terms/hasAuthoritiesDefaults> "bdq:sourceAuthority default = \"Darwin Core typeStatus\" {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}";
-  rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; AMENDED the value of the first word in each &#124; delimited portion of dwc:typeStatus if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = \"Darwin Core typeStatus\" {[https://dwc.tdwg.org/list/#dwc_typeStatus]} {dwc:typeStatus vocabulary API [https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/TypeStatus.html]}";
+  <https://rs.tdwg.org/bdqffdq/terms/hasAuthoritiesDefaults> "bdq:sourceAuthority default = \"GBIF TypeStatus Vocabulary\" {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}";
+  rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; AMENDED the value of the first word in each &#124; delimited portion of dwc:typeStatus if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = \"GBIF TypeStatus Vocabulary\" {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}";
   <https://rs.tdwg.org/bdqffdq/terms/hasExpectedResponse> "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; AMENDED the value of the first word in each &#124; delimited portion of dwc:typeStatus if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED.";
   rdfs:label "Specification for: AMENDMENT_TYPESTATUS_STANDARDIZED";
-  <https://rs.tdwg.org/bdqffdq/terms/hasArgument> <urn:uuid:a10eb348-7fc5-4b96-88e3-619300cb0079> .
+  <https://rs.tdwg.org/bdqffdq/terms/hasArgument> <urn:uuid:24a5ad47-534d-4994-aadc-fd30b7252962> .
 
-<urn:uuid:a10eb348-7fc5-4b96-88e3-619300cb0079> a <https://rs.tdwg.org/bdqffdq/terms/Argument>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasArgumentValue> "Darwin Core typeStatus";
-  rdfs:label "Default value for bdq:sourceAuthority:\"Darwin Core typeStatus\"";
+<urn:uuid:24a5ad47-534d-4994-aadc-fd30b7252962> a <https://rs.tdwg.org/bdqffdq/terms/Argument>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasArgumentValue> "GBIF TypeStatus Vocabulary";
+  rdfs:label "Default value for bdq:sourceAuthority:\"GBIF TypeStatus Vocabulary\"";
   <https://rs.tdwg.org/bdqffdq/terms/hasParameter> <bdq:sourceAuthority> .
 
 <https://rs.tdwg.org/bdqcore/terms/13d5a10e-188e-40fd-a22c-dbaa87b91df2-2024-09-05>
@@ -1035,7 +1035,7 @@
   skos:note "This bdq:Supplementary test is not regarded as CORE (cf. bdq:CORE) because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdq:COMPLIANT or bdq:NOT_COMPLIANT results (cf bdq:Response.result). A Supplementary test may be implemented as CORE when a suitable use case exists.";
   <https://rs.tdwg.org/bdqffdq/terms/hasDataQualityDimension> <bdqdim:Conformance>;
   <https://rs.tdwg.org/bdqffdq/terms/hasCriterion> <bdqcrit:Standard>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:69dc3b0e-1789-4ddc-be95-9521e829248d>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:3e2989ee-34d2-4d67-9587-e8c6ad64805a>;
   dcterms:issued "2024-04-01"^^xsd:date;
   dcterms:bibliographicCitation "";
   rdfs:comment "Is dwc:individualCount an Integer ?";
@@ -1044,7 +1044,7 @@
   dcterms:isVersionOf <https://rs.tdwg.org/bdqcore/terms/43abded0-c3bf-44e7-8c1f-c4207608b1fa>;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:69dc3b0e-1789-4ddc-be95-9521e829248d> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
+<urn:uuid:3e2989ee-34d2-4d67-9587-e8c6ad64805a> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
   <skos:prefLabel> "Information Element ActedUpon dwc:individualCount";
   <https://rs.tdwg.org/bdqffdq/terms/composedOf> dwc:individualCount;
   rdfs:label "Information Element ActedUpon dwc:individualCount" .
@@ -1133,7 +1133,7 @@
   <https://rs.tdwg.org/bdqffdq/terms/hasEnhancement> <bdqenh:Standardized>;
   skos:note "Currently, it appears that no full Vocabulary exists for dwc:reproductiveCondition making this test difficult to implement. This bdq:Supplementary test is not regarded as CORE (cf. bdq:CORE) because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdq:COMPLIANT or bdq:NOT_COMPLIANT results (cf bdq:Response.result). A Supplementary test may be implemented as CORE when a suitable use case exists.";
   <https://rs.tdwg.org/bdqffdq/terms/hasDataQualityDimension> <bdqdim:Conformance>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:86684ce3-0582-430d-a4fc-c0a7f077e682>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:929647f6-3994-4d45-b0ee-0af0633aede5>;
   dcterms:issued "2024-09-05"^^xsd:date;
   dcterms:bibliographicCitation "Darwin Core Maintenance Group (2021). Reproductive Condition Vocabulary List of Terms. Biodiversity Information Standards (TDWG). (https://dwc.tdwg.org/list/#dwc_reproductiveCondition)</li> </ul>";
   rdfs:comment "Propose amendment to the value of dwc:preparations using bdq:sourceAuthority.";
@@ -1142,7 +1142,7 @@
   dcterms:isVersionOf <https://rs.tdwg.org/bdqcore/terms/10ef7660-3e08-4b74-95d3-66131275cf31>;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:86684ce3-0582-430d-a4fc-c0a7f077e682> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
+<urn:uuid:929647f6-3994-4d45-b0ee-0af0633aede5> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
   <skos:prefLabel> "Information Element ActedUpon dwc:reproductiveCondition";
   <https://rs.tdwg.org/bdqffdq/terms/composedOf> dwc:reproductiveCondition;
   rdfs:label "Information Element ActedUpon dwc:reproductiveCondition" .
@@ -1162,9 +1162,9 @@
   rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:reproductiveCondition is bdq:Empty; AMENDED the value of dwc:reproductiveCondition if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"Darwin Core reproductionCondition\" {[https://dwc.tdwg.org/list/#dwc_reproductiveCondition]} {dwc:reproductiveCondition vocabulary API [NO CURRENT API EXISTS]}";
   <https://rs.tdwg.org/bdqffdq/terms/hasExpectedResponse> "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:reproductiveCondition is bdq:Empty; AMENDED the value of dwc:reproductiveCondition if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED";
   rdfs:label "Specification for: AMENDMENT_REPRODUCTIVECONDITION_STANDARDIZED";
-  <https://rs.tdwg.org/bdqffdq/terms/hasArgument> <urn:uuid:c0e8aa74-8fce-4251-a1ad-03f910a5b2c9> .
+  <https://rs.tdwg.org/bdqffdq/terms/hasArgument> <urn:uuid:46bafc59-f101-4b7e-9c4e-e7146d92e55f> .
 
-<urn:uuid:c0e8aa74-8fce-4251-a1ad-03f910a5b2c9> a <https://rs.tdwg.org/bdqffdq/terms/Argument>;
+<urn:uuid:46bafc59-f101-4b7e-9c4e-e7146d92e55f> a <https://rs.tdwg.org/bdqffdq/terms/Argument>;
   <https://rs.tdwg.org/bdqffdq/terms/hasArgumentValue> "Darwin Core reproductionCondition";
   rdfs:label "Default value for bdq:sourceAuthority:\"Darwin Core reproductionCondition\"";
   <https://rs.tdwg.org/bdqffdq/terms/hasParameter> <bdq:sourceAuthority> .
@@ -1175,14 +1175,14 @@
   <https://rs.tdwg.org/bdqffdq/terms/hasEnhancement> <bdqenh:Standardized>;
   skos:note "Currently, it appears that no full Vocabulary exists for dwc:preparations making this test difficult to implement. Best practice for dwc:preparations is a pipe delimited list, implementations should split the list into elements and test each element against the source authority. This bdq:Supplementary test is not regarded as CORE (cf. bdq:CORE) because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdq:COMPLIANT or bdq:NOT_COMPLIANT results (cf bdq:Response.result). A Supplementary test may be implemented as CORE when a suitable use case exists.";
   <https://rs.tdwg.org/bdqffdq/terms/hasDataQualityDimension> <bdqdim:Conformance>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:808a4676-0a78-47ad-a690-0ae7d8942617>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:bcfe2907-e38c-4b5e-bab3-ca1f2c7736fa>;
   dcterms:issued "2024-09-05"^^xsd:date;
   dcterms:bibliographicCitation "Darwin Core Maintenance Group (2021). Preparations Controlled Vocabulary List of Terms. Biodiversity Information Standards (TDWG). (http://rs.tdwg.org/dwc/terms/preparations)";
   rdfs:comment "Propose amendment to the value of dwc:preparations using bdq:sourceAuthority.";
   skos:historyNote "https://github.com/tdwg/bdq/issues/280";
   rdfs:label "AMENDMENT_PREPARATIONS_STANDARDIZED" .
 
-<urn:uuid:808a4676-0a78-47ad-a690-0ae7d8942617> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
+<urn:uuid:bcfe2907-e38c-4b5e-bab3-ca1f2c7736fa> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
   <skos:prefLabel> "Information Element ActedUpon dwc:preparations";
   <https://rs.tdwg.org/bdqffdq/terms/composedOf> dwc:preparations;
   rdfs:label "Information Element ActedUpon dwc:preparations" .
@@ -1206,9 +1206,9 @@
   rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:preparations is bdq:Empty; AMENDED the value of dwc:preparations if at least one item in the list of preparations, comparing and amending item by item in the list, ignoring leading or trailing whitespace in each item,  can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"Darwin Core preparations {[https://dwc.tdwg.org/list/#dwc_preparations]} {dwc:preparations vocabulary API [NO CURRENT API EXISTS]}";
   <https://rs.tdwg.org/bdqffdq/terms/hasExpectedResponse> "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:preparations is bdq:Empty; AMENDED the value of dwc:preparations if at least one item in the list of preparations, comparing and amending item by item in the list, ignoring leading or trailing whitespace in each item,  can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED";
   rdfs:label "Specification for: AMENDMENT_PREPARATIONS_STANDARDIZED";
-  <https://rs.tdwg.org/bdqffdq/terms/hasArgument> <urn:uuid:de13f7cb-5ad7-4bf7-9450-9c4b587aa37c> .
+  <https://rs.tdwg.org/bdqffdq/terms/hasArgument> <urn:uuid:c51fb2bb-95d9-4517-b30f-712aa30e4285> .
 
-<urn:uuid:de13f7cb-5ad7-4bf7-9450-9c4b587aa37c> a <https://rs.tdwg.org/bdqffdq/terms/Argument>;
+<urn:uuid:c51fb2bb-95d9-4517-b30f-712aa30e4285> a <https://rs.tdwg.org/bdqffdq/terms/Argument>;
   <https://rs.tdwg.org/bdqffdq/terms/hasArgumentValue> "DEFAULT";
   rdfs:label "Default value for bdq:sourceAuthority";
   <https://rs.tdwg.org/bdqffdq/terms/hasParameter> <bdq:sourceAuthority> .
@@ -1219,7 +1219,7 @@
   <https://rs.tdwg.org/bdqffdq/terms/hasEnhancement> <bdqenh:Standardized>;
   skos:note "This bdq:Supplementary test is not regarded as CORE (cf. bdq:CORE) because of one or more of the reasons: not being widely applicable; not informative; likely to return a high percentage of either bdq:COMPLIANT or bdq:NOT_COMPLIANT results (cf bdq:Response.result). A Supplementary test may be implemented as CORE when a suitable use case exists. For reference, synonym values for dwc:lifestage can be found at https://registry.gbif.org/vocabulary/LifeStage/concepts.";
   <https://rs.tdwg.org/bdqffdq/terms/hasDataQualityDimension> <bdqdim:Conformance>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:c967e509-1972-4c62-bebf-602a53938786>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:e53d1b11-9c03-4776-b253-3123b9848254>;
   dcterms:issued "2024-09-05"^^xsd:date;
   dcterms:bibliographicCitation "";
   rdfs:comment "Propose amendment to the value of dwc:lifeStage using bdq:sourceAuthority.";
@@ -1228,7 +1228,7 @@
   dcterms:isVersionOf <https://rs.tdwg.org/bdqcore/terms/07e79079-42e9-48e9-826e-4874ae34bce3>;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:c967e509-1972-4c62-bebf-602a53938786> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
+<urn:uuid:e53d1b11-9c03-4776-b253-3123b9848254> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
   <skos:prefLabel> "Information Element ActedUpon dwc:lifeStage";
   <https://rs.tdwg.org/bdqffdq/terms/composedOf> dwc:lifeStage;
   rdfs:label "Information Element ActedUpon dwc:lifeStage" .
@@ -1248,9 +1248,9 @@
   rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:lifeStage is bdq:Empty; AMENDED the value of dwc:lifeStage if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = \"GBIF LifeStage Vocabulary\" [https://api.gbif.org/v1/vocabularies/LifeStage]} {\"dwc:lifeStage vocabulary API\" [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}";
   <https://rs.tdwg.org/bdqffdq/terms/hasExpectedResponse> "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:lifeStage is bdq:Empty; AMENDED the value of dwc:lifeStage if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED";
   rdfs:label "Specification for: AMENDMENT_LIFESTAGE_STANDARDIZED";
-  <https://rs.tdwg.org/bdqffdq/terms/hasArgument> <urn:uuid:551201f4-b9bd-4630-a53c-ed0159d0050b> .
+  <https://rs.tdwg.org/bdqffdq/terms/hasArgument> <urn:uuid:dd8fe623-e603-4a4f-989e-e059de62b723> .
 
-<urn:uuid:551201f4-b9bd-4630-a53c-ed0159d0050b> a <https://rs.tdwg.org/bdqffdq/terms/Argument>;
+<urn:uuid:dd8fe623-e603-4a4f-989e-e059de62b723> a <https://rs.tdwg.org/bdqffdq/terms/Argument>;
   <https://rs.tdwg.org/bdqffdq/terms/hasArgumentValue> "GBIF LifeStage Vocabulary";
   rdfs:label "Default value for bdq:sourceAuthority:\"GBIF LifeStage Vocabulary\"";
   <https://rs.tdwg.org/bdqffdq/terms/hasParameter> <bdq:sourceAuthority> .
@@ -1261,7 +1261,7 @@
   skos:note "This test must return NOT_COMPLIANT if there is leading or trailing whitespace or there are leading or trailing non-printing characters. This bdq:Supplementary test is not regarded as CORE (cf. bdq:CORE) because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdq:COMPLIANT or bdq:NOT_COMPLIANT results (cf bdq:Response.result). A Supplementary test may be implemented as CORE when a suitable use case exists.";
   <https://rs.tdwg.org/bdqffdq/terms/hasDataQualityDimension> <bdqdim:Conformance>;
   <https://rs.tdwg.org/bdqffdq/terms/hasCriterion> <bdqcrit:Standard>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:c967e509-1972-4c62-bebf-602a53938786>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:e53d1b11-9c03-4776-b253-3123b9848254>;
   dcterms:issued "2024-09-07"^^xsd:date;
   dcterms:bibliographicCitation "";
   rdfs:comment "Does the value of dwc:lifeStage occur in bdq:sourceAuthority?";
@@ -1285,9 +1285,9 @@
   rdfs:comment "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:lifeStage is bdq:Empty; COMPLIANT if the value of dwc:lifeStage is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = \"GBIF LifeStage Vocabulary\" [https://api.gbif.org/v1/vocabularies/LifeStage]} {\"dwc:lifeStage vocabulary API\" [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}";
   <https://rs.tdwg.org/bdqffdq/terms/hasExpectedResponse> "EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:lifeStage is bdq:Empty; COMPLIANT if the value of dwc:lifeStage is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.";
   rdfs:label "Specification for: VALIDATION_LIFESTAGE_STANDARD";
-  <https://rs.tdwg.org/bdqffdq/terms/hasArgument> <urn:uuid:5ba2491c-03f0-4197-9043-71b2ccb9a889> .
+  <https://rs.tdwg.org/bdqffdq/terms/hasArgument> <urn:uuid:0661b623-dabc-4df7-a4e0-cb9918614911> .
 
-<urn:uuid:5ba2491c-03f0-4197-9043-71b2ccb9a889> a <https://rs.tdwg.org/bdqffdq/terms/Argument>;
+<urn:uuid:0661b623-dabc-4df7-a4e0-cb9918614911> a <https://rs.tdwg.org/bdqffdq/terms/Argument>;
   <https://rs.tdwg.org/bdqffdq/terms/hasArgumentValue> "GBIF LifeStage Vocabulary";
   rdfs:label "Default value for bdq:sourceAuthority:\"GBIF LifeStage Vocabulary\"";
   <https://rs.tdwg.org/bdqffdq/terms/hasParameter> <bdq:sourceAuthority> .
@@ -1329,7 +1329,7 @@
   skos:note "Implementors need to consider multiplicity, in that a SingleRecord that contains dwc:relationshipOfResource values likely contains multiple dwc:ResourceRelationship records related to each Occurrence or other core entity of the SingleRecord.  Assessment should be made on single ResourceRelationship records at a time.  This bdq:Supplementary test is not regarded as CORE (cf. bdq:CORE) because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdq:COMPLIANT or bdq:NOT_COMPLIANT results (cf bdq:Response.result). A Supplementary test may be implemented as CORE when a suitable use case exists.";
   <https://rs.tdwg.org/bdqffdq/terms/hasDataQualityDimension> <bdqdim:Completeness>;
   <https://rs.tdwg.org/bdqffdq/terms/hasCriterion> <bdqcrit:NotEmpty>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:0e3674cb-3380-4b5c-ba38-53af17f05bf3>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:24c37dec-e1b6-4e78-b12c-50b00f119b41>;
   dcterms:issued "2024-09-05"^^xsd:date;
   dcterms:bibliographicCitation "";
   rdfs:comment "Is there a value in dwc:relationshipOfResource?";
@@ -1338,7 +1338,7 @@
   dcterms:isVersionOf <https://rs.tdwg.org/bdqcore/terms/cd281f7e-13b3-43ae-8677-de06ffa70bb4>;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:0e3674cb-3380-4b5c-ba38-53af17f05bf3> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
+<urn:uuid:24c37dec-e1b6-4e78-b12c-50b00f119b41> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
   <skos:prefLabel> "Information Element ActedUpon dwc:relationshipOfResource";
   <https://rs.tdwg.org/bdqffdq/terms/composedOf> dwc:relationshipOfResource;
   rdfs:label "Information Element ActedUpon dwc:relationshipOfResource" .
@@ -1365,7 +1365,7 @@
   skos:note "Widely applicable for Occurrences vouchered by MateralSamples, but not generally applicable to observational Occurrence data.  This bdq:Supplementary test is not regarded as CORE (cf. bdq:CORE) because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdq:COMPLIANT or bdq:NOT_COMPLIANT results (cf bdq:Response.result). A Supplementary test may be implemented as CORE when a suitable use case exists. See comments.";
   <https://rs.tdwg.org/bdqffdq/terms/hasDataQualityDimension> <bdqdim:Completeness>;
   <https://rs.tdwg.org/bdqffdq/terms/hasCriterion> <bdqcrit:NotEmpty>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:808a4676-0a78-47ad-a690-0ae7d8942617>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:bcfe2907-e38c-4b5e-bab3-ca1f2c7736fa>;
   dcterms:issued "2024-09-05"^^xsd:date;
   dcterms:bibliographicCitation "";
   rdfs:comment "Is there a value in dwc:preparations?";
@@ -1396,7 +1396,7 @@
   skos:note "This bdq:Supplementary test is not regarded as CORE (cf. bdq:CORE) because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdq:COMPLIANT or bdq:NOT_COMPLIANT results (cf bdq:Response.result). A Supplementary test may be implemented as CORE when a suitable use case exists.";
   <https://rs.tdwg.org/bdqffdq/terms/hasDataQualityDimension> <bdqdim:Completeness>;
   <https://rs.tdwg.org/bdqffdq/terms/hasCriterion> <bdqcrit:NotEmpty>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:4818e56d-f792-4604-99d9-f44e3473c33e>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:75454b76-9292-42fa-b830-4b5d90ed60aa>;
   dcterms:issued "2024-09-05"^^xsd:date;
   dcterms:bibliographicCitation "";
   rdfs:comment "Is there a value in dwc:recordNumber?";
@@ -1405,7 +1405,7 @@
   dcterms:isVersionOf <https://rs.tdwg.org/bdqcore/terms/3bd2477c-6497-43b0-94e6-b811eed1b1cb>;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:4818e56d-f792-4604-99d9-f44e3473c33e> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
+<urn:uuid:75454b76-9292-42fa-b830-4b5d90ed60aa> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
   <skos:prefLabel> "Information Element ActedUpon dwc:recordNumber";
   <https://rs.tdwg.org/bdqffdq/terms/composedOf> dwc:recordNumber;
   rdfs:label "Information Element ActedUpon dwc:recordNumber" .
@@ -1432,7 +1432,7 @@
   skos:note "This bdq:Supplementary test is not regarded as CORE (cf. bdq:CORE) because it is not widely applicable to the CORE use case.";
   <https://rs.tdwg.org/bdqffdq/terms/hasDataQualityDimension> <bdqdim:Completeness>;
   <https://rs.tdwg.org/bdqffdq/terms/hasCriterion> <bdqcrit:NotEmpty>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:a5d59ae2-aa27-49bb-9755-b576fc275719>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:d75725ba-f190-457c-9ee7-dcdbb5b84566>;
   dcterms:issued "2024-09-05"^^xsd:date;
   dcterms:bibliographicCitation "";
   rdfs:comment "Is there a value in dwc:recordedBy?";
@@ -1441,7 +1441,7 @@
   dcterms:isVersionOf <https://rs.tdwg.org/bdqcore/terms/986ad95d-ffa1-4e3b-a6cb-ed943c87be0d>;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:a5d59ae2-aa27-49bb-9755-b576fc275719> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
+<urn:uuid:d75725ba-f190-457c-9ee7-dcdbb5b84566> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
   <skos:prefLabel> "Information Element ActedUpon dwc:recordedBy";
   <https://rs.tdwg.org/bdqffdq/terms/composedOf> dwc:recordedBy;
   rdfs:label "Information Element ActedUpon dwc:recordedBy" .
@@ -1468,7 +1468,7 @@
   skos:note "This bdq:Supplementary test is not regarded as CORE (cf. bdq:CORE) because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdq:COMPLIANT or bdq:NOT_COMPLIANT results (cf bdq:Response.result). A Supplementary test may be implemented as CORE when a suitable use case exists.";
   <https://rs.tdwg.org/bdqffdq/terms/hasDataQualityDimension> <bdqdim:Completeness>;
   <https://rs.tdwg.org/bdqffdq/terms/hasCriterion> <bdqcrit:NotEmpty>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:c967e509-1972-4c62-bebf-602a53938786>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:e53d1b11-9c03-4776-b253-3123b9848254>;
   dcterms:issued "2024-09-05"^^xsd:date;
   dcterms:bibliographicCitation "";
   rdfs:comment "Is there a value in dwc:lifeStage?";
@@ -1499,7 +1499,7 @@
   skos:note "This bdq:Supplementary test is not regarded as CORE (cf. bdq:CORE) because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdq:COMPLIANT or bdq:NOT_COMPLIANT results (cf bdq:Response.result). A Supplementary test may be implemented as CORE when a suitable use case exists.";
   <https://rs.tdwg.org/bdqffdq/terms/hasDataQualityDimension> <bdqdim:Completeness>;
   <https://rs.tdwg.org/bdqffdq/terms/hasCriterion> <bdqcrit:NotEmpty>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:69dc3b0e-1789-4ddc-be95-9521e829248d>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:3e2989ee-34d2-4d67-9587-e8c6ad64805a>;
   dcterms:issued "2024-09-05"^^xsd:date;
   dcterms:bibliographicCitation "";
   rdfs:comment "Is there a value in dwc:individualCount?";
@@ -1530,7 +1530,7 @@
   skos:note "This bdq:Supplementary test is not regarded as CORE (cf. bdq:CORE) because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdq:COMPLIANT or bdq:NOT_COMPLIANT results (cf bdq:Response.result). A Supplementary test may be implemented as CORE when a suitable use case exists.";
   <https://rs.tdwg.org/bdqffdq/terms/hasDataQualityDimension> <bdqdim:Completeness>;
   <https://rs.tdwg.org/bdqffdq/terms/hasCriterion> <bdqcrit:NotEmpty>;
-  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:bfd44a67-05ea-4583-aab3-4796b9f32103>;
+  <https://rs.tdwg.org/bdqffdq/terms/hasActedUponInformationElement> <urn:uuid:d3ab9b2d-3a0f-4abd-a096-06325b34b286>;
   dcterms:issued "2024-09-05"^^xsd:date;
   dcterms:bibliographicCitation "";
   rdfs:comment "Is there a value in dwc:disposition?";
@@ -1539,7 +1539,7 @@
   dcterms:isVersionOf <https://rs.tdwg.org/bdqcore/terms/b4c17611-2703-474f-b46a-93b08ecfee16>;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:bfd44a67-05ea-4583-aab3-4796b9f32103> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
+<urn:uuid:d3ab9b2d-3a0f-4abd-a096-06325b34b286> a <https://rs.tdwg.org/bdqffdq/terms/ActedUpon>;
   <skos:prefLabel> "Information Element ActedUpon dwc:disposition";
   <https://rs.tdwg.org/bdqffdq/terms/composedOf> dwc:disposition;
   rdfs:label "Information Element ActedUpon dwc:disposition" .
