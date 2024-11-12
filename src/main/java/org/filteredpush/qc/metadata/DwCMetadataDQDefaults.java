@@ -244,7 +244,6 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     * Version: 2024-04-16
     *
     * @param degreeOfEstablishment the provided dwc:degreeOfEstablishment to evaluate as ActedUpon.
-    * @param sourceAuthority the bdq:sourceAuthority to consult.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED", description="Proposes an amendment to the value of dwc:degreeOfEstablishment using the bdq:sourceAuthority.")

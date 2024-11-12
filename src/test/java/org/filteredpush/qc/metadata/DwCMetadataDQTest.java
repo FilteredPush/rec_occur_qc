@@ -689,19 +689,19 @@ public class DwCMetadataDQTest {
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
 		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
 
-		occurrenceStatus = "present";
-		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
-		logger.debug(result.getComment());
-		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
-		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
-
-		occurrenceStatus = "absent";
-		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
-		logger.debug(result.getComment());
-		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
-		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
-
 		occurrenceStatus = "Present";
+		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+
+		occurrenceStatus = "Absent";
+		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+
+		occurrenceStatus = "present";
 		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
