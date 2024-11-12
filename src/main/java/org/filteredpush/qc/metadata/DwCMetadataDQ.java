@@ -633,7 +633,7 @@ public class DwCMetadataDQ {
     @Validation(label="VALIDATION_LICENSE_STANDARD", description="Does the value of dcterms:license occur in bdq:sourceAuthority?")
     @Provides("3136236e-04b6-49ea-8b34-a65f25e3aba1")
     @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/3136236e-04b6-49ea-8b34-a65f25e3aba1/2023-09-17")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dcterms:license is EMPTY; COMPLIANT if the value of the term dcterms:license is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority default = 'Creative Commons' {[https://creativecommons.org/]} {Creative Commons licenses [https://creativecommons.org/about/cclicenses/]}")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dcterms:license is EMPTY; COMPLIANT if the value of the term dcterms:license is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = \"Creative Commons 4.0 Licenses or CC0\" {[https://creativecommons.org/]} { Regular Expression ^(http(s){0,1}://creativecommons.org/licenses/(by|by-sa|by-nc|by-nc-sa|by-nd|by-nc-nd)/4.0/((deed|legalcode)(.(id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|mi|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)){0,1})|(http(s){0,1}://creativecommons.org/publicdomain/zero/1.0/((deed|legalcode)(.(id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)){0,1})))$ }")
     public static DQResponse<ComplianceValue> validationLicenseStandard(
         @ActedUpon("dcterms:license") String license,
     	@Parameter(name="bdq:sourceAuthority") String sourceAuthority
@@ -647,14 +647,11 @@ public class DwCMetadataDQ {
         // is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority 
         // 
 
-        // TODO: Implementation ahead of specification, change default to obtain regex.
         // Parameters. This test is defined as parameterized.
-        // bdq:sourceAuthority
-        // default = "Creative Commons" {[https://creativecommons.org/]} 
-        // {Creative Commons licenses [https://creativecommons.org/about/cclicenses/]} 
+        // bdq:sourceAuthority default = "Creative Commons 4.0 Licenses or CC0" {[https://creativecommons.org/]} { Regular Expression ^(http(s){0,1}://creativecommons.org/licenses/(by|by-sa|by-nc|by-nc-sa|by-nd|by-nc-nd)/4.0/((deed|legalcode)(.(id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|mi|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)){0,1})|(http(s){0,1}://creativecommons.org/publicdomain/zero/1.0/((deed|legalcode)(.(id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)){0,1})))$ }
         
  
-        if (sourceAuthority==null) { sourceAuthority = "Creative Commons"; }
+        if (sourceAuthority==null) { sourceAuthority = "Creative Commons 4.0 Licenses or CC0"; }
         
         try { 
         	String pattern = "";
@@ -663,7 +660,7 @@ public class DwCMetadataDQ {
         		throw new SourceAuthorityException("Invalid source authority.");
         	} 
 
-        	if (sourceAuthority.equals("Creative Commons")) { 
+        	if (sourceAuthority.equals("Creative Commons 4.0 Licenses or CC0")) { 
         		// regex to match cc licences, version 4, and public domain dedication, version 1
         		pattern = "^(http(s){0,1}://creativecommons[.]org/licenses/"
         				+ "(by|by-sa|by-nc|by-nc-sa|by-nd|by-nc-nd)/4[.]0/"
@@ -1870,14 +1867,14 @@ public class DwCMetadataDQ {
     ) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
 
-        //TODO:  Implement specification
+        // Implement specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
         // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:pathway 
         // is EMPTY; COMPLIANT if the value of dwc:pathway is in the 
         // bdq:sourceAuthority; otherwise NOT_COMPLIANT. 
         // 
 
-        //TODO: Parameters. This test is defined as parameterized.
+        // Parameters. This test is defined as parameterized.
         // bdq:sourceAuthority default = "Pathway Controlled Vocabulary List of Terms" 
         // {[https://dwc.tdwg.org/pw/]} 
         // {GBIF vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]}
@@ -2666,8 +2663,6 @@ public class DwCMetadataDQ {
         // bdq:sourceAuthority default = "GBIF LifeStage Vocabulary" 
         // [https://api.gbif.org/v1/vocabularies/LifeStage]} {"dwc:lifeStage vocabulary API" 
         // [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}
-        
-
         
         if (MetadataUtils.isEmpty(lifeStage)) { 
         	result.addComment("No Value provided for dwc:lifeStage");
