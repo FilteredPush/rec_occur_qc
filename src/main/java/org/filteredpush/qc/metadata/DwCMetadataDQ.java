@@ -1192,7 +1192,7 @@ public class DwCMetadataDQ {
         			result.setResultState(ResultState.AMENDED);
         			Map<String, String> values = new HashMap<>();
         			String match = MetadataSingleton.getInstance().getOccurrenceStatusValues().get(occurrenceStatus.trim().toLowerCase());
-        			match = match.toLowerCase(); /// NOTE: Darwin Core examples and recommendation is lower case, GBIF vocabulary is capitalized.
+        			// match = match.toLowerCase(); /// NOTE: Darwin Core examples and recommendation is lower case, GBIF vocabulary is capitalized.
         			values.put("dwc:occurrenceStatus", match);
         			result.setValue(new AmendmentValue(values));
         			result.addComment("Provided dwc:occurrenceStatus ["+ occurrenceStatus +"] interpreted from vocabulary.");
