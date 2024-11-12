@@ -650,8 +650,11 @@ public class DwCMetadataDQ {
         // Parameters. This test is defined as parameterized.
         // bdq:sourceAuthority default = "Creative Commons 4.0 Licenses or CC0" {[https://creativecommons.org/]} { Regular Expression ^(http(s){0,1}://creativecommons.org/licenses/(by|by-sa|by-nc|by-nc-sa|by-nd|by-nc-nd)/4.0/((deed|legalcode)(.(id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|mi|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)){0,1})|(http(s){0,1}://creativecommons.org/publicdomain/zero/1.0/((deed|legalcode)(.(id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)){0,1})))$ }
         
+        String DEFAULT_SOURCE_AUTHORITY = "Creative Commons 4.0 Licenses or CC0"; 
  
-        if (sourceAuthority==null) { sourceAuthority = "Creative Commons 4.0 Licenses or CC0"; }
+        if (MetadataUtils.isEmpty(sourceAuthority)) {
+        	sourceAuthority = DEFAULT_SOURCE_AUTHORITY;
+        }
         
         try { 
         	String pattern = "";
@@ -660,7 +663,7 @@ public class DwCMetadataDQ {
         		throw new SourceAuthorityException("Invalid source authority.");
         	} 
 
-        	if (sourceAuthority.equals("Creative Commons 4.0 Licenses or CC0")) { 
+        	if (sourceAuthority.equals(DEFAULT_SOURCE_AUTHORITY)) { 
         		// regex to match cc licences, version 4, and public domain dedication, version 1
         		pattern = "^(http(s){0,1}://creativecommons[.]org/licenses/"
         				+ "(by|by-sa|by-nc|by-nc-sa|by-nd|by-nc-nd)/4[.]0/"

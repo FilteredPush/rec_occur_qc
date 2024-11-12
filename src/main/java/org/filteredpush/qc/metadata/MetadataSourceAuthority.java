@@ -71,6 +71,8 @@ public class MetadataSourceAuthority {
 	    	
 	    } else if (authorityString.toUpperCase().equals("CREATIVE COMMONS")) {
 		    	this.authority = EnumMetadataSourceAuthority.CREATIVE_COMMONS;		
+	    } else if (authorityString.toUpperCase().equals("CREATIVE COMMONS 4.0 LICENSES OR CC0")) {
+		    	this.authority = EnumMetadataSourceAuthority.CREATIVE_COMMONS;		
 	    	
 	    } else if (authorityString.toUpperCase().equals("GBIF LIFESTAGE VOCABULARY")) { 
 	    	this.authority = EnumMetadataSourceAuthority.GBIF_LIFESTAGE;	
