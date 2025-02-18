@@ -409,7 +409,7 @@ public class DwCMetadataDQ {
      * Does the value of dwc:occurrenceStatus occur in the bdq:sourceAuthority?
      *
      * Provides: 116 VALIDATION_OCCURRENCESTATUS_STANDARD
-     * Version: 2025-02-14
+     * Version: 2025-02-18
      *
      * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate
      * @param sourceAuthority the provided source authority against which to evaluate occurrenceStatus
@@ -417,7 +417,7 @@ public class DwCMetadataDQ {
      */
     @Validation(label="VALIDATION_OCCURRENCESTATUS_STANDARD", description="Does the value of dwc:occurrenceStatus occur in the bdq:sourceAuthority?")
     @Provides("7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47")
-    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2025-02-14")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2025-02-18")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus is bdq:Empty; COMPLIANT if the value of dwc:occurrenceStatus is resolved in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.  bdq:sourceAuthority default = 'Regex present/absent'")
     public static DQResponse<ComplianceValue> validationOccurrencestatusStandard(
     		@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus,
@@ -434,8 +434,7 @@ public class DwCMetadataDQ {
       
         // Parameters. This test is defined as parameterized.
         // bdq:sourceAuthority default = "Regex present/absent"
-        //  {["^(present|absent)$"]} 
-        // {"dwc:occurrenceStatus vocabulary API" [https://api.gbif.org/v1/vocabularies/OccurrenceStatus/concepts]} 
+        // {["^(present|absent)$"]} 
 
         // NOTE GBIF vocabulary incorrectly uses values "Present" and "Absent"
         

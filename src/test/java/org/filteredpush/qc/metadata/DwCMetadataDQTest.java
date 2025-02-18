@@ -689,19 +689,19 @@ public class DwCMetadataDQTest {
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
 		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
 
-		occurrenceStatus = "Present";
-		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
-		logger.debug(result.getComment());
-		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
-		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
-
-		occurrenceStatus = "Absent";
-		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
-		logger.debug(result.getComment());
-		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
-		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
-
 		occurrenceStatus = "present";
+		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+
+		occurrenceStatus = "absent";
+		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+
+		occurrenceStatus = "Present";
 		result = DwCMetadataDQDefaults.validationOccurrencestatusStandard(occurrenceStatus);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
@@ -1527,7 +1527,7 @@ public class DwCMetadataDQTest {
 		logger.debug(result.getComment());
 		assertEquals(ResultState.FILLED_IN.getLabel(), result.getResultState().getLabel());
 		assertNotNull(result.getValue());
-		assertEquals("Present", result.getValue().getObject().get("dwc:occurrenceStatus"));
+		assertEquals("present", result.getValue().getObject().get("dwc:occurrenceStatus"));
 		assertNotNull(result.getComment());
 
 	}
@@ -1550,15 +1550,15 @@ public class DwCMetadataDQTest {
 		logger.debug(result.getComment());
 		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
 		assertNotNull(result.getValue());
-		assertEquals("Present", result.getValue().getObject().get("dwc:occurrenceStatus"));
+		assertEquals("present", result.getValue().getObject().get("dwc:occurrenceStatus"));
 		assertNotNull(result.getComment());
 
-		occurrenceStatus = " present";
+		occurrenceStatus = " Present";
 		result = DwCMetadataDQ.amendmentOccurrencestatusStandardized(occurrenceStatus,null);
 		logger.debug(result.getComment());
 		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
 		assertNotNull(result.getValue());
-		assertEquals("Present", result.getValue().getObject().get("dwc:occurrenceStatus"));
+		assertEquals("present", result.getValue().getObject().get("dwc:occurrenceStatus"));
 		assertNotNull(result.getComment());
 
 		occurrenceStatus = "Presente";
@@ -1566,7 +1566,7 @@ public class DwCMetadataDQTest {
 		logger.debug(result.getComment());
 		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
 		assertNotNull(result.getValue());
-		assertEquals("Present", result.getValue().getObject().get("dwc:occurrenceStatus"));
+		assertEquals("present", result.getValue().getObject().get("dwc:occurrenceStatus"));
 		assertNotNull(result.getComment());
 		
 		occurrenceStatus = "0";
@@ -1574,7 +1574,7 @@ public class DwCMetadataDQTest {
 		logger.debug(result.getComment());
 		assertEquals(ResultState.AMENDED.getLabel(), result.getResultState().getLabel());
 		assertNotNull(result.getValue());
-		assertEquals("Absent", result.getValue().getObject().get("dwc:occurrenceStatus"));
+		assertEquals("absent", result.getValue().getObject().get("dwc:occurrenceStatus"));
 		assertNotNull(result.getComment());
 
 		occurrenceStatus = "abnsent";
