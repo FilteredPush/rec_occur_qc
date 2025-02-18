@@ -61,6 +61,10 @@ public enum EnumMetadataSourceAuthority {
 	 * Creative Commons Licences
 	 */
     CREATIVE_COMMONS,
+    /**
+     * Regex present/absent
+     */
+    DWC_OCCURRENCE_STATUS,
 	/**
 	 * Invalid Source Authority
 	 */

@@ -68,7 +68,8 @@ public class MetadataSourceAuthority {
 		
 	    if (authorityString.toUpperCase().equals("DARWIN CORE BASISOFRECORD")) {
 	    	this.authority = EnumMetadataSourceAuthority.DWC_BASISOFRECORD;	
-	    	
+	    } else if (authorityString.toUpperCase().equals("REGEX PRESENT/ABSENT")) {
+	    	this.authority = EnumMetadataSourceAuthority.DWC_OCCURRENCE_STATUS;	
 	    } else if (authorityString.toUpperCase().equals("CREATIVE COMMONS")) {
 		    	this.authority = EnumMetadataSourceAuthority.CREATIVE_COMMONS;		
 	    } else if (authorityString.toUpperCase().equals("CREATIVE COMMONS 4.0 LICENSES OR CC0")) {

@@ -1007,7 +1007,7 @@ public class DwCMetadataDQ {
     * Propose an amendment of the value of dwc:occurrenceStatus to the default parameter value if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty.
     *
     * Provides: 75 AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
-    * Version: 2023-09-18
+    * Version: 2024-11-13
     *
     * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate as ActedUpon.
     * @param individualCount the provided dwc:individualCount to evaluate as Consulted.
@@ -1015,10 +1015,10 @@ public class DwCMetadataDQ {
     * @param defaultOccurrenceStatus the value to use as the default dwc:occurrenceStatus.
     * @return DQResponse the response of type AmendmentValue to return
     */
-    @Amendment(label="AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT", description="Propose an amendment of the value of dwc:occurrenceStatus to the default parameter value if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty.")
+    @Amendment(label="AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT", description="Proposes an amendment of the value of dwc:occurrenceStatus to the default parameter value if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty.")
     @Provides("96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5")
-    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2023-09-18")
-    @Specification("FILLED_IN the value of dwc:occurrenceStatus using the Parameter value if dwc:occurrence.Status,  dwc:individualCount and dwc:organismQuantity are EMPTY; otherwise NOT_AMENDED dwc:occurrenceStatus default = 'present'")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-11-13")
+    @Specification("INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus is bdq:NotEmpty; FILLED_IN the value of dwc:occurrenceStatus using the bdq:defaultOccurrenceStatus Parameter value if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are bdq:Empty; otherwise NOT_AMENDED. dwc:occurrenceStatus default = 'present'")
     public static DQResponse<AmendmentValue> amendmentOccurrencestatusAssumeddefault(
         @ActedUpon("dwc:occurrenceStatus") String occurrenceStatus, 
         @Consulted("dwc:individualCount") String individualCount, 
@@ -1027,20 +1027,18 @@ public class DwCMetadataDQ {
     ) {
         DQResponse<AmendmentValue> result = new DQResponse<AmendmentValue>();
 
-        // TODO: Update to current specification
-        
         // Specification
-        // FILLED_IN the value of dwc:occurrenceStatus using the Parameter 
-        // value if dwc:occurrence.Status, dwc:individualCount and 
-        // dwc:organismQuantity are EMPTY; otherwise NOT_AMENDED dwc:occurrenceStatus 
-        // default = "present" 
+		// INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus is bdq:NotEmpty; 
+		// FILLED_IN the value of dwc:occurrenceStatus using the 
+		// bdq:defaultOccurrenceStatus Parameter value if dwc:occurrenceStatus, 
+		// dwc:individualCount and dwc:organismQuantity are bdq:Empty; otherwise NOT_AMENDED
 
-        // TODO: ahead of specification 
         // Parameters. This test is defined as parameterized.
         // bdq:defaultOccurrenceStatus
+		// default = "present"
 
         if (MetadataUtils.isEmpty(defaultOccurrenceStatus)) { 
-        	defaultOccurrenceStatus = "Present";
+        	defaultOccurrenceStatus = "present";
         }
         
         if (MetadataUtils.isEmpty(occurrenceStatus) && MetadataUtils.isEmpty(individualCount) && MetadataUtils.isEmpty(organismQuantity)) { 
@@ -1126,19 +1124,19 @@ public class DwCMetadataDQ {
 
         // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority 
-        // is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus 
-        // is bdq:Empty; AMENDED the value of dwc:occurrenceStatus 
-        // if it can be unambiguously interpreted as a value in the 
-        // bdq:sourceAuthority; otherwise NOT_AMENDED 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if 
+        // dwc:ocurrenceStatus is bdq:Empty; AMENDED the value 
+        // of dwc:occurrenceStatus if it can be unambiguously 
+        // interpreted as a value in the bdq:sourceAuthority; otherwise NOT_AMENDED
         
         // Parameter
-        // bdq:sourceAuthority default = "GBIF OccurrenceStatus Vocabulary" 
-        // [https://api.gbif.org/v1/vocabularies/OccurrenceStatus]} 
+        // bdq:sourceAuthority default = "Regex present/absent"  
+        // {["^(present|absent)$"]} 
         // {"dwc:occurrenceStatus vocabulary API" [https://api.gbif.org/v1/vocabularies/OccurrenceStatus/concepts]} 
 
-        // NOTE: GBIF vocabulary uses "Present" and "Absent".
+        // NOTE: GBIF vocabulary (incorrectly) uses "Present" and "Absent".
 
-        String DEFAULT_SOURCE_AUTHORITY = "GBIF OccurrenceStatus Vocabulary";
+        String DEFAULT_SOURCE_AUTHORITY = "Regex present/absent";
         
         if (MetadataUtils.isEmpty(occurrenceStatus)) { 
         	result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
@@ -1158,41 +1156,41 @@ public class DwCMetadataDQ {
         		if (!MetadataSingleton.getInstance().isLoaded()) { 
         			throw new SourceAuthorityException("Error accessing sourceAuthority: " + MetadataSingleton.getInstance().getLoadError());
         		}
-        		if (occurrenceStatus.equals("Present")) { 
+        		if (occurrenceStatus.equals("present")) { 
         			result.setResultState(ResultState.NOT_AMENDED);
         			result.addComment("Provided dwc:occurrenceStatus is a valid value");
-        		} else if (occurrenceStatus.equals("Absent")) { 
+        		} else if (occurrenceStatus.equals("absent")) { 
         			result.setResultState(ResultState.NOT_AMENDED);
         			result.addComment("Provided dwc:occurrenceStatus is a valid value");
-        		} else if (!occurrenceStatus.equals("Present") && occurrenceStatus.trim().toLowerCase().equals("present")) { 
+        		} else if (!occurrenceStatus.equals("present") && occurrenceStatus.trim().toLowerCase().equals("present")) { 
         			result.setResultState(ResultState.AMENDED);
         			Map<String, String> values = new HashMap<>();
-        			values.put("dwc:occurrenceStatus", "Present") ;
+        			values.put("dwc:occurrenceStatus", "present") ;
         			result.setValue(new AmendmentValue(values));
-        			result.addComment("Provided dwc:occurrenceStatus interpreted as Present");
-        		} else if (!occurrenceStatus.equals("Absent") && occurrenceStatus.trim().toLowerCase().equals("absent")) { 
+        			result.addComment("Provided dwc:occurrenceStatus interpreted as present");
+        		} else if (!occurrenceStatus.equals("absent") && occurrenceStatus.trim().toLowerCase().equals("absent")) { 
         			result.setResultState(ResultState.AMENDED);
         			Map<String, String> values = new HashMap<>();
-        			values.put("dwc:occurrenceStatus", "Absent") ;
+        			values.put("dwc:occurrenceStatus", "absent") ;
         			result.setValue(new AmendmentValue(values));
-        			result.addComment("Provided dwc:occurrenceStatus interpreted as Absent");
+        			result.addComment("Provided dwc:occurrenceStatus interpreted as absent");
         		} else if (occurrenceStatus.trim().equals("1")) { 
         			result.setResultState(ResultState.AMENDED);
         			Map<String, String> values = new HashMap<>();
-        			values.put("dwc:occurrenceStatus", "Present") ;
+        			values.put("dwc:occurrenceStatus", "present") ;
         			result.setValue(new AmendmentValue(values));
-        			result.addComment("Provided dwc:occurrenceStatus interpreted as Present");
+        			result.addComment("Provided dwc:occurrenceStatus interpreted as present");
         		} else if (occurrenceStatus.trim().equals("0")) { 
         			result.setResultState(ResultState.AMENDED);
         			Map<String, String> values = new HashMap<>();
-        			values.put("dwc:occurrenceStatus", "Absent") ;
+        			values.put("dwc:occurrenceStatus", "absent") ;
         			result.setValue(new AmendmentValue(values));
-        			result.addComment("Provided dwc:occurrenceStatus interpreted as Absent");
+        			result.addComment("Provided dwc:occurrenceStatus interpreted as absent");
         		} else if (MetadataSingleton.getInstance().getOccurrenceStatusValues().containsKey(occurrenceStatus.trim().toLowerCase())) { 
         			result.setResultState(ResultState.AMENDED);
         			Map<String, String> values = new HashMap<>();
         			String match = MetadataSingleton.getInstance().getOccurrenceStatusValues().get(occurrenceStatus.trim().toLowerCase());
-        			// match = match.toLowerCase(); /// NOTE: Darwin Core examples and recommendation is lower case, GBIF vocabulary is capitalized.
+        			match = match.toLowerCase(); // NOTE: Darwin Core examples and recommendation is lower case, GBIF vocabulary is capitalized.
         			values.put("dwc:occurrenceStatus", match);
         			result.setValue(new AmendmentValue(values));
         			result.addComment("Provided dwc:occurrenceStatus ["+ occurrenceStatus +"] interpreted from vocabulary.");
