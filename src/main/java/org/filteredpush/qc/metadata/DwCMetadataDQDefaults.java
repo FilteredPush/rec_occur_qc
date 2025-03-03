@@ -105,15 +105,15 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     * Does the value of dcterms:license occur in bdq:sourceAuthority?
     *
     * Provides: VALIDATION_LICENSE_STANDARD
-    * Version: 2023-09-17
+    * Version: 2024-03-21
     *
     * @param license the provided dcterms:license to evaluate as ActedUpon.
     * @return DQResponse the response of type ComplianceValue  to return
     */
     @Validation(label="VALIDATION_LICENSE_STANDARD", description="Does the value of dcterms:license occur in bdq:sourceAuthority?")
     @Provides("3136236e-04b6-49ea-8b34-a65f25e3aba1")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/3136236e-04b6-49ea-8b34-a65f25e3aba1/2023-09-17")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dcterms:license is EMPTY; COMPLIANT if the value of the term dcterms:license is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority default = 'Creative Commons' {[https://creativecommons.org/]} {Creative Commons licenses [https://creativecommons.org/about/cclicenses/]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/3136236e-04b6-49ea-8b34-a65f25e3aba1/2024-03-21")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dcterms:license is bdq:Empty; COMPLIANT if the value of the term dcterms:license is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Creative Commons 4.0 Licenses or CC0' {[https://creativecommons.org/]} { Regular Expression ^(http(s){0,1}://creativecommons.org/licenses/(by|by-sa|by-nc|by-nc-sa|by-nd|by-nc-nd)/4.0/((deed|legalcode)(.(id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|mi|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)){0,1})|(http(s){0,1}://creativecommons.org/publicdomain/zero/1.0/((deed|legalcode)(.(id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)){0,1})))$ }")
     public static DQResponse<ComplianceValue> validationLicenseStandard(
         @ActedUpon("dcterms:license") String license
     ) {
@@ -346,8 +346,8 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_TYPESTATUS_STANDARD", description="Does the value of dwc:typeStatus occur in bdq:sourceAuthority?")
     @Provides("4833a522-12eb-4fe0-b4cf-7f7a337a6048")
-    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-08-03")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; COMPLIANT if the value of the first word in each &#124; delimited portion of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.. bdq:sourceAuthority default = 'GBIF TypeStatus Vocabulary' {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-11-11")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; COMPLIANT if the value of the first word in each &#124; delimited portion of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.. bdq:sourceAuthority default = 'GBIF TypeStatus Vocabulary' {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus/concepts]}")
     
     public static DQResponse<ComplianceValue> validationTypestatusStandard(
         @ActedUpon("dwc:typeStatus") String typeStatus
@@ -360,17 +360,17 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     * present if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty.
     *
     * Provides: 75 AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT
-    * Version: 2023-09-18
+    * Version: 2024-11-13
     *
     * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate as ActedUpon.
     * @param individualCount the provided dwc:individualCount to evaluate as Consulted.
     * @param organismQuantity the provided dwc:organismQuantity to evaluate as Consulted.
     * @return DQResponse the response of type AmendmentValue to return
     */
-    @Amendment(label="AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT", description="Propose an amendment of the value of dwc:occurrenceStatus to the default parameter value if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty.")
+    @Amendment(label="AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT", description="Proposes an amendment of the value of dwc:occurrenceStatus to the default parameter value if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty.")
     @Provides("96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2023-09-18")
-    @Specification("FILLED_IN the value of dwc:occurrenceStatus using the Parameter value if dwc:occurrence.Status,  dwc:individualCount and dwc:organismQuantity are EMPTY; otherwise NOT_AMENDED dwc:occurrenceStatus default = 'present'")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-11-13")
+    @Specification("INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus is bdq:NotEmpty; FILLED_IN the value of dwc:occurrenceStatus using the bdq:defaultOccurrenceStatus Parameter value if dwc:occurrenceStatus,  dwc:individualCount and dwc:organismQuantity are bdq:Empty; otherwise NOT_AMENDED. bdq:defaultOccurrenceStatus default = 'present'")
     public static DQResponse<AmendmentValue> amendmentOccurrencestatusAssumeddefault(
         @ActedUpon("dwc:occurrenceStatus") String occurrenceStatus, 
         @Consulted("dwc:individualCount") String individualCount, 
@@ -383,15 +383,15 @@ public class DwCMetadataDQDefaults extends DwCMetadataDQ {
     * Proposes an amendment to the value of dwc:occurrenceStatus using the default bdq:sourceAuthority.
     *
     * Provides: 115 AMENDMENT_OCCURRENCESTATUS_STANDARDIZED
-    * Version: 2024-07-26
+    * Version: 2025-03-03
     *
     * @param occurrenceStatus the provided dwc:occurrenceStatus to evaluate as ActedUpon.
     * @return DQResponse the response of type AmendmentValue to return
     */
     @Amendment(label="AMENDMENT_OCCURRENCESTATUS_STANDARDIZED", description="Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.")
     @Provides("f8f3a093-042c-47a3-971a-a482aaaf3b75")
-    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/f8f3a093-042c-47a3-971a-a482aaaf3b75/2024-07-26")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus is bdq:Empty; AMENDED the value of dwc:occurrenceStatus if it can be unambiguously interpreted as a value in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'GBIF OccurrenceStatus Vocabulary' [https://api.gbif.org/v1/vocabularies/OccurrenceStatus]} {'dwc:occurrenceStatus vocabulary API' [https://api.gbif.org/v1/vocabularies/OccurrenceStatus/concepts]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqcore/terms/f8f3a093-042c-47a3-971a-a482aaaf3b75/2025-03-03")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus is bdq:Empty; AMENDED the value of dwc:occurrenceStatus if it can be unambiguously interpreted as a value in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Regex present/absent' {['^(present|absent)$'] {\"dwc:occurrenceStatus vocabulary API\" [https://api.gbif.org/v1/vocabularies/OccurrenceStatus/concepts]}")
     public static DQResponse<AmendmentValue> amendmentOccurrencestatusStandardized(
         @ActedUpon("dwc:occurrenceStatus") String occurrenceStatus
     ) {
