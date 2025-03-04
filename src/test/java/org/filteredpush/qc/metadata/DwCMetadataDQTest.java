@@ -124,6 +124,32 @@ public class DwCMetadataDQTest {
 		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
 		assertEquals(ComplianceValue.NOT_COMPLIANT.getLabel(), result.getValue().getLabel());
 		assertNotNull(result.getComment());
+
+		typeStatus = null;
+    	result = DwCMetadataDQ.validationTypestatusStandard(typeStatus, "GBIF TypeStatus Vocabulary");
+    	logger.debug(result.getComment());
+    	assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+    	assertNotNull(result.getComment());
+
+		typeStatus = "";
+    	result = DwCMetadataDQ.validationTypestatusStandard(typeStatus, "GBIF TypeStatus Vocabulary");
+    	logger.debug(result.getComment());
+    	assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET.getLabel(), result.getResultState().getLabel());
+    	assertNotNull(result.getComment());
+
+		typeStatus = "Isosyntype | Isosyntype";
+		result = DwCMetadataDQDefaults.validationTypestatusStandard(typeStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
+
+		typeStatus = "Cotype";
+		result = DwCMetadataDQDefaults.validationTypestatusStandard(typeStatus);
+		logger.debug(result.getComment());
+		assertEquals(ResultState.RUN_HAS_RESULT.getLabel(), result.getResultState().getLabel());
+		assertEquals(ComplianceValue.COMPLIANT.getLabel(), result.getValue().getLabel());
+		assertNotNull(result.getComment());
 	} 
 
 	/**
