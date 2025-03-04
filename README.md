@@ -1,6 +1,12 @@
 # rec_occur_qc
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.filteredpush/rec_occur_qc/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.filteredpush/rec_occur_qc)
-Data Quality library for selected dwc:Record level and dwc:Occurrence terms, including implementations of BDQ Core tests from the TDWG Biodiversity Data Quality Task Group 2 labeled as OTHER.
+Data Quality library for selected dwc:Record level and dwc:Occurrence terms, including implementations of BDQ Core tests from the TDWG Biodiversity Data Quality Task Group 2 labeled as OTHER.  
+
+DOI: 10.5281/zenodo.14968501
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14968501.svg)](https://doi.org/10.5281/zenodo.14968501)
+
+This library provides tests for evaluating the quality of data expressed using Darwin Core terms for occurrence and record level data.  The tests are implemented as static methods in the class org.filteredpush.qc.metadata.DwCMetadataDQ and are annotated with the API provided by the ffdq-api for reporting data quality assertions in terms of the bdqffdq Framework.  The tests are based on the TDWG Biodiversity Data Quality Task Group 2 test specifications in the (draft) BDQ Core standard.
 
 See: [TG2 Tests labeled OTHER](https://github.com/tdwg/bdq/issues?q=is%3Aopen+label%3AOTHER+NOT+measure)
 
