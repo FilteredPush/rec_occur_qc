@@ -37,7 +37,7 @@ import org.datakurator.ffdq.api.result.ComplianceValue;
  * @author mole
  *
  */
-@Mechanism(value="09fd4e2f-cf10-4665-aa74-bcf8e3795163",label="Kurator: Metadata/Record-Level Validator - DwCMetadataDQ:v1.0.0-SNAPSHOT")
+@Mechanism(value="09fd4e2f-cf10-4665-aa74-bcf8e3795163",label="Kurator: Metadata/Record-Level Validator - DwCMetadataDQ:v1.0.1")
 public class DwCMetadataDQDefaults extends DwCMetadataDQ {
 
 	private static final Log logger = LogFactory.getLog(DwCMetadataDQDefaults.class);

@@ -1,10 +1,8 @@
 # rec_occur_qc
-Data Quality library for selected dwc:Record level and dwc:Occurrence terms.
-
-Implementations of tests from the TDWG Biodiversity Data Quality Task Group 2 labeled as OTHER. 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.filteredpush/rec_occur_qc/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.filteredpush/rec_occur_qc)
+Data Quality library for selected dwc:Record level and dwc:Occurrence terms, including implementations of BDQ Core tests from the TDWG Biodiversity Data Quality Task Group 2 labeled as OTHER.
 
 See: [TG2 Tests labeled OTHER](https://github.com/tdwg/bdq/issues?q=is%3Aopen+label%3AOTHER+NOT+measure)
-
 
 # Include using maven
 
@@ -13,7 +11,7 @@ Available in Maven Central.
     <dependency>
         <groupId>org.filteredpush</groupId>
         <artifactId>rec_occur_qc</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
 
 # Building
@@ -44,13 +42,11 @@ As of 2024-07-28, the current set of Other test specifications in the core (alon
        ...
     } 
 
-As of version 1.0.0, not all of the annotations are complete or up to date with the 2024-07-28 specifications.
+As of version 1.0.1, all of the annotations are up to date with the 2025-03-03 BDQ Core specifications.
 
-These tests are subject to change if there are further changes to the TDWG BDQ TG2 specifications.   The current test specifications can be found [in a csv file](https://github.com/tdwg/bdq/blob/master/tg2/core/TG2_tests.csv) with rationalle management in [issues in the tdwg/bdq issue tracker](https://github.com/tdwg/bdq/labels/TIME).  The TDWG BDQ TG2 is preparing a draft standard for biodiversity data quality including these tests.  As of 2023-07-04, specifications for the the tests implemented here are expected to be stable.  
+These tests are subject to change if there are further changes to the TDWG BDQ TG2 BDQ Core specifications.   The current test specifications can be found [in a csv file](https://github.com/tdwg/bdq/blob/master/tg2/core/TG2_tests.csv) with rationalle management in [issues in the tdwg/bdq issue tracker](https://github.com/tdwg/bdq/labels/TIME).  The TDWG BDQ TG2 is preparing a draft standard for biodiversity data quality including these tests.  As of 2025-03-03, specifications for the the tests implemented here are expected to be stable.  
 
-These test implementations can be validated against the TDWG BDQ TG2 [test validation data] (https://github.com/tdwg/bdq/blob/master/tg2/core/TG2_test_validation_data.csv) using [bdqtestrunner](https://github.com/FilteredPush/bdqtestrunner). 
-
- As of 2024-07-29, *** test cases run, *** pass.
+These test implementations can be validated against the TDWG BDQ TG2 [test validation data] (https://github.com/tdwg/bdq/blob/master/tg2/core/TG2_test_validation_data.csv) using [bdqtestrunner](https://github.com/FilteredPush/bdqtestrunner).  As of 2025-03-03, all relevant tests pass against the test validation data, details below.
 
 The unit test below shows an example of a call on DwCMetadataDQ.amendmentLicenseStandardized() to perform an amendment of presented values of dc:license, and invocations of getResultState(), getValue(), and getComment() on the returned implementation of the DQResponse interface.
 
@@ -88,42 +84,45 @@ The unit test below shows an example of a call on DwCMetadataDQ.amendmentLicense
     
 The APIs for both the java annotations for the framework and the result objects for the framework are not expected to change.    
 
-13 of 26 implementations of the TDWG BDQ TG2 test specifications are passing against all related validation data with the 2024-07-24- [test validation data](https://github.com/tdwg/bdq/tree/master/tg2/core/TG2_test_validation_data.csv) including [non-printing characters](https://github.com/tdwg/bdq/tree/master/tg2/core/TG2_test_validation_data_nonprintingchars.csv)).   Cases that are not passing may indicate a problem with the implementation, with the validation data, or with the specification of the test.
+26 of 26 implementations of the TDWG BDQ TG2 test specifications are passing against all related validation data (245 test cases) with the 2025-03-03 [test validation data](https://github.com/tdwg/bdq/tree/master/tg2/core/TG2_test_validation_data.csv) including [non-printing characters](https://github.com/tdwg/bdq/tree/master/tg2/core/TG2_test_validation_data_nonprintingchars.csv)). 
 
-	java -jar bdqtestrunner-0.0.1-SNAPSHOT-6b0bfe0-executable.jar -c DwCMetadataDQDefaults > output.log
+	java -jar bdqtestrunner-1.0.1-SNAPSHOT-2428fbb-executable.jar -c DwCMetadataDQDefaults > output.log
 
 	Validation Test Data From: https://raw.githubusercontent.com/tdwg/bdq/master/tg2/core/TG2_test_validation_data.csv
-	2024-07-29T10:42:00.036550733
+	2025-03-04T09:37:29.655184712
 	Validating Test Implementations In:
 	org.filteredpush.qc.metadata.DwCMetadataDQDefaults
 	Ran 26 tests against the validation data.
-	74ef1034-e289-4596-b5b0-cde73796697d 10 P: 8 F: 2 AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED #276
-	33c45ae1-e2db-462a-a59e-7169bb01c5d6 10 P: 6 F: 4 AMENDMENT_SEX_STANDARDIZED #284
-	4833a522-12eb-4fe0-b4cf-7f7a337a6048  9 P: 7 F: 2 VALIDATION_TYPESTATUS_STANDARD #285
-	88d8598b-3318-483d-9475-a5acf9887404 10 P: 8 F: 2 VALIDATION_SEX_STANDARD #283
+	74ef1034-e289-4596-b5b0-cde73796697d 10 P:10 F: 0 AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED #276
+	33c45ae1-e2db-462a-a59e-7169bb01c5d6 10 P:10 F: 0 AMENDMENT_SEX_STANDARDIZED #284
+	4833a522-12eb-4fe0-b4cf-7f7a337a6048  9 P: 9 F: 0 VALIDATION_TYPESTATUS_STANDARD #285
+	88d8598b-3318-483d-9475-a5acf9887404 10 P:10 F: 0 VALIDATION_SEX_STANDARD #283
 	acc8dff2-d8d1-483a-946d-65a02a452700  9 P: 9 F: 0 ISSUE_ESTABLISHMENTMEANS_NOTEMPTY #94
-	3136236e-04b6-49ea-8b34-a65f25e3aba1 11 P: 9 F: 2 VALIDATION_LICENCE_STANDARD #38
+	3136236e-04b6-49ea-8b34-a65f25e3aba1 11 P:11 F: 0 VALIDATION_LICENCE_STANDARD #38
 	cdaabb0d-a863-49d0-bc0f-738d771acba5 11 P:11 F: 0 VALIDATION_DCTYPE_STANDARD #91
 	c486546c-e6e5-48a7-b286-eba7f5ca56c4  8 P: 8 F: 0 VALIDATION_OCCURRENCEID_NOTEMPTY #47
 	eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf 11 P:11 F: 0 VALIDATION_OCCURRENCESTATUS_NOTEMPTY #117
 	13d5a10e-188e-40fd-a22c-dbaa87b91df2 10 P:10 F: 0 ISSUE_DATAGENERALIZATIONS_NOTNOTEMPTY #72
 	42408a00-bf71-4892-a399-4325e2bc1fb8 15 P:15 F: 0 VALIDATION_BASISOFRECORD_STANDARD #104
-	f9205977-f145-44f5-8cb9-e3e2e35ce908 10 P: 8 F: 2 AMENDMENT_PATHWAY_STANDARDIZED #278
-	bd385eeb-44a2-464b-a503-7abe407ef904  7 P: 6 F: 1 AMENDMENT_DCTYPE_STANDARDIZED #41
+	f9205977-f145-44f5-8cb9-e3e2e35ce908 10 P:10 F: 0 AMENDMENT_PATHWAY_STANDARDIZED #278
+	bd385eeb-44a2-464b-a503-7abe407ef904  7 P: 7 F: 0 AMENDMENT_DCTYPE_STANDARDIZED #41
 	4eb48fdf-7299-4d63-9d08-246902e2857f  9 P: 9 F: 0 VALIDATION_ESTABLISHMENTMEANS_STANDARD #268
-	07c28ace-561a-476e-a9b9-3d5ad6e35933  9 P: 8 F: 1 AMENDMENT_BASISOFRECORD_STANDARDIZED #63
+	07c28ace-561a-476e-a9b9-3d5ad6e35933 10 P:10 F: 0 AMENDMENT_BASISOFRECORD_STANDARDIZED #63
 	374b091a-fc90-4791-91e5-c1557c649169  9 P: 9 F: 0 VALIDATION_DCTYPE_NOTEMPTY #103
 	ac2b7648-d5f9-48ca-9b07-8ad5879a2536 10 P:10 F: 0 VALIDATION_BASISOFRECORD_NOTEMPTY #58
-	15d15927-7a22-43f8-88d6-298f5eb45c4c  8 P: 5 F: 3 AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED #269
-	5424e933-bee7-4125-839e-d8743ea69f93  9 P: 8 F: 1 VALIDATION_PATHWAY_STANDARD #277
-	b3471c65-b53e-453b-8282-abfa27bf1805 10 P: 7 F: 3 AMENDMENT_TYPESTATUS_STANDARDIZED #286
-	7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47  9 P: 9 F: 0 VALIDATION_OCCURRENCESTATUS_STANDARD #116
+	15d15927-7a22-43f8-88d6-298f5eb45c4c 10 P:10 F: 0 AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED #269
+	5424e933-bee7-4125-839e-d8743ea69f93  9 P: 9 F: 0 VALIDATION_PATHWAY_STANDARD #277
+	b3471c65-b53e-453b-8282-abfa27bf1805 10 P:10 F: 0 AMENDMENT_TYPESTATUS_STANDARDIZED #286
+	7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47 10 P:10 F: 0 VALIDATION_OCCURRENCESTATUS_STANDARD #116
 	15f78619-811a-4c6f-997a-a4c7888ad849  8 P: 8 F: 0 VALIDATION_LICENCE_NOTEMPTY #99
 	96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5  6 P: 6 F: 0 AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT #75
-	f8f3a093-042c-47a3-971a-a482aaaf3b75  6 P: 5 F: 1 AMENDMENT_OCCURRENCESTATUS_STANDARDIZED #115
+	f8f3a093-042c-47a3-971a-a482aaaf3b75  7 P: 7 F: 0 AMENDMENT_OCCURRENCESTATUS_STANDARDIZED #115
 	060e7734-607d-4737-8b2c-bfa17788bf1a  9 P: 9 F: 0 VALIDATION_DEGREEOFESTABLISHMENT_STANDARD #275
-	dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8  7 P: 3 F: 4 AMENDMENT_LICENSE_STANDARDIZED #133
-
+	dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8  7 P: 7 F: 0 AMENDMENT_LICENSE_STANDARDIZED #133
+	Test cases: 245
+	Total cases with no implementation: 1059
+	Total dataID validation rows: 1305
+	Header Lines Skipped: 1
 
 # Developer deployment: 
 
