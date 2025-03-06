@@ -2040,7 +2040,7 @@ public class DwCMetadataDQ {
     /**
     * Does the value of dwc:preparations occur in bdq:sourceAuthority?
     *
-    * Provides: VALIDATION_PREPARATIONS_STANDARD
+    * Provides: #279 VALIDATION_PREPARATIONS_STANDARD
     * Version: 2024-02-08
     *
     * @param preparations the provided dwc:preparations to evaluate as ActedUpon.
@@ -2852,7 +2852,7 @@ public class DwCMetadataDQ {
     /**
     * Is there a value in dwc:lifeStage?
     *
-    * Provides: VALIDATION_LIFESTAGE_NOTEMPTY
+    * Provides: #235 VALIDATION_LIFESTAGE_NOTEMPTY
     * Version: 2024-01-29
     *
     * @param lifeStage the provided dwc:lifeStage to evaluate as ActedUpon.
@@ -2886,7 +2886,7 @@ public class DwCMetadataDQ {
     /**
     * Is there a value in dwc:individualCount?
     *
-    * Provides: VALIDATION_INDIVIDUALCOUNT_NOTEMPTY
+    * Provides: #232 VALIDATION_INDIVIDUALCOUNT_NOTEMPTY
     * Version: 2024-01-29
     *
     * @param individualCount the provided dwc:individualCount to evaluate as ActedUpon.
@@ -2921,7 +2921,7 @@ public class DwCMetadataDQ {
     /**
     * Is there a value in dwc:disposition?
     *
-    * Provides: VALIDATION_DISPOSITION_NOTEMPTY
+    * Provides: #225 VALIDATION_DISPOSITION_NOTEMPTY
     * Version: 2024-01-29
     *
     * @param disposition the provided dwc:disposition to evaluate as ActedUpon.
