@@ -1,12 +1,12 @@
 # rec_occur_qc
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.filteredpush/rec_occur_qc/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.filteredpush/rec_occur_qc)
-Data Quality library for selected dwc:Record level and dwc:Occurrence terms, including implementations of BDQ Core tests from the TDWG Biodiversity Data Quality Task Group 2 labeled as OTHER.  
+Data Quality library for selected dwc:Record level and dwc:Occurrence terms, including implementations of BDQ Standard tests from the TDWG Biodiversity Data Quality Task Group 2 labeled as OTHER.  
 
 DOI: 10.5281/zenodo.14968501
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14968501.svg)](https://doi.org/10.5281/zenodo.14968501)
 
-This library provides tests for evaluating the quality of data expressed using Darwin Core terms for occurrence and record level data.  The tests are implemented as static methods in the class org.filteredpush.qc.metadata.DwCMetadataDQ and are annotated with the API provided by the ffdq-api for reporting data quality assertions in terms of the bdqffdq Framework.  The tests are based on the TDWG Biodiversity Data Quality Task Group 2 test specifications in the (draft) BDQ Core standard.
+This library provides tests for evaluating the quality of data expressed using Darwin Core terms for occurrence and record level data.  The tests are implemented as static methods in the class org.filteredpush.qc.metadata.DwCMetadataDQ and are annotated with the API provided by the ffdq-api for reporting data quality assertions in terms of the bdqffdq Framework.  The tests are based on the TDWG Biodiversity Data Quality Task Group 2 test specifications in the (draft) BDQ Standard.
 
 See: [TG2 Tests labeled OTHER](https://github.com/tdwg/bdq/issues?q=is%3Aopen+label%3AOTHER+NOT+measure)
 
@@ -48,9 +48,9 @@ As of 2024-07-28, the current set of Other test specifications in the core (alon
        ...
     } 
 
-As of version 1.0.1, all of the annotations are up to date with the 2025-03-03 BDQ Core specifications.
+As of version 1.0.1, all of the annotations are up to date with the 2025-03-03 BDQ Standard specifications.
 
-These tests are subject to change if there are further changes to the TDWG BDQ TG2 BDQ Core specifications.   The current test specifications can be found [in a csv file](https://github.com/tdwg/bdq/blob/master/tg2/core/TG2_tests.csv) with rationalle management in [issues in the tdwg/bdq issue tracker](https://github.com/tdwg/bdq/labels/TIME).  The TDWG BDQ TG2 is preparing a draft standard for biodiversity data quality including these tests.  As of 2025-03-03, specifications for the the tests implemented here are expected to be stable.  
+These tests are subject to change if there are further changes to the TDWG BDQ TG2 BDQ Standard specifications.   The current test specifications can be found [in a csv file](https://github.com/tdwg/bdq/blob/master/tg2/core/TG2_tests.csv) with rationalle management in [issues in the tdwg/bdq issue tracker](https://github.com/tdwg/bdq/labels/TIME).  The TDWG BDQ TG2 is preparing a draft standard for biodiversity data quality including these tests.  As of 2025-03-03, specifications for the the tests implemented here are expected to be stable.  
 
 These test implementations can be validated against the TDWG BDQ TG2 [test validation data] (https://github.com/tdwg/bdq/blob/master/tg2/core/TG2_test_validation_data.csv) using [bdqtestrunner](https://github.com/FilteredPush/bdqtestrunner).  As of 2025-03-03, all relevant tests pass against the test validation data, details below.
 
