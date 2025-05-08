@@ -17,7 +17,7 @@ Available in Maven Central.
     <dependency>
         <groupId>org.filteredpush</groupId>
         <artifactId>rec_occur_qc</artifactId>
-        <version>1.0.1</version>
+        <version>1.1.0</version>
     </dependency>
 
 # Building
