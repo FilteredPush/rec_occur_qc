@@ -39,7 +39,7 @@ As of 2024-07-28, the current set of Other test specifications in the core (alon
 
     @Validation(label="VALIDATION_ESTABLISHMENTMEANS_STANDARD", description="Does the value of dwc:establishmentMeans occur in bdq:sourceAuthority?")
     @Provides("4eb48fdf-7299-4d63-9d08-246902e2857f")
-    @ProvidesVersion("https://rs.tdwg.org/bdq/terms/4eb48fdf-7299-4d63-9d08-246902e2857f/2024-02-08")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/4eb48fdf-7299-4d63-9d08-246902e2857f-2024-02-08")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:establishmentMeans is EMPTY; COMPLIANT if the value of dwc:establishmentMeans is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core establishmentMeans' {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]}")
     public static DQResponse<ComplianceValue> validationEstablishmentmeansStandard(
         @ActedUpon("dwc:establishmentMeans") String establishmentMeans,
@@ -47,6 +47,8 @@ As of 2024-07-28, the current set of Other test specifications in the core (alon
     ) {
        ...
     } 
+
+For Tests in the BDQ standard, `@ProvidesVersion` is the IRI of the Test's version on its DateLastUpdated, in rs.tdwg.org's canonical form `https://rs.tdwg.org/bdqtest/terms/version/<uuid>-<date>` (served during the public review at https://bdq-public-review.rs.tdwg.org/). For Tests not in the standard (e.g. Supplementary), which have no rs.tdwg.org IRI, it is `urn:uuid:<uuid>`, with the version date in the method's javadoc.
 
 As of version 1.0.1, all of the annotations are up to date with the 2025-03-03 BDQ Standard specifications.
 

@@ -532,7 +532,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_OCCURRENCEID_STANDARD", description="Does dwc:occurrenceID contain a valid identifier?")
     @Provides("3cfe9ab4-79f8-4afd-8da5-723183ef16a3")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/3cfe9ab4-79f8-4afd-8da5-723183ef16a3/2024-04-02")
+    @ProvidesVersion("urn:uuid:3cfe9ab4-79f8-4afd-8da5-723183ef16a3")
     @Specification("INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceID is EMPTY; COMPLIANT if (1) dwc:occurrenceID is a validly formed LSID, or (2) dwc:occurrenceID is a validly formed URN with at least NID and NSS present, or (3) dwc:occurrenceID is in the form scope:value, or (4) dwc:occurrenceID is a validly formed URI with host and path where path consists of more than just \"/\"; otherwise NOT_COMPLIANT.")
     public static DQResponse<ComplianceValue> validationOccurrenceidStandard(
         @ActedUpon("dwc:occurrenceID") String occurrenceID
@@ -1368,7 +1368,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY", description="Is there a value in dwc:relationshipOfResource?")
     @Provides("cd281f7e-13b3-43ae-8677-de06ffa70bb4")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/cd281f7e-13b3-43ae-8677-de06ffa70bb4/2024-02-07")
+    @ProvidesVersion("urn:uuid:cd281f7e-13b3-43ae-8677-de06ffa70bb4")
     @Specification("COMPLIANT if dwc:relationshipOfResource is not EMPTY; otherwise NOT_COMPLIANT ")
     public static DQResponse<ComplianceValue> validationRelationshipofresourceNotempty(
         @ActedUpon("dwc:relationshipOfResource") String relationshipOfResource
@@ -1403,7 +1403,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY", description="Is there a value in dwc:reproductiveCondition?")
     @Provides("3eefe72c-4c7d-4dee-89b6-e9d91d3f1981")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/3eefe72c-4c7d-4dee-89b6-e9d91d3f1981/2024-02-07")
+    @ProvidesVersion("urn:uuid:3eefe72c-4c7d-4dee-89b6-e9d91d3f1981")
     @Specification("COMPLIANT if dwc:reproductiveCondition is not EMPTY; otherwise NOT_COMPLIANT ")
     public static DQResponse<ComplianceValue> validationReproductiveconditionNotempty(
         @ActedUpon("dwc:reproductiveCondition") String reproductiveCondition
@@ -1627,7 +1627,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_LIFESTAGE_STANDARDIZED", description="Propose amendment to the value of dwc:lifeStage using bdq:sourceAuthority.")
     @Provides("07e79079-42e9-48e9-826e-4874ae34bce3")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/07e79079-42e9-48e9-826e-4874ae34bce3/2024-02-09")
+    @ProvidesVersion("urn:uuid:07e79079-42e9-48e9-826e-4874ae34bce3")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:lifeStage is EMPTY; AMENDED the value of dwc:lifeStage if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core lifeStage [https://dwc.tdwg.org/list/#dwc_lifeStage]} {dwc:lifeStage vocabulary API' [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}")
     public static DQResponse<AmendmentValue> amendmentLifestageStandardized(
         @ActedUpon("dwc:lifeStage") String lifeStage,
@@ -2059,7 +2059,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_PREPARATIONS_STANDARD", description="Does the value of dwc:preparations occur in bdq:sourceAuthority?")
     @Provides("4758ea74-d2d3-4656-b17b-4b30147af4dc")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/4758ea74-d2d3-4656-b17b-4b30147af4dc/2024-02-08")
+    @ProvidesVersion("urn:uuid:4758ea74-d2d3-4656-b17b-4b30147af4dc")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:preparations is EMPTY; COMPLIANT if the value of each element in the list of elements in dwc:preparations is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core Preparations {[https://dwc.tdwg.org/list/#dwc_preparations]} {dwc:preparations vocabulary API [NO CURRENT API EXISTS]}")
     public DQResponse<ComplianceValue> validationPreparationsStandard(
         @ActedUpon("dwc:preparations") String preparations
@@ -2490,7 +2490,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY", description="Is there a value in dwc:degreeOfEstablishment?")
     @Provides("0fa16c7e-eb9c-4add-9193-aca6087d6636")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/0fa16c7e-eb9c-4add-9193-aca6087d6636/2024-02-10")
+    @ProvidesVersion("urn:uuid:0fa16c7e-eb9c-4add-9193-aca6087d6636")
     @Specification("COMPLIANT if dwc:degreeOfEstablishment is not EMPTY; otherwise NOT_COMPLIANT ")
     public static DQResponse<ComplianceValue> validationDegreeofestablishmentNotempty(
         @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment
@@ -2525,7 +2525,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_PATHWAY_NOTEMPTY", description="Is there a value in dwc:pathway?")
     @Provides("fffdc42b-b15e-4450-9e6a-f4181a319106")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/fffdc42b-b15e-4450-9e6a-f4181a319106/2024-02-10")
+    @ProvidesVersion("urn:uuid:fffdc42b-b15e-4450-9e6a-f4181a319106")
     @Specification("COMPLIANT if dwc:pathway is not EMPTY; otherwise NOT_COMPLIANT ")
     public static DQResponse<ComplianceValue> validationPathwayNotempty(
         @ActedUpon("dwc:pathway") String pathway
@@ -2560,7 +2560,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_INDIVIDUALCOUNT_INTEGER", description="Is dwc:individualCount an Integer ?")
     @Provides("43abded0-c3bf-44e7-8c1f-c4207608b1fa")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/43abded0-c3bf-44e7-8c1f-c4207608b1fa/2024-02-11")
+    @ProvidesVersion("urn:uuid:43abded0-c3bf-44e7-8c1f-c4207608b1fa")
     @Specification("COMPLIANT if the value of dwc:individualCount is interpretable an integer; otherwise NOT_COMPLIANT. ")
     public static DQResponse<ComplianceValue> validationIndividualcountInteger(
         @ActedUpon("dwc:individualCount") String individualCount
@@ -2598,7 +2598,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_REPRODUCTIVECONDITION_STANDARDIZED", description="Propose amendment to the value of dwc:preparations using bdq:sourceAuthority.")
     @Provides("10ef7660-3e08-4b74-95d3-66131275cf31")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/10ef7660-3e08-4b74-95d3-66131275cf31/2024-02-09")
+    @ProvidesVersion("urn:uuid:10ef7660-3e08-4b74-95d3-66131275cf31")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:reproductiveCondition is EMPTY; AMENDED the value of dwc:reproductiveCondition if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core reproductionCondition' {[https://dwc.tdwg.org/list/#dwc_reproductiveCondition]} {dwc:reproductiveCondition vocabulary API [NO CURRENT API EXISTS]}")
     public DQResponse<AmendmentValue> amendmentReproductiveconditionStandardized(
         @ActedUpon("dwc:reproductiveCondition") String reproductiveCondition
@@ -2632,7 +2632,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_PREPARATIONS_STANDARDIZED", description="Propose amendment to the value of dwc:preparations using bdq:sourceAuthority.")
     @Provides("8d0cbfee-4524-4da3-83d4-bebc4c4f7cd2")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/8d0cbfee-4524-4da3-83d4-bebc4c4f7cd2/2024-02-09")
+    @ProvidesVersion("urn:uuid:8d0cbfee-4524-4da3-83d4-bebc4c4f7cd2")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:preparations is EMPTY; AMENDED the value of dwc:preparations if at least one item in the list of preparations, comparing and amending item by item in the list, ignoring leading or trailing whitespace in each item,  can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core preparations {[https://dwc.tdwg.org/list/#dwc_preparations]} {dwc:preparations vocabulary API [NO CURRENT API EXISTS]}")
     public DQResponse<AmendmentValue> amendmentPreparationsStandardized(
         @ActedUpon("dwc:preparations") String preparations
@@ -2669,7 +2669,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_LIFESTAGE_STANDARD", description="Does the value of dwc:lifeStage occur in bdq:sourceAuthority?")
     @Provides("be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a/2024-02-09")
+    @ProvidesVersion("urn:uuid:be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:lifeStage is EMPTY; COMPLIANT if the value of dwc:lifeStage is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core lifeStage [https://dwc.tdwg.org/list/#dwc_lifeStage]} {dwc:lifeStage vocabulary' [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}")
     public static DQResponse<ComplianceValue> validationLifestageStandard(
         @ActedUpon("dwc:lifeStage") String lifeStage,
@@ -2734,7 +2734,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_SEX_NOTEMPTY", description="Is there a value in dwc:sex?")
     @Provides("76067adf-1422-4d03-89e3-9067c3043700")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/76067adf-1422-4d03-89e3-9067c3043700/2024-02-07")
+    @ProvidesVersion("urn:uuid:76067adf-1422-4d03-89e3-9067c3043700")
     @Specification("COMPLIANT if dwc:sex is not EMPTY; otherwise NOT_COMPLIANT ")
     public static DQResponse<ComplianceValue> validationSexNotempty(
         @ActedUpon("dwc:sex") String sex
@@ -2769,7 +2769,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_PREPARATIONS_NOTEMPTY", description="Is there a value in dwc:preparations?")
     @Provides("2aa1b7a0-0473-4a90-bf11-a02137c5c65b")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/2aa1b7a0-0473-4a90-bf11-a02137c5c65b/2024-02-07")
+    @ProvidesVersion("urn:uuid:2aa1b7a0-0473-4a90-bf11-a02137c5c65b")
     @Specification("COMPLIANT if dwc:preparations is not EMPTY; otherwise NOT_COMPLIANT ")
     public static DQResponse<ComplianceValue> validationPreparationsNotempty(
         @ActedUpon("dwc:preparations") String preparations
@@ -2803,7 +2803,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_RECORDNUMBER_NOTEMPTY", description="Is there a value in dwc:recordNumber?")
     @Provides("3bd2477c-6497-43b0-94e6-b811eed1b1cb")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/3bd2477c-6497-43b0-94e6-b811eed1b1cb/2024-02-04")
+    @ProvidesVersion("urn:uuid:3bd2477c-6497-43b0-94e6-b811eed1b1cb")
     @Specification("COMPLIANT if dwc:recordNumber is not EMPTY; otherwise NOT_COMPLIANT ")
     public static DQResponse<ComplianceValue> validationRecordnumberNotempty(
         @ActedUpon("dwc:recordNumber") String recordNumber
@@ -2837,7 +2837,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_RECORDEDBY_NOTEMPTY", description="Is there a value in dwc:recordedBy?")
     @Provides("986ad95d-ffa1-4e3b-a6cb-ed943c87be0d")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/986ad95d-ffa1-4e3b-a6cb-ed943c87be0d/2024-02-04")
+    @ProvidesVersion("urn:uuid:986ad95d-ffa1-4e3b-a6cb-ed943c87be0d")
     @Specification("COMPLIANT if dwc:recordedBy is not EMPTY; otherwise NOT_COMPLIANT ")
     public static DQResponse<ComplianceValue> validationRecordedbyNotempty(
         @ActedUpon("dwc:recordedBy") String recordedBy
@@ -2871,7 +2871,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_LIFESTAGE_NOTEMPTY", description="Is there a value in dwc:lifeStage?")
     @Provides("34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87/2024-01-29")
+    @ProvidesVersion("urn:uuid:34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87")
     @Specification("COMPLIANT if dwc:lifeStage is not EMPTY; otherwise NOT_COMPLIANT ")
     public static DQResponse<ComplianceValue> validationLifestageNotempty(
         @ActedUpon("dwc:lifeStage") String lifeStage
@@ -2905,7 +2905,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_INDIVIDUALCOUNT_NOTEMPTY", description="Is there a value in dwc:individualCount?")
     @Provides("aff0facd-1d2a-40a5-a55a-61f950cd68a0")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/aff0facd-1d2a-40a5-a55a-61f950cd68a0/2024-01-29")
+    @ProvidesVersion("urn:uuid:aff0facd-1d2a-40a5-a55a-61f950cd68a0")
     @Specification("COMPLIANT if dwc:individualCount is not EMPTY; otherwise NOT_COMPLIANT ")
     public static DQResponse<ComplianceValue> validationIndividualcountNotempty(
         @ActedUpon("dwc:individualCount") String individualCount
@@ -2940,7 +2940,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_DISPOSITION_NOTEMPTY", description="Is there a value in dwc:disposition?")
     @Provides("b4c17611-2703-474f-b46a-93b08ecfee16")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/b4c17611-2703-474f-b46a-93b08ecfee16/2024-01-29")
+    @ProvidesVersion("urn:uuid:b4c17611-2703-474f-b46a-93b08ecfee16")
     @Specification("COMPLIANT if dwc:disposition is not EMPTY; otherwise NOT_COMPLIANT ")
     public static DQResponse<ComplianceValue> validationDispositionNotempty(
         @ActedUpon("dwc:disposition") String disposition
