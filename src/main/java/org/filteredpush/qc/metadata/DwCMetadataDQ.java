@@ -22,6 +22,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +40,9 @@ import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.datakurator.ffdq.annotations.ActedUpon;
 import org.datakurator.ffdq.annotations.Amendment;
 import org.datakurator.ffdq.annotations.Consulted;
+import org.datakurator.ffdq.annotations.Dimension;
 import org.datakurator.ffdq.annotations.Issue;
+import org.datakurator.ffdq.annotations.Measure;
 import org.datakurator.ffdq.annotations.Mechanism;
 import org.datakurator.ffdq.annotations.Parameter;
 import org.datakurator.ffdq.annotations.Provides;
@@ -50,6 +53,7 @@ import org.datakurator.ffdq.api.DQResponse;
 import org.datakurator.ffdq.api.result.AmendmentValue;
 import org.datakurator.ffdq.api.result.ComplianceValue;
 import org.datakurator.ffdq.api.result.IssueValue;
+import org.datakurator.ffdq.api.result.NumericalValue;
 import org.datakurator.ffdq.model.ResultState;
 import org.filteredpush.qc.metadata.util.LSID;
 import org.filteredpush.qc.metadata.util.MetadataSingleton;
@@ -60,6 +64,13 @@ import org.filteredpush.qc.metadata.util.URNFormatException;
 /**
  * Provides implementation of TDWG BDQ TG2 OTHER tests (related to metadata found in Record-level
  * terms and Occurrence terms).
+ * 
+ * Measures over the responses of the other Tests run on a single record (see
+ * {@link #countResponses(Collection, ResponseOutcome)}):
+ * #135	45fb49eb-4a1b-4b49-876f-15d5034dfc73	MEASURE_VALIDATIONTESTS_COMPLIANT
+ * #31	453844ae-9df4-439f-8e24-c52498eca84a	MEASURE_VALIDATIONTESTS_NOTCOMPLIANT
+ * #134	49a94636-a562-4e6b-803c-665c80628a3d	MEASURE_VALIDATIONTESTS_PREREQUISITESNOTMET
+ * #65	03049fe5-a575-404f-b564-ae63f5a1cf8b	MEASURE_AMENDMENTS_PROPOSED
  * 
  * CORE tests: 
  * #72	13d5a10e-188e-40fd-a22c-dbaa87b91df2	ISSUE_DATAGENERALIZATIONS_NOTEMPTY 
@@ -2951,5 +2962,197 @@ public class DwCMetadataDQ {
 
         return result;
     }
+
+	/*
+	 * Measures over the responses of the other Tests run on a single record.
+	 *
+	 * The ActedUpon information element of these four Measures is the set of responses of the
+	 * other Tests of one type run on the same record: bdqval:AllValidationTestsRunOnSingleRecord
+	 * (the ValidationResponses) or bdqval:AllAmendmentTestsRunOnSingleRecord (the
+	 * AmendmentResponses). These implementations take that set as a collection of zero or more
+	 * response objects, count, and return a response like any other Test.
+	 *
+	 * Assembling the input is the responsibility of the implementation framework that runs the
+	 * Tests: it must present, for each record, the responses of one single run, under one Use Case
+	 * (or Policy), on that one SingleRecord, with one response for each distinct Test of the counted
+	 * type (for a Test run more than once on the record, the response that stands for the record).
+	 * A Test of that type that was not run on the record has no response in the collection. These
+	 * methods cannot check any of this, as a response does not identify its Test or record.
+	 */
+
+	/** The outcomes counted by the Measures over the responses of other Tests on one record. */
+	protected enum ResponseOutcome {
+		/** Validations with Response.result=COMPLIANT. */
+		COMPLIANT,
+		/** Validations with Response.result=NOT_COMPLIANT. */
+		NOT_COMPLIANT,
+		/** Validations with Response.status=INTERNAL_PREREQUISITES_NOT_MET or EXTERNAL_PREREQUISITES_NOT_MET. */
+		PREREQUISITES_NOT_MET,
+		/** Amendments with Response.status=AMENDED or FILLED_IN. */
+		AMENDMENT_PROPOSED
+	}
+
+	/**
+	 * Does a response have the given outcome?
+	 *
+	 * @param response a response, possibly null
+	 * @param outcome the outcome to check for
+	 * @return true if the response has the outcome
+	 */
+	protected static boolean hasOutcome(DQResponse<?> response, ResponseOutcome outcome) {
+		if (response == null) {
+			return false;
+		}
+		ResultState state = response.getResultState();
+		switch (outcome) {
+		case COMPLIANT:
+			return ResultState.RUN_HAS_RESULT.equals(state) && response.getValue() != null
+					&& "COMPLIANT".equals(response.getValue().getObject());
+		case NOT_COMPLIANT:
+			return ResultState.RUN_HAS_RESULT.equals(state) && response.getValue() != null
+					&& "NOT_COMPLIANT".equals(response.getValue().getObject());
+		case PREREQUISITES_NOT_MET:
+			return ResultState.INTERNAL_PREREQUISITES_NOT_MET.equals(state)
+					|| ResultState.EXTERNAL_PREREQUISITES_NOT_MET.equals(state);
+		case AMENDMENT_PROPOSED:
+			return ResultState.AMENDED.equals(state) || ResultState.FILLED_IN.equals(state);
+		default:
+			return false;
+		}
+	}
+
+	/**
+	 * Counts the responses with an outcome, and returns the Measure's response: RUN_HAS_RESULT with
+	 * the count, which is 0 if the collection is null or empty (no Tests of that type were run on
+	 * the record). Null entries, and responses of Tests that were not run (NOT_RUN), are not counted.
+	 *
+	 * @param responses the responses of the Tests of one type run on one record, one per distinct Test
+	 * @param outcome the outcome to count
+	 * @return a response of type NumericalValue with the count
+	 */
+	protected static DQResponse<NumericalValue> countResponses(Collection<? extends DQResponse<?>> responses,
+			ResponseOutcome outcome) {
+		DQResponse<NumericalValue> result = new DQResponse<NumericalValue>();
+		long run = 0;
+		long count = 0;
+		if (responses != null) {
+			for (DQResponse<?> response : responses) {
+				if (response == null || ResultState.NOT_RUN.equals(response.getResultState())) {
+					continue;
+				}
+				run++;
+				if (hasOutcome(response, outcome)) {
+					count++;
+				}
+			}
+		}
+		result.setValue(new NumericalValue(count));
+		result.setResultState(ResultState.RUN_HAS_RESULT);
+		result.addComment(count + " of " + run + " Tests run on the record had " + describe(outcome) + ".");
+		return result;
+	}
+
+	private static String describe(ResponseOutcome outcome) {
+		switch (outcome) {
+		case COMPLIANT:
+			return "Response.result=COMPLIANT";
+		case NOT_COMPLIANT:
+			return "Response.result=NOT_COMPLIANT";
+		case PREREQUISITES_NOT_MET:
+			return "Response.status=INTERNAL_PREREQUISITES_NOT_MET or EXTERNAL_PREREQUISITES_NOT_MET";
+		default:
+			return "Response.status=AMENDED or FILLED_IN";
+		}
+	}
+
+	/**
+	 * A count of the distinct VALIDATION Tests run on a record that have Response.result=COMPLIANT.
+	 *
+	 * Provides: #135 MEASURE_VALIDATIONTESTS_COMPLIANT
+	 * Version: 2026-11-12
+	 *
+	 * If no VALIDATION Tests were run on the record, the result is 0. The implementation framework
+	 * presents the responses (see the note above {@link ResponseOutcome}).
+	 *
+	 * @param validationResponses the responses of the VALIDATION Tests run on the record in one
+	 *   run under one Use Case, one per distinct Test (bdqval:AllValidationTestsRunOnSingleRecord)
+	 * @return DQResponse the response of type NumericalValue to return
+	 */
+	@Measure(label="MEASURE_VALIDATIONTESTS_COMPLIANT", description="A count of the distinct VALIDATION Tests run on a record that have Response.result=COMPLIANT.", dimension=Dimension.RELIABILITY)
+	@Provides("45fb49eb-4a1b-4b49-876f-15d5034dfc73")
+	@ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/45fb49eb-4a1b-4b49-876f-15d5034dfc73-2026-11-12")
+	@Specification("RUN_HAS_RESULT with the result being the number of distinct VALIDATION Tests run on the record that have Response.result=COMPLIANT.")
+	public static DQResponse<NumericalValue> measureValidationtestsCompliant(
+			@ActedUpon("bdqval:AllValidationTestsRunOnSingleRecord") Collection<? extends DQResponse<?>> validationResponses) {
+		return countResponses(validationResponses, ResponseOutcome.COMPLIANT);
+	}
+
+	/**
+	 * A count of the distinct VALIDATION Tests run on a record that have Response.result=NOT_COMPLIANT.
+	 *
+	 * Provides: #31 MEASURE_VALIDATIONTESTS_NOTCOMPLIANT
+	 * Version: 2026-11-12
+	 *
+	 * If no VALIDATION Tests were run on the record, the result is 0. The implementation framework
+	 * presents the responses (see the note above {@link ResponseOutcome}).
+	 *
+	 * @param validationResponses the responses of the VALIDATION Tests run on the record in one
+	 *   run under one Use Case, one per distinct Test (bdqval:AllValidationTestsRunOnSingleRecord)
+	 * @return DQResponse the response of type NumericalValue to return
+	 */
+	@Measure(label="MEASURE_VALIDATIONTESTS_NOTCOMPLIANT", description="A count of the distinct VALIDATION Tests run on a record that have Response.result=NOT_COMPLIANT.", dimension=Dimension.RELIABILITY)
+	@Provides("453844ae-9df4-439f-8e24-c52498eca84a")
+	@ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/453844ae-9df4-439f-8e24-c52498eca84a-2026-11-12")
+	@Specification("RUN_HAS_RESULT with the result being the number of distinct VALIDATION Tests run on the record that have Response.result=NOT_COMPLIANT.")
+	public static DQResponse<NumericalValue> measureValidationtestsNotcompliant(
+			@ActedUpon("bdqval:AllValidationTestsRunOnSingleRecord") Collection<? extends DQResponse<?>> validationResponses) {
+		return countResponses(validationResponses, ResponseOutcome.NOT_COMPLIANT);
+	}
+
+	/**
+	 * A count of the distinct VALIDATION Tests run on a record that have
+	 * Response.status=INTERNAL_PREREQUISITES_NOT_MET or EXTERNAL_PREREQUISITES_NOT_MET.
+	 *
+	 * Provides: #134 MEASURE_VALIDATIONTESTS_PREREQUISITESNOTMET
+	 * Version: 2026-11-12
+	 *
+	 * If no VALIDATION Tests were run on the record, the result is 0. The implementation framework
+	 * presents the responses (see the note above {@link ResponseOutcome}).
+	 *
+	 * @param validationResponses the responses of the VALIDATION Tests run on the record in one
+	 *   run under one Use Case, one per distinct Test (bdqval:AllValidationTestsRunOnSingleRecord)
+	 * @return DQResponse the response of type NumericalValue to return
+	 */
+	@Measure(label="MEASURE_VALIDATIONTESTS_PREREQUISITESNOTMET", description="A count of the distinct VALIDATION Tests run on a record that have Response.status=INTERNAL_PREREQUISITES_NOT_MET or EXTERNAL_PREREQUISITES_NOT_MET.", dimension=Dimension.COMPLETENESS)
+	@Provides("49a94636-a562-4e6b-803c-665c80628a3d")
+	@ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/49a94636-a562-4e6b-803c-665c80628a3d-2026-11-12")
+	@Specification("RUN_HAS_RESULT with the result being the number of distinct VALIDATION Tests run on the record that have Response.status=INTERNAL_PREREQUISITES_NOT_MET or Response.status=EXTERNAL_PREREQUISITES_NOT_MET.")
+	public static DQResponse<NumericalValue> measureValidationtestsPrerequisitesnotmet(
+			@ActedUpon("bdqval:AllValidationTestsRunOnSingleRecord") Collection<? extends DQResponse<?>> validationResponses) {
+		return countResponses(validationResponses, ResponseOutcome.PREREQUISITES_NOT_MET);
+	}
+
+	/**
+	 * A count of the distinct AMENDMENT Tests run on a record that have Response.status=AMENDED or
+	 * FILLED_IN.
+	 *
+	 * Provides: #65 MEASURE_AMENDMENTS_PROPOSED
+	 * Version: 2026-11-12
+	 *
+	 * If no AMENDMENT Tests were run on the record, the result is 0. The implementation framework
+	 * presents the responses (see the note above {@link ResponseOutcome}).
+	 *
+	 * @param amendmentResponses the responses of the AMENDMENT Tests run on the record in one run
+	 *   under one Use Case, one per distinct Test (bdqval:AllAmendmentTestsRunOnSingleRecord)
+	 * @return DQResponse the response of type NumericalValue to return
+	 */
+	@Measure(label="MEASURE_AMENDMENTS_PROPOSED", description="A count of the distinct AMENDMENT Tests run on a record that have Response.status=AMENDED or FILLED_IN.", dimension=Dimension.RELIABILITY)
+	@Provides("03049fe5-a575-404f-b564-ae63f5a1cf8b")
+	@ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/03049fe5-a575-404f-b564-ae63f5a1cf8b-2026-11-12")
+	@Specification("RUN_HAS_RESULT with the result being the number of distinct AMENDMENT Tests run on the record that have Response.status=AMENDED or Response.status=FILLED_IN.")
+	public static DQResponse<NumericalValue> measureAmendmentsProposed(
+			@ActedUpon("bdqval:AllAmendmentTestsRunOnSingleRecord") Collection<? extends DQResponse<?>> amendmentResponses) {
+		return countResponses(amendmentResponses, ResponseOutcome.AMENDMENT_PROPOSED);
+	}
 
 }

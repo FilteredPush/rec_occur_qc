@@ -33,6 +33,7 @@ import org.datakurator.ffdq.api.DQResponse;
 import org.datakurator.ffdq.api.result.AmendmentValue;
 import org.datakurator.ffdq.api.result.ComplianceValue;
 import org.datakurator.ffdq.api.result.IssueValue;
+import org.datakurator.ffdq.api.result.NumericalValue;
 import org.datakurator.ffdq.model.ResultState;
 import org.filteredpush.qc.metadata.DwCMetadataDQ;
 import org.filteredpush.qc.metadata.DwCMetadataDQDefaults;
@@ -1834,6 +1835,77 @@ public class DwCMetadataDQTest {
 				result.getValue().getObject().get("dcterms:license"));
 		assertNotNull(result.getComment());
 
+	}
+
+	private static DQResponse<ComplianceValue> validationResponse(ResultState state, ComplianceValue value) {
+		DQResponse<ComplianceValue> response = new DQResponse<ComplianceValue>();
+		response.setResultState(state);
+		response.setValue(value);
+		return response;
+	}
+
+	private static DQResponse<AmendmentValue> amendmentResponse(ResultState state) {
+		DQResponse<AmendmentValue> response = new DQResponse<AmendmentValue>();
+		response.setResultState(state);
+		response.setValue(new AmendmentValue(new java.util.HashMap<String,String>()));
+		return response;
+	}
+
+	private static List<DQResponse<ComplianceValue>> validationResponses() {
+		List<DQResponse<ComplianceValue>> responses = new ArrayList<DQResponse<ComplianceValue>>();
+		responses.add(validationResponse(ResultState.RUN_HAS_RESULT, ComplianceValue.COMPLIANT));
+		responses.add(validationResponse(ResultState.RUN_HAS_RESULT, ComplianceValue.COMPLIANT));
+		responses.add(validationResponse(ResultState.RUN_HAS_RESULT, ComplianceValue.NOT_COMPLIANT));
+		responses.add(validationResponse(ResultState.INTERNAL_PREREQUISITES_NOT_MET, null));
+		responses.add(validationResponse(ResultState.EXTERNAL_PREREQUISITES_NOT_MET, null));
+		responses.add(validationResponse(ResultState.NOT_RUN, null));
+		responses.add(null);
+		return responses;
+	}
+
+	@Test
+	public void testMeasureValidationtestsCompliant() {
+		DQResponse<NumericalValue> result = DwCMetadataDQ.measureValidationtestsCompliant(validationResponses());
+		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+		assertEquals(2L, result.getValue().getObject().longValue());
+		assertEquals("2 of 5 Tests run on the record had Response.result=COMPLIANT.", result.getComment());
+	}
+
+	@Test
+	public void testMeasureValidationtestsNotcompliant() {
+		DQResponse<NumericalValue> result = DwCMetadataDQ.measureValidationtestsNotcompliant(validationResponses());
+		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+		assertEquals(1L, result.getValue().getObject().longValue());
+	}
+
+	@Test
+	public void testMeasureValidationtestsPrerequisitesnotmet() {
+		DQResponse<NumericalValue> result = DwCMetadataDQ.measureValidationtestsPrerequisitesnotmet(validationResponses());
+		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+		assertEquals(2L, result.getValue().getObject().longValue());
+	}
+
+	@Test
+	public void testMeasureAmendmentsProposed() {
+		List<DQResponse<AmendmentValue>> responses = new ArrayList<DQResponse<AmendmentValue>>();
+		responses.add(amendmentResponse(ResultState.AMENDED));
+		responses.add(amendmentResponse(ResultState.FILLED_IN));
+		responses.add(amendmentResponse(ResultState.NOT_AMENDED));
+		responses.add(amendmentResponse(ResultState.INTERNAL_PREREQUISITES_NOT_MET));
+		DQResponse<NumericalValue> result = DwCMetadataDQ.measureAmendmentsProposed(responses);
+		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+		assertEquals(2L, result.getValue().getObject().longValue());
+		assertEquals("2 of 4 Tests run on the record had Response.status=AMENDED or FILLED_IN.", result.getComment());
+	}
+
+	@Test
+	public void testCountingMeasuresWithNoTestsRun() {
+		// If no Tests of the counted type were run on the record, the result is 0.
+		assertEquals(0L, DwCMetadataDQ.measureValidationtestsCompliant(new ArrayList<DQResponse<ComplianceValue>>()).getValue().getObject().longValue());
+		assertEquals(0L, DwCMetadataDQ.measureValidationtestsNotcompliant(null).getValue().getObject().longValue());
+		DQResponse<NumericalValue> result = DwCMetadataDQ.measureAmendmentsProposed(null);
+		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+		assertEquals(0L, result.getValue().getObject().longValue());
 	}
 
 }

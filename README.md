@@ -50,6 +50,15 @@ As of 2024-07-28, the current set of Other test specifications in the core (alon
 
 As of version 1.0.1, all of the annotations are up to date with the 2025-03-03 BDQ Standard specifications.
 
+DwCMetadataDQ also implements the four SingleRecord Measures whose ActedUpon information element is the set of responses of the other Tests run on the same record: MEASURE_VALIDATIONTESTS_COMPLIANT, MEASURE_VALIDATIONTESTS_NOTCOMPLIANT, and MEASURE_VALIDATIONTESTS_PREREQUISITESNOTMET (bdqval:AllValidationTestsRunOnSingleRecord), and MEASURE_AMENDMENTS_PROPOSED (bdqval:AllAmendmentTestsRunOnSingleRecord), following their 2026-11-12 specifications.  Each takes a collection of zero or more DQResponse objects and returns RUN_HAS_RESULT with the number of those responses that have the counted outcome, 0 if there are none.  Assembling that collection is the responsibility of the implementation framework that runs the tests: it must present, for each record, the responses of one run under one use case, on that single record, one for each distinct Test of the counted type (VALIDATION or AMENDMENT) that was run.
+
+    @Measure(label="MEASURE_VALIDATIONTESTS_COMPLIANT", description="A count of the distinct VALIDATION Tests run on a record that have Response.result=COMPLIANT.", dimension=Dimension.RELIABILITY)
+    @Provides("45fb49eb-4a1b-4b49-876f-15d5034dfc73")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/45fb49eb-4a1b-4b49-876f-15d5034dfc73-2026-11-12")
+    public static DQResponse<NumericalValue> measureValidationtestsCompliant(
+        @ActedUpon("bdqval:AllValidationTestsRunOnSingleRecord") Collection<? extends DQResponse<?>> validationResponses
+    )
+
 These tests are subject to change if there are further changes to the TDWG BDQ TG2 BDQ Standard specifications.   The current test specifications can be found [in a csv file](https://github.com/tdwg/bdq/blob/master/tg2/core/TG2_tests.csv) with rationalle management in [issues in the tdwg/bdq issue tracker](https://github.com/tdwg/bdq/labels/TIME).  The TDWG BDQ TG2 is preparing a draft standard for biodiversity data quality including these tests.  As of 2025-03-03, specifications for the the tests implemented here are expected to be stable.  
 
 These test implementations can be validated against the TDWG BDQ TG2 [test validation data] (https://github.com/tdwg/bdq/blob/master/tg2/core/TG2_test_validation_data.csv) using [bdqtestrunner](https://github.com/FilteredPush/bdqtestrunner).  As of 2025-03-03, all relevant tests pass against the test validation data, details below.
