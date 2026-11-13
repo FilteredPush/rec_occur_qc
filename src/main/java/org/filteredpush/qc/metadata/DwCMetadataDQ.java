@@ -148,7 +148,7 @@ public class DwCMetadataDQ {
      */
     @Issue(label="ISSUE_DATAGENERALIZATIONS_NOTEMPTY", description="Is there a value in dwc:dataGeneralizations?")
     @Provides("13d5a10e-188e-40fd-a22c-dbaa87b91df2")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/13d5a10e-188e-40fd-a22c-dbaa87b91df2/2023-09-18")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/13d5a10e-188e-40fd-a22c-dbaa87b91df2-2023-09-18")
     @Specification("POTENTIAL_ISSUE if dwc:dataGeneralizations is not EMPTY; otherwise NOT_ISSUE ")
     public static DQResponse<IssueValue> issueDatageneralizationsNotempty(@ActedUpon("dwc:dataGeneralizations") String dataGeneralizations) {
         DQResponse<IssueValue> result = new DQResponse<IssueValue>();
@@ -183,7 +183,7 @@ public class DwCMetadataDQ {
      */
     @Validation(label="VALIDATION_OCCURRENCEID_NOTEMPTY", description="Is there a value in dwc:occurrenceID?")
     @Provides("c486546c-e6e5-48a7-b286-eba7f5ca56c4")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/c486546c-e6e5-48a7-b286-eba7f5ca56c4/2023-09-17")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/c486546c-e6e5-48a7-b286-eba7f5ca56c4-2023-09-17")
     @Specification("COMPLIANT if dwc:occurrenceID is bdq:NotEmpty; otherwise NOT_COMPLIANT. ")
     public static DQResponse<ComplianceValue> validationOccurrenceidNotempty(@ActedUpon("dwc:occurrenceID") String occurrenceID) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
@@ -217,7 +217,7 @@ public class DwCMetadataDQ {
      */
     @Validation(label="VALIDATION_BASISOFRECORD_NOTEMPTY", description="Is there a value in dwc:basisOfRecord?")
     @Provides("ac2b7648-d5f9-48ca-9b07-8ad5879a2536")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/ac2b7648-d5f9-48ca-9b07-8ad5879a2536/2023-09-17")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/ac2b7648-d5f9-48ca-9b07-8ad5879a2536-2023-09-17")
     @Specification("COMPLIANT if dwc:basisOfRecord is bdq:NotEmpty; otherwise NOT_COMPLIANT. ")
     public static DQResponse<ComplianceValue> validationBasisofrecordNotempty(@ActedUpon("dwc:basisOfRecord") String basisOfRecord) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
@@ -251,7 +251,7 @@ public class DwCMetadataDQ {
      */
     @Issue(label="ISSUE_ESTABLISHMENTMEANS_NOTEMPTY", description="Is there a value in dwc:establishmentMeans?")
     @Provides("acc8dff2-d8d1-483a-946d-65a02a452700")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/acc8dff2-d8d1-483a-946d-65a02a452700/2023-09-18")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/acc8dff2-d8d1-483a-946d-65a02a452700-2023-09-18")
     @Specification("POTENTIAL_ISSUE if dwc:establishmentMeans is bdq:NotEmpty; otherwise NOT_ISSUE. ")
     public static DQResponse<IssueValue> issueEstablishmentmeansNotempty(@ActedUpon("dwc:establishmentMeans") String establishmentMeans) {
         DQResponse<IssueValue> result = new DQResponse<IssueValue>();
@@ -284,7 +284,7 @@ public class DwCMetadataDQ {
      */
     @Validation(label="VALIDATION_LICENSE_NOTEMPTY", description="Is there a value in dcterms:license?")
     @Provides("15f78619-811a-4c6f-997a-a4c7888ad849")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/15f78619-811a-4c6f-997a-a4c7888ad849/2023-09-18")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/15f78619-811a-4c6f-997a-a4c7888ad849-2023-09-18")
     @Specification("COMPLIANT if dcterms:license is bdq:NotEmpty; otherwise NOT_COMPLIANT. ")
     public static DQResponse<ComplianceValue> validationLicenseNotempty(@ActedUpon("dcterms:license") String license) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
@@ -318,7 +318,7 @@ public class DwCMetadataDQ {
      */
     @Validation(label="VALIDATION_DCTYPE_NOTEMPTY", description="Is there a value in dc:type?")
     @Provides("374b091a-fc90-4791-91e5-c1557c649169")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/374b091a-fc90-4791-91e5-c1557c649169/2023-09-18")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/374b091a-fc90-4791-91e5-c1557c649169-2023-09-18")
     @Specification("COMPLIANT if dc:type is bdq:NotEmpty; otherwise NOT_COMPLIANT. ")
     public static DQResponse<ComplianceValue> validationDctypeNotempty(@ActedUpon("dc:type") String type) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
@@ -352,7 +352,7 @@ public class DwCMetadataDQ {
      */
     @Validation(label="VALIDATION_BASISOFRECORD_STANDARD", description="Does the value of dwc:basisOfRecord occur in the bdq:sourceAuthority?")
     @Provides("42408a00-bf71-4892-a399-4325e2bc1fb8")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/42408a00-bf71-4892-a399-4325e2bc1fb8/2024-08-18")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/42408a00-bf71-4892-a399-4325e2bc1fb8-2024-08-18")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is bdq:Empty; COMPLIANT if the value of dwc:basisOfRecord is valid in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core basisOfRecord' {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]}{dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}")
     public static DQResponse<ComplianceValue> validationBasisofrecordStandard(
     		@ActedUpon("dwc:basisOfRecord") String basisOfRecord,
@@ -428,7 +428,7 @@ public class DwCMetadataDQ {
      */
     @Validation(label="VALIDATION_OCCURRENCESTATUS_STANDARD", description="Does the value of dwc:occurrenceStatus occur in the bdq:sourceAuthority?")
     @Provides("7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47/2025-02-18")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47-2025-02-18")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus is bdq:Empty; COMPLIANT if the value of dwc:occurrenceStatus is resolved in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.  bdq:sourceAuthority default = 'Regex present/absent'")
     public static DQResponse<ComplianceValue> validationOccurrencestatusStandard(
     		@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus,
@@ -499,7 +499,7 @@ public class DwCMetadataDQ {
      */
     @Validation(label="VALIDATION_OCCURRENCESTATUS_NOTEMPTY", description="Is there a value in dwc:occurrenceStatus?")
     @Provides("eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf/2023-09-18")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/eb4a17f6-6bea-4cdd-93dd-d5a7e9d1eccf-2023-09-18")
     @Specification("COMPLIANT if dwc:occurrenceStatus is bdq:NotEmpty; otherwise NOT_COMPLIANT. ")
     public static DQResponse<ComplianceValue> validationOccurrencestatusNotempty(@ActedUpon("dwc:occurrenceStatus") String occurrenceStatus) {
         DQResponse<ComplianceValue> result = new DQResponse<ComplianceValue>();
@@ -645,7 +645,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_LICENSE_STANDARD", description="Does the value of dcterms:license occur in bdq:sourceAuthority?")
     @Provides("3136236e-04b6-49ea-8b34-a65f25e3aba1")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/3136236e-04b6-49ea-8b34-a65f25e3aba1/2024-03-21")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/3136236e-04b6-49ea-8b34-a65f25e3aba1-2024-03-21")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dcterms:license is bdq:Empty; COMPLIANT if the value of the term dcterms:license is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Creative Commons 4.0 Licenses or CC0' {[https://creativecommons.org/]} { Regular Expression ^(http(s){0,1}://creativecommons.org/licenses/(by|by-sa|by-nc|by-nc-sa|by-nd|by-nc-nd)/4.0/((deed|legalcode)(.(id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|mi|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)){0,1})|(http(s){0,1}://creativecommons.org/publicdomain/zero/1.0/((deed|legalcode)(.(id|eu|da|de|en|es|fr|fy|hr|it|lv|lt|ni|no|pl|pt|ro|si|fi|sv|tr|cs|el|ru|uk|ar|jp|zh-hans|zh-hant|ko)){0,1})))$ }")
     public static DQResponse<ComplianceValue> validationLicenseStandard(
         @ActedUpon("dcterms:license") String license,
@@ -734,7 +734,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_DCTYPE_STANDARDIZED", description="Proposes an amendment to the value of dc:type using the DCMI type vocabulary.")
     @Provides("bd385eeb-44a2-464b-a503-7abe407ef904")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/bd385eeb-44a2-464b-a503-7abe407ef904/2024-08-16")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/bd385eeb-44a2-464b-a503-7abe407ef904-2024-08-16")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if the value of dc:type is bdq:Empty; AMENDED the value of dc:type if it can be unambiguously interpreted as a term name in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority is 'DCMI Type Vocabulary' {[http://purl.org/dc/terms/DCMIType]} {'DCMI Type Vocabulary List Of Terms' [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/2010-10-11/]}")
     public static DQResponse<AmendmentValue> amendmentDctypeStandardized(
         @ActedUpon("dc:type") String type
@@ -844,7 +844,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_BASISOFRECORD_STANDARDIZED", description="Proposes an amendment to the value of dwc:basisOfRecord using the bdq:sourceAuthority.")
     @Provides("07c28ace-561a-476e-a9b9-3d5ad6e35933")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/07c28ace-561a-476e-a9b9-3d5ad6e35933/2024-07-24")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/07c28ace-561a-476e-a9b9-3d5ad6e35933-2024-07-24")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord is bdq:Empty; AMENDED the value of dwc:basisOfRecord if it could be unambiguously interpreted as a value in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Darwin Core basisOfRecord' {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]} {dwc:basisOfRecord vocabulary [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}")
     public static DQResponse<AmendmentValue> amendmentBasisofrecordStandardized(
         @ActedUpon("dwc:basisOfRecord") String basisOfRecord,
@@ -1031,7 +1031,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT", description="Proposes an amendment of the value of dwc:occurrenceStatus to the default parameter value if dwc:occurrenceStatus, dwc:individualCount and dwc:organismQuantity are empty.")
     @Provides("96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5/2024-11-13")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5-2024-11-13")
     @Specification("INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus is bdq:NotEmpty; FILLED_IN the value of dwc:occurrenceStatus using the bdq:defaultOccurrenceStatus Parameter value if dwc:occurrenceStatus,  dwc:individualCount and dwc:organismQuantity are bdq:Empty; otherwise NOT_AMENDED. bdq:defaultOccurrenceStatus default = 'present'")
     public static DQResponse<AmendmentValue> amendmentOccurrencestatusAssumeddefault(
         @ActedUpon("dwc:occurrenceStatus") String occurrenceStatus, 
@@ -1080,7 +1080,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_DCTYPE_STANDARD", description="Does the value in dc:type occur as a value in the DCMI type vocabulary?")
     @Provides("cdaabb0d-a863-49d0-bc0f-738d771acba5")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/cdaabb0d-a863-49d0-bc0f-738d771acba5/2023-09-18")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/cdaabb0d-a863-49d0-bc0f-738d771acba5-2023-09-18")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if the value of dc:type is EMPTY; COMPLIANT if the value of dc:type is found in  bdq:sourceAuthority; otherwise NOT_COMPLIANT bdq:sourceAuthority is 'Dublin Core Metadata Initiative (DCMI)' {[https://www.dublincore.org/]} {DCMI Type Vocabulary' [https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/]}")
     public static DQResponse<ComplianceValue> validationDctypeStandard(
         @ActedUpon("dc:type") String type
@@ -1129,7 +1129,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_OCCURRENCESTATUS_STANDARDIZED", description="Propose amendment to the value of dwc:occurrenceStatus using bdq:sourceAuthority.")
     @Provides("f8f3a093-042c-47a3-971a-a482aaaf3b75")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/f8f3a093-042c-47a3-971a-a482aaaf3b75/2025-03-03")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/f8f3a093-042c-47a3-971a-a482aaaf3b75-2025-03-03")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceStatus is bdq:Empty; AMENDED the value of dwc:occurrenceStatus if it can be unambiguously interpreted as a value in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Regex present/absent' {['^(present|absent)$'] {\"dwc:occurrenceStatus vocabulary API\" [https://api.gbif.org/v1/vocabularies/OccurrenceStatus/concepts]}")
     public static DQResponse<AmendmentValue> amendmentOccurrencestatusStandardized(
         @ActedUpon("dwc:occurrenceStatus") String occurrenceStatus,
@@ -1236,7 +1236,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_LICENSE_STANDARDIZED", description="Propose amendment to the value of dwc:license using bdq:sourceAuthority.")
     @Provides("dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8/2023-09-18")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8-2023-09-18")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; AMENDED value of dcterms:license if it could be unambiguously interpreted as a value in bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Creative Commons' {[https://creativecommons.org/]} {Creative Commons licenses [https://creativecommons.org/about/cclicenses/]}")
     public static DQResponse<AmendmentValue> amendmentLicenseStandardized(
         @ActedUpon("dcterms:license") String license,
@@ -1439,7 +1439,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_ESTABLISHMENTMEANS_STANDARD", description="Does the value of dwc:establishmentMeans occur in bdq:sourceAuthority?")
     @Provides("4eb48fdf-7299-4d63-9d08-246902e2857f")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/4eb48fdf-7299-4d63-9d08-246902e2857f/2024-02-08")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/4eb48fdf-7299-4d63-9d08-246902e2857f-2024-02-08")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:establishmentMeans is EMPTY; COMPLIANT if the value of dwc:establishmentMeans is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core establishmentMeans' {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]}")
     public static DQResponse<ComplianceValue> validationEstablishmentmeansStandard(
         @ActedUpon("dwc:establishmentMeans") String establishmentMeans,
@@ -1512,7 +1512,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED", description="Propose amendment to the value of dwc:establishmentMeans using bdq:sourceAuthority.")
     @Provides("15d15927-7a22-43f8-88d6-298f5eb45c4c")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/15d15927-7a22-43f8-88d6-298f5eb45c4c/2024-02-08")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/15d15927-7a22-43f8-88d6-298f5eb45c4c-2024-02-08")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:establishmentMeans is EMPTY; AMENDED the value of dwc:establishmentMeans if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED bdq:sourceAuthority default = 'Darwin Core establishmentMeans' {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]}")
     public static DQResponse<AmendmentValue> amendmentEstablishmentmeansStandardized(
         @ActedUpon("dwc:establishmentMeans") String establishmentMeans,
@@ -1704,7 +1704,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_DEGREEOFESTABLISHMENT_STANDARD", description="Does the value of dwc:degreeOfEstablishment occur in bdq:sourceAuthority?")
     @Provides("060e7734-607d-4737-8b2c-bfa17788bf1a")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/060e7734-607d-4737-8b2c-bfa17788bf1a/2024-02-09")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/060e7734-607d-4737-8b2c-bfa17788bf1a-2024-02-09")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is EMPTY; COMPLIANT if the value of dwc:degreeOfEstablishment is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.")
     public static DQResponse<ComplianceValue> validationDegreeofestablishmentStandard(
         @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment,
@@ -1769,7 +1769,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED", description="Proposes an amendment to the value of dwc:degreeOfEstablishment using the bdq:sourceAuthority.")
     @Provides("74ef1034-e289-4596-b5b0-cde73796697d")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/74ef1034-e289-4596-b5b0-cde73796697d/2024-04-16")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/74ef1034-e289-4596-b5b0-cde73796697d-2024-04-16")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:degreeOfEstablishment is bdq:Empty; AMENDED the value of dwc:degreeOfEstablishment if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Degree of Establishment Controlled Vocabulary List of Terms' {[https://dwc.tdwg.org/doe/]} {GBIF vocabulary API [https://api.gbif.org/v1/vocabularies/DegreeOfEstablishment/concepts]}")
     public static DQResponse<AmendmentValue> amendmentDegreeofestablishmentStandardized(
         @ActedUpon("dwc:degreeOfEstablishment") String degreeOfEstablishment,
@@ -1885,7 +1885,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_PATHWAY_STANDARD", description="Does the value of dwc:pathway occur in bdq:sourceAuthority?")
     @Provides("5424e933-bee7-4125-839e-d8743ea69f93")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/5424e933-bee7-4125-839e-d8743ea69f93/2024-02-09")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/5424e933-bee7-4125-839e-d8743ea69f93-2024-02-09")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:pathway is EMPTY; COMPLIANT if the value of dwc:pathway is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core pathway' {[https://dwc.tdwg.org/list/#dwc_pathway]} {dwc:pathway vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]}")
     public static DQResponse<ComplianceValue> validationPathwayStandard(
         @ActedUpon("dwc:pathway") String pathway,
@@ -1951,7 +1951,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_PATHWAY_STANDARDIZED", description="Propose an amendment to the value of dwc:pathway using the bdq:sourceAuthority.")
     @Provides("f9205977-f145-44f5-8cb9-e3e2e35ce908")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/f9205977-f145-44f5-8cb9-e3e2e35ce908/2024-09-18")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/f9205977-f145-44f5-8cb9-e3e2e35ce908-2024-09-18")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:pathway is bdq:Empty; AMENDED the value of dwc:pathway if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED. bdq:sourceAuthority default = 'Pathway Controlled Vocabulary List of Terms' {[https://dwc.tdwg.org/pw/]} {GBIF vocabulary API [https://api.gbif.org/v1/vocabularies/Pathway/concepts]}")
     public static DQResponse<AmendmentValue> amendmentPathwayStandardized(
         @ActedUpon("dwc:pathway") String pathway,
@@ -2094,7 +2094,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_SEX_STANDARD", description="Does the value of dwc:sex occur in bdq:sourceAuthority?")
     @Provides("88d8598b-3318-483d-9475-a5acf9887404")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/88d8598b-3318-483d-9475-a5acf9887404/2024-02-09")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/88d8598b-3318-483d-9475-a5acf9887404-2024-02-09")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:sex is EMPTY; COMPLIANT if the value of dwc:sex is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core sex' {[https://dwc.tdwg.org/list/#dwc_sex]} {dwc:sex vocabulary API [NO CURRENT API EXISTS]}")
     public static DQResponse<ComplianceValue> validationSexStandard(
         @ActedUpon("dwc:sex") String sex,
@@ -2158,7 +2158,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_SEX_STANDARDIZED", description="Propose amendment to the value of dwc:sex using bdq:sourceAuthority.")
     @Provides("33c45ae1-e2db-462a-a59e-7169bb01c5d6")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/33c45ae1-e2db-462a-a59e-7169bb01c5d6/2024-03-25")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/33c45ae1-e2db-462a-a59e-7169bb01c5d6-2024-03-25")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:sex is EMPTY; AMENDED the value of dwc:sex if it can be unambiguously matched to a term in bdq:sourceAuthority; otherwise NOT_AMENDED")
     public static DQResponse<AmendmentValue> amendmentSexStandardized(
         @ActedUpon("dwc:sex") String sex,
@@ -2256,7 +2256,7 @@ public class DwCMetadataDQ {
     */
     @Validation(label="VALIDATION_TYPESTATUS_STANDARD", description="Does the value of dwc:typeStatus occur in bdq:sourceAuthority?")
     @Provides("4833a522-12eb-4fe0-b4cf-7f7a337a6048")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/4833a522-12eb-4fe0-b4cf-7f7a337a6048/2024-11-11")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/4833a522-12eb-4fe0-b4cf-7f7a337a6048-2024-11-11")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; COMPLIANT if the value of the first word in each &#124; delimited portion of dwc:typeStatus is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT.. bdq:sourceAuthority default = 'GBIF TypeStatus Vocabulary' {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus/concepts]}")
     public static DQResponse<ComplianceValue> validationTypestatusStandard(
         @ActedUpon("dwc:typeStatus") String typeStatus,
@@ -2348,7 +2348,7 @@ public class DwCMetadataDQ {
     */
     @Amendment(label="AMENDMENT_TYPESTATUS_STANDARDIZED", description="Proposes an amendment to the value of dwc:typeStatus using the bdq:sourceAuthority.")
     @Provides("b3471c65-b53e-453b-8282-abfa27bf1805")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/b3471c65-b53e-453b-8282-abfa27bf1805/2024-11-11")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/b3471c65-b53e-453b-8282-abfa27bf1805-2024-11-11")
     @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:typeStatus is bdq:Empty; AMENDED the value of the first word in each &#124; delimited portion of dwc:typeStatus if it can be unambiguously matched to a term in the bdq:sourceAuthority; otherwise NOT_AMENDED.. bdq:sourceAuthority default = 'GBIF TypeStatus Vocabulary' {[https://api.gbif.org/v1/vocabularies/TypeStatus]} {dwc:typeStatus vocabulary API [https://api.gbif.org/v1/vocabularies/TypeStatus]}")
     public static DQResponse<AmendmentValue> amendmentTypestatusStandardized(
         @ActedUpon("dwc:typeStatus") String typeStatus,
