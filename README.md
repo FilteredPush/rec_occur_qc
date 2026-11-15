@@ -37,13 +37,13 @@ DwCMetadataDQ provides a set of static methods for working with various Darwin C
 
 As of 2024-07-28, the current set of Other test specifications in the core (along with most Supplementary) test suite by the TDWG BDQIG TG2 tests and assertions task group have implementations in DwCMetadataDQ.  Methods for tests that can be parameterized can be invoked from methods in DwCMetadataDQDefaults that do not take a parameter, but use the default value for any parameter as provided for in the test specifications.   Methods implementing CORE and Supplementary tests are annotated with @Provides, @Validation/Amendment/Measure, @ProvidesVersion, and @Specification annotations in the form:   
 
-    @Validation(label="VALIDATION_ESTABLISHMENTMEANS_STANDARD", description="Does the value of dwc:establishmentMeans occur in bdq:sourceAuthority?")
+    @Validation(label="VALIDATION_ESTABLISHMENTMEANS_STANDARD", description="Does the value of dwc:establishmentMeans occur in bdqval:sourceAuthority?")
     @Provides("4eb48fdf-7299-4d63-9d08-246902e2857f")
     @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/4eb48fdf-7299-4d63-9d08-246902e2857f-2024-02-08")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:establishmentMeans is EMPTY; COMPLIANT if the value of dwc:establishmentMeans is in the bdq:sourceAuthority; otherwise NOT_COMPLIANT. bdq:sourceAuthority default = 'Darwin Core establishmentMeans' {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]}")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:establishmentMeans is EMPTY; COMPLIANT if the value of dwc:establishmentMeans is in the bdqval:sourceAuthority; otherwise NOT_COMPLIANT. bdqval:sourceAuthority default = 'Darwin Core establishmentMeans' {[https://dwc.tdwg.org/list/#dwc_establishmentMeans]} {dwc:establishmentMeans vocabulary API [https://api.gbif.org/v1/vocabularies/EstablishmentMeans/concepts]}")
     public static DQResponse<ComplianceValue> validationEstablishmentmeansStandard(
         @ActedUpon("dwc:establishmentMeans") String establishmentMeans,
-        @Parameter(name="bdq:sourceAuthority") String sourceAuthority
+        @Parameter(name="bdqval:sourceAuthority") String sourceAuthority
     ) {
        ...
     } 

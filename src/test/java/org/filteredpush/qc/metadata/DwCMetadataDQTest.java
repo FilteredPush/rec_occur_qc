@@ -424,11 +424,11 @@ public class DwCMetadataDQTest {
 	 */
 	@Test
 	public void testAmendmentBasisofrecordStandardized() {
-		// EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority
+		// EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority
 		// is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord
 		// is EMPTY; AMENDED the value of dwc:basisOfRecord if it could
-		// be unambiguously interpreted as a value in bdq:sourceAuthority;
-		// otherwise NOT_AMENDED bdq:sourceAuthority default = "Darwin
+		// be unambiguously interpreted as a value in bdqval:sourceAuthority;
+		// otherwise NOT_AMENDED bdqval:sourceAuthority default = "Darwin
 		// Core basisOfRecord" {[https://dwc.tdwg.org/terms/#dwc:basisOfRecord]}
 		// {dwc:basisOfRecord vocabulary
 		// [https://rs.gbif.org/vocabulary/dwc/basis_of_record.xml]}
@@ -668,10 +668,10 @@ public class DwCMetadataDQTest {
 	@Test
 	public void testValidationBasisofrecordStandard() {
 
-		// EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority
+		// EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority
 		// is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:basisOfRecord
 		// is EMPTY; COMPLIANT if the value of dwc:basisOfRecord is
-		// valid using the bdq:sourceAuthority; otherwise NOT_COMPLIANT
+		// valid using the bdqval:sourceAuthority; otherwise NOT_COMPLIANT
 
 		String basisOfRecord = "foo";
 		DQResponse<ComplianceValue> result = DwCMetadataDQDefaults.validationBasisofrecordStandard(basisOfRecord);
@@ -706,7 +706,7 @@ public class DwCMetadataDQTest {
 	public void testValidationOccurrencestatusStandard() {
 
 		// Specification
-		// EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority
+		// EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority
 		// is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:occurrenceStatus
 		// is EMPTY; COMPLIANT if the value of dwc:occurrenceStatus
 
@@ -1802,9 +1802,9 @@ public class DwCMetadataDQTest {
 	 */
 	@Test
 	public void testAmendmentLicenseStandardized() {
-		// EXTERNAL_PREREQUISITES_NOT_MET if the bdq:sourceAuthority is not available;
+		// EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority is not available;
 		// AMENDED value of dcterms:license if it could be unambiguously interpreted as
-		// a value in bdq:sourceAuthority; otherwise NOT_AMENDED.
+		// a value in bdqval:sourceAuthority; otherwise NOT_AMENDED.
 
 		String license = "";
 		DQResponse<AmendmentValue> result = DwCMetadataDQ.amendmentLicenseStandardized(license, null);
