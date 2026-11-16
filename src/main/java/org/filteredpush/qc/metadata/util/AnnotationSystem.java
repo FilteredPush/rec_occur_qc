@@ -19,8 +19,7 @@ import org.json.simple.parser.ParseException;
  *
  * The annotation system is identified by an http(s) IRI that returns Web Annotation JSON-LD
  * (https://www.w3.org/TR/annotation-model/, https://www.w3.org/TR/annotation-protocol/): an
- * AnnotationCollection (a Web Annotation Protocol container, or a static collection such as the
- * BDQ Test validation data's fixture), an AnnotationPage, or a single Annotation. The pages of a
+ * AnnotationCollection (a Web Annotation Protocol container, or a static collection), an AnnotationPage, or a single Annotation. The pages of a
  * collection ("first", then each page's "next") are followed, whether embedded or referenced by IRI.
  *
  * @author mole

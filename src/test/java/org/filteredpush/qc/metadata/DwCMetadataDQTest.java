@@ -1944,8 +1944,8 @@ public class DwCMetadataDQTest {
 			result = DwCMetadataDQ.issueAnnotationNotempty("https://example.org/bdq/test/occurrence/10", system, null);
 			assertEquals(IssueValue.NOT_ISSUE, result.getValue());
 			result = DwCMetadataDQ.issueAnnotationNotempty("  ", system, null);
-			assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET, result.getResultState());
-			assertNull(result.getValue());
+			assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+			assertEquals(IssueValue.NOT_ISSUE, result.getValue());
 			// An annotation system that cannot be read.
 			result = DwCMetadataDQ.issueAnnotationNotempty("https://example.org/bdq/test/occurrence/1",
 					"http://127.0.0.1:" + server.getAddress().getPort() + "/missing", null);
@@ -2023,6 +2023,7 @@ public class DwCMetadataDQTest {
 		assertEquals(IssueValue.NOT_ISSUE, result.getValue());
 		// An empty target.
 		result = DwCMetadataDQ.issueAnnotationNotempty("", annosys, null);
-		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET, result.getResultState());
+		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+		assertEquals(IssueValue.NOT_ISSUE, result.getValue());
 	}
 }
