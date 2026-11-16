@@ -29,8 +29,8 @@ bdqtest:fecaa8a3-bbd8-4c5a-a424-13c37c4bb7b1-2024-09-17 a bdqffdq:Issue;
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
   bdqffdq:hasConsultedInformationElement <urn:uuid:b7a02234-c4d0-40fd-a437-af8330cc700f>;
   dcterms:issued "2024-09-17"^^xsd:date;
-  dcterms:references <urn:uuid:32f4b57a-99c1-4e7e-8e17-268c76464729>, <urn:uuid:cb012002-aa72-4439-81f2-c038affb47dc>,
-    <urn:uuid:45af88fc-cca8-47f4-bb33-a2dc1efcfc9d>;
+  dcterms:references <urn:uuid:6b9dbdc8-279d-4e84-89f1-ad602d61abbd>, <urn:uuid:7d084f66-aa3d-4912-b916-9d110ac9d136>,
+    <urn:uuid:1c30445e-b60b-4895-b982-eb21cbc3e808>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/29";
   rdfs:label "ISSUE_ANNOTATION_NOTEMPTY";
   dcterms:isVersionOf bdqtest:fecaa8a3-bbd8-4c5a-a424-13c37c4bb7b1;
@@ -54,13 +54,13 @@ bdqcrit:NotEmpty a bdqffdq:Criterion;
 
 bdqffdq:Consulted rdfs:subClassOf bdqffdq:InformationElement .
 
-<urn:uuid:32f4b57a-99c1-4e7e-8e17-268c76464729> a dcterms:BibliographicResource;
+<urn:uuid:6b9dbdc8-279d-4e84-89f1-ad602d61abbd> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "W3C (2017) Web Annotation Data Model. https://www.w3.org/TR/annotation-model/" .
 
-<urn:uuid:cb012002-aa72-4439-81f2-c038affb47dc> a dcterms:BibliographicResource;
+<urn:uuid:7d084f66-aa3d-4912-b916-9d110ac9d136> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "W3C (2017) Web Annotation Data Model: Annotation. https://www.w3.org/TR/annotation-vocab/#annotation" .
 
-<urn:uuid:45af88fc-cca8-47f4-bb33-a2dc1efcfc9d> a dcterms:BibliographicResource;
+<urn:uuid:1c30445e-b60b-4895-b982-eb21cbc3e808> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Biodiversity Information Standards (TDWG) (n.dat) Annotations Interest Group. https://www.tdwg.org/community/annotations/" .
 
 <urn:uuid:0dacd2f5-591c-47c1-9d05-2de81675b6cc> a bdqffdq:IssueMethod;
@@ -104,7 +104,7 @@ bdqtest:3136236e-04b6-49ea-8b34-a65f25e3aba1-2025-03-07 a bdqffdq:Validation;
   bdqffdq:hasCriterion bdqcrit:Standard;
   bdqffdq:hasActedUponInformationElement <urn:uuid:d3daaab7-b042-4dc7-a92f-77f19988f351>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:17b51ea8-a20f-4471-b199-a43e19221eda>, <urn:uuid:79e49fb6-449b-4ecb-adc0-4da1a3f801a5>;
+  dcterms:references <urn:uuid:05673392-7100-4805-b0b3-899b12283fa8>, <urn:uuid:6af29836-2f22-4268-acc0-7fc1a72b0836>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/38";
   rdfs:label "VALIDATION_LICENSE_STANDARD";
   dcterms:isVersionOf bdqtest:3136236e-04b6-49ea-8b34-a65f25e3aba1;
@@ -125,10 +125,10 @@ bdqcrit:Standard a bdqffdq:Criterion;
 
 bdqffdq:ActedUpon rdfs:subClassOf bdqffdq:InformationElement .
 
-<urn:uuid:17b51ea8-a20f-4471-b199-a43e19221eda> a dcterms:BibliographicResource;
+<urn:uuid:05673392-7100-4805-b0b3-899b12283fa8> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Dublin Core (2020) Dublin Core Metadata Initiative. License Document. https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/LicenseDocument/" .
 
-<urn:uuid:79e49fb6-449b-4ecb-adc0-4da1a3f801a5> a dcterms:BibliographicResource;
+<urn:uuid:6af29836-2f22-4268-acc0-7fc1a72b0836> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Creative Commons (n.dat.) About the Licenses. https://creativecommons.org/licenses/" .
 
 <urn:uuid:180c1a90-94c3-48b5-a9fe-4223d6f2bd60> a bdqffdq:ValidationMethod;
@@ -167,7 +167,7 @@ bdqtest:bd385eeb-44a2-464b-a503-7abe407ef904-2025-03-07 a bdqffdq:Amendment;
   dcterms:description "Proposes an amendment to the value of dc:type using the DCMI type vocabulary.";
   bdqffdq:hasActedUponInformationElement <urn:uuid:2aee4d8d-4064-41ca-b67f-d5f591b41526>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:88222510-3e86-4fcc-8d45-c8d37d5632e4>;
+  dcterms:references <urn:uuid:88e8c31f-19bb-4292-bf35-dfbaefb4a81c>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/41";
   rdfs:label "AMENDMENT_DCTYPE_STANDARDIZED";
   dcterms:isVersionOf bdqtest:bd385eeb-44a2-464b-a503-7abe407ef904;
@@ -183,7 +183,7 @@ bdqenh:Standardized a bdqffdq:Enhancement;
   rdfs:label "Information Element ActedUpon dc:type";
   skos:prefLabel "Information Element ActedUpon dc:type" .
 
-<urn:uuid:88222510-3e86-4fcc-8d45-c8d37d5632e4> a dcterms:BibliographicResource;
+<urn:uuid:88e8c31f-19bb-4292-bf35-dfbaefb4a81c> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Dublin Core (2012) DCMI Type Vocabulary. https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/" .
 
 <urn:uuid:1f38a0bc-4e1f-47a4-bd4a-b6be1c9a456a> a bdqffdq:AmendmentMethod;
@@ -379,7 +379,7 @@ bdqtest:cdaabb0d-a863-49d0-bc0f-738d771acba5-2025-03-07 a bdqffdq:Validation;
   bdqffdq:hasCriterion bdqcrit:Standard;
   bdqffdq:hasActedUponInformationElement <urn:uuid:2aee4d8d-4064-41ca-b67f-d5f591b41526>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:88222510-3e86-4fcc-8d45-c8d37d5632e4>;
+  dcterms:references <urn:uuid:88e8c31f-19bb-4292-bf35-dfbaefb4a81c>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/91";
   rdfs:label "VALIDATION_DCTYPE_STANDARD";
   dcterms:isVersionOf bdqtest:cdaabb0d-a863-49d0-bc0f-738d771acba5;
@@ -447,7 +447,7 @@ bdqtest:15f78619-811a-4c6f-997a-a4c7888ad849-2025-03-07 a bdqffdq:Validation;
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
   bdqffdq:hasActedUponInformationElement <urn:uuid:d3daaab7-b042-4dc7-a92f-77f19988f351>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:17b51ea8-a20f-4471-b199-a43e19221eda>, <urn:uuid:79e49fb6-449b-4ecb-adc0-4da1a3f801a5>;
+  dcterms:references <urn:uuid:05673392-7100-4805-b0b3-899b12283fa8>, <urn:uuid:6af29836-2f22-4268-acc0-7fc1a72b0836>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/99";
   rdfs:label "VALIDATION_LICENSE_NOTEMPTY";
   dcterms:isVersionOf bdqtest:15f78619-811a-4c6f-997a-a4c7888ad849;
@@ -478,7 +478,7 @@ bdqtest:374b091a-fc90-4791-91e5-c1557c649169-2025-03-07 a bdqffdq:Validation;
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
   bdqffdq:hasActedUponInformationElement <urn:uuid:2aee4d8d-4064-41ca-b67f-d5f591b41526>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:88222510-3e86-4fcc-8d45-c8d37d5632e4>;
+  dcterms:references <urn:uuid:88e8c31f-19bb-4292-bf35-dfbaefb4a81c>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/103";
   rdfs:label "VALIDATION_DCTYPE_NOTEMPTY";
   dcterms:isVersionOf bdqtest:374b091a-fc90-4791-91e5-c1557c649169;
@@ -652,7 +652,7 @@ bdqtest:dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8-2025-03-07 a bdqffdq:Amendment;
   dcterms:description "Proposes an amendment to the value of dcterms:license using the bdqval:sourceAuthority.";
   bdqffdq:hasActedUponInformationElement <urn:uuid:d3daaab7-b042-4dc7-a92f-77f19988f351>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:17b51ea8-a20f-4471-b199-a43e19221eda>, <urn:uuid:79e49fb6-449b-4ecb-adc0-4da1a3f801a5>;
+  dcterms:references <urn:uuid:05673392-7100-4805-b0b3-899b12283fa8>, <urn:uuid:6af29836-2f22-4268-acc0-7fc1a72b0836>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/133";
   rdfs:label "AMENDMENT_LICENSE_STANDARDIZED";
   dcterms:isVersionOf bdqtest:dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8;
@@ -690,16 +690,16 @@ bdqtest:4eb48fdf-7299-4d63-9d08-246902e2857f-2025-03-07 a bdqffdq:Validation;
   bdqffdq:hasCriterion bdqcrit:Standard;
   bdqffdq:hasActedUponInformationElement <urn:uuid:09023be7-9359-48a8-873b-3e65d43427ba>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:542ee6b3-82f3-4c3a-8df2-beb99b266061>, <urn:uuid:4f2ad585-3a69-42d2-85d0-9dfb21200c59>;
+  dcterms:references <urn:uuid:26e1b90f-ef73-49ec-8436-2ae3d93a27ee>, <urn:uuid:4f446d8b-4dac-4fa6-b5bb-e79896102388>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/268";
   rdfs:label "VALIDATION_ESTABLISHMENTMEANS_STANDARD";
   dcterms:isVersionOf bdqtest:4eb48fdf-7299-4d63-9d08-246902e2857f;
   skos:prefLabel "Validation dwc:establishmentMeans Standard for SingleRecord" .
 
-<urn:uuid:542ee6b3-82f3-4c3a-8df2-beb99b266061> a dcterms:BibliographicResource;
+<urn:uuid:26e1b90f-ef73-49ec-8436-2ae3d93a27ee> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Darwin Core Maintenance Group (2021) Establishment Means Controlled Vocabulary List of Terms. Biodiversity Information Standards (TDWG). http://rs.tdwg.org/dwc/doc/em/" .
 
-<urn:uuid:4f2ad585-3a69-42d2-85d0-9dfb21200c59> a dcterms:BibliographicResource;
+<urn:uuid:4f446d8b-4dac-4fa6-b5bb-e79896102388> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Groom et al. (2019) Improving Darwin Core for research and management of alien species. Biodiversity Information Science and Standards 3: e38084. https://doi.org/10.3897/biss.3.38084" .
 
 <urn:uuid:f89147ba-03e5-432b-8040-0a2a4921d676> a bdqffdq:ValidationMethod;
@@ -734,7 +734,7 @@ bdqtest:15d15927-7a22-43f8-88d6-298f5eb45c4c-2025-03-07 a bdqffdq:Amendment;
   dcterms:description "Proposes an amendment to the value of dwc:establishmentMeans using the bdqval:sourceAuthority.";
   bdqffdq:hasActedUponInformationElement <urn:uuid:09023be7-9359-48a8-873b-3e65d43427ba>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:542ee6b3-82f3-4c3a-8df2-beb99b266061>, <urn:uuid:4f2ad585-3a69-42d2-85d0-9dfb21200c59>;
+  dcterms:references <urn:uuid:26e1b90f-ef73-49ec-8436-2ae3d93a27ee>, <urn:uuid:4f446d8b-4dac-4fa6-b5bb-e79896102388>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/269";
   rdfs:label "AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED";
   dcterms:isVersionOf bdqtest:15d15927-7a22-43f8-88d6-298f5eb45c4c;
@@ -772,7 +772,7 @@ bdqtest:060e7734-607d-4737-8b2c-bfa17788bf1a-2025-03-07 a bdqffdq:Validation;
   bdqffdq:hasCriterion bdqcrit:Standard;
   bdqffdq:hasActedUponInformationElement <urn:uuid:c5abcb06-a1d0-4ed5-9513-c04c194293e6>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:7ef7aa54-ae6c-4197-a7c1-77d45072be9c>, <urn:uuid:4f2ad585-3a69-42d2-85d0-9dfb21200c59>;
+  dcterms:references <urn:uuid:63935e59-ecf3-4702-a1bd-7173512f2573>, <urn:uuid:4f446d8b-4dac-4fa6-b5bb-e79896102388>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/275";
   rdfs:label "VALIDATION_DEGREEOFESTABLISHMENT_STANDARD";
   dcterms:isVersionOf bdqtest:060e7734-607d-4737-8b2c-bfa17788bf1a;
@@ -783,7 +783,7 @@ bdqtest:060e7734-607d-4737-8b2c-bfa17788bf1a-2025-03-07 a bdqffdq:Validation;
   rdfs:label "Information Element ActedUpon dwc:degreeOfEstablishment";
   skos:prefLabel "Information Element ActedUpon dwc:degreeOfEstablishment" .
 
-<urn:uuid:7ef7aa54-ae6c-4197-a7c1-77d45072be9c> a dcterms:BibliographicResource;
+<urn:uuid:63935e59-ecf3-4702-a1bd-7173512f2573> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Darwin Core Maintenance Group (2021) Degree of Establishment Controlled Vocabulary List of Terms. Biodiversity Information Standards (TDWG). http://dwc.tdwg.org/doe/" .
 
 <urn:uuid:fd15e0a4-f49d-4566-b700-a9b46c284e68> a bdqffdq:ValidationMethod;
@@ -818,7 +818,7 @@ bdqtest:74ef1034-e289-4596-b5b0-cde73796697d-2025-03-07 a bdqffdq:Amendment;
   dcterms:description "Proposes an amendment to the value of dwc:degreeOfEstablishment using the bdqval:sourceAuthority.";
   bdqffdq:hasActedUponInformationElement <urn:uuid:c5abcb06-a1d0-4ed5-9513-c04c194293e6>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:7ef7aa54-ae6c-4197-a7c1-77d45072be9c>, <urn:uuid:4f2ad585-3a69-42d2-85d0-9dfb21200c59>;
+  dcterms:references <urn:uuid:63935e59-ecf3-4702-a1bd-7173512f2573>, <urn:uuid:4f446d8b-4dac-4fa6-b5bb-e79896102388>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/276";
   rdfs:label "AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED";
   dcterms:isVersionOf bdqtest:74ef1034-e289-4596-b5b0-cde73796697d;
@@ -856,7 +856,7 @@ bdqtest:5424e933-bee7-4125-839e-d8743ea69f93-2025-03-07 a bdqffdq:Validation;
   bdqffdq:hasCriterion bdqcrit:Standard;
   bdqffdq:hasActedUponInformationElement <urn:uuid:f3141ff8-76fa-4953-9c6c-9300816358cc>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:a17336c4-3cd1-425b-a210-c642a24874bb>, <urn:uuid:4f2ad585-3a69-42d2-85d0-9dfb21200c59>;
+  dcterms:references <urn:uuid:bfb95b76-eed9-4ba6-bc5f-caef16a5a784>, <urn:uuid:4f446d8b-4dac-4fa6-b5bb-e79896102388>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/277";
   rdfs:label "VALIDATION_PATHWAY_STANDARD";
   dcterms:isVersionOf bdqtest:5424e933-bee7-4125-839e-d8743ea69f93;
@@ -867,7 +867,7 @@ bdqtest:5424e933-bee7-4125-839e-d8743ea69f93-2025-03-07 a bdqffdq:Validation;
   rdfs:label "Information Element ActedUpon dwc:pathway";
   skos:prefLabel "Information Element ActedUpon dwc:pathway" .
 
-<urn:uuid:a17336c4-3cd1-425b-a210-c642a24874bb> a dcterms:BibliographicResource;
+<urn:uuid:bfb95b76-eed9-4ba6-bc5f-caef16a5a784> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Darwin Core Maintenance Group (2021) Pathway Controlled Vocabulary List of Terms. Biodiversity Information Standards (TDWG). https://dwc.tdwg.org/pw/" .
 
 <urn:uuid:ffae8e47-2181-4a83-b1c7-d0a893e79b67> a bdqffdq:ValidationMethod;
@@ -902,7 +902,7 @@ bdqtest:f9205977-f145-44f5-8cb9-e3e2e35ce908-2025-03-07 a bdqffdq:Amendment;
   dcterms:description "Proposes an amendment to the value of dwc:pathway using the bdqval:sourceAuthority.";
   bdqffdq:hasActedUponInformationElement <urn:uuid:f3141ff8-76fa-4953-9c6c-9300816358cc>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:a17336c4-3cd1-425b-a210-c642a24874bb>;
+  dcterms:references <urn:uuid:bfb95b76-eed9-4ba6-bc5f-caef16a5a784>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/278";
   rdfs:label "AMENDMENT_PATHWAY_STANDARDIZED";
   dcterms:isVersionOf bdqtest:f9205977-f145-44f5-8cb9-e3e2e35ce908;
@@ -940,7 +940,7 @@ bdqtest:88d8598b-3318-483d-9475-a5acf9887404-2025-03-07 a bdqffdq:Validation;
   bdqffdq:hasCriterion bdqcrit:Standard;
   bdqffdq:hasActedUponInformationElement <urn:uuid:81029ffa-2df8-4e9e-a7dd-fc67faad9205>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:73e9b6ea-4787-40be-8601-b0e3724ebe75>;
+  dcterms:references <urn:uuid:82099457-315f-4e15-b626-fd09e89741ef>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/283";
   rdfs:label "VALIDATION_SEX_STANDARD";
   dcterms:isVersionOf bdqtest:88d8598b-3318-483d-9475-a5acf9887404;
@@ -951,7 +951,7 @@ bdqtest:88d8598b-3318-483d-9475-a5acf9887404-2025-03-07 a bdqffdq:Validation;
   rdfs:label "Information Element ActedUpon dwc:sex";
   skos:prefLabel "Information Element ActedUpon dwc:sex" .
 
-<urn:uuid:73e9b6ea-4787-40be-8601-b0e3724ebe75> a dcterms:BibliographicResource;
+<urn:uuid:82099457-315f-4e15-b626-fd09e89741ef> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "GBIF (2015) Darwin Core Vocabulary: Sex GBIF Vocabulary. https://rs.gbif.org/vocabulary/gbif/sex.xml" .
 
 <urn:uuid:a0c48217-97a2-41e2-9540-61939f2628c5> a bdqffdq:ValidationMethod;
@@ -986,7 +986,7 @@ bdqtest:33c45ae1-e2db-462a-a59e-7169bb01c5d6-2025-03-07 a bdqffdq:Amendment;
   dcterms:description "Proposes an amendment to the value of dwc:sex using the bdqval:sourceAuthority.";
   bdqffdq:hasActedUponInformationElement <urn:uuid:81029ffa-2df8-4e9e-a7dd-fc67faad9205>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:73e9b6ea-4787-40be-8601-b0e3724ebe75>;
+  dcterms:references <urn:uuid:82099457-315f-4e15-b626-fd09e89741ef>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/284";
   rdfs:label "AMENDMENT_SEX_STANDARDIZED";
   dcterms:isVersionOf bdqtest:33c45ae1-e2db-462a-a59e-7169bb01c5d6;
@@ -1024,7 +1024,7 @@ bdqtest:4833a522-12eb-4fe0-b4cf-7f7a337a6048-2025-03-07 a bdqffdq:Validation;
   bdqffdq:hasCriterion bdqcrit:Standard;
   bdqffdq:hasActedUponInformationElement <urn:uuid:63b75539-9290-4ce4-86e3-938bc924e3cd>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:a7e92f71-2087-4993-9f5e-12a7c2937498>;
+  dcterms:references <urn:uuid:431b806b-9dcf-4f47-b910-622e4a8042d2>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/285";
   rdfs:label "VALIDATION_TYPESTATUS_STANDARD";
   dcterms:isVersionOf bdqtest:4833a522-12eb-4fe0-b4cf-7f7a337a6048;
@@ -1035,7 +1035,7 @@ bdqtest:4833a522-12eb-4fe0-b4cf-7f7a337a6048-2025-03-07 a bdqffdq:Validation;
   rdfs:label "Information Element ActedUpon dwc:typeStatus";
   skos:prefLabel "Information Element ActedUpon dwc:typeStatus" .
 
-<urn:uuid:a7e92f71-2087-4993-9f5e-12a7c2937498> a dcterms:BibliographicResource;
+<urn:uuid:431b806b-9dcf-4f47-b910-622e4a8042d2> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "GBIF (2021) Darwin Core Vocabulary: Nomenclatural Type Status Vocabulary. http://rs.gbif.org/vocabulary/gbif/type_status" .
 
 <urn:uuid:f84d0f30-9c93-43a4-8f75-8c853fc18fb5> a bdqffdq:ValidationMethod;
@@ -1070,7 +1070,7 @@ bdqtest:b3471c65-b53e-453b-8282-abfa27bf1805-2025-03-07 a bdqffdq:Amendment;
   dcterms:description "Proposes an amendment to the value of dwc:typeStatus using the bdqval:sourceAuthority.";
   bdqffdq:hasActedUponInformationElement <urn:uuid:63b75539-9290-4ce4-86e3-938bc924e3cd>;
   dcterms:issued "2025-03-07"^^xsd:date;
-  dcterms:references <urn:uuid:a7e92f71-2087-4993-9f5e-12a7c2937498>;
+  dcterms:references <urn:uuid:431b806b-9dcf-4f47-b910-622e4a8042d2>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/286";
   rdfs:label "AMENDMENT_TYPESTATUS_STANDARDIZED";
   dcterms:isVersionOf bdqtest:b3471c65-b53e-453b-8282-abfa27bf1805;
@@ -1108,7 +1108,7 @@ bdqtest:13d5a10e-188e-40fd-a22c-dbaa87b91df2-2025-03-06 a bdqffdq:Issue;
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
   bdqffdq:hasActedUponInformationElement <urn:uuid:8c10d361-5bf7-4c9d-8464-c813cdf7dda3>;
   dcterms:issued "2025-03-06"^^xsd:date;
-  dcterms:references <urn:uuid:1806286a-46f5-4c4a-8cd9-1963e0df6c98>, <urn:uuid:3d8ab7bd-5c35-472e-bae9-2c5a418c4072>;
+  dcterms:references <urn:uuid:82bb2f4b-1f13-4776-b58e-bf7725fd1d55>, <urn:uuid:be7fbd09-6cf7-40f0-be19-dba8e1db8330>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/72";
   rdfs:label "ISSUE_DATAGENERALIZATIONS_NOTEMPTY";
   dcterms:isVersionOf bdqtest:13d5a10e-188e-40fd-a22c-dbaa87b91df2;
@@ -1122,10 +1122,10 @@ bdqdim:Resolution a bdqffdq:DataQualityDimension;
   rdfs:label "Information Element ActedUpon dwc:dataGeneralizations";
   skos:prefLabel "Information Element ActedUpon dwc:dataGeneralizations" .
 
-<urn:uuid:1806286a-46f5-4c4a-8cd9-1963e0df6c98> a dcterms:BibliographicResource;
+<urn:uuid:82bb2f4b-1f13-4776-b58e-bf7725fd1d55> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Chapman AD (2020) Current Best Practices for Generalizing Sensitive Species Occurrence Data. Copenhagen: GBIF Secretariat. https://doi.org/10.15468/doc-5jp4-5g10" .
 
-<urn:uuid:3d8ab7bd-5c35-472e-bae9-2c5a418c4072> a dcterms:BibliographicResource;
+<urn:uuid:be7fbd09-6cf7-40f0-be19-dba8e1db8330> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Chapman AD and Wieczorek JR (2020) Georeferencing Best Practices. Copenhagen: GBIF Secretariat. https://doi.org/10.15468/doc-gg7h-s853" .
 
 <urn:uuid:5daad04c-fd7c-4972-ac3a-66f149170bf3> a bdqffdq:IssueMethod;
@@ -1146,23 +1146,22 @@ bdqdim:Resolution a bdqffdq:DataQualityDimension;
   rdfs:label "Specification for: ISSUE_DATAGENERALIZATIONS_NOTEMPTY";
   dcterms:description "POTENTIAL_ISSUE if dwc:dataGeneralizations is bdqval:NotEmpty; otherwise NOT_ISSUE" .
 
-bdqtest:43abded0-c3bf-44e7-8c1f-c4207608b1fa-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:43abded0-c3bf-44e7-8c1f-c4207608b1fa> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "This bdqval:Supplementary test is not regarded as CORE because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdqval:COMPLIANT or bdqval:NOT_COMPLIANT results (cf bdqval:Response.result). A Supplementary test may be implemented as CORE when a suitable Use Case exists.";
   bdqffdq:hasDataQualityDimension bdqdim:Conformance;
   dcterms:description "Is dwc:individualCount an Integer ?";
   bdqffdq:hasCriterion bdqcrit:Standard;
-  bdqffdq:hasActedUponInformationElement <urn:uuid:f6e75246-a99c-42a0-8add-39b7836e6254> .
+  bdqffdq:hasActedUponInformationElement <urn:uuid:cd5c9725-7086-4b6f-952d-9a08b35d33ba> .
 
-<urn:uuid:f6e75246-a99c-42a0-8add-39b7836e6254> a bdqffdq:ActedUpon;
+<urn:uuid:cd5c9725-7086-4b6f-952d-9a08b35d33ba> a bdqffdq:ActedUpon;
   bdqffdq:composedOf dwc:individualCount;
   rdfs:label "Information Element ActedUpon dwc:individualCount";
   skos:prefLabel "Information Element ActedUpon dwc:individualCount" .
 
-bdqtest:43abded0-c3bf-44e7-8c1f-c4207608b1fa-2025-03-06 dcterms:issued "2025-03-06"^^xsd:date;
+<urn:uuid:43abded0-c3bf-44e7-8c1f-c4207608b1fa> dcterms:issued "2025-03-06"^^xsd:date;
   skos:historyNote "https://github.com/tdwg/bdq/issues/290";
   rdfs:label "VALIDATION_INDIVIDUALCOUNT_INTEGER";
-  dcterms:isVersionOf bdqtest:43abded0-c3bf-44e7-8c1f-c4207608b1fa;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
 <urn:uuid:fa413c93-e532-4e86-bd1a-be1ff9aed801> a bdqffdq:ValidationMethod;
@@ -1173,7 +1172,7 @@ bdqtest:43abded0-c3bf-44e7-8c1f-c4207608b1fa-2025-03-06 dcterms:issued "2025-03-
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_INDIVIDUALCOUNT_INTEGER with Specification for: VALIDATION_INDIVIDUALCOUNT_INTEGER";
   skos:prefLabel "ValidationMethod: VALIDATION_INDIVIDUALCOUNT_INTEGER with Specification for: VALIDATION_INDIVIDUALCOUNT_INTEGER";
-  bdqffdq:forValidation bdqtest:43abded0-c3bf-44e7-8c1f-c4207608b1fa-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:43abded0-c3bf-44e7-8c1f-c4207608b1fa> .
 
 <urn:uuid:326173d8-80cf-4be5-83f0-04fd67d3bb25> a bdqffdq:Specification;
   skos:example "dwc:individualCount=\"5\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:individualCount is an integer\"",
@@ -1183,7 +1182,7 @@ bdqtest:43abded0-c3bf-44e7-8c1f-c4207608b1fa-2025-03-06 dcterms:issued "2025-03-
   rdfs:label "Specification for: VALIDATION_INDIVIDUALCOUNT_INTEGER";
   dcterms:description "COMPLIANT if the value of dwc:individualCount is interpretable an integer; otherwise NOT_COMPLIANT." .
 
-bdqtest:fffdc42b-b15e-4450-9e6a-f4181a319106-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:fffdc42b-b15e-4450-9e6a-f4181a319106> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "The vast majority of current biodiversity data will be expected to not have a value in dwc:pathway. This test could have value in determining 'quality' for a specific set of Data Quality Needs/Use Cases.";
   bdqffdq:hasDataQualityDimension bdqdim:Completeness;
@@ -1191,16 +1190,15 @@ bdqtest:fffdc42b-b15e-4450-9e6a-f4181a319106-2025-03-06 a bdqffdq:Validation;
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
   bdqffdq:hasActedUponInformationElement <urn:uuid:f3141ff8-76fa-4953-9c6c-9300816358cc>;
   dcterms:issued "2025-03-06"^^xsd:date;
-  dcterms:references <urn:uuid:c63a7c9b-a146-4574-9eeb-896d4ad0e2fb>, <urn:uuid:7ffbe0c3-8d4e-427c-94dd-b4c2c6a64b97>;
+  dcterms:references <urn:uuid:06f4d788-0c21-403f-8cc9-86d7c16f2210>, <urn:uuid:d16e9493-a299-494f-9ba6-3d8051c10218>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/289";
   rdfs:label "VALIDATION_PATHWAY_NOTEMPTY";
-  dcterms:isVersionOf bdqtest:fffdc42b-b15e-4450-9e6a-f4181a319106;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:c63a7c9b-a146-4574-9eeb-896d4ad0e2fb> a dcterms:BibliographicResource;
+<urn:uuid:06f4d788-0c21-403f-8cc9-86d7c16f2210> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Darwin Core Maintenance Group (2021). Pathway Controlled Vocabulary List of Terms. Biodiversity Information Standards (TDWG). (https://dwc.tdwg.org/pw/)" .
 
-<urn:uuid:7ffbe0c3-8d4e-427c-94dd-b4c2c6a64b97> a dcterms:BibliographicResource;
+<urn:uuid:d16e9493-a299-494f-9ba6-3d8051c10218> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Groom et al. (2019). Improving Darwin Core for research and management of alien species. Biodiversity Information Science and Services 3: e38084 (https://doi.org/10.3897/biss.3.38084)" .
 
 <urn:uuid:365a27b2-cf14-4783-aa22-6fb35fc867ce> a bdqffdq:ValidationMethod;
@@ -1211,7 +1209,7 @@ bdqtest:fffdc42b-b15e-4450-9e6a-f4181a319106-2025-03-06 a bdqffdq:Validation;
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_PATHWAY_NOTEMPTY with Specification for: VALIDATION_PATHWAY_NOTEMPTY";
   skos:prefLabel "ValidationMethod: VALIDATION_PATHWAY_NOTEMPTY with Specification for: VALIDATION_PATHWAY_NOTEMPTY";
-  bdqffdq:forValidation bdqtest:fffdc42b-b15e-4450-9e6a-f4181a319106-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:fffdc42b-b15e-4450-9e6a-f4181a319106> .
 
 <urn:uuid:21876377-574e-45fb-9bf3-c4d2ccdd995f> a bdqffdq:Specification;
   skos:example "dwc:pathway=\"transportStowaway\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:pathway is bdqval:NotEmpty\"",
@@ -1221,7 +1219,7 @@ bdqtest:fffdc42b-b15e-4450-9e6a-f4181a319106-2025-03-06 a bdqffdq:Validation;
   rdfs:label "Specification for: VALIDATION_PATHWAY_NOTEMPTY";
   dcterms:description "COMPLIANT if dwc:pathway is bdqval:NotEmpty; otherwise NOT_COMPLIANT" .
 
-bdqtest:0fa16c7e-eb9c-4add-9193-aca6087d6636-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:0fa16c7e-eb9c-4add-9193-aca6087d6636> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "The vast majority of current biodiversity data will be expected to not have a value in dwc:degreeofestablishment. This test could have value in determining 'quality' for a specific set of Data Quality Needs/Use Cases.";
   bdqffdq:hasDataQualityDimension bdqdim:Completeness;
@@ -1229,16 +1227,15 @@ bdqtest:0fa16c7e-eb9c-4add-9193-aca6087d6636-2025-03-06 a bdqffdq:Validation;
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
   bdqffdq:hasActedUponInformationElement <urn:uuid:c5abcb06-a1d0-4ed5-9513-c04c194293e6>;
   dcterms:issued "2025-03-06"^^xsd:date;
-  dcterms:references <urn:uuid:8e6dbb9b-192f-4fb3-8c5a-f68f25ded4ca>, <urn:uuid:071b38b3-f050-4b6e-a7b0-1d5cb351647c>;
+  dcterms:references <urn:uuid:7107c3f1-605b-41b2-af8b-761e8218af06>, <urn:uuid:6928f353-eb73-42a8-b612-5f60855793da>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/288";
   rdfs:label "VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY";
-  dcterms:isVersionOf bdqtest:0fa16c7e-eb9c-4add-9193-aca6087d6636;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:8e6dbb9b-192f-4fb3-8c5a-f68f25ded4ca> a dcterms:BibliographicResource;
+<urn:uuid:7107c3f1-605b-41b2-af8b-761e8218af06> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Darwin Core Maintenance Group (2021). Degree Of Establishment Controlled Vocabulary List of Terms. Biodiversity Information Standards (TDWG). (https://dwc.tdwg.org/doe/)" .
 
-<urn:uuid:071b38b3-f050-4b6e-a7b0-1d5cb351647c> a dcterms:BibliographicResource;
+<urn:uuid:6928f353-eb73-42a8-b612-5f60855793da> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Groom et al. (2019). Improving Darwin Core for research and management of alien species (https://doi.org/10.3897/biss.3.38084)" .
 
 <urn:uuid:435b1261-0334-4edc-bc0c-ef61d1e9ec36> a bdqffdq:ValidationMethod;
@@ -1249,7 +1246,7 @@ bdqtest:0fa16c7e-eb9c-4add-9193-aca6087d6636-2025-03-06 a bdqffdq:Validation;
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY with Specification for: VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY";
   skos:prefLabel "ValidationMethod: VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY with Specification for: VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY";
-  bdqffdq:forValidation bdqtest:0fa16c7e-eb9c-4add-9193-aca6087d6636-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:0fa16c7e-eb9c-4add-9193-aca6087d6636> .
 
 <urn:uuid:4ef5762f-fea7-497d-a637-e4b744bebeaf> a bdqffdq:Specification;
   skos:example "dwc:degreeOfEstablishment=\"native\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:degreeOfEstablishment is bdqval:NotEmpty\"",
@@ -1259,31 +1256,30 @@ bdqtest:0fa16c7e-eb9c-4add-9193-aca6087d6636-2025-03-06 a bdqffdq:Validation;
   rdfs:label "Specification for: VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY";
   dcterms:description "COMPLIANT if dwc:degreeOfEstablishment is bdqval:NotEmpty; otherwise NOT_COMPLIANT" .
 
-bdqtest:10ef7660-3e08-4b74-95d3-66131275cf31-2024-09-05 a bdqffdq:Amendment;
+<urn:uuid:10ef7660-3e08-4b74-95d3-66131275cf31> a bdqffdq:Amendment;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   bdqffdq:hasEnhancement bdqenh:Standardized;
   skos:note "Currently, it appears that no full Vocabulary exists for dwc:reproductiveCondition making this test difficult to implement. This bdqval:Supplementary test is not regarded as CORE because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdqval:COMPLIANT or bdqval:NOT_COMPLIANT results (cf bdqval:Response.result). A Supplementary test may be implemented as CORE when a suitable Use Case exists.";
   bdqffdq:hasDataQualityDimension bdqdim:Conformance;
   dcterms:description "Propose amendment to the value of dwc:preparations using bdqval:sourceAuthority.";
-  bdqffdq:hasActedUponInformationElement <urn:uuid:955c74f8-c960-4f03-945c-89c3bbb47949>;
+  bdqffdq:hasActedUponInformationElement <urn:uuid:c6d48231-15f6-4b06-938a-0157e3af60ad>;
   dcterms:issued "2024-09-05"^^xsd:date;
-  dcterms:references <urn:uuid:f16b0bd5-9ffe-404c-81d7-0f7d91d22f60>;
+  dcterms:references <urn:uuid:829cdc72-7c07-4ecc-a43a-eaa82ee4906c>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/282";
   rdfs:label "AMENDMENT_REPRODUCTIVECONDITION_STANDARDIZED";
-  dcterms:isVersionOf bdqtest:10ef7660-3e08-4b74-95d3-66131275cf31;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:955c74f8-c960-4f03-945c-89c3bbb47949> a bdqffdq:ActedUpon;
+<urn:uuid:c6d48231-15f6-4b06-938a-0157e3af60ad> a bdqffdq:ActedUpon;
   bdqffdq:composedOf dwc:reproductiveCondition;
   rdfs:label "Information Element ActedUpon dwc:reproductiveCondition";
   skos:prefLabel "Information Element ActedUpon dwc:reproductiveCondition" .
 
-<urn:uuid:f16b0bd5-9ffe-404c-81d7-0f7d91d22f60> a dcterms:BibliographicResource;
+<urn:uuid:829cdc72-7c07-4ecc-a43a-eaa82ee4906c> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Darwin Core Maintenance Group (2021). Reproductive Condition Vocabulary List of Terms. Biodiversity Information Standards (TDWG). (https://dwc.tdwg.org/list/#dwc_reproductiveCondition)" .
 
 <urn:uuid:9116d7d1-5a12-4d72-aa79-82d377b4a6f6> a bdqffdq:AmendmentMethod;
   skos:note "TG2 Amendment OTHER Test VOCABULARY Supplementary Conformance Parameterized";
-  bdqffdq:forAmendment bdqtest:10ef7660-3e08-4b74-95d3-66131275cf31-2024-09-05;
+  bdqffdq:forAmendment <urn:uuid:10ef7660-3e08-4b74-95d3-66131275cf31>;
   bdqffdq:hasSpecification <urn:uuid:42c9c755-2f1a-4d56-b6f8-889c148049d6>;
   skos:historyNote "Source: TG2";
   rdfs:label "AmendmentMethod: AMENDMENT_REPRODUCTIVECONDITION_STANDARDIZED with Specification Specification for: AMENDMENT_REPRODUCTIVECONDITION_STANDARDIZED";
@@ -1296,38 +1292,37 @@ bdqtest:10ef7660-3e08-4b74-95d3-66131275cf31-2024-09-05 a bdqffdq:Amendment;
   bdqffdq:hasExpectedResponse "EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:reproductiveCondition is bdqval:Empty; AMENDED the value of dwc:reproductiveCondition if it can be unambiguously matched to a term in the bdqval:sourceAuthority; otherwise NOT_AMENDED";
   rdfs:label "Specification for: AMENDMENT_REPRODUCTIVECONDITION_STANDARDIZED";
   dcterms:description "EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:reproductiveCondition is bdqval:Empty; AMENDED the value of dwc:reproductiveCondition if it can be unambiguously matched to a term in the bdqval:sourceAuthority; otherwise NOT_AMENDED bdqval:sourceAuthority default = \"Darwin Core reproductionCondition\" {[https://dwc.tdwg.org/list/#dwc_reproductiveCondition]} {dwc:reproductiveCondition vocabulary API [NO CURRENT API EXISTS]}";
-  bdqffdq:hasArgument <urn:uuid:fd632a55-f42d-4b8f-9947-8c2746886be8> .
+  bdqffdq:hasArgument <urn:uuid:f0717b2a-e312-41f5-b8ee-3a4b30e2e286> .
 
-<urn:uuid:fd632a55-f42d-4b8f-9947-8c2746886be8> a bdqffdq:Argument;
+<urn:uuid:f0717b2a-e312-41f5-b8ee-3a4b30e2e286> a bdqffdq:Argument;
   bdqffdq:hasArgumentValue "Darwin Core reproductionCondition";
   rdfs:label "Default value for bdqval:sourceAuthority:\"Darwin Core reproductionCondition\"";
   bdqffdq:hasParameter bdqval:sourceAuthority .
 
-bdqtest:8d0cbfee-4524-4da3-83d4-bebc4c4f7cd2-2024-09-05 a bdqffdq:Amendment;
+<urn:uuid:8d0cbfee-4524-4da3-83d4-bebc4c4f7cd2> a bdqffdq:Amendment;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   bdqffdq:hasEnhancement bdqenh:Standardized;
   skos:note "Currently, it appears that no full Vocabulary exists for dwc:preparations making this test difficult to implement. Best practice for dwc:preparations is a pipe delimited list, implementations should split the list into elements and test each element against the source authority. This bdqval:Supplementary test is not regarded as CORE because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdqval:COMPLIANT or bdqval:NOT_COMPLIANT results (cf bdqval:Response.result). A Supplementary test may be implemented as CORE when a suitable Use Case exists.";
   bdqffdq:hasDataQualityDimension bdqdim:Conformance;
   dcterms:description "Propose amendment to the value of dwc:preparations using bdqval:sourceAuthority.";
-  bdqffdq:hasActedUponInformationElement <urn:uuid:eec36b59-4c46-4f8b-a3c2-7da176fff1fb>;
+  bdqffdq:hasActedUponInformationElement <urn:uuid:2aaf6fb0-f1c4-43c1-8fee-780e809fede9>;
   dcterms:issued "2024-09-05"^^xsd:date;
-  dcterms:references <urn:uuid:6775ea1f-668e-4e5d-9d3c-af949c7813b2>;
+  dcterms:references <urn:uuid:9da8da80-e0a9-4006-8add-510c4bc08c96>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/280";
   rdfs:label "AMENDMENT_PREPARATIONS_STANDARDIZED";
-  dcterms:isVersionOf bdqtest:8d0cbfee-4524-4da3-83d4-bebc4c4f7cd2;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:eec36b59-4c46-4f8b-a3c2-7da176fff1fb> a bdqffdq:ActedUpon;
+<urn:uuid:2aaf6fb0-f1c4-43c1-8fee-780e809fede9> a bdqffdq:ActedUpon;
   bdqffdq:composedOf dwc:preparations;
   rdfs:label "Information Element ActedUpon dwc:preparations";
   skos:prefLabel "Information Element ActedUpon dwc:preparations" .
 
-<urn:uuid:6775ea1f-668e-4e5d-9d3c-af949c7813b2> a dcterms:BibliographicResource;
+<urn:uuid:9da8da80-e0a9-4006-8add-510c4bc08c96> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Darwin Core Maintenance Group (2021). Preparations Controlled Vocabulary List of Terms. Biodiversity Information Standards (TDWG). (http://rs.tdwg.org/dwc/terms/preparations)" .
 
 <urn:uuid:b339c443-d4cf-4bf3-b0cc-6b4c0d019de3> a bdqffdq:AmendmentMethod;
   skos:note "TG2 Amendment OTHER Test VOCABULARY Supplementary Conformance Parameterized";
-  bdqffdq:forAmendment bdqtest:8d0cbfee-4524-4da3-83d4-bebc4c4f7cd2-2024-09-05;
+  bdqffdq:forAmendment <urn:uuid:8d0cbfee-4524-4da3-83d4-bebc4c4f7cd2>;
   bdqffdq:hasSpecification <urn:uuid:9a034f38-7d86-463e-86c1-b5b3a482dbf5>;
   skos:historyNote "Source: TG2";
   rdfs:label "AmendmentMethod: AMENDMENT_PREPARATIONS_STANDARDIZED with Specification Specification for: AMENDMENT_PREPARATIONS_STANDARDIZED";
@@ -1340,27 +1335,26 @@ bdqtest:8d0cbfee-4524-4da3-83d4-bebc4c4f7cd2-2024-09-05 a bdqffdq:Amendment;
   bdqffdq:hasExpectedResponse "EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:preparations is bdqval:Empty; AMENDED the value of dwc:preparations if at least one item in the list of preparations, comparing and amending item by item in the list, ignoring leading or trailing whitespace in each item,  can be unambiguously matched to a term in the bdqval:sourceAuthority; otherwise NOT_AMENDED";
   rdfs:label "Specification for: AMENDMENT_PREPARATIONS_STANDARDIZED";
   dcterms:description "EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:preparations is bdqval:Empty; AMENDED the value of dwc:preparations if at least one item in the list of preparations, comparing and amending item by item in the list, ignoring leading or trailing whitespace in each item,  can be unambiguously matched to a term in the bdqval:sourceAuthority; otherwise NOT_AMENDED bdqval:sourceAuthority default = \"Darwin Core preparations {[https://dwc.tdwg.org/list/#dwc_preparations]} {dwc:preparations vocabulary API [NO CURRENT API EXISTS]}";
-  bdqffdq:hasArgument <urn:uuid:43706156-605f-4488-b439-b1c47a77dbfd> .
+  bdqffdq:hasArgument <urn:uuid:df6ae408-430d-4116-a150-6409214647e3> .
 
-<urn:uuid:43706156-605f-4488-b439-b1c47a77dbfd> a bdqffdq:Argument;
+<urn:uuid:df6ae408-430d-4116-a150-6409214647e3> a bdqffdq:Argument;
   bdqffdq:hasArgumentValue "DEFAULT";
   rdfs:label "Default value for bdqval:sourceAuthority";
   bdqffdq:hasParameter bdqval:sourceAuthority .
 
-bdqtest:07e79079-42e9-48e9-826e-4874ae34bce3-2025-03-06 a bdqffdq:Amendment;
+<urn:uuid:07e79079-42e9-48e9-826e-4874ae34bce3> a bdqffdq:Amendment;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   bdqffdq:hasEnhancement bdqenh:Standardized;
   skos:note "This bdqval:Supplementary test is not regarded as CORE because of one or more of the reasons: not being widely applicable; not informative; likely to return a high percentage of either bdqval:COMPLIANT or bdqval:NOT_COMPLIANT results (cf bdqval:Response.result). A Supplementary test may be implemented as CORE when a suitable Use Case exists. For reference, synonym values for dwc:lifestage can be found at https://registry.gbif.org/vocabulary/LifeStage/concepts.";
   bdqffdq:hasDataQualityDimension bdqdim:Conformance;
   dcterms:description "Propose amendment to the value of dwc:lifeStage using bdqval:sourceAuthority.";
-  bdqffdq:hasActedUponInformationElement <urn:uuid:c99b5e24-9616-4994-bf11-a1bd34dba500>;
+  bdqffdq:hasActedUponInformationElement <urn:uuid:660b73ea-9a7e-4a3e-8805-62a6fb354ea4>;
   dcterms:issued "2025-03-06"^^xsd:date;
   skos:historyNote "https://github.com/tdwg/bdq/issues/271";
   rdfs:label "AMENDMENT_LIFESTAGE_STANDARDIZED";
-  dcterms:isVersionOf bdqtest:07e79079-42e9-48e9-826e-4874ae34bce3;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:c99b5e24-9616-4994-bf11-a1bd34dba500> a bdqffdq:ActedUpon;
+<urn:uuid:660b73ea-9a7e-4a3e-8805-62a6fb354ea4> a bdqffdq:ActedUpon;
   bdqffdq:composedOf dwc:lifeStage;
   rdfs:label "Information Element ActedUpon dwc:lifeStage";
   skos:prefLabel "Information Element ActedUpon dwc:lifeStage" .
@@ -1369,7 +1363,7 @@ bdqtest:07e79079-42e9-48e9-826e-4874ae34bce3-2025-03-06 a bdqffdq:Amendment;
   skos:note "Example Implementations: Kurator/FilteredPush rec_occur_qc Library DOI: [10.5281/zenodo.14968501](https://doi.org/10.5281/zenodo.14968501)",
     "Example Implementations Source Code: https://github.com/FilteredPush/rec_occur_qc/blob/d742991440f2f5fc6ffc75dfe3b6d2ab5b6826b2/src/main/java/org/filteredpush/qc/metadata/DwCMetadataDQ.java#L1617",
     "TG2 Amendment OTHER CODED Test VOCABULARY Supplementary Conformance Parameterized";
-  bdqffdq:forAmendment bdqtest:07e79079-42e9-48e9-826e-4874ae34bce3-2025-03-06;
+  bdqffdq:forAmendment <urn:uuid:07e79079-42e9-48e9-826e-4874ae34bce3>;
   bdqffdq:hasSpecification <urn:uuid:1246660d-5aa0-4f17-b930-67e419a43f3c>;
   skos:historyNote "Source: TG2";
   rdfs:label "AmendmentMethod: AMENDMENT_LIFESTAGE_STANDARDIZED with Specification Specification for: AMENDMENT_LIFESTAGE_STANDARDIZED";
@@ -1382,24 +1376,23 @@ bdqtest:07e79079-42e9-48e9-826e-4874ae34bce3-2025-03-06 a bdqffdq:Amendment;
   bdqffdq:hasExpectedResponse "EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:lifeStage is bdqval:Empty; AMENDED the value of dwc:lifeStage if it can be unambiguously matched to a term in the bdqval:sourceAuthority; otherwise NOT_AMENDED";
   rdfs:label "Specification for: AMENDMENT_LIFESTAGE_STANDARDIZED";
   dcterms:description "EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority is not available; INTERNAL PREREQUISITES_NOT_MET if dwc:lifeStage is bdqval:Empty; AMENDED the value of dwc:lifeStage if it can be unambiguously matched to a term in the bdqval:sourceAuthority; otherwise NOT_AMENDED bdqval:sourceAuthority default = \"GBIF LifeStage Vocabulary\" [https://api.gbif.org/v1/vocabularies/LifeStage]} {\"dwc:lifeStage vocabulary API\" [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}";
-  bdqffdq:hasArgument <urn:uuid:ad099166-463a-4271-ad8b-f39f500ec5b2> .
+  bdqffdq:hasArgument <urn:uuid:909b9430-b3c9-4282-8522-f54355b5b04a> .
 
-<urn:uuid:ad099166-463a-4271-ad8b-f39f500ec5b2> a bdqffdq:Argument;
+<urn:uuid:909b9430-b3c9-4282-8522-f54355b5b04a> a bdqffdq:Argument;
   bdqffdq:hasArgumentValue "GBIF LifeStage Vocabulary";
   rdfs:label "Default value for bdqval:sourceAuthority:\"GBIF LifeStage Vocabulary\"";
   bdqffdq:hasParameter bdqval:sourceAuthority .
 
-bdqtest:be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "This test must return NOT_COMPLIANT if there is leading or trailing whitespace or there are leading or trailing non-printing characters. This bdqval:Supplementary test is not regarded as CORE because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdqval:COMPLIANT or bdqval:NOT_COMPLIANT results (cf bdqval:Response.result). A Supplementary test may be implemented as CORE when a suitable Use Case exists.";
   bdqffdq:hasDataQualityDimension bdqdim:Conformance;
   dcterms:description "Does the value of dwc:lifeStage occur in bdqval:sourceAuthority?";
   bdqffdq:hasCriterion bdqcrit:Standard;
-  bdqffdq:hasActedUponInformationElement <urn:uuid:c99b5e24-9616-4994-bf11-a1bd34dba500>;
+  bdqffdq:hasActedUponInformationElement <urn:uuid:660b73ea-9a7e-4a3e-8805-62a6fb354ea4>;
   dcterms:issued "2025-03-06"^^xsd:date;
   skos:historyNote "https://github.com/tdwg/bdq/issues/270";
   rdfs:label "VALIDATION_LIFESTAGE_STANDARD";
-  dcterms:isVersionOf bdqtest:be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
 <urn:uuid:69fc0414-461e-47a8-af63-8645a9103409> a bdqffdq:ValidationMethod;
@@ -1410,7 +1403,7 @@ bdqtest:be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a-2025-03-06 a bdqffdq:Validation;
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_LIFESTAGE_STANDARD with Specification for: VALIDATION_LIFESTAGE_STANDARD";
   skos:prefLabel "ValidationMethod: VALIDATION_LIFESTAGE_STANDARD with Specification for: VALIDATION_LIFESTAGE_STANDARD";
-  bdqffdq:forValidation bdqtest:be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a> .
 
 <urn:uuid:d023b94e-a82c-4c26-8ceb-3e34e4364b25> a bdqffdq:Specification;
   skos:example "dwc:lifeStage=\"Larva\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:lifeStage found in the bdqval:sourceAuthority\"",
@@ -1419,14 +1412,14 @@ bdqtest:be40d19e-1fe7-42ed-b9d0-961f4cf3eb6a-2025-03-06 a bdqffdq:Validation;
   bdqffdq:hasExpectedResponse "EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:lifeStage is bdqval:Empty; COMPLIANT if the value of dwc:lifeStage is in the bdqval:sourceAuthority; otherwise NOT_COMPLIANT.";
   rdfs:label "Specification for: VALIDATION_LIFESTAGE_STANDARD";
   dcterms:description "EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:sourceAuthority is not available; INTERNAL_PREREQUISITES_NOT_MET if dwc:lifeStage is bdqval:Empty; COMPLIANT if the value of dwc:lifeStage is in the bdqval:sourceAuthority; otherwise NOT_COMPLIANT. bdqval:sourceAuthority default = \"GBIF LifeStage Vocabulary\" [https://api.gbif.org/v1/vocabularies/LifeStage]} {\"dwc:lifeStage vocabulary API\" [https://api.gbif.org/v1/vocabularies/LifeStage/concepts]}";
-  bdqffdq:hasArgument <urn:uuid:7544d63f-ffff-4983-9063-45c85a959fe9> .
+  bdqffdq:hasArgument <urn:uuid:658a7277-cdf6-4a46-b492-4715f6a18cf7> .
 
-<urn:uuid:7544d63f-ffff-4983-9063-45c85a959fe9> a bdqffdq:Argument;
+<urn:uuid:658a7277-cdf6-4a46-b492-4715f6a18cf7> a bdqffdq:Argument;
   bdqffdq:hasArgumentValue "GBIF LifeStage Vocabulary";
   rdfs:label "Default value for bdqval:sourceAuthority:\"GBIF LifeStage Vocabulary\"";
   bdqffdq:hasParameter bdqval:sourceAuthority .
 
-bdqtest:76067adf-1422-4d03-89e3-9067c3043700-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:76067adf-1422-4d03-89e3-9067c3043700> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "This bdqval:Supplementary test is not regarded as CORE because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdqval:COMPLIANT or bdqval:NOT_COMPLIANT results (cf bdqval:Response.result). A Supplementary test may be implemented as CORE when a suitable Use Case exists.";
   bdqffdq:hasDataQualityDimension bdqdim:Completeness;
@@ -1436,7 +1429,6 @@ bdqtest:76067adf-1422-4d03-89e3-9067c3043700-2025-03-06 a bdqffdq:Validation;
   dcterms:issued "2025-03-06"^^xsd:date;
   skos:historyNote "https://github.com/tdwg/bdq/issues/263";
   rdfs:label "VALIDATION_SEX_NOTEMPTY";
-  dcterms:isVersionOf bdqtest:76067adf-1422-4d03-89e3-9067c3043700;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
 <urn:uuid:19b076bb-d5d4-4572-9e08-0fe6a519d941> a bdqffdq:ValidationMethod;
@@ -1447,7 +1439,7 @@ bdqtest:76067adf-1422-4d03-89e3-9067c3043700-2025-03-06 a bdqffdq:Validation;
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_SEX_NOTEMPTY with Specification for: VALIDATION_SEX_NOTEMPTY";
   skos:prefLabel "ValidationMethod: VALIDATION_SEX_NOTEMPTY with Specification for: VALIDATION_SEX_NOTEMPTY";
-  bdqffdq:forValidation bdqtest:76067adf-1422-4d03-89e3-9067c3043700-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:76067adf-1422-4d03-89e3-9067c3043700> .
 
 <urn:uuid:e2b614d3-a227-40fd-8277-72c0e448f771> a bdqffdq:Specification;
   skos:example "dwc:sex=\"hermaphrodite\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:sex is bdqval:NotEmpty\"",
@@ -1457,30 +1449,29 @@ bdqtest:76067adf-1422-4d03-89e3-9067c3043700-2025-03-06 a bdqffdq:Validation;
   rdfs:label "Specification for: VALIDATION_SEX_NOTEMPTY";
   dcterms:description "COMPLIANT if dwc:sex is bdqval:NotEmpty; otherwise NOT_COMPLIANT" .
 
-bdqtest:3eefe72c-4c7d-4dee-89b6-e9d91d3f1981-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:3eefe72c-4c7d-4dee-89b6-e9d91d3f1981> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "The vast majority of current biodiversity data will be expected to not have a value in dwc:reproductiveCondition. This test could have value in determining 'quality' for a specific set of Data Quality Needs/Use Cases.";
   bdqffdq:hasDataQualityDimension bdqdim:Completeness;
   dcterms:description "Is there a value in dwc:reproductiveCondition?";
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
-  bdqffdq:hasActedUponInformationElement <urn:uuid:955c74f8-c960-4f03-945c-89c3bbb47949>;
+  bdqffdq:hasActedUponInformationElement <urn:uuid:c6d48231-15f6-4b06-938a-0157e3af60ad>;
   dcterms:issued "2025-03-06"^^xsd:date;
   skos:historyNote "https://github.com/tdwg/bdq/issues/262";
   rdfs:label "VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY";
-  dcterms:isVersionOf bdqtest:3eefe72c-4c7d-4dee-89b6-e9d91d3f1981;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:e9cfee86-78cf-45f6-9fbf-8b641d690348> a bdqffdq:ValidationMethod;
+<urn:uuid:f04eed86-ceb5-4c02-a8f4-08868caa8b20> a bdqffdq:ValidationMethod;
   skos:note "Example Implementations: Kurator/FilteredPush rec_occur_qc Library DOI: [10.5281/zenodo.14968501](https://doi.org/10.5281/zenodo.14968501)",
     "Example Implementations Source Code: https://github.com/FilteredPush/rec_occur_qc/blob/d742991440f2f5fc6ffc75dfe3b6d2ab5b6826b2/src/main/java/org/filteredpush/qc/metadata/DwCMetadataDQ.java#L1393",
     "TG2 Validation OTHER CODED Test Supplementary Completeness";
-  bdqffdq:hasSpecification <urn:uuid:null>;
+  bdqffdq:hasSpecification <urn:uuid:d1aa3c91-e103-4bee-9a23-886d65b153af>;
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY with Specification for: VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY";
   skos:prefLabel "ValidationMethod: VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY with Specification for: VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY";
-  bdqffdq:forValidation bdqtest:3eefe72c-4c7d-4dee-89b6-e9d91d3f1981-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:3eefe72c-4c7d-4dee-89b6-e9d91d3f1981> .
 
-<urn:uuid:null> a bdqffdq:Specification;
+<urn:uuid:d1aa3c91-e103-4bee-9a23-886d65b153af> a bdqffdq:Specification;
   skos:example "dwc:reproductiveCondition=\"non-reproductive\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:reproductiveCondition is bdqval:NotEmpty\"",
     "dwc:reproductiveCondition=\"\": Response.status=RUN_HAS_RESULT, Response.result=NOT_COMPLIANT, Response.comment=\"dwc:reproductiveCondition is bdqval:Empty\"";
   bdqffdq:hasAuthoritiesDefaults "";
@@ -1488,20 +1479,19 @@ bdqtest:3eefe72c-4c7d-4dee-89b6-e9d91d3f1981-2025-03-06 a bdqffdq:Validation;
   rdfs:label "Specification for: VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY";
   dcterms:description "COMPLIANT if dwc:reproductiveCondition is bdqval:NotEmpty; otherwise NOT_COMPLIANT" .
 
-bdqtest:cd281f7e-13b3-43ae-8677-de06ffa70bb4-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:cd281f7e-13b3-43ae-8677-de06ffa70bb4> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "Implementors need to consider multiplicity, in that a SingleRecord that contains dwc:relationshipOfResource values likely contains multiple dwc:ResourceRelationship records related to each Occurrence or other core entity of the SingleRecord.  Assessment should be made on single ResourceRelationship records at a time.  This bdqval:Supplementary test is not regarded as CORE because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdqval:COMPLIANT or bdqval:NOT_COMPLIANT results (cf bdqval:Response.result). A Supplementary test may be implemented as CORE when a suitable Use Case exists.";
   bdqffdq:hasDataQualityDimension bdqdim:Completeness;
   dcterms:description "Is there a value in dwc:relationshipOfResource?";
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
-  bdqffdq:hasActedUponInformationElement <urn:uuid:6e568d75-20da-4bcf-a7ab-bde614d3979f>;
+  bdqffdq:hasActedUponInformationElement <urn:uuid:3f375eaa-579f-4c51-afd4-c11166d0e10e>;
   dcterms:issued "2025-03-06"^^xsd:date;
   skos:historyNote "https://github.com/tdwg/bdq/issues/261";
   rdfs:label "VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY";
-  dcterms:isVersionOf bdqtest:cd281f7e-13b3-43ae-8677-de06ffa70bb4;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:6e568d75-20da-4bcf-a7ab-bde614d3979f> a bdqffdq:ActedUpon;
+<urn:uuid:3f375eaa-579f-4c51-afd4-c11166d0e10e> a bdqffdq:ActedUpon;
   bdqffdq:composedOf dwc:relationshipOfResource;
   rdfs:label "Information Element ActedUpon dwc:relationshipOfResource";
   skos:prefLabel "Information Element ActedUpon dwc:relationshipOfResource" .
@@ -1514,7 +1504,7 @@ bdqtest:cd281f7e-13b3-43ae-8677-de06ffa70bb4-2025-03-06 a bdqffdq:Validation;
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY with Specification for: VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY";
   skos:prefLabel "ValidationMethod: VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY with Specification for: VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY";
-  bdqffdq:forValidation bdqtest:cd281f7e-13b3-43ae-8677-de06ffa70bb4-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:cd281f7e-13b3-43ae-8677-de06ffa70bb4> .
 
 <urn:uuid:b643cd11-741a-4080-919f-704c88a885b5> a bdqffdq:Specification;
   skos:example "dwc:relationshipOfResource=\"host of\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:relationshipOfResource is bdqval:NotEmpty\"",
@@ -1524,17 +1514,16 @@ bdqtest:cd281f7e-13b3-43ae-8677-de06ffa70bb4-2025-03-06 a bdqffdq:Validation;
   rdfs:label "Specification for: VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY";
   dcterms:description "COMPLIANT if dwc:relationshipOfResource is bdqval:NotEmpty; otherwise NOT_COMPLIANT" .
 
-bdqtest:2aa1b7a0-0473-4a90-bf11-a02137c5c65b-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:2aa1b7a0-0473-4a90-bf11-a02137c5c65b> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "Widely applicable for Occurrences vouchered by MateralSamples, but not generally applicable to observational Occurrence data.  This bdqval:Supplementary test is not regarded as CORE because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdqval:COMPLIANT or bdqval:NOT_COMPLIANT results (cf bdqval:Response.result). A Supplementary test may be implemented as CORE when a suitable Use Case exists. See comments.";
   bdqffdq:hasDataQualityDimension bdqdim:Completeness;
   dcterms:description "Is there a value in dwc:preparations?";
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
-  bdqffdq:hasActedUponInformationElement <urn:uuid:eec36b59-4c46-4f8b-a3c2-7da176fff1fb>;
+  bdqffdq:hasActedUponInformationElement <urn:uuid:2aaf6fb0-f1c4-43c1-8fee-780e809fede9>;
   dcterms:issued "2025-03-06"^^xsd:date;
   skos:historyNote "https://github.com/tdwg/bdq/issues/260";
   rdfs:label "VALIDATION_PREPARATIONS_NOTEMPTY";
-  dcterms:isVersionOf bdqtest:2aa1b7a0-0473-4a90-bf11-a02137c5c65b;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
 <urn:uuid:236fc047-0f00-4e0e-9506-58dfce3ea40c> a bdqffdq:ValidationMethod;
@@ -1545,7 +1534,7 @@ bdqtest:2aa1b7a0-0473-4a90-bf11-a02137c5c65b-2025-03-06 a bdqffdq:Validation;
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_PREPARATIONS_NOTEMPTY with Specification for: VALIDATION_PREPARATIONS_NOTEMPTY";
   skos:prefLabel "ValidationMethod: VALIDATION_PREPARATIONS_NOTEMPTY with Specification for: VALIDATION_PREPARATIONS_NOTEMPTY";
-  bdqffdq:forValidation bdqtest:2aa1b7a0-0473-4a90-bf11-a02137c5c65b-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:2aa1b7a0-0473-4a90-bf11-a02137c5c65b> .
 
 <urn:uuid:5fba8a6e-3a3d-4719-9be7-73372df97273> a bdqffdq:Specification;
   skos:example "dwc:preparations=\"fossil\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:preparations is bdqval:NotEmpty\"",
@@ -1555,20 +1544,19 @@ bdqtest:2aa1b7a0-0473-4a90-bf11-a02137c5c65b-2025-03-06 a bdqffdq:Validation;
   rdfs:label "Specification for: VALIDATION_PREPARATIONS_NOTEMPTY";
   dcterms:description "COMPLIANT if dwc:preparations is bdqval:NotEmpty; otherwise NOT_COMPLIANT" .
 
-bdqtest:3bd2477c-6497-43b0-94e6-b811eed1b1cb-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:3bd2477c-6497-43b0-94e6-b811eed1b1cb> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "This bdqval:Supplementary test is not regarded as CORE because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdqval:COMPLIANT or bdqval:NOT_COMPLIANT results (cf bdqval:Response.result). A Supplementary test may be implemented as CORE when a suitable Use Case exists.";
   bdqffdq:hasDataQualityDimension bdqdim:Completeness;
   dcterms:description "Is there a value in dwc:recordNumber?";
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
-  bdqffdq:hasActedUponInformationElement <urn:uuid:2e66c53f-5216-405a-8003-e0cfb48b0ac6>;
+  bdqffdq:hasActedUponInformationElement <urn:uuid:e14c3e89-a6a8-47b0-be38-c2cb2fbfc1ea>;
   dcterms:issued "2025-03-06"^^xsd:date;
   skos:historyNote "https://github.com/tdwg/bdq/issues/243";
   rdfs:label "VALIDATION_RECORDNUMBER_NOTEMPTY";
-  dcterms:isVersionOf bdqtest:3bd2477c-6497-43b0-94e6-b811eed1b1cb;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:2e66c53f-5216-405a-8003-e0cfb48b0ac6> a bdqffdq:ActedUpon;
+<urn:uuid:e14c3e89-a6a8-47b0-be38-c2cb2fbfc1ea> a bdqffdq:ActedUpon;
   bdqffdq:composedOf dwc:recordNumber;
   rdfs:label "Information Element ActedUpon dwc:recordNumber";
   skos:prefLabel "Information Element ActedUpon dwc:recordNumber" .
@@ -1581,7 +1569,7 @@ bdqtest:3bd2477c-6497-43b0-94e6-b811eed1b1cb-2025-03-06 a bdqffdq:Validation;
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_RECORDNUMBER_NOTEMPTY with Specification for: VALIDATION_RECORDNUMBER_NOTEMPTY";
   skos:prefLabel "ValidationMethod: VALIDATION_RECORDNUMBER_NOTEMPTY with Specification for: VALIDATION_RECORDNUMBER_NOTEMPTY";
-  bdqffdq:forValidation bdqtest:3bd2477c-6497-43b0-94e6-b811eed1b1cb-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:3bd2477c-6497-43b0-94e6-b811eed1b1cb> .
 
 <urn:uuid:2c3ba3ab-f01f-45f0-85e3-f7ad7822bbad> a bdqffdq:Specification;
   skos:example "dwc:recordNumber=\"OPP 701\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:recordNumber is bdqval:NotEmpty\"",
@@ -1591,20 +1579,19 @@ bdqtest:3bd2477c-6497-43b0-94e6-b811eed1b1cb-2025-03-06 a bdqffdq:Validation;
   rdfs:label "Specification for: VALIDATION_RECORDNUMBER_NOTEMPTY";
   dcterms:description "COMPLIANT if dwc:recordNumber is bdqval:NotEmpty; otherwise NOT_COMPLIANT" .
 
-bdqtest:986ad95d-ffa1-4e3b-a6cb-ed943c87be0d-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:986ad95d-ffa1-4e3b-a6cb-ed943c87be0d> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "This bdqval:Supplementary test is not regarded as CORE because it is not widely applicable to the CORE use case.";
   bdqffdq:hasDataQualityDimension bdqdim:Completeness;
   dcterms:description "Is there a value in dwc:recordedBy?";
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
-  bdqffdq:hasActedUponInformationElement <urn:uuid:1814559a-37ac-4aad-876b-749213d5c5e8>;
+  bdqffdq:hasActedUponInformationElement <urn:uuid:4670664f-93e6-4a2c-bcdd-4d88c262320c>;
   dcterms:issued "2025-03-06"^^xsd:date;
   skos:historyNote "https://github.com/tdwg/bdq/issues/242";
   rdfs:label "VALIDATION_RECORDEDBY_NOTEMPTY";
-  dcterms:isVersionOf bdqtest:986ad95d-ffa1-4e3b-a6cb-ed943c87be0d;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:1814559a-37ac-4aad-876b-749213d5c5e8> a bdqffdq:ActedUpon;
+<urn:uuid:4670664f-93e6-4a2c-bcdd-4d88c262320c> a bdqffdq:ActedUpon;
   bdqffdq:composedOf dwc:recordedBy;
   rdfs:label "Information Element ActedUpon dwc:recordedBy";
   skos:prefLabel "Information Element ActedUpon dwc:recordedBy" .
@@ -1617,7 +1604,7 @@ bdqtest:986ad95d-ffa1-4e3b-a6cb-ed943c87be0d-2025-03-06 a bdqffdq:Validation;
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_RECORDEDBY_NOTEMPTY with Specification for: VALIDATION_RECORDEDBY_NOTEMPTY";
   skos:prefLabel "ValidationMethod: VALIDATION_RECORDEDBY_NOTEMPTY with Specification for: VALIDATION_RECORDEDBY_NOTEMPTY";
-  bdqffdq:forValidation bdqtest:986ad95d-ffa1-4e3b-a6cb-ed943c87be0d-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:986ad95d-ffa1-4e3b-a6cb-ed943c87be0d> .
 
 <urn:uuid:9518daa1-0790-488d-bfc5-36b0828f56c6> a bdqffdq:Specification;
   skos:example "dwc:recordedBy=\"Bob Pearson\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:recordedBy is bdqval:NotEmpty\"",
@@ -1627,17 +1614,16 @@ bdqtest:986ad95d-ffa1-4e3b-a6cb-ed943c87be0d-2025-03-06 a bdqffdq:Validation;
   rdfs:label "Specification for: VALIDATION_RECORDEDBY_NOTEMPTY";
   dcterms:description "COMPLIANT if dwc:recordedBy is bdqval:NotEmpty; otherwise NOT_COMPLIANT" .
 
-bdqtest:34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "This bdqval:Supplementary test is not regarded as CORE because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdqval:COMPLIANT or bdqval:NOT_COMPLIANT results (cf bdqval:Response.result). A Supplementary test may be implemented as CORE when a suitable Use Case exists.";
   bdqffdq:hasDataQualityDimension bdqdim:Completeness;
   dcterms:description "Is there a value in dwc:lifeStage?";
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
-  bdqffdq:hasActedUponInformationElement <urn:uuid:c99b5e24-9616-4994-bf11-a1bd34dba500>;
+  bdqffdq:hasActedUponInformationElement <urn:uuid:660b73ea-9a7e-4a3e-8805-62a6fb354ea4>;
   dcterms:issued "2025-03-06"^^xsd:date;
   skos:historyNote "https://github.com/tdwg/bdq/issues/235";
   rdfs:label "VALIDATION_LIFESTAGE_NOTEMPTY";
-  dcterms:isVersionOf bdqtest:34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
 <urn:uuid:15022d14-6f21-4102-ab43-c8f1a41dbbfc> a bdqffdq:ValidationMethod;
@@ -1648,7 +1634,7 @@ bdqtest:34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87-2025-03-06 a bdqffdq:Validation;
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_LIFESTAGE_NOTEMPTY with Specification for: VALIDATION_LIFESTAGE_NOTEMPTY";
   skos:prefLabel "ValidationMethod: VALIDATION_LIFESTAGE_NOTEMPTY with Specification for: VALIDATION_LIFESTAGE_NOTEMPTY";
-  bdqffdq:forValidation bdqtest:34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87> .
 
 <urn:uuid:33feb280-12bf-4aa6-80e4-17ad3741d179> a bdqffdq:Specification;
   skos:example "dwc:lifeStage=\"adult\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:lifeStage is bdqval:NotEmpty\"",
@@ -1658,17 +1644,16 @@ bdqtest:34b9eec9-03d5-4dc9-94b7-5b05ddcaaa87-2025-03-06 a bdqffdq:Validation;
   rdfs:label "Specification for: VALIDATION_LIFESTAGE_NOTEMPTY";
   dcterms:description "COMPLIANT if dwc:lifeStage is bdqval:NotEmpty; otherwise NOT_COMPLIANT" .
 
-bdqtest:aff0facd-1d2a-40a5-a55a-61f950cd68a0-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:aff0facd-1d2a-40a5-a55a-61f950cd68a0> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "This bdqval:Supplementary test is not regarded as CORE because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdqval:COMPLIANT or bdqval:NOT_COMPLIANT results (cf bdqval:Response.result). A Supplementary test may be implemented as CORE when a suitable Use Case exists.";
   bdqffdq:hasDataQualityDimension bdqdim:Completeness;
   dcterms:description "Is there a value in dwc:individualCount?";
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
-  bdqffdq:hasActedUponInformationElement <urn:uuid:f6e75246-a99c-42a0-8add-39b7836e6254>;
+  bdqffdq:hasActedUponInformationElement <urn:uuid:cd5c9725-7086-4b6f-952d-9a08b35d33ba>;
   dcterms:issued "2025-03-06"^^xsd:date;
   skos:historyNote "https://github.com/tdwg/bdq/issues/232";
   rdfs:label "VALIDATION_INDIVIDUALCOUNT_NOTEMPTY";
-  dcterms:isVersionOf bdqtest:aff0facd-1d2a-40a5-a55a-61f950cd68a0;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
 <urn:uuid:affd0db5-0f62-4ce3-acd4-8cb312815c9e> a bdqffdq:ValidationMethod;
@@ -1679,7 +1664,7 @@ bdqtest:aff0facd-1d2a-40a5-a55a-61f950cd68a0-2025-03-06 a bdqffdq:Validation;
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_INDIVIDUALCOUNT_NOTEMPTY with Specification for: VALIDATION_INDIVIDUALCOUNT_NOTEMPTY";
   skos:prefLabel "ValidationMethod: VALIDATION_INDIVIDUALCOUNT_NOTEMPTY with Specification for: VALIDATION_INDIVIDUALCOUNT_NOTEMPTY";
-  bdqffdq:forValidation bdqtest:aff0facd-1d2a-40a5-a55a-61f950cd68a0-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:aff0facd-1d2a-40a5-a55a-61f950cd68a0> .
 
 <urn:uuid:cc9d0770-9aa7-4838-8438-5d8375a58f26> a bdqffdq:Specification;
   skos:example "dwc:individualCount=\"Many\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:individualCount is bdqval:NotEmpty\"",
@@ -1689,20 +1674,19 @@ bdqtest:aff0facd-1d2a-40a5-a55a-61f950cd68a0-2025-03-06 a bdqffdq:Validation;
   rdfs:label "Specification for: VALIDATION_INDIVIDUALCOUNT_NOTEMPTY";
   dcterms:description "COMPLIANT if dwc:individualCount is bdqval:NotEmpty; otherwise NOT_COMPLIANT" .
 
-bdqtest:b4c17611-2703-474f-b46a-93b08ecfee16-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:b4c17611-2703-474f-b46a-93b08ecfee16> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "This bdqval:Supplementary test is not regarded as CORE because of one or more of the reasons: not being widely applicable; not informative; not straightforward to implement or likely to return a high percentage of either bdqval:COMPLIANT or bdqval:NOT_COMPLIANT results (cf bdqval:Response.result). A Supplementary test may be implemented as CORE when a suitable Use Case exists.";
   bdqffdq:hasDataQualityDimension bdqdim:Completeness;
   dcterms:description "Is there a value in dwc:disposition?";
   bdqffdq:hasCriterion bdqcrit:NotEmpty;
-  bdqffdq:hasActedUponInformationElement <urn:uuid:dda48f05-e205-48e5-9d6c-62c1a39fc245>;
+  bdqffdq:hasActedUponInformationElement <urn:uuid:a255a963-6290-4e7a-ad25-45125dd09b92>;
   dcterms:issued "2025-03-06"^^xsd:date;
   skos:historyNote "https://github.com/tdwg/bdq/issues/225";
   rdfs:label "VALIDATION_DISPOSITION_NOTEMPTY";
-  dcterms:isVersionOf bdqtest:b4c17611-2703-474f-b46a-93b08ecfee16;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
-<urn:uuid:dda48f05-e205-48e5-9d6c-62c1a39fc245> a bdqffdq:ActedUpon;
+<urn:uuid:a255a963-6290-4e7a-ad25-45125dd09b92> a bdqffdq:ActedUpon;
   bdqffdq:composedOf dwc:disposition;
   rdfs:label "Information Element ActedUpon dwc:disposition";
   skos:prefLabel "Information Element ActedUpon dwc:disposition" .
@@ -1715,7 +1699,7 @@ bdqtest:b4c17611-2703-474f-b46a-93b08ecfee16-2025-03-06 a bdqffdq:Validation;
   skos:historyNote "Source: TG2";
   rdfs:label "ValidationMethod: VALIDATION_DISPOSITION_NOTEMPTY with Specification for: VALIDATION_DISPOSITION_NOTEMPTY";
   skos:prefLabel "ValidationMethod: VALIDATION_DISPOSITION_NOTEMPTY with Specification for: VALIDATION_DISPOSITION_NOTEMPTY";
-  bdqffdq:forValidation bdqtest:b4c17611-2703-474f-b46a-93b08ecfee16-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:b4c17611-2703-474f-b46a-93b08ecfee16> .
 
 <urn:uuid:39dae689-174e-41bb-9c97-efdcb97adf59> a bdqffdq:Specification;
   skos:example "dwc:disposition=\"Missing\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:disposition is bdqval:NotEmpty\"",
@@ -1725,7 +1709,7 @@ bdqtest:b4c17611-2703-474f-b46a-93b08ecfee16-2025-03-06 a bdqffdq:Validation;
   rdfs:label "Specification for: VALIDATION_DISPOSITION_NOTEMPTY";
   dcterms:description "COMPLIANT if dwc:disposition is bdqval:NotEmpty; otherwise NOT_COMPLIANT" .
 
-bdqtest:3cfe9ab4-79f8-4afd-8da5-723183ef16a3-2025-03-06 a bdqffdq:Validation;
+<urn:uuid:3cfe9ab4-79f8-4afd-8da5-723183ef16a3> a bdqffdq:Validation;
   bdqffdq:hasResourceType bdqffdq:SingleRecord;
   skos:note "";
   bdqffdq:hasDataQualityDimension bdqdim:Conformance;
@@ -1733,37 +1717,36 @@ bdqtest:3cfe9ab4-79f8-4afd-8da5-723183ef16a3-2025-03-06 a bdqffdq:Validation;
   bdqffdq:hasCriterion bdqcrit:Complete;
   bdqffdq:hasActedUponInformationElement <urn:uuid:c25c5737-ece9-4b6d-a5f2-6e661d35c325>;
   dcterms:issued "2025-03-06"^^xsd:date;
-  dcterms:references <urn:uuid:08d8bd72-6723-4a4b-90ef-07bf58ae3245>, <urn:uuid:d08943ac-0803-44bb-b38f-174822dcb0f5>,
-    <urn:uuid:65e64bc8-1869-48ef-a798-509c6a309c44>, <urn:uuid:11024c0b-1fa4-4e2f-85fd-39ceb414ae96>,
-    <urn:uuid:90b16308-54e2-4195-b5eb-31d52f7f0a93>, <urn:uuid:2c2c5736-a345-4058-933c-b80cdd3d716b>,
-    <urn:uuid:32ea84b8-8ce9-4b85-a5bd-60bcfc446071>;
+  dcterms:references <urn:uuid:b275c764-2e02-4a8a-84aa-3ad832287e96>, <urn:uuid:70333092-5bda-450f-8b6b-48c3730ff909>,
+    <urn:uuid:86cfdd69-8dd7-4779-a8fe-4a7b74f0e05e>, <urn:uuid:2ee5f121-1ee3-49e0-a41f-a61145802829>,
+    <urn:uuid:6f93a228-26fe-4e7d-8158-fdc413313087>, <urn:uuid:7c883be8-5e14-45d8-8515-70451e859dff>,
+    <urn:uuid:8083ee40-65d0-4e1e-8e4e-b5605fb6d969>;
   skos:historyNote "https://github.com/tdwg/bdq/issues/23";
   rdfs:label "VALIDATION_OCCURRENCEID_STANDARD";
-  dcterms:isVersionOf bdqtest:3cfe9ab4-79f8-4afd-8da5-723183ef16a3;
   skos:prefLabel "Missing prefLabel for SingleRecord" .
 
 bdqcrit:Complete a bdqffdq:Criterion;
   rdfs:label "Complete" .
 
-<urn:uuid:08d8bd72-6723-4a4b-90ef-07bf58ae3245> a dcterms:BibliographicResource;
+<urn:uuid:b275c764-2e02-4a8a-84aa-3ad832287e96> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "Darwin Core RDF Guide (2015). #1.3.2.1 Persistent Identifiers (normative): https://rs.tdwg.org/dwc/terms/guides/rdf/index.htm#1.3.2.1_Persistent_Identifiers" .
 
-<urn:uuid:d08943ac-0803-44bb-b38f-174822dcb0f5> a dcterms:BibliographicResource;
+<urn:uuid:70333092-5bda-450f-8b6b-48c3730ff909> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "GUID Applicability Statement: https://github.com/tdwg/guid-as/blob/master/guid/tdwg_guid_applicability_statement.pdf" .
 
-<urn:uuid:65e64bc8-1869-48ef-a798-509c6a309c44> a dcterms:BibliographicResource;
+<urn:uuid:86cfdd69-8dd7-4779-a8fe-4a7b74f0e05e> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "LSID (Life Science Identifier): https://en.wikipedia.org/wiki/LSID" .
 
-<urn:uuid:11024c0b-1fa4-4e2f-85fd-39ceb414ae96> a dcterms:BibliographicResource;
+<urn:uuid:2ee5f121-1ee3-49e0-a41f-a61145802829> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "URN (Uniform Resource Name): https://en.wikipedia.org/wiki/Uniform_Resource_Name" .
 
-<urn:uuid:90b16308-54e2-4195-b5eb-31d52f7f0a93> a dcterms:BibliographicResource;
+<urn:uuid:6f93a228-26fe-4e7d-8158-fdc413313087> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "URI (Uniform Resource Identifier): https://en.wikipedia.org/wiki/Uniform_Resource_Identifier" .
 
-<urn:uuid:2c2c5736-a345-4058-933c-b80cdd3d716b> a dcterms:BibliographicResource;
+<urn:uuid:7c883be8-5e14-45d8-8515-70451e859dff> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "NID (Namespace Identifier): A NID and NSS make up a URN, https://en.wikipedia.org/wiki/Uniform_Resource_Name" .
 
-<urn:uuid:32ea84b8-8ce9-4b85-a5bd-60bcfc446071> a dcterms:BibliographicResource;
+<urn:uuid:8083ee40-65d0-4e1e-8e4e-b5605fb6d969> a dcterms:BibliographicResource;
   dcterms:bibliographicCitation "NSS (Namespace-Specific String): https://en.wikipedia.org/wiki/Uniform_Resource_Name" .
 
 <urn:uuid:1d5d91c6-dd56-4f79-a3f4-da10d4b7b1b1> a bdqffdq:ValidationMethod;
@@ -1774,7 +1757,7 @@ bdqcrit:Complete a bdqffdq:Criterion;
   skos:historyNote "Source: VertNet";
   rdfs:label "ValidationMethod: VALIDATION_OCCURRENCEID_STANDARD with Specification for: VALIDATION_OCCURRENCEID_STANDARD";
   skos:prefLabel "ValidationMethod: VALIDATION_OCCURRENCEID_STANDARD with Specification for: VALIDATION_OCCURRENCEID_STANDARD";
-  bdqffdq:forValidation bdqtest:3cfe9ab4-79f8-4afd-8da5-723183ef16a3-2025-03-06 .
+  bdqffdq:forValidation <urn:uuid:3cfe9ab4-79f8-4afd-8da5-723183ef16a3> .
 
 <urn:uuid:2897dd53-0204-4e17-8a91-3d88c970e245> a bdqffdq:Specification;
   skos:example "dwc:occurrenceID=\"https://www.inaturalist.org/observations/43047701\": Response.status=RUN_HAS_RESULT, Response.result=COMPLIANT, Response.comment=\"dwc:occurrenceID conforms to GUID structure\"",
@@ -1784,7 +1767,7 @@ bdqcrit:Complete a bdqffdq:Criterion;
   rdfs:label "Specification for: VALIDATION_OCCURRENCEID_STANDARD";
   dcterms:description "INTERNAL_PREREQUISITES_NOT_MET if dwc:ocurrenceID is bdqval:Empty; COMPLIANT if (1) dwc:occurrenceID is a validly formed LSID, or (2) dwc:occurrenceID is a validly formed URN with at least NID and NSS present, or (3) dwc:occurrenceID is in the form scope:value, or (4) dwc:occurrenceID is a validly formed URI with host and path where path consists of more than just \"/\"; otherwise NOT_COMPLIANT." .
 
-<urn:uuid:cdd5ba5f-5eb4-411d-9b4d-65042737994c> a bdqffdq:ValidationPolicy;
+<urn:uuid:cc9a9c14-d511-4b24-bc6d-72f7371fb9f7> a bdqffdq:ValidationPolicy;
   bdqffdq:includedInPolicy bdqtest:ac2b7648-d5f9-48ca-9b07-8ad5879a2536-2025-03-07,
     bdqtest:cdaabb0d-a863-49d0-bc0f-738d771acba5-2025-03-07, bdqtest:374b091a-fc90-4791-91e5-c1557c649169-2025-03-07,
     bdqtest:42408a00-bf71-4892-a399-4325e2bc1fb8-2025-03-07, bdqtest:7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47-2025-03-07,
@@ -1798,7 +1781,7 @@ bdqcrit:Complete a bdqffdq:Criterion;
 bdquc:Alien-Species a bdqffdq:UseCase;
   rdfs:label "bdquc:Alien-Species" .
 
-<urn:uuid:4dbc443f-518c-488d-b826-3b2fd24999b8> a bdqffdq:ValidationPolicy;
+<urn:uuid:62133c9d-088b-4d23-be76-10fb3f984135> a bdqffdq:ValidationPolicy;
   bdqffdq:includedInPolicy bdqtest:c486546c-e6e5-48a7-b286-eba7f5ca56c4-2025-03-07,
     bdqtest:ac2b7648-d5f9-48ca-9b07-8ad5879a2536-2025-03-07, bdqtest:cdaabb0d-a863-49d0-bc0f-738d771acba5-2025-03-07,
     bdqtest:15f78619-811a-4c6f-997a-a4c7888ad849-2025-03-07, bdqtest:374b091a-fc90-4791-91e5-c1557c649169-2025-03-07,
@@ -1811,7 +1794,7 @@ bdquc:Alien-Species a bdqffdq:UseCase;
 bdquc:Spatial-Temporal_Patterns a bdqffdq:UseCase;
   rdfs:label "bdquc:Spatial-Temporal_Patterns" .
 
-<urn:uuid:a81c7b6c-2b9b-48ff-b7bf-8814ed85540b> a bdqffdq:ValidationPolicy;
+<urn:uuid:2db4819d-a41b-4cb4-a333-583255bc76e8> a bdqffdq:ValidationPolicy;
   bdqffdq:includedInPolicy bdqtest:3136236e-04b6-49ea-8b34-a65f25e3aba1-2025-03-07,
     bdqtest:ac2b7648-d5f9-48ca-9b07-8ad5879a2536-2025-03-07, bdqtest:15f78619-811a-4c6f-997a-a4c7888ad849-2025-03-07,
     bdqtest:42408a00-bf71-4892-a399-4325e2bc1fb8-2025-03-07, bdqtest:7af25f1e-a4e2-4ff4-b161-d1f25a5c3e47-2025-03-07,
@@ -1823,7 +1806,7 @@ bdquc:Spatial-Temporal_Patterns a bdqffdq:UseCase;
 bdquc:Species-Distribution-Modeling-Trees a bdqffdq:UseCase;
   rdfs:label "bdquc:Species-Distribution-Modeling-Trees" .
 
-<urn:uuid:25b3bfd6-3672-4d5d-848a-057607085781> a bdqffdq:AmendmentPolicy;
+<urn:uuid:fb0481c5-4b6b-4668-8fcc-3ce5de78be1e> a bdqffdq:AmendmentPolicy;
   bdqffdq:includedInPolicy bdqtest:bd385eeb-44a2-464b-a503-7abe407ef904-2025-03-07,
     bdqtest:07c28ace-561a-476e-a9b9-3d5ad6e35933-2025-03-07, bdqtest:96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5-2025-03-07,
     bdqtest:f8f3a093-042c-47a3-971a-a482aaaf3b75-2025-03-07, bdqtest:15d15927-7a22-43f8-88d6-298f5eb45c4c-2025-03-07,
@@ -1832,37 +1815,37 @@ bdquc:Species-Distribution-Modeling-Trees a bdqffdq:UseCase;
   rdfs:label "AmendmentPolicy: (9) amendments  in UseCase bdquc:Alien-Species";
   bdqffdq:hasUseCase bdquc:Alien-Species .
 
-<urn:uuid:ba107eaa-1daf-40dc-b76a-01ab6367b167> a bdqffdq:AmendmentPolicy;
+<urn:uuid:223c57be-334e-4e4d-b470-bb2cfd75cc13> a bdqffdq:AmendmentPolicy;
   bdqffdq:includedInPolicy bdqtest:bd385eeb-44a2-464b-a503-7abe407ef904-2025-03-07,
     bdqtest:07c28ace-561a-476e-a9b9-3d5ad6e35933-2025-03-07, bdqtest:96667a0a-ae59-446a-bbb0-b7f2b0ca6cf5-2025-03-07,
     bdqtest:f8f3a093-042c-47a3-971a-a482aaaf3b75-2025-03-07, bdqtest:15d15927-7a22-43f8-88d6-298f5eb45c4c-2025-03-07;
   rdfs:label "AmendmentPolicy: (5) amendments  in UseCase bdquc:Spatial-Temporal_Patterns";
   bdqffdq:hasUseCase bdquc:Spatial-Temporal_Patterns .
 
-<urn:uuid:5a1694ff-f7cd-4636-9759-f4bbf645453a> a bdqffdq:AmendmentPolicy;
+<urn:uuid:0312ebc5-9b9e-43a0-af46-0892bb7202b5> a bdqffdq:AmendmentPolicy;
   bdqffdq:includedInPolicy bdqtest:07c28ace-561a-476e-a9b9-3d5ad6e35933-2025-03-07,
     bdqtest:dcbe5bd2-42a0-4aab-bb4d-8f148c6490f8-2025-03-07;
   rdfs:label "AmendmentPolicy: (2) amendments  in UseCase bdquc:Species-Distribution-Modeling-Trees";
   bdqffdq:hasUseCase bdquc:Species-Distribution-Modeling-Trees .
 
-<urn:uuid:0167394a-867f-4238-bc02-b9c2c55146c1> a bdqffdq:IssuePolicy;
+<urn:uuid:9eabf59c-4931-4fd8-a14e-b8634ce6e975> a bdqffdq:IssuePolicy;
   bdqffdq:includedInPolicy bdqtest:fecaa8a3-bbd8-4c5a-a424-13c37c4bb7b1-2024-09-17,
     bdqtest:acc8dff2-d8d1-483a-946d-65a02a452700-2025-03-07;
   rdfs:label "IssuePolicy: (2) issues  in UseCase bdquc:Alien-Species";
   bdqffdq:hasUseCase bdquc:Alien-Species .
 
-<urn:uuid:c0e1f6d6-6121-418b-8f41-3ff981f1897b> a bdqffdq:IssuePolicy;
+<urn:uuid:84a367f5-9981-4edc-b8ac-2fa97cda1f47> a bdqffdq:IssuePolicy;
   bdqffdq:includedInPolicy bdqtest:acc8dff2-d8d1-483a-946d-65a02a452700-2025-03-07,
     bdqtest:13d5a10e-188e-40fd-a22c-dbaa87b91df2-2025-03-06;
   rdfs:label "IssuePolicy: (2) issues  in UseCase bdquc:Spatial-Temporal_Patterns";
   bdqffdq:hasUseCase bdquc:Spatial-Temporal_Patterns .
 
-<urn:uuid:5f79f4dd-c969-4cbd-b8d1-5e4df9249be3> a bdqffdq:IssuePolicy;
+<urn:uuid:7b4690ee-c93a-4f4a-80e1-401741743f21> a bdqffdq:IssuePolicy;
   bdqffdq:includedInPolicy bdqtest:13d5a10e-188e-40fd-a22c-dbaa87b91df2-2025-03-06;
   rdfs:label "IssuePolicy: (1) issues  in UseCase bdquc:Species-Distribution-Modeling-Trees";
   bdqffdq:hasUseCase bdquc:Species-Distribution-Modeling-Trees .
 
-<urn:uuid:e0a0cac6-d3cd-4576-a26f-e33186b61079> a bdqffdq:IssuePolicy;
+<urn:uuid:a66b89c6-afdc-49a7-bbe2-c18fdb5fae9e> a bdqffdq:IssuePolicy;
   bdqffdq:includedInPolicy bdqtest:fecaa8a3-bbd8-4c5a-a424-13c37c4bb7b1-2024-09-17;
   rdfs:label "IssuePolicy: (1) issues  in UseCase bdquc:Taxon-Management";
   bdqffdq:hasUseCase bdquc:Taxon-Management .
