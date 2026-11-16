@@ -1908,4 +1908,18 @@ public class DwCMetadataDQTest {
 		assertEquals(0L, result.getValue().getObject().longValue());
 	}
 
+
+	@Test
+	public void testIssueAnnotationNotempty() {
+		// No annotation system is supported, so the external prerequisites are not met,
+		// whatever the target, annotation system, or alert criteria.
+		DQResponse<IssueValue> result = DwCMetadataDQ.issueAnnotationNotempty(null, null, null);
+		assertEquals(ResultState.EXTERNAL_PREREQUISITES_NOT_MET, result.getResultState());
+		assertNull(result.getValue());
+		assertTrue(result.getComment().contains("W3C Web Annotation"));
+		result = DwCMetadataDQ.issueAnnotationNotempty("https://example.org/occurrence/1", "https://example.org/annotations", "any");
+		assertEquals(ResultState.EXTERNAL_PREREQUISITES_NOT_MET, result.getResultState());
+		assertNull(result.getValue());
+		assertTrue(result.getComment().contains("https://example.org/annotations"));
+	}
 }
