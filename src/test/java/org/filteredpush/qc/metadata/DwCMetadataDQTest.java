@@ -2005,25 +2005,38 @@ public class DwCMetadataDQTest {
 		DQResponse<IssueValue> result = DwCMetadataDQ.issueAnnotationNotempty("https://herbarium.bgbm.org/object/BW20363010", annosys, null);
 		org.junit.Assume.assumeTrue("GBIF or AnnoSys not reachable: " + result.getComment(),
 				result.getResultState() != ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
-		// A Berlin herbarium specimen (Humboldt & Bonpland, Cartagena) with a determination annotation in AnnoSys;
+		// (69) A Berlin herbarium specimen (Humboldt & Bonpland, Cartagena) with a determination annotation in AnnoSys;
 		// dwc:occurrenceID is the IRI, GBIF gives the triplet B / Herbarium Berolinense / B -W 20363 -01 0.
 		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
 		assertEquals(IssueValue.POTENTIAL_ISSUE, result.getValue());
-		// A bird specimen of the Smithsonian NMNH (USNM / BIRDS / USNM 666781), dwc:occurrenceID an ARK IRI: not annotated.
+		// (70) A bird specimen of the Smithsonian NMNH (USNM / BIRDS / USNM 666781), dwc:occurrenceID an ARK IRI: not annotated.
 		result = DwCMetadataDQ.issueAnnotationNotempty("http://n2t.net/ark:/65665/36af045d1-387d-4d04-86d5-5fb8c91bf950", annosys, null);
 		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
 		assertEquals(IssueValue.NOT_ISSUE, result.getValue());
-		// A mollusc specimen of the MCZ (MCZ / Mala / 421663), given by its GBIF occurrence IRI: not annotated.
+		// (71) A mollusc specimen of the MCZ (MCZ / Mala / 421663), given by its GBIF occurrence IRI: not annotated.
 		result = DwCMetadataDQ.issueAnnotationNotempty("https://www.gbif.org/occurrence/6083755302", annosys, null);
 		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
 		assertEquals(IssueValue.NOT_ISSUE, result.getValue());
-		// An IRI that no GBIF occurrence has: no triplet, so no annotations in AnnoSys reference it.
+		// (72) An IRI that no GBIF occurrence has: no triplet, so no annotations in AnnoSys reference it.
 		result = DwCMetadataDQ.issueAnnotationNotempty("https://example.org/bdq/test/occurrence/no-such-record", annosys, null);
 		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
 		assertEquals(IssueValue.NOT_ISSUE, result.getValue());
-		// An empty target.
+		// The cases below follow the validation data proposed on tdwg/bdq#29 (dataID in parentheses).
+		// An empty target (73) and a target of spaces (74): NOT_ISSUE as the current Test defines; the
+		// proposal adds INTERNAL_PREREQUISITES_NOT_MET for them.
 		result = DwCMetadataDQ.issueAnnotationNotempty("", annosys, null);
 		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
 		assertEquals(IssueValue.NOT_ISSUE, result.getValue());
+		result = DwCMetadataDQ.issueAnnotationNotempty("  ", annosys, null);
+		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+		assertEquals(IssueValue.NOT_ISSUE, result.getValue());
+		// A string serialization of null (76) is not empty, and no GBIF occurrence has it as dwc:occurrenceID.
+		result = DwCMetadataDQ.issueAnnotationNotempty("null", annosys, null);
+		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+		assertEquals(IssueValue.NOT_ISSUE, result.getValue());
+		// "W3C Web Annotation" (77) names a data model, not an annotation system that can be queried.
+		result = DwCMetadataDQ.issueAnnotationNotempty("https://herbarium.bgbm.org/object/BW20363010", "W3C Web Annotation", null);
+		assertEquals(ResultState.EXTERNAL_PREREQUISITES_NOT_MET, result.getResultState());
+		assertNull(result.getValue());
 	}
 }
