@@ -20,4 +20,4 @@ Test method stubs can be generated using kurator-ffdq using (from a kurator-ffdq
 
 Add comments to the end of java class noting out of date implementations using kurator-ffdq (from a kurator-ffdq directory in the same parent directory as rec_occur_qc) with: 
 
-    ./test-util.sh -config ../rec_occur_qc/generation/rec_occur_qc_DwCMetadata_kurator_ffdq.config -in ../rec_occur_qc/generation/metadata_tests.csv -out ../rec_occur_qc/generation/metadata_tests.ttl -appendClass -srcDir ../rec_occur_qc/src/main/java -ieGuidFile ../bdq/tg2/core/information_element_guids.csv  -guidFile ../rec_occur_qc/generation/additional_guids.csv
+    ./test-util.sh -config ../rec_occur_qc/generation/rec_occur_qc_DwCMetadata_kurator_ffdq.config -in ../rec_occur_qc/generation/metadata_tests.csv -out ../rec_occur_qc/generation/metadata_tests.ttl -checkVersion -appendClass -srcDir ../rec_occur_qc/src/main/java -ieGuidFile ../bdq/tg2/core/information_element_guids.csv  -guidFile ../rec_occur_qc/generation/additional_guids.csv
