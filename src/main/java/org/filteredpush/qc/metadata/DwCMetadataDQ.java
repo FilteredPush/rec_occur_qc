@@ -55,6 +55,7 @@ import org.datakurator.ffdq.api.result.ComplianceValue;
 import org.datakurator.ffdq.api.result.IssueValue;
 import org.datakurator.ffdq.api.result.NumericalValue;
 import org.datakurator.ffdq.model.ResultState;
+import org.filteredpush.qc.metadata.util.AnnoSys;
 import org.filteredpush.qc.metadata.util.AnnotationSystem;
 import org.filteredpush.qc.metadata.util.LSID;
 import org.filteredpush.qc.metadata.util.MetadataSingleton;
@@ -3169,6 +3170,10 @@ public class DwCMetadataDQ {
     * system is not available.  Only the default bdqval:annotationAlertIf criteria (any annotation
     * with an oa:hasTarget referencing the record) are supported.
     *
+    * With bdqval:annotationSystem = "AnnoSys", AnnoSys (BGBM, https://annosys.bgbm.fu-berlin.de/, integrated
+    * with GBIF) is queried: it identifies records by their Darwin Core triplet, which is obtained by
+    * looking the record's IRI up in GBIF (see AnnoSys).
+    *
     * @param hasTarget the provided oa:hasTarget to evaluate as Consulted: the IRI of the record
     *   under evaluation, which annotations on the record would have as their oa:hasTarget.
     * @param annotationSystem the provided parameter bdqval:annotationSystem use null for default value.
@@ -3201,6 +3206,9 @@ public class DwCMetadataDQ {
         // SingleRecord under Test."
 
         String system = MetadataUtils.isEmpty(annotationSystem) ? "W3C Web Annotation" : annotationSystem.trim();
+        if (AnnoSys.isAnnoSys(system)) {
+            return issueAnnotationNotemptyAnnoSys(hasTarget, annotationAlertIf, result);
+        }
         if (!AnnotationSystem.isQueryable(system)) {
             result.addComment("The bdqval:annotationSystem [" + system + "] is not available: it is not an annotation system that can be queried (the default, W3C Web Annotation, is a data model).");
             result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
@@ -3227,6 +3235,68 @@ public class DwCMetadataDQ {
             result.setValue(IssueValue.POTENTIAL_ISSUE);
         } else {
             result.addComment("No annotation in the bdqval:annotationSystem [" + system + "] has an oa:hasTarget referencing the record [" + hasTarget.trim() + "].");
+            result.setValue(IssueValue.NOT_ISSUE);
+        }
+        result.setResultState(ResultState.RUN_HAS_RESULT);
+        return result;
+    }
+
+    /**
+     * ISSUE_ANNOTATION_NOTEMPTY with AnnoSys (BGBM) as the bdqval:annotationSystem, given as "AnnoSys"
+     * (https://annosys.bgbm.fu-berlin.de/AnnoSys).  AnnoSys identifies records by their Darwin Core
+     * triplet, so the record's IRI (oa:hasTarget) is looked up in GBIF (a GBIF occurrence IRI, or the
+     * occurrences with that dwc:occurrenceID) for its triplets, and AnnoSys is asked whether it holds
+     * annotations of a record with any of them.
+     */
+    private static DQResponse<IssueValue> issueAnnotationNotemptyAnnoSys(String hasTarget, String annotationAlertIf,
+            DQResponse<IssueValue> result) {
+        try {
+            AnnoSys.checkAvailable();
+        } catch (Exception e) {
+            result.addComment("The bdqval:annotationSystem AnnoSys [" + AnnoSys.BASE + "] is not available: " + e.getMessage());
+            result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
+            return result;
+        }
+        if (MetadataUtils.isEmpty(hasTarget)) {
+            result.addComment("oa:hasTarget is bdqval:Empty: no record IRI to look for annotations of.");
+            result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+            return result;
+        }
+        if (!MetadataUtils.isEmpty(annotationAlertIf)) {
+            result.addComment("Only the default bdqval:annotationAlertIf criteria (any annotation of the record) are supported; the criteria given were not applied.");
+        }
+        java.util.List<AnnoSys.Triplet> triplets;
+        try {
+            triplets = AnnoSys.gbifTriplets(hasTarget);
+        } catch (Exception e) {
+            result.addComment("Unable to look up the record [" + hasTarget.trim() + "] in GBIF for the Darwin Core triplet by which AnnoSys identifies records: " + e.getMessage());
+            result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
+            return result;
+        }
+        if (triplets.isEmpty()) {
+            result.addComment("No record in GBIF with the IRI [" + hasTarget.trim() + "] (as dwc:occurrenceID or GBIF occurrence IRI) gives a Darwin Core triplet, by which AnnoSys identifies records, so no annotations in AnnoSys reference the record.");
+            result.setValue(IssueValue.NOT_ISSUE);
+            result.setResultState(ResultState.RUN_HAS_RESULT);
+            return result;
+        }
+        java.util.List<String> annotated = new java.util.ArrayList<String>();
+        for (AnnoSys.Triplet triplet : triplets) {
+            try {
+                AnnoSys.RecordAnnotations annotations = AnnoSys.recordAnnotations(triplet);
+                if (annotations.hasAnnotation) {
+                    annotated.add(triplet.toString() + " (" + annotations.size + ")");
+                }
+            } catch (Exception e) {
+                result.addComment("The bdqval:annotationSystem AnnoSys [" + AnnoSys.BASE + "] is not available: " + e.getMessage());
+                result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
+                return result;
+            }
+        }
+        if (!annotated.isEmpty()) {
+            result.addComment("AnnoSys holds annotations of the record [" + hasTarget.trim() + "], by its Darwin Core triplet from GBIF: " + String.join(", ", annotated) + ".");
+            result.setValue(IssueValue.POTENTIAL_ISSUE);
+        } else {
+            result.addComment("AnnoSys holds no annotations of the record [" + hasTarget.trim() + "], by its Darwin Core triplet from GBIF: " + triplets + ".");
             result.setValue(IssueValue.NOT_ISSUE);
         }
         result.setResultState(ResultState.RUN_HAS_RESULT);

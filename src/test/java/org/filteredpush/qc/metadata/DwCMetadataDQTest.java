@@ -1969,4 +1969,60 @@ public class DwCMetadataDQTest {
 		assertEquals(new java.util.HashSet<String>(java.util.Arrays.asList("https://example.org/a", "https://example.org/b",
 				"https://example.org/c", "https://example.org/d")), targets);
 	}
+
+	@Test
+	public void testAnnoSysOffline() throws Exception {
+		// Selecting AnnoSys as the bdqval:annotationSystem.
+		assertTrue(org.filteredpush.qc.metadata.util.AnnoSys.isAnnoSys("AnnoSys"));
+		assertTrue(org.filteredpush.qc.metadata.util.AnnoSys.isAnnoSys(" annosys "));
+		assertTrue(org.filteredpush.qc.metadata.util.AnnoSys.isAnnoSys("https://annosys.bgbm.fu-berlin.de/AnnoSys"));
+		assertTrue(org.filteredpush.qc.metadata.util.AnnoSys.isAnnoSys("http://annosys.bgbm.fu-berlin.de/AnnoSys/ "));
+		assertFalse(org.filteredpush.qc.metadata.util.AnnoSys.isAnnoSys("W3C Web Annotation"));
+		assertFalse(org.filteredpush.qc.metadata.util.AnnoSys.isAnnoSys("https://example.org/annotations"));
+		// Darwin Core triplets from GBIF occurrences: complete and distinct only.
+		Object occurrences = org.filteredpush.qc.metadata.util.AnnotationSystem.parse("[" 
+				+ "{\"institutionCode\": \"B\", \"collectionCode\": \"Herbarium Berolinense\", \"catalogNumber\": \"B -W 20363 -01 0\"},"
+				+ "{\"institutionCode\": \"B\", \"collectionCode\": \"Herbarium Berolinense\", \"catalogNumber\": \"B -W 20363 -01 0\"},"
+				+ "{\"institutionCode\": \"MCZ\", \"catalogNumber\": \"421663\"}]");
+		java.util.List<org.filteredpush.qc.metadata.util.AnnoSys.Triplet> triplets =
+				org.filteredpush.qc.metadata.util.AnnoSys.triplets((java.util.List<?>) occurrences);
+		assertEquals(1, triplets.size());
+		assertEquals("B:Herbarium Berolinense:B -W 20363 -01 0", triplets.get(0).toString());
+		// AnnoSys record annotations responses.
+		org.filteredpush.qc.metadata.util.AnnoSys.RecordAnnotations annotations = org.filteredpush.qc.metadata.util.AnnoSys.recordAnnotations(
+				org.filteredpush.qc.metadata.util.AnnotationSystem.parse("{\"record\": \"https://annosys.bgbm.fu-berlin.de/AnnoSys/repository/a02d47b2-c757-11f1-b524-cbca14362e3e\", \"hasAnnotation\": true, \"size\": 1, \"annotations\": []}"));
+		assertTrue(annotations.hasAnnotation);
+		assertEquals(1L, annotations.size);
+		annotations = org.filteredpush.qc.metadata.util.AnnoSys.recordAnnotations(
+				org.filteredpush.qc.metadata.util.AnnotationSystem.parse("{\"record\": \"not found\", \"hasAnnotation\": false, \"size\": 0, \"annotations\": []}"));
+		assertFalse(annotations.hasAnnotation);
+	}
+
+	@Test
+	public void testIssueAnnotationNotemptyAnnoSys() {
+		// Live: GBIF and AnnoSys (BGBM). Skipped if either cannot be reached.
+		String annosys = "AnnoSys";
+		DQResponse<IssueValue> result = DwCMetadataDQ.issueAnnotationNotempty("https://herbarium.bgbm.org/object/BW20363010", annosys, null);
+		org.junit.Assume.assumeTrue("GBIF or AnnoSys not reachable: " + result.getComment(),
+				result.getResultState() != ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
+		// A Berlin herbarium specimen (Humboldt & Bonpland, Cartagena) with a determination annotation in AnnoSys;
+		// dwc:occurrenceID is the IRI, GBIF gives the triplet B / Herbarium Berolinense / B -W 20363 -01 0.
+		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+		assertEquals(IssueValue.POTENTIAL_ISSUE, result.getValue());
+		// A bird specimen of the Smithsonian NMNH (USNM / BIRDS / USNM 666781), dwc:occurrenceID an ARK IRI: not annotated.
+		result = DwCMetadataDQ.issueAnnotationNotempty("http://n2t.net/ark:/65665/36af045d1-387d-4d04-86d5-5fb8c91bf950", annosys, null);
+		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+		assertEquals(IssueValue.NOT_ISSUE, result.getValue());
+		// A mollusc specimen of the MCZ (MCZ / Mala / 421663), given by its GBIF occurrence IRI: not annotated.
+		result = DwCMetadataDQ.issueAnnotationNotempty("https://www.gbif.org/occurrence/6083755302", annosys, null);
+		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+		assertEquals(IssueValue.NOT_ISSUE, result.getValue());
+		// An IRI that no GBIF occurrence has: no triplet, so no annotations in AnnoSys reference it.
+		result = DwCMetadataDQ.issueAnnotationNotempty("https://example.org/bdq/test/occurrence/no-such-record", annosys, null);
+		assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+		assertEquals(IssueValue.NOT_ISSUE, result.getValue());
+		// An empty target.
+		result = DwCMetadataDQ.issueAnnotationNotempty("", annosys, null);
+		assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET, result.getResultState());
+	}
 }
