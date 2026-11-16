@@ -1910,16 +1910,63 @@ public class DwCMetadataDQTest {
 
 
 	@Test
-	public void testIssueAnnotationNotempty() {
-		// No annotation system is supported, so the external prerequisites are not met,
-		// whatever the target, annotation system, or alert criteria.
-		DQResponse<IssueValue> result = DwCMetadataDQ.issueAnnotationNotempty(null, null, null);
+	public void testIssueAnnotationNotempty() throws Exception {
+		// No annotation system to query: the default (a data model) or a value that is not an http(s) IRI.
+		DQResponse<IssueValue> result = DwCMetadataDQ.issueAnnotationNotempty("https://example.org/bdq/test/occurrence/1", null, null);
 		assertEquals(ResultState.EXTERNAL_PREREQUISITES_NOT_MET, result.getResultState());
 		assertNull(result.getValue());
 		assertTrue(result.getComment().contains("W3C Web Annotation"));
-		result = DwCMetadataDQ.issueAnnotationNotempty("https://example.org/occurrence/1", "https://example.org/annotations", "any");
+		result = DwCMetadataDQ.issueAnnotationNotempty("https://example.org/bdq/test/occurrence/1", "some annotation store", null);
 		assertEquals(ResultState.EXTERNAL_PREREQUISITES_NOT_MET, result.getResultState());
-		assertNull(result.getValue());
-		assertTrue(result.getComment().contains("https://example.org/annotations"));
+
+		// A static annotation collection, as in the Test validation data's fixture, served locally.
+		String fixture = "{\"@context\": \"http://www.w3.org/ns/anno.jsonld\", \"type\": \"AnnotationCollection\", \"total\": 1, "
+				+ "\"first\": {\"type\": \"AnnotationPage\", \"items\": [{\"type\": \"Annotation\", \"motivation\": \"commenting\", "
+				+ "\"body\": {\"type\": \"TextualBody\", \"value\": \"dwc:locality does not match dwc:decimalLatitude\"}, "
+				+ "\"target\": \"https://example.org/bdq/test/occurrence/1\"}]}}";
+		com.sun.net.httpserver.HttpServer server = com.sun.net.httpserver.HttpServer.create(new java.net.InetSocketAddress("127.0.0.1", 0), 0);
+		server.createContext("/fixture.jsonld", exchange -> {
+			byte[] body = fixture.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+			exchange.getResponseHeaders().add("Content-Type", "application/ld+json");
+			exchange.sendResponseHeaders(200, body.length);
+			exchange.getResponseBody().write(body);
+			exchange.close();
+		});
+		server.start();
+		try {
+			String system = "http://127.0.0.1:" + server.getAddress().getPort() + "/fixture.jsonld";
+			result = DwCMetadataDQ.issueAnnotationNotempty("https://example.org/bdq/test/occurrence/1", system, null);
+			assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+			assertEquals(IssueValue.POTENTIAL_ISSUE, result.getValue());
+			result = DwCMetadataDQ.issueAnnotationNotempty("https://example.org/bdq/test/occurrence/2", system, null);
+			assertEquals(ResultState.RUN_HAS_RESULT, result.getResultState());
+			assertEquals(IssueValue.NOT_ISSUE, result.getValue());
+			result = DwCMetadataDQ.issueAnnotationNotempty("https://example.org/bdq/test/occurrence/10", system, null);
+			assertEquals(IssueValue.NOT_ISSUE, result.getValue());
+			result = DwCMetadataDQ.issueAnnotationNotempty("  ", system, null);
+			assertEquals(ResultState.INTERNAL_PREREQUISITES_NOT_MET, result.getResultState());
+			assertNull(result.getValue());
+			// An annotation system that cannot be read.
+			result = DwCMetadataDQ.issueAnnotationNotempty("https://example.org/bdq/test/occurrence/1",
+					"http://127.0.0.1:" + server.getAddress().getPort() + "/missing", null);
+			assertEquals(ResultState.EXTERNAL_PREREQUISITES_NOT_MET, result.getResultState());
+		} finally {
+			server.stop(0);
+		}
+	}
+
+	@Test
+	public void testAnnotationSystemTargets() throws Exception {
+		// Targets given as an IRI, a list, a specific resource (source), or an external resource (id).
+		java.util.Set<String> targets = new java.util.HashSet<String>();
+		Object page = org.filteredpush.qc.metadata.util.AnnotationSystem.parse("{\"type\": \"AnnotationPage\", \"items\": ["
+				+ "{\"type\": \"Annotation\", \"target\": \"https://example.org/a\"},"
+				+ "{\"type\": \"Annotation\", \"target\": [\"https://example.org/b\", {\"source\": \"https://example.org/c\", \"selector\": {}}]},"
+				+ "{\"type\": \"Annotation\", \"target\": {\"id\": \"https://example.org/d\", \"type\": \"Dataset\"}}],"
+				+ "\"next\": \"https://example.org/page2\"}");
+		Object next = org.filteredpush.qc.metadata.util.AnnotationSystem.collectTargets(page, targets);
+		assertEquals("https://example.org/page2", next);
+		assertEquals(new java.util.HashSet<String>(java.util.Arrays.asList("https://example.org/a", "https://example.org/b",
+				"https://example.org/c", "https://example.org/d")), targets);
 	}
 }

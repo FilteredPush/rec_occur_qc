@@ -55,6 +55,7 @@ import org.datakurator.ffdq.api.result.ComplianceValue;
 import org.datakurator.ffdq.api.result.IssueValue;
 import org.datakurator.ffdq.api.result.NumericalValue;
 import org.datakurator.ffdq.model.ResultState;
+import org.filteredpush.qc.metadata.util.AnnotationSystem;
 import org.filteredpush.qc.metadata.util.LSID;
 import org.filteredpush.qc.metadata.util.MetadataSingleton;
 import org.filteredpush.qc.metadata.util.MetadataUtils;
@@ -3159,17 +3160,25 @@ public class DwCMetadataDQ {
     * Are there any annotations associated with the record?
     *
     * Provides: ISSUE_ANNOTATION_NOTEMPTY
-    * Version: 2023-09-18
+    * Version: 2026-11-16
     *
-    * @param hasTarget the provided oa:hasTarget to evaluate as Consulted.
+    * The bdqval:annotationSystem is queried when it is an http(s) IRI that returns W3C Web
+    * Annotation JSON-LD: a Web Annotation Protocol container or another AnnotationCollection, an
+    * AnnotationPage, or an Annotation (see AnnotationSystem).  The default, "W3C Web Annotation",
+    * names the data model, not a system that can be queried, so with the default the annotation
+    * system is not available.  Only the default bdqval:annotationAlertIf criteria (any annotation
+    * with an oa:hasTarget referencing the record) are supported.
+    *
+    * @param hasTarget the provided oa:hasTarget to evaluate as Consulted: the IRI of the record
+    *   under evaluation, which annotations on the record would have as their oa:hasTarget.
     * @param annotationSystem the provided parameter bdqval:annotationSystem use null for default value.
     * @param annotationAlertIf the provided parameter bdqval:annotationAlertIf use null for default value.
     * @return DQResponse the response of type IssueValue to return
     */
     @Issue(label="ISSUE_ANNOTATION_NOTEMPTY", description="Are there any annotations associated with the record?")
     @Provides("fecaa8a3-bbd8-4c5a-a424-13c37c4bb7b1")
-    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/fecaa8a3-bbd8-4c5a-a424-13c37c4bb7b1-2023-09-18")
-    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:annotationSystem is not available; POTENTIAL_ISSUE if an annotation in the bdqval:annotationSystem exists and has an oa:hasTarget referencing the bdqffdq:SingleRecord under evaluation with matching bdqval:annotationAlertIf criteria; otherwise NOT_ISSUE.. bdqval:annotationSystem default = 'W3C Web Annotation' {[https://www.w3.org/annotation/]} {'oa:Annotation vocabulary' [https://www.w3.org/TR/annotation-vocab/]},bdqval:annotationAlertIf default = 'oa:Annotation with oa:hasTarget having as object any dwciri:term instance that is part of the SingleRecord under Test.' {[https://www.w3.org/TR/annotation-vocab/]}")
+    @ProvidesVersion("https://rs.tdwg.org/bdqtest/terms/version/fecaa8a3-bbd8-4c5a-a424-13c37c4bb7b1-2026-11-16")
+    @Specification("EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:annotationSystem is not available; INTERNAL_PREREQUISITES_NOT_MET if oa:hasTarget is bdqval:Empty; POTENTIAL_ISSUE if an annotation in the bdqval:annotationSystem exists and has an oa:hasTarget referencing the bdqffdq:SingleRecord under evaluation with matching bdqval:annotationAlertIf criteria; otherwise NOT_ISSUE. bdqval:annotationSystem default = 'W3C Web Annotation' {[https://www.w3.org/annotation/]} {'oa:Annotation vocabulary' [https://www.w3.org/TR/annotation-vocab/]},bdqval:annotationAlertIf default = 'oa:Annotation with oa:hasTarget having as object any dwciri:term instance that is part of the SingleRecord under Test.' {[https://www.w3.org/TR/annotation-vocab/]}")
     public static DQResponse<IssueValue> issueAnnotationNotempty(
         @Consulted("oa:hasTarget") String hasTarget, 
         @Parameter(name="bdqval:annotationSystem") String annotationSystem, 
@@ -3179,7 +3188,8 @@ public class DwCMetadataDQ {
 
         // Specification
         // EXTERNAL_PREREQUISITES_NOT_MET if the bdqval:annotationSystem 
-        // is not available; POTENTIAL_ISSUE if an annotation in the 
+        // is not available; INTERNAL_PREREQUISITES_NOT_MET if oa:hasTarget 
+        // is bdqval:Empty; POTENTIAL_ISSUE if an annotation in the 
         // bdqval:annotationSystem exists and has an oa:hasTarget referencing 
         // the bdqffdq:SingleRecord under evaluation with matching 
         // bdqval:annotationAlertIf criteria; otherwise NOT_ISSUE. 
@@ -3190,14 +3200,36 @@ public class DwCMetadataDQ {
         // having as object any dwciri:term instance that is part of the 
         // SingleRecord under Test."
 
-        // This implementation has no connection to an annotation system: the default, 
-        // W3C Web Annotation, is a data model, not a service that can be queried for 
-        // annotations on a record, and no other annotation system is supported, so 
-        // the bdqval:annotationSystem is not available.
-        String system = MetadataUtils.isEmpty(annotationSystem) ? "W3C Web Annotation" : annotationSystem;
-        result.addComment("Unable to query the bdqval:annotationSystem [" + system + "] for annotations with an oa:hasTarget referencing this record: this implementation does not support any annotation system.");
-        result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
-
+        String system = MetadataUtils.isEmpty(annotationSystem) ? "W3C Web Annotation" : annotationSystem.trim();
+        if (!AnnotationSystem.isQueryable(system)) {
+            result.addComment("The bdqval:annotationSystem [" + system + "] is not available: it is not an annotation system that can be queried (the default, W3C Web Annotation, is a data model).");
+            result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
+            return result;
+        }
+        java.util.Set<String> targets;
+        try {
+            targets = AnnotationSystem.targets(system);
+        } catch (Exception e) {
+            result.addComment("The bdqval:annotationSystem [" + system + "] is not available: " + e.getMessage());
+            result.setResultState(ResultState.EXTERNAL_PREREQUISITES_NOT_MET);
+            return result;
+        }
+        if (MetadataUtils.isEmpty(hasTarget)) {
+            result.addComment("oa:hasTarget is bdqval:Empty: no record IRI to look for annotations of.");
+            result.setResultState(ResultState.INTERNAL_PREREQUISITES_NOT_MET);
+            return result;
+        }
+        if (!MetadataUtils.isEmpty(annotationAlertIf)) {
+            result.addComment("Only the default bdqval:annotationAlertIf criteria (any annotation with an oa:hasTarget referencing the record) are supported; the criteria given were not applied.");
+        }
+        if (targets.contains(hasTarget.trim())) {
+            result.addComment("An annotation in the bdqval:annotationSystem [" + system + "] has an oa:hasTarget referencing the record [" + hasTarget.trim() + "].");
+            result.setValue(IssueValue.POTENTIAL_ISSUE);
+        } else {
+            result.addComment("No annotation in the bdqval:annotationSystem [" + system + "] has an oa:hasTarget referencing the record [" + hasTarget.trim() + "].");
+            result.setValue(IssueValue.NOT_ISSUE);
+        }
+        result.setResultState(ResultState.RUN_HAS_RESULT);
         return result;
     }
 
