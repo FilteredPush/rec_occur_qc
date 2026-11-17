@@ -129,7 +129,7 @@ import org.filteredpush.qc.metadata.util.URNFormatException;
  * @author mole
  *
  */
-@Mechanism(value="09fd4e2f-cf10-4665-aa74-bcf8e3795163",label="Kurator: Metadata/Record-Level Validator - DwCMetadataDQ:v1.1.2")
+@Mechanism(value="09fd4e2f-cf10-4665-aa74-bcf8e3795163",label="Kurator: Metadata/Record-Level Validator - DwCMetadataDQ:v1.1.3-SNAPSHOT")
 public class DwCMetadataDQ {
 
 	private static final Log logger = LogFactory.getLog(DwCMetadataDQ.class);
