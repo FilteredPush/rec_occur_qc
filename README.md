@@ -1,5 +1,4 @@
 # rec_occur_qc
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.filteredpush/rec_occur_qc/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.filteredpush/rec_occur_qc)
 Data Quality library for selected dwc:Record level and dwc:Occurrence terms, including implementations of BDQ Standard tests from the TDWG Biodiversity Data Quality Task Group 2 labeled as OTHER.  
 
 DOI: 10.5281/zenodo.14968501
@@ -12,7 +11,7 @@ See: [TG2 Tests labeled OTHER](https://github.com/tdwg/bdq/issues?q=is%3Aopen+la
 
 # Include using maven
 
-Available in Maven Central.
+Available in [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.filteredpush/rec_occur_qc/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.filteredpush/rec_occur_qc)
 
     <dependency>
         <groupId>org.filteredpush</groupId>
