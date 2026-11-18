@@ -16,7 +16,7 @@ Available in [![Maven Central](https://img.shields.io/maven-central/v/org.filter
     <dependency>
         <groupId>org.filteredpush</groupId>
         <artifactId>rec_occur_qc</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
     </dependency>
 
 # Building
