@@ -11,7 +11,7 @@ See: [TG2 Tests labeled OTHER](https://github.com/tdwg/bdq/issues?q=is%3Aopen+la
 
 # Include using maven
 
-Available in [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.filteredpush/rec_occur_qc/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.filteredpush/rec_occur_qc)
+Available in [![Maven Central](https://img.shields.io/maven-central/v/org.filteredpush/rec_occur_qc)](https://central.sonatype.com/artifact/org.filteredpush/rec_occur_qc)
 
     <dependency>
         <groupId>org.filteredpush</groupId>
