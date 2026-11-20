@@ -9,6 +9,83 @@ This library provides tests for evaluating the quality of data expressed using D
 
 See: [TG2 Tests labeled OTHER](https://github.com/tdwg/bdq/issues?q=is%3Aopen+label%3AOTHER+NOT+measure)
 
+## BDQ Standard Tests
+
+rec_occur_qc implements the following CORE Tests of the draft TDWG [BDQ Standard](https://bdq.tdwg.org/) ([review draft](https://bdq.tdwg.org/draft/)). Each links to its entry in the BDQ Quick Reference Guide.
+
+**Validations**
+
+- [VALIDATION_BASISOFRECORD_NOTEMPTY](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_BASISOFRECORD_NOTEMPTY)
+- [VALIDATION_BASISOFRECORD_STANDARD](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_BASISOFRECORD_STANDARD)
+- [VALIDATION_DCTYPE_NOTEMPTY](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_DCTYPE_NOTEMPTY)
+- [VALIDATION_DCTYPE_STANDARD](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_DCTYPE_STANDARD)
+- [VALIDATION_DEGREEOFESTABLISHMENT_STANDARD](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_DEGREEOFESTABLISHMENT_STANDARD)
+- [VALIDATION_ESTABLISHMENTMEANS_STANDARD](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_ESTABLISHMENTMEANS_STANDARD)
+- [VALIDATION_LICENSE_NOTEMPTY](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_LICENSE_NOTEMPTY)
+- [VALIDATION_LICENSE_STANDARD](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_LICENSE_STANDARD)
+- [VALIDATION_OCCURRENCEID_NOTEMPTY](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_OCCURRENCEID_NOTEMPTY)
+- [VALIDATION_OCCURRENCESTATUS_NOTEMPTY](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_OCCURRENCESTATUS_NOTEMPTY)
+- [VALIDATION_OCCURRENCESTATUS_STANDARD](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_OCCURRENCESTATUS_STANDARD)
+- [VALIDATION_PATHWAY_STANDARD](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_PATHWAY_STANDARD)
+- [VALIDATION_SEX_STANDARD](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_SEX_STANDARD)
+- [VALIDATION_TYPESTATUS_STANDARD](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#VALIDATION_TYPESTATUS_STANDARD)
+
+**Amendments**
+
+- [AMENDMENT_BASISOFRECORD_STANDARDIZED](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#AMENDMENT_BASISOFRECORD_STANDARDIZED)
+- [AMENDMENT_DCTYPE_STANDARDIZED](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#AMENDMENT_DCTYPE_STANDARDIZED)
+- [AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#AMENDMENT_DEGREEOFESTABLISHMENT_STANDARDIZED)
+- [AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#AMENDMENT_ESTABLISHMENTMEANS_STANDARDIZED)
+- [AMENDMENT_LICENSE_STANDARDIZED](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#AMENDMENT_LICENSE_STANDARDIZED)
+- [AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#AMENDMENT_OCCURRENCESTATUS_ASSUMEDDEFAULT)
+- [AMENDMENT_OCCURRENCESTATUS_STANDARDIZED](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#AMENDMENT_OCCURRENCESTATUS_STANDARDIZED)
+- [AMENDMENT_PATHWAY_STANDARDIZED](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#AMENDMENT_PATHWAY_STANDARDIZED)
+- [AMENDMENT_SEX_STANDARDIZED](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#AMENDMENT_SEX_STANDARDIZED)
+- [AMENDMENT_TYPESTATUS_STANDARDIZED](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#AMENDMENT_TYPESTATUS_STANDARDIZED)
+
+**Measures**
+
+- [MEASURE_AMENDMENTS_PROPOSED](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#MEASURE_AMENDMENTS_PROPOSED)
+- [MEASURE_VALIDATIONTESTS_COMPLIANT](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#MEASURE_VALIDATIONTESTS_COMPLIANT)
+- [MEASURE_VALIDATIONTESTS_NOTCOMPLIANT](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#MEASURE_VALIDATIONTESTS_NOTCOMPLIANT)
+- [MEASURE_VALIDATIONTESTS_PREREQUISITESNOTMET](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#MEASURE_VALIDATIONTESTS_PREREQUISITESNOTMET)
+
+**Issues**
+
+- [ISSUE_ANNOTATION_NOTEMPTY](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#ISSUE_ANNOTATION_NOTEMPTY)
+- [ISSUE_DATAGENERALIZATIONS_NOTEMPTY](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#ISSUE_DATAGENERALIZATIONS_NOTEMPTY)
+- [ISSUE_ESTABLISHMENTMEANS_NOTEMPTY](https://bdq.tdwg.org/draft/docs/terms/bdqtest/#ISSUE_ESTABLISHMENTMEANS_NOTEMPTY)
+
+### Supplementary Tests
+
+These Tests are not in the BDQ Standard; each links to its tdwg/bdq issue.
+
+**Validations**
+
+- VALIDATION_DEGREEOFESTABLISHMENT_NOTEMPTY ([tdwg/bdq#288](https://github.com/tdwg/bdq/issues/288))
+- VALIDATION_DISPOSITION_NOTEMPTY ([tdwg/bdq#225](https://github.com/tdwg/bdq/issues/225))
+- VALIDATION_INDIVIDUALCOUNT_INTEGER ([tdwg/bdq#290](https://github.com/tdwg/bdq/issues/290))
+- VALIDATION_INDIVIDUALCOUNT_NOTEMPTY ([tdwg/bdq#232](https://github.com/tdwg/bdq/issues/232))
+- VALIDATION_LIFESTAGE_NOTEMPTY ([tdwg/bdq#235](https://github.com/tdwg/bdq/issues/235))
+- VALIDATION_LIFESTAGE_STANDARD ([tdwg/bdq#270](https://github.com/tdwg/bdq/issues/270))
+- VALIDATION_OCCURRENCEID_STANDARD ([tdwg/bdq#23](https://github.com/tdwg/bdq/issues/23))
+- VALIDATION_PATHWAY_NOTEMPTY ([tdwg/bdq#289](https://github.com/tdwg/bdq/issues/289))
+- VALIDATION_PREPARATIONS_NOTEMPTY ([tdwg/bdq#260](https://github.com/tdwg/bdq/issues/260))
+- VALIDATION_RECORDEDBY_NOTEMPTY ([tdwg/bdq#242](https://github.com/tdwg/bdq/issues/242))
+- VALIDATION_RECORDNUMBER_NOTEMPTY ([tdwg/bdq#243](https://github.com/tdwg/bdq/issues/243))
+- VALIDATION_RELATIONSHIPOFRESOURCE_NOTEMPTY ([tdwg/bdq#261](https://github.com/tdwg/bdq/issues/261))
+- VALIDATION_REPRODUCTIVECONDITION_NOTEMPTY ([tdwg/bdq#262](https://github.com/tdwg/bdq/issues/262))
+- VALIDATION_SEX_NOTEMPTY ([tdwg/bdq#263](https://github.com/tdwg/bdq/issues/263))
+
+**Amendments**
+
+- AMENDMENT_LIFESTAGE_STANDARDIZED ([tdwg/bdq#271](https://github.com/tdwg/bdq/issues/271))
+- AMENDMENT_PREPARATIONS_STANDARDIZED ([tdwg/bdq#280](https://github.com/tdwg/bdq/issues/280))
+- AMENDMENT_REPRODUCTIVECONDITION_STANDARDIZED ([tdwg/bdq#282](https://github.com/tdwg/bdq/issues/282))
+
+Also experimental, and not a BDQ Test proposal: VALIDATION_PREPARATIONS_STANDARD.
+
+
 # Include using maven
 
 Available in [![Maven Central](https://img.shields.io/maven-central/v/org.filteredpush/rec_occur_qc)](https://central.sonatype.com/artifact/org.filteredpush/rec_occur_qc)
@@ -164,3 +241,19 @@ To deploy a new release to maven central, set the version in pom.xml to a non-sn
 
 4. Confirm release by loging to the sonatype oss repository hosting nexus instance (https://oss.sonatype.org/index.html#welcome), and searching for the artifact, or checking the staging repositories if it is held up in staging.
 
+## Related BDQ libraries and applications
+
+This library is one of a set of libraries and applications for the draft TDWG [BDQ Standard](https://bdq.tdwg.org/) (Biodiversity Data Quality), about to go into public review ([review draft](https://bdq.tdwg.org/draft/)). None of them are part of the standard.
+
+| Repository | Kind | Role | Available from |
+|---|---|---|---|
+| [ffdq-api](https://github.com/kurator-org/ffdq-api) | Library | Java annotations and result API for Test implementations | [Maven Central](https://central.sonatype.com/artifact/org.datakurator/ffdq-api), [latest release](https://github.com/kurator-org/ffdq-api/releases/latest) |
+| [kurator-ffdq](https://github.com/kurator-org/kurator-ffdq) | Library | bdqffdq model, RDF reports, Test RDF generation and Test runner | [Maven Central](https://central.sonatype.com/artifact/org.datakurator/kurator-ffdq), [latest release](https://github.com/kurator-org/kurator-ffdq/releases/latest) |
+| [sci_name_qc](https://github.com/FilteredPush/sci_name_qc) | Test implementations | NAME Tests | [Maven Central](https://central.sonatype.com/artifact/org.filteredpush/sci_name_qc), [latest release](https://github.com/FilteredPush/sci_name_qc/releases/latest) |
+| [event_date_qc](https://github.com/FilteredPush/event_date_qc) | Test implementations | TIME Tests | [Maven Central](https://central.sonatype.com/artifact/org.filteredpush/event_date_qc), [latest release](https://github.com/FilteredPush/event_date_qc/releases/latest) |
+| [rec_occur_qc](https://github.com/FilteredPush/rec_occur_qc) (this repository) | Test implementations | OTHER (metadata) Tests and SingleRecord Measures | [Maven Central](https://central.sonatype.com/artifact/org.filteredpush/rec_occur_qc), [latest release](https://github.com/FilteredPush/rec_occur_qc/releases/latest) |
+| [geo_ref_qc](https://github.com/FilteredPush/geo_ref_qc) | Test implementations | SPACE Tests | [Maven Central](https://central.sonatype.com/artifact/org.filteredpush/geo_ref_qc), [latest release](https://github.com/FilteredPush/geo_ref_qc/releases/latest) |
+| [bdqtestrunner](https://github.com/FilteredPush/bdqtestrunner) | Application | Checks Test implementations against the BDQ Test validation data | [latest release](https://github.com/FilteredPush/bdqtestrunner/releases/latest) |
+| [bdq_workbench](https://github.com/FilteredPush/bdq_workbench) | Application | Runs BDQ Tests over Darwin Core data for a Use Case | [latest release](https://github.com/FilteredPush/bdq_workbench/releases/latest) |
+| [bdq_usecase_builder](https://github.com/FilteredPush/bdq_usecase_builder) | Application | Authors Use Cases and Test definitions | [latest release](https://github.com/FilteredPush/bdq_usecase_builder/releases/latest) |
+| [bdq_issue_to_csv](https://github.com/kurator-org/bdq_issue_to_csv) | Application | Converts tdwg/bdq Test issues to a term-version CSV | [latest release](https://github.com/kurator-org/bdq_issue_to_csv/releases/latest) |
